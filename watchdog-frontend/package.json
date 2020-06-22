@@ -9,6 +9,8 @@
   },
   "dependencies": {
     "@aws-amplify/ui-react": "^0.2.9",
+    "@fortawesome/fontawesome-svg-core": "^1.2.29",
+    "@fortawesome/free-solid-svg-icons": "^5.13.1",
     "@fortawesome/react-fontawesome": "^0.1.11",
     "aws-amplify": "^3.0.18",
     "next": "9.4.4",
