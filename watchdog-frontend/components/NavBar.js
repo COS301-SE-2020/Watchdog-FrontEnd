@@ -1,7 +1,6 @@
 
 import NavButton from "./NavButton";
-import { Component } from "react";
-import Image from '../components/Image'
+import React, {Component} from 'react';
 
 class NavBar extends Component{
   constructor(){
