@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@aws-amplify/ui-react": "^0.2.9",
+    "@fortawesome/react-fontawesome": "^0.1.11",
     "aws-amplify": "^3.0.18",
     "next": "9.4.4",
     "react": "16.13.1",
