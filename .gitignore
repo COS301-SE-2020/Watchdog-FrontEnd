@@ -32,3 +32,4 @@ yarn-error.log*
 # ide files
 .idea
 .DS_Store
+package-lock.json
