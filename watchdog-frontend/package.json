@@ -13,6 +13,7 @@
     "@fortawesome/free-solid-svg-icons": "^5.13.1",
     "@fortawesome/react-fontawesome": "^0.1.11",
     "aws-amplify": "^3.0.18",
+    "aws-amplify-react": "^4.1.17",
     "next": "9.4.4",
     "react": "16.13.1",
     "react-dom": "16.13.1",

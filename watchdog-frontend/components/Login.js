@@ -1,28 +1,46 @@
-import React, {Component} from 'react';
-import { AmplifyAuthenticator, AmplifySignUp, AmplifySignIn } from '@aws-amplify/ui-react';
+import React, {Component, useEffect} from 'react';
+import { AmplifyAuthenticator, AmplifySignUp, AmplifySignIn, withAuthenticator, AmplifySignOut, AmplifyConfirmSignIn } from '@aws-amplify/ui-react'
+import Amplify, { Auth  } from 'aws-amplify'
 
 
-class Login extends Component {
-    constructor(){
-        super()
-    }
 
-    render (){
-        const styling  = {"display":"flex",
+const styling  = {"display":"flex",
         "justifyContent":"center",
         "alignItems":"center",
         "verticalAlign":"middle",
         "height" : "90vh",
-        "overflow": "hidden"}
+}
+        
+
+// You can get the current config object
+const currentConfig = Auth.configure();
+
+
+class Login extends Component{
+    constructor(){
+        super()
+    }
+
+    render(){
         return(
             <div style={styling}>  
-                <AmplifyAuthenticator usernameAlias="email" >
+                <AmplifyAuthenticator  >
                     <AmplifySignUp
-                        
                         slot="sign-up"
-                        usernameAlias="email"
                         headerText="Create your Watchdog Account"
                         formFields={[
+                        {
+                            type: "username",
+                            label: "Username",
+                            placeholder: "Create a username",
+                            required: false,
+                        },
+                        {
+                            type: "name",
+                            label: "Full Name",
+                            placeholder: "Enter your full name",
+                            required: false,
+                        },
                         {
                             type: "email",
                             label: "Email Address",
@@ -41,18 +59,38 @@ class Login extends Component {
                             placeholder: "Phone Number",
                             required: false,
                         },
+                        {
+                            type: "address",
+                            label: "Address",
+                            placeholder: "Enter your address",
+                            required: false,
+                        },
                         ]} 
                     />
                     <AmplifySignIn 
                     slot="sign-in" 
-                    usernameAlias="email"
                     headerText="Sign into your Watchdog Account"
+                    
                     />
+                    <AmplifySignOut />
+                    <AmplifyConfirmSignIn 
+                        headerText="Please verify email" 
+                        slot="confirm-sign-up"
+                        formFields={[
+                            
+                        ]}
+                        submitButtonText = "Okay"
+                        handleSubmit ={event => this.signIn(event)}
+                        />
+                    
                 </AmplifyAuthenticator>
+                
             </div>
+            
         )
-
     }
 }
+
+    
 
 export default Login
