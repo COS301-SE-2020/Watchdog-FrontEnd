@@ -1,19 +1,46 @@
-import Header from '../components/Header'
 import navButtons from "../config/buttons"
-import React, {Component} from 'react';
 import NavBar from "../components/NavBar";
-class liveVideo extends Component{
-  constructor(){
-    super();
-  }
+import React, {Component, useEffect} from 'react'
+import  { Auth, Hub } from 'aws-amplify'
+import { useRouter } from 'next/router'
+import Head from 'next/head'
+import '../config/AmplifyConfig'
 
-  render(){
+const defaulTitle = "Watchdog System"
+function liveVideo(props){
+  const router = useRouter()
+  
+  useEffect(() => {
+      Hub.listen('auth', (data) => {
+        const { payload } = data
+        console.log('A new auth event has happened: ', data)
+         if (payload.event === 'signIn') {
+           console.log('a user has signed in!')
+         }
+         if (payload.event === 'signOut') {
+           console.log('a user has signed out!')
+           router.push("/index")
+         }
+      })
+      
+    }, [])
+
+    Auth.currentAuthenticatedUser()
+    .then(data => console.log(data))
+    .catch(err => router.push("/index"));
     return (
       <div>
-        <Header />
+        <Head>
+          <meta charSet="UTF-8"/>
+          <title>{props.title || defaulTitle}</title>
+          <link rel = "stylesheet"
+                type = "text/css"
+                href = "/style.css"/>
+        
+        </Head>
         <NavBar navButtons={navButtons} />
     </div>
     )
-  }
+  
 }
 export default liveVideo
