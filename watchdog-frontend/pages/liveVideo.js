@@ -5,6 +5,7 @@ import  { Auth, Hub } from 'aws-amplify'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
 import '../config/AmplifyConfig'
+import 'rsuite/lib/styles/index.less'
 
 const defaulTitle = "Watchdog System"
 function liveVideo(props){
