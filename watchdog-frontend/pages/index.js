@@ -4,7 +4,7 @@ import React, { Component, useEffect } from 'react'
 import { Auth, Hub } from 'aws-amplify'
 import { useRouter } from 'next/router'
 import '../config/AmplifyConfig'
-import 'rsuite/lib/styles/index.less'
+import 'rsuite/lib/styles/themes/dark/index.less'
 
 const styling = {
   "backgroundColor": "black"

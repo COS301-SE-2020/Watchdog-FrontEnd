@@ -3,7 +3,7 @@ import Login from '../components/Login'
 import React, { Component, useEffect } from 'react'
 import '../config/AmplifyConfig'
 import SideNavBar from '../components/SideNavBar'
-import 'rsuite/lib/styles/index.less'
+import 'rsuite/lib/styles/themes/dark/index.less'
 
 const styling = {
   "backgroundColor": "black"
