@@ -5,6 +5,7 @@ import  { Auth, Hub } from 'aws-amplify'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
 import '../config/AmplifyConfig'
+import 'rsuite/lib/styles/themes/dark/index.less'
 
 const defaulTitle = "Watchdog System"
 function Landing(props){
