@@ -6,22 +6,22 @@ class SideNavBar extends Component {
     constructor() {
         super();
         this.state = {
-          expanded: true,
-          activeKey: '1'
+          expanded: false,
+          // activeKey: '1'
         };
         this.handleToggle = this.handleToggle.bind(this);
-        this.handleSelect = this.handleSelect.bind(this);
+        // this.handleSelect = this.handleSelect.bind(this);
       }
       handleToggle() {
         this.setState({
           expanded: !this.state.expanded
         });
       }
-      handleSelect(eventKey) {
-        this.setState({
-          activeKey: eventKey
-        });
-      }
+      // handleSelect(eventKey) {
+      //   this.setState({
+      //     activeKey: eventKey
+      //   });
+      // }
       render() {
         const { expanded } = this.state;
     
@@ -31,43 +31,27 @@ class SideNavBar extends Component {
             <hr />
             <Sidenav
               expanded={expanded}
-              defaultOpenKeys={['3', '4']}
               activeKey={this.state.activeKey}
-              onSelect={this.handleSelect}
+              // onSelect={this.handleSelect}
             >
               <Sidenav.Body>
                 <Nav>
-                  <Nav.Item eventKey="1" icon={<Icon icon="dashboard" />}>
-                    Dashboard
+                  <Nav.Item eventKey="1" href='/Home' icon={<Icon icon="home" />}>
+                    Home
                   </Nav.Item>
-                  <Nav.Item eventKey="2" icon={<Icon icon="group" />}>
-                    User Group
+                  <Nav.Item eventKey="2" href='/liveVideo' icon={<Icon icon="video-camera" />}>
+                    View Live Video
                   </Nav.Item>
-                  <Dropdown
-                    placement="rightStart"
-                    eventKey="3"
-                    title="Advanced"
-                    icon={<Icon icon="magic" />}
-                  >
-                    <Dropdown.Item eventKey="3-1">Geo</Dropdown.Item>
-                    <Dropdown.Item eventKey="3-2">Devices</Dropdown.Item>
-                    <Dropdown.Item eventKey="3-3">Loyalty</Dropdown.Item>
-                    <Dropdown.Item eventKey="3-4">Visit Depth</Dropdown.Item>
-                  </Dropdown>
-                  <Dropdown
-                    placement="rightStart"
-                    eventKey="4"
-                    title="Settings"
-                    icon={<Icon icon="gear-circle" />}
-                  >
-                    <Dropdown.Item eventKey="4-1">Applications</Dropdown.Item>
-                    <Dropdown.Item eventKey="4-2">Channels</Dropdown.Item>
-                    <Dropdown.Item eventKey="4-3">Versions</Dropdown.Item>
-                    <Dropdown.Menu eventKey="4-5" title="Custom Action">
-                      <Dropdown.Item eventKey="4-5-1">Action Name</Dropdown.Item>
-                      <Dropdown.Item eventKey="4-5-2">Action Params</Dropdown.Item>
-                    </Dropdown.Menu>
-                  </Dropdown>
+                  <Nav.Item eventKey="3" href='/SavedVideo' icon={<Icon icon="logo-video" />}>
+                    View Saved Video
+                  </Nav.Item>
+                  <Nav.Item eventKey="4" href='/Profile' icon={<Icon icon="profile" />}>
+                    Profile
+                  </Nav.Item>
+                  <Nav.Item eventKey="5" href='/index' icon={<Icon icon="sign-out" />}>
+                    Log Out
+                  </Nav.Item>
+                 
                 </Nav>
               </Sidenav.Body>
             </Sidenav>

@@ -1,11 +1,10 @@
-import navButtons from "../config/buttons"
-import NavBar from "../components/NavBar";
 import React, {Component, useEffect} from 'react'
 import  { Auth, Hub } from 'aws-amplify'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
 import '../config/AmplifyConfig'
 import 'rsuite/lib/styles/themes/dark/index.less'
+import SideNavBar from '../components/SideNavBar'
 
 const defaulTitle = "Watchdog System"
 function Profile(props){
@@ -39,7 +38,7 @@ function Profile(props){
                 href = "/style.css"/>
         
         </Head>
-        <NavBar navButtons={navButtons} />
+        <div><SideNavBar/></div>
     </div>
     )
   
