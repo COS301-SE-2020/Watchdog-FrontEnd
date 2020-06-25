@@ -4,34 +4,6 @@
     --amplify-primary-shade: #e0573e;
   }
 
-  .NavButton {
-    display: block;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-    width: 20%;
-    background:white;
-    float: left;
-    height: 100%;
-  
-    cursor: pointer;
-  }
-  
-    .NavButton.Icon {
-      font-size: 20px;
-      align-items: center;
-      background: white;
-    }
-  
-    .NavButton.Label {
-      font-size: 12px;
-      text-transform: capitalize;
-      align-items: center;
-    }
-  .NavBar{
-    vertical-align: top;
-    background: white;
-  }
   .ProfileImage{
     font-size: 20px;
       align-items: center;
@@ -39,4 +11,8 @@
   }
  .but{
    background: white;
+ }
+ h4{
+   color: aqua;
+   /* background-color: black; */
  }

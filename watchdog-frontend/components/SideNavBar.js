@@ -27,15 +27,19 @@ class SideNavBar extends Component {
     
         return (
           <div style={{ width: 250 }}>
-            <IconButton size="lg" onClick={this.handleToggle} checked={expanded}color="black" icon={<Icon icon="list" />}/>
+            {/* <IconButton size="lg" onClick={this.handleToggle} checked={expanded}color="black" icon={<Icon icon="list" />}>Menu</IconButton> */}
             <hr />
             <Sidenav
               expanded={expanded}
               activeKey={this.state.activeKey}
               // onSelect={this.handleSelect}
             >
+              
               <Sidenav.Body>
                 <Nav>
+                <div className="but"><Nav.Item color="white" onClick={this.handleToggle} eventKey="1" icon={<Icon icon="list" />}>
+                    <h4>MENU</h4>
+                  </Nav.Item></div>
                   <Nav.Item eventKey="1" href='/Home' icon={<Icon icon="home" />}>
                     Home
                   </Nav.Item>
