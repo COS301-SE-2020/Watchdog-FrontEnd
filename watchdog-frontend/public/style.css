@@ -37,6 +37,10 @@
       align-items: center;
       background: white;
   }
+  h4{
+   color: aqua;
+   /* background-color: black; */
+ }
  .but{
-   background: white;
+     background:white;
  }
