@@ -1,42 +1,15 @@
 :root {
-    --amplify-primary-color: #3e9943;
-    --amplify-primary-tint: #a05346;
-    --amplify-primary-shade: #e0573e;
+    /* --amplify-primary-color: #7583fe;
+    --amplify-primary-tint: #877eff;
+    --amplify-primary-shade: #9d77fe; */
+
+    --themeColor: darkslateblue;
+  --hoverColor: rgb(105, 95, 171); 
+  --amplify-primary-color: darkslateblue;
+  --amplify-primary-tint: rgb(39, 39, 151); 
+  --amplify-primary-shade: rgb(105, 95, 171);
   }
 
-  .NavButton {
-    display: block;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-    width: 20%;
-    background:white;
-    float: left;
-    height: 100%;
-  
-    cursor: pointer;
-  }
-  
-    .NavButton.Icon {
-      font-size: 20px;
-      align-items: center;
-      background: white;
-    }
-  
-    .NavButton.Label {
-      font-size: 12px;
-      text-transform: capitalize;
-      align-items: center;
-    }
-  .NavBar{
-    vertical-align: top;
-    background: white;
-  }
-  .ProfileImage{
-    font-size: 20px;
-      align-items: center;
-      background: white;
-  }
   h4{
    color: aqua;
    /* background-color: black; */

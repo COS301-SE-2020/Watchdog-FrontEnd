@@ -72,7 +72,6 @@ class Login extends Component{
                     headerText="Sign into your Watchdog Account"
                     
                     />
-                    <AmplifySignOut />
                     <AmplifyConfirmSignIn 
                         headerText="Please verify email" 
                         slot="confirm-sign-up"
