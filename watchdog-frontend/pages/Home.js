@@ -1,34 +1,35 @@
 
 import React, {Component, useEffect} from 'react'
 import  { Auth, Hub } from 'aws-amplify'
-import { useRouter } from 'next/router'
+import Router, { useRouter } from 'next/router'
 import Head from 'next/head'
 import '../config/AmplifyConfig'
-// import 'rsuite/lib/styles/themes/dark/index.less'
+import 'rsuite/lib/styles/themes/dark/index.less'
 import SideNavBar from '../components/SideNavBar'
+import { Container, Header, Content, Footer} from 'rsuite'
 
 const defaulTitle = "Watchdog System"
 function Landing(props){
-  const router = useRouter()
+  //const router = useRouter()
   
   useEffect(() => {
       Hub.listen('auth', (data) => {
         const { payload } = data
-        console.log('A new auth event has happened: ', data)
+        //console.log('A new auth event has happened: ', data)
          if (payload.event === 'signIn') {
-           console.log('a user has signed in!')
+           //console.log('a user has signed in!')
          }
          if (payload.event === 'signOut') {
-           console.log('a user has signed out!')
-           router.push("/index")
+           //console.log('a user has signed out!')
+           Router.push("/index")
          }
       })
       
     }, [])
 
     Auth.currentAuthenticatedUser()
-    .then(data => console.log(data))
-    .catch(err => router.push("/index"));
+    .then(data => {})
+    .catch(err => Router.push("/index"));
     return (
       <div>
         <Head>
@@ -39,7 +40,32 @@ function Landing(props){
                 href = "/style.css"/>
         
         </Head>
-        <div> <SideNavBar/> </div>
+        {/* <Container>
+          <Header><div style={{textAlign :'center'}}><h1>Watchdog</h1></div></Header>
+          <Container>
+            <SideNavBar MenuNumber={'1'}/>
+            <Content>Content</Content>
+          </Container>
+          <Footer>Footer</Footer>
+        </Container> */}
+        <Container>
+          <SideNavBar MenuNumber={'1'}/>
+          <Container>
+            <Header><div style={{textAlign :'center'}}><h1>Watchdog</h1></div></Header>
+            <Content></Content>
+            <Footer></Footer>
+          </Container>
+        </Container>
+          {/* <Container>
+           <SideNavBar MenuNumber={'1'}/> 
+           <Container>
+            <Header>
+              <h2>Page Title</h2>
+            </Header>
+            <Content>Content</Content>
+          </Container>
+          </Container> */}
+          
        
     </div>
     )
