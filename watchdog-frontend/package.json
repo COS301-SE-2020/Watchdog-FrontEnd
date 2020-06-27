@@ -19,6 +19,13 @@
     "next": "9.4.4",
     "react": "16.13.1",
     "react-dom": "16.13.1",
-    "rsuite": "^4.7.5"
+    "react-hot-loader": "^4.12.21",
+    "react-player": "^2.3.1",
+    "rsuite": "^4.7.5",
+    "screenfull": "^5.0.2"
+  },
+  "devDependencies": {
+    "css-loader": "^3.6.0",
+    "style-loader": "^1.2.1"
   }
 }

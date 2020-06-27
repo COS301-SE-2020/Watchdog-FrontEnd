@@ -17,3 +17,21 @@
  .but{
      background:white;
  }
+ .player-wrapper
+ {
+  width: 550px;
+  height: 300px;
+ }
+ table{
+   margin-left: 100px;
+ }
+ .Download{
+   margin-left: 200px;
+ }
+ .navDiv{
+   float: left;
+ }
+ .videoDiv{
+   float: left;
+   margin-left: 300px;
+ }
