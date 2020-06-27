@@ -46,10 +46,8 @@ class form extends Component{
         <Form>
         <FormGroup>
           <ControlLabel>Choose Camera</ControlLabel>
-           
           <SelectPicker data={data} block />
         </FormGroup>
-        <Button onClick={()=>this.load('https://www.youtube.com/watch?v=oUFJJNQGwhk')}>CLick me</Button>
         <FormGroup>
           <ControlLabel>Choose Date</ControlLabel>
           <DatePicker appearance="default" block/>
