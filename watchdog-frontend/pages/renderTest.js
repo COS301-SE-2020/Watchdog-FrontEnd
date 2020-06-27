@@ -4,7 +4,11 @@ import React, { Component, useEffect } from 'react'
 import '../config/AmplifyConfig'
 import SideNavBar from '../components/SideNavBar'
 import 'rsuite/lib/styles/themes/dark/index.less'
+// import 'custom-theme.less';
 
+import { render } from 'react-dom'
+import VideoFrameViewer from '../components/VideoFrameViewer'
+import VideoSearchForm from '../components/VideoSearchForm'
 const styling = {
   "backgroundColor": "black"
 }
@@ -17,7 +21,6 @@ function Index (props){
       
       <div  >
         <Head>
-          <style>{'body { background-color: blue; }'}</style>
           <meta charSet="UTF-8"/>
           <title>{props.title || defaulTitle}</title>
           <link rel = "stylesheet"
@@ -25,7 +28,13 @@ function Index (props){
                 href = "/style.css"/>
         
         </Head>
-        <div><SideNavBar /></div>
+        <div className='navDiv'><SideNavBar /></div>
+        <div className='videoDiv' style={{color:"white"
+        }}>
+          <div><VideoSearchForm/></div>
+          <div><VideoFrameViewer/></div>
+        
+        </div>
           
         
       </div>
