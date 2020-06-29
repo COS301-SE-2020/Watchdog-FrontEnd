@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import { findDOMNode } from 'react-dom'
 import { hot } from 'react-hot-loader'
 import screenfull from 'screenfull'
-import {Button,ButtonToolbar,Dropdown,Modal,Form,Radio,DatePicker,FormGroup,ControlLabel,SelectPicker}  from 'rsuite'
+import load from '../components/VideoFrameViewer'
+import {Button,ButtonToolbar,Dropdown,Modal,Form,Radio,DatePicker,FormGroup,ControlLabel,SelectPicker, Loader}  from 'rsuite'
 const data = [
     {
       "label": "Lounge",
@@ -45,8 +46,10 @@ class form extends Component{
         <Form>
         <FormGroup>
           <ControlLabel>Choose Camera</ControlLabel>
+           
           <SelectPicker data={data} block />
         </FormGroup>
+        <Button onClick={()=>this.load('https://www.youtube.com/watch?v=oUFJJNQGwhk')}>CLick me</Button>
         <FormGroup>
           <ControlLabel>Choose Date</ControlLabel>
           <DatePicker appearance="default" block/>

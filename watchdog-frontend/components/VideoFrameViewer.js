@@ -3,6 +3,10 @@ import { findDOMNode } from 'react-dom'
 import { hot } from 'react-hot-loader'
 import screenfull from 'screenfull'
 import {Button,ButtonToolbar,Dropdown,Modal}  from 'rsuite'
+import { Table } from 'rsuite';
+
+const { Column, HeaderCell, Cell, Pagination } = Table;
+
 
 // import './reset.css'
 // import './defaults.css'
@@ -232,10 +236,6 @@ class App extends Component {
                   <input id='loop' type='checkbox' checked={loop} onChange={this.handleToggleLoop} />
                 </td>
               </tr>
-              <tr>
-              
-              </tr>
-        
           </table>
           <div className="Download">
           <Button  appearance='primary'>Download Video Clip</Button>
@@ -252,7 +252,54 @@ class App extends Component {
           </Modal.Footer>
         </Modal>
       </div>
-      <div className='app'>
+      <div>
+        <Table
+          virtualized
+          height={400}
+          data={this.props.data}
+          onRowClick={data => {
+            console.log(data);
+          }}
+        >
+          <Column width={70} align="center" fixed>
+            <HeaderCell>Id</HeaderCell>
+            <Cell dataKey="id" />
+          </Column>
+
+          <Column width={130}>
+            <HeaderCell>Date</HeaderCell>
+            <Cell dataKey="date" />
+          </Column>
+
+          <Column width={130}>
+            <HeaderCell>Time</HeaderCell>
+            <Cell dataKey="time" />
+          </Column>
+
+          <Column width={200}>
+            <HeaderCell>Type</HeaderCell>
+            <Cell dataKey="type" />
+          </Column>
+
+          <Column width={200}>
+            <HeaderCell>Camera Location</HeaderCell>
+            <Cell dataKey="location" />
+          </Column>
+        
+
+          <Column width={120} fixed="right">
+            <HeaderCell>Action</HeaderCell>
+            <Cell>
+            {rowData => {
+                return (
+                  <span>
+                    <a  onClick={()=>this.load(`${rowData.url}`)}> Play </a>
+                  </span>
+                );
+              }}
+            </Cell>
+          </Column>
+        </Table>
       </div>
       </div>
     )
