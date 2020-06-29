@@ -7,6 +7,7 @@ import '../config/AmplifyConfig'
 import 'rsuite/lib/styles/themes/dark/index.less'
 import SideNavBar from '../components/SideNavBar'
 import { Container, Header, Content, Footer} from 'rsuite'
+import HistoricalVideo from '../components/HistoricalVideo'
 
 const defaulTitle = "Watchdog System"
 function SavedVideo(props){
@@ -41,10 +42,10 @@ function SavedVideo(props){
         
         </Head>
         <Container>
-          <SideNavBar MenuNumber={'3'}/>
+          <Header><div style={{textAlign :'center'}}><h1>Watchdog</h1></div></Header>
           <Container>
-            <Header><div style={{textAlign :'center'}}><h1>Watchdog</h1></div></Header>
-            <Content></Content>
+            <SideNavBar MenuNumber={'3'}/>
+            <Content><HistoricalVideo /></Content>
             <Footer></Footer>
           </Container>
         </Container>

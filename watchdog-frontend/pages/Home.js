@@ -40,22 +40,22 @@ function Landing(props){
                 href = "/style.css"/>
         
         </Head>
-        {/* <Container>
+        <Container>
           <Header><div style={{textAlign :'center'}}><h1>Watchdog</h1></div></Header>
           <Container>
             <SideNavBar MenuNumber={'1'}/>
-            <Content>Content</Content>
+            <Content></Content>
           </Container>
-          <Footer>Footer</Footer>
-        </Container> */}
-        <Container>
+          <Footer></Footer>
+        </Container>
+        {/* <Container>
           <SideNavBar MenuNumber={'1'}/>
           <Container>
             <Header><div style={{textAlign :'center'}}><h1>Watchdog</h1></div></Header>
             <Content></Content>
             <Footer></Footer>
           </Container>
-        </Container>
+        </Container> */}
           {/* <Container>
            <SideNavBar MenuNumber={'1'}/> 
            <Container>

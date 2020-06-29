@@ -41,9 +41,9 @@ function Profile(props){
         
         </Head>
         <Container>
-          <SideNavBar MenuNumber={'4'}/>
+          <Header><div style={{textAlign :'center'}}><h1>Watchdog</h1></div></Header>
           <Container>
-            <Header><div style={{textAlign :'center'}}><h1>Watchdog</h1></div></Header>
+            <SideNavBar MenuNumber={'4'}/>
             <Content></Content>
             <Footer></Footer>
           </Container>
