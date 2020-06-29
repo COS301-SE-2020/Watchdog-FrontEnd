@@ -144,9 +144,6 @@ class App extends Component {
     return (
         <div>
         <div className="modal-container">
-        <ButtonToolbar>
-          <Button onClick={()=>this.load('https://www.youtube.com/watch?v=oUFJJNQGwhk')} style={{margin:"10px"}}> Submit </Button>
-        </ButtonToolbar>
         <Modal show={this.state.show} onHide={this.close}>
           <Modal.Header>
             <Modal.Title><h1>Playing Recorded Video</h1></Modal.Title>
@@ -265,33 +262,33 @@ class App extends Component {
             console.log(data);
           }}
         >
-          <Column width={70} align="center" fixed>
+          <Column flexGrow={1} align="center" fixed>
             <HeaderCell>Id</HeaderCell>
             <Cell dataKey="id" />
           </Column>
 
-          <Column width={130}>
+          <Column flexGrow={1}>
             <HeaderCell>Date</HeaderCell>
             <Cell dataKey="date" />
           </Column>
 
-          <Column width={130}>
+          <Column flexGrow={1}>
             <HeaderCell>Time</HeaderCell>
             <Cell dataKey="time" />
           </Column>
 
-          <Column width={200}>
+          <Column flexGrow={1}>
             <HeaderCell>Type</HeaderCell>
             <Cell dataKey="type" />
           </Column>
 
-          <Column width={200}>
+          <Column flexGrow={1} minWidth={120}>
             <HeaderCell>Camera Location</HeaderCell>
             <Cell dataKey="location" />
           </Column>
         
 
-          <Column width={120} fixed="right">
+          <Column flexGrow={1} fixed="right" >
             <HeaderCell>Action</HeaderCell>
             <Cell>
             {rowData => {

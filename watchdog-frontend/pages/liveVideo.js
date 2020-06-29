@@ -40,9 +40,9 @@ function liveVideo(props){
         
         </Head>
         <Container>
-          <SideNavBar MenuNumber={'2'}/>
+          <Header><div style={{textAlign :'center'}}><h1>Watchdog</h1></div></Header>
           <Container>
-            <Header><div style={{textAlign :'center'}}><h1>Watchdog</h1></div></Header>
+            <SideNavBar MenuNumber={'2'}/>
             <Content></Content>
             <Footer></Footer>
           </Container>
