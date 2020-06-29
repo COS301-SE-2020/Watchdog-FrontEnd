@@ -13,7 +13,16 @@ const styling = {
   "backgroundColor": "black"
 }
 const defaulTitle = "Watchdog System"
+const data = [
+  {
+    "id": 1,
+    "date": "2016-09-23",
+    "time": "12:00",
+    "type": "Intruder",
+    "location": "Yard",
+    "url": "https://www.youtube.com/watch?v=oUFJJNQGwhk"
 
+  }]
 
 function Index (props){
   
@@ -28,11 +37,10 @@ function Index (props){
                 href = "/style.css"/>
         
         </Head>
-        <div className='navDiv'><SideNavBar /></div>
-        <div className='videoDiv' style={{color:"white"
-        }}>
+        <div><SideNavBar /></div>
+        <div>
           <div><VideoSearchForm/></div>
-          <div><VideoFrameViewer/></div>
+          <div><VideoFrameViewer data={data}/></div>
         
         </div>
           
