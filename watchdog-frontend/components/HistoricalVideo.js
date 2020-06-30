@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import {Panel, PanelGroup, Grid, Row, Col, DateRangePicker, DatePicker, CheckPicker, InputGroup} from 'rsuite'
 import VideoFrameViewer from './VideoFrameViewer'
-
+import Loading from './Loading'
 const VideoTypes = [
       {
         "label": "Movement",
@@ -51,7 +51,8 @@ class HistoricalVideo extends Component{
             startTimeFilter : [],
             endTimeFilter : [],
             videoTypeFilter : [],
-            cameraLocation : []
+            cameraLocation : [],
+            loaded : false
         }
         this.handleClearDateFilter = this.handleClearDateFilter.bind(this)
         this.handleChangeDateFilter = this.handleChangeDateFilter.bind(this)
@@ -165,69 +166,76 @@ class HistoricalVideo extends Component{
         this.setState({cameraLocation : value}, this.applyFilter)
 
     }
+    componentDidMount() {
+        this.setState({loaded : true})
+    }
 
 
     render(){
         //console.log("hello")
-        return(
-            <div>
-                <Grid fluid>
-                    <Row className="show-grid" gutter={16}>
-                        <Col xs={8} >
-                            <PanelGroup accordion bordered>
-                                <Panel header="Video Type Filter">
-                                    <CheckPicker
-                                        sticky
-                                        data={VideoTypes}
-                                        style={{ width: 224 }}
-                                        onChange={this.handleChangeVideoType}
-                                    />
+        if(this.state.loaded)
+            return(
+                <div>
+                    <Grid fluid>
+                        <Row className="show-grid" gutter={16}>
+                            <Col xs={8} >
+                                <PanelGroup accordion bordered>
+                                    <Panel header="Video Type Filter">
+                                        <CheckPicker
+                                            sticky
+                                            data={VideoTypes}
+                                            style={{ width: 224 }}
+                                            onChange={this.handleChangeVideoType}
+                                        />
 
-                                
-                                </Panel>
-                                <Panel header="Date Filter">                            
-                                    <DateRangePicker 
-                                        onClean ={this.handleClearDateFilter}
-                                        onChange = {this.handleChangeDateFilter}
-                                    />             
-                                </Panel>
-                                <Panel header="Time Filter">
-                                    <InputGroup>
-                                        <DatePicker
-                                             format="HH:mm" block appearance="subtle" 
-                                             onChange =  {this.handleChangeStartTime}
-                                             onClean = {this.handleClearStartTime}
+                                    
+                                    </Panel>
+                                    <Panel header="Date Filter">                            
+                                        <DateRangePicker 
+                                            onClean ={this.handleClearDateFilter}
+                                            onChange = {this.handleChangeDateFilter}
+                                        />             
+                                    </Panel>
+                                    <Panel header="Time Filter">
+                                        <InputGroup>
+                                            <DatePicker
+                                                format="HH:mm" block appearance="subtle" 
+                                                onChange =  {this.handleChangeStartTime}
+                                                onClean = {this.handleClearStartTime}
+                                            />
+                                            <InputGroup.Addon>to</InputGroup.Addon>
+                                            <DatePicker
+                                                format="HH:mm" block appearance="subtle" 
+                                                onChange =  {this.handleChangeEndTime}
+                                                onClean = {this.handleClearEndTime}
+                                            />
+                                        </InputGroup>
+                                    </Panel>
+                                    <Panel header="Camera Location Filter">
+                                    <CheckPicker
+                                            sticky
+                                            data={CameraLocations}
+                                            style={{ width: 224 }}
+                                            onChange={this.handleChangeCameraLocation}
                                         />
-                                        <InputGroup.Addon>to</InputGroup.Addon>
-                                        <DatePicker
-                                            format="HH:mm" block appearance="subtle" 
-                                            onChange =  {this.handleChangeEndTime}
-                                            onClean = {this.handleClearEndTime}
-                                        />
-                                    </InputGroup>
+                                    </Panel>
+                                </PanelGroup>
+                            </Col>
+                            <Col xs={16} >
+                                <Panel header="Historical Video List" bordered bodyFill>
+                                    <VideoFrameViewer data={this.state.displayData}/>
                                 </Panel>
-                                <Panel header="Camera Location Filter">
-                                <CheckPicker
-                                        sticky
-                                        data={CameraLocations}
-                                        style={{ width: 224 }}
-                                        onChange={this.handleChangeCameraLocation}
-                                    />
-                                </Panel>
-                            </PanelGroup>
-                        </Col>
-                        <Col xs={16} >
-                            <Panel header="Historical Video List" bordered bodyFill>
-                                <VideoFrameViewer data={this.state.displayData}/>
-                            </Panel>
-                        </Col>
-                        
-                    </Row>
+                            </Col>
+                            
+                        </Row>
+                    
+                    
+                    </Grid>
+                </div>
                 
-                
-                </Grid>
-            </div>
-        )
+            )
+        
+        return(<Loading />)
     }
     
 
