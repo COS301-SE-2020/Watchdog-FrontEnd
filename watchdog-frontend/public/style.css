@@ -1,0 +1,37 @@
+:root {
+    /* --amplify-primary-color: #7583fe;
+    --amplify-primary-tint: #877eff;
+    --amplify-primary-shade: #9d77fe; */
+
+    --themeColor: darkslateblue;
+  --hoverColor: rgb(105, 95, 171); 
+  --amplify-primary-color: darkslateblue;
+  --amplify-primary-tint: rgb(39, 39, 151); 
+  --amplify-primary-shade: rgb(105, 95, 171);
+  }
+
+  h4{
+   color: aqua;
+   /* background-color: black; */
+ }
+ .but{
+     background:white;
+ }
+ .player-wrapper
+ {
+  width: 550px;
+  height: 300px;
+ }
+ table{
+   margin-left: 100px;
+ }
+ .Download{
+   margin-left: 200px;
+ }
+ .navDiv{
+   float: left;
+ }
+ .videoDiv{
+   float: left;
+   margin-left: 300px;
+ }
