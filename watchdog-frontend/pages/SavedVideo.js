@@ -29,7 +29,7 @@ function SavedVideo(props){
     }, [])
 
     Auth.currentAuthenticatedUser()
-    .then()
+    .then(data => {})
     .catch(err => Router.push("/index"))
     return (
       <div>
