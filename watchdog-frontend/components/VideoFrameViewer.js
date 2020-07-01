@@ -2,8 +2,9 @@ import React, { Component } from 'react'
 import { findDOMNode } from 'react-dom'
 import { hot } from 'react-hot-loader'
 import screenfull from 'screenfull'
-import {Button,ButtonToolbar,Dropdown,Modal}  from 'rsuite'
+import {Button,ButtonToolbar,Icon ,Modal, Grid, Col, Row, IconButton}  from 'rsuite'
 import { Table } from 'rsuite';
+import Link from 'next/link'
 
 const { Column, HeaderCell, Cell, Pagination } = Table;
 
@@ -33,7 +34,7 @@ class App extends Component {
     playing: true,
     controls: false,
     light: false,
-    volume: 0.8,
+    volume: 0.0,
     muted: false,
     played: 0,
     loaded: 0,
@@ -96,6 +97,14 @@ class App extends Component {
     this.player.seekTo(parseFloat(e.target.value))
   }
 
+  handleProgress = state => {
+    console.log('onProgress', state)
+    // We only want to update time slider if we are not currently seeking
+    if (!this.state.seeking) {
+      this.setState(state)
+    }
+  }
+
   handleEnded = () => {
     console.log('onEnded')
     this.setState({ playing: this.state.loop })
@@ -146,109 +155,95 @@ class App extends Component {
         <div className="modal-container">
         <Modal show={this.state.show} onHide={this.close}>
           <Modal.Header>
-            <Modal.Title><h1>Playing Recorded Video</h1></Modal.Title>
+            <Modal.Title></Modal.Title>
           </Modal.Header>
           <Modal.Body>
-          <div className='section'>
-          <div className='player-wrapper'>
-            <ReactPlayer
-              ref={this.ref}
-              className='react-player'
-              width='100%'
-              height='100%'
-              url={url}
-              pip={pip}
-              playing={playing}
-              controls={controls}
-              light={light}
-              loop={loop}
-              playbackRate={playbackRate}
-              volume={volume}
-              muted={muted}
-              onReady={() => console.log('onReady')}
-              onStart={() => console.log('onStart')}
-              onPlay={this.handlePlay}
-              onPause={this.handlePause}
-              onBuffer={() => console.log('onBuffer')}
-              onSeek={e => console.log('onSeek', e)}
-              onEnded={this.handleEnded}
-              onError={e => console.log('onError', e)}
-              
-            />
-          </div>
+    
+          
 
-          <table >
-            
-              <tr>
-                <th>Controls</th>
-                <td>
-                  <Button onClick={this.handleStop}>Stop</Button>
-                  <Button onClick={this.handlePlayPause}>{playing ? 'Pause' : 'Play'}</Button>
-                  <Button onClick={this.handleClickFullscreen}>Fullscreen</Button>
-                  {light &&
-                    <Button onClick={() => this.player.showPreview()}>Show preview</Button>}
-                  {ReactPlayer.canEnablePIP(url) &&
-                    <Button onClick={this.handleTogglePIP}>{pip ? 'Disable PiP' : 'Enable PiP'}</Button>}
-                </td>
-              </tr>
-              <tr>
-                <th>Speed</th>
-                <td>
-                  <Button onClick={this.handleSetPlaybackRate} value={1}>1x</Button>
-                  <Button onClick={this.handleSetPlaybackRate} value={1.5}>1.5x</Button>
-                  <Button onClick={this.handleSetPlaybackRate} value={2}>2x</Button>
-                </td>
-              </tr>
-              <tr>
-                <th>Seek</th>
-                <td>
-                  <input
-                    type='range' min={0} max={0.999999} step='any'
-                    value={played}
-                    onMouseDown={this.handleSeekMouseDown}
-                    onChange={this.handleSeekChange}
-                    onMouseUp={this.handleSeekMouseUp}
+          <Grid fluid>
+
+            <Row fluid>
+              <Col fluid xs={24}>
+                  <ReactPlayer
+                    ref={this.ref}
+                    className='react-player'
+                    width='100%'
+                    height='100%'
+                    url={url}
+                    pip={pip}
+                    playing={playing}
+                    controls={controls}
+                    light={light}
+                    loop={loop}
+                    playbackRate={playbackRate}
+                    volume={0.0}
+                    muted={muted}
+                    onReady={() => console.log('onReady')}
+                    onStart={() => console.log('onStart')}
+                    onPlay={this.handlePlay}
+                    onPause={this.handlePause}
+                    onBuffer={() => console.log('onBuffer')}
+                    onSeek={e => console.log('onSeek', e)}
+                    onEnded={this.handleEnded}
+                    onError={e => console.log('onError', e)}
+                    onProgress={this.handleProgress}
+                    onDuration={this.handleDuration}
+                    
                   />
-                </td>
-              </tr>
-              <tr>
-                <th>Volume</th>
-                <td>
-                  <input type='range' min={0} max={1} step='any' value={volume} onChange={this.handleVolumeChange} />
-                </td>
-              </tr>
-              <tr>
-                <th>
-                  <label htmlFor='muted'>Muted</label>
-                </th>
-                <td>
-                  <input id='muted' type='checkbox' checked={muted} onChange={this.handleToggleMuted} />
-                </td>
-              </tr>
-              <tr>
-                <th>
-                  <label htmlFor='loop'>Loop</label>
-                </th>
-                <td>
-                  <input id='loop' type='checkbox' checked={loop} onChange={this.handleToggleLoop} />
-                </td>
-              </tr>
-              <tr>
+
+              </Col>
+
+            </Row>
+            <Row>
+              <Col xs={2}>
+                <Duration seconds={duration * played} />
+              </Col>
+              <Col  xs={20}>
+                
+                <input
+                  style={{width: "100%"}}
+                  type='range' min={0} max={0.999999} step='any'
+                  value={played}
+                  onMouseDown={this.handleSeekMouseDown}
+                  onChange={this.handleSeekChange}
+                  onMouseUp={this.handleSeekMouseUp}
+                  className="slider"
+                />
+              </Col>
+              <Col xs={2}>
+                <Duration seconds={duration * (1 - played)} />
+              </Col>
+
+            </Row>
+            <Row>
+              <Col   xs={18}>
+                {!playing ? <IconButton onClick={this.handlePlayPause} icon={<Icon icon="play" />} circle size="lg" /> : <IconButton onClick={this.handlePlayPause} icon={<Icon icon="pause" />} circle size="lg" />}
+                <IconButton href={url} icon={<Icon icon="arrow-circle-down" />} circle size="lg" ></IconButton>
+                <Button onClick={this.handleSetPlaybackRate} value={1}>1x</Button>
+                <Button onClick={this.handleSetPlaybackRate} value={1.5}>1.5x</Button>  
+                <Button onClick={this.handleSetPlaybackRate} value={2}>2x</Button>
+               
+                
+              </Col>
+              <Col xsOffset={4}  xs={2}>
+                
+                <IconButton onClick={this.handleClickFullscreen} icon={<Icon icon="arrows-alt" />} circle size="lg" />
+                
+              </Col>
               
-              </tr>
-        
-          </table>
-          <div className="Download">
-          <Button  appearance='primary'>Download Video Clip</Button>
-        </div>
-        </div>
+              
+            </Row>
+
+          </Grid>
+
+
+         
+          
           </Modal.Body>
           <Modal.Footer>
             <Button onClick={this.close} appearance="primary">
-              Ok
-            </Button>
-            <Button onClick={this.close} appearance="subtle">
-              Cancel
+              Close
             </Button>
           </Modal.Footer>
         </Modal>
