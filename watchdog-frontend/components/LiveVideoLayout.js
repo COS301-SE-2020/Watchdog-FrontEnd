@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {Row,Col,Panel}  from 'rsuite'
+import {Row,Col,Panel, Grid}  from 'rsuite'
 
 const elements=[
     {
@@ -35,12 +35,12 @@ const elements=[
         const items = []
             const videoData=elements.map((value)=>{
           items.push(
-            <Col md={6} sm={10}>
-                <Panel width="450" bordered header={<h2>{value.cam_location}</h2>}>
-          <div>{<h4>Camera ID: {value.cam_id}</h4>}</div>
-                    <div><video width="400" height="400" controls >
-      <source src={value.cam_url} type="video/mp4"/>
-     </video></div>
+            <Col xs={6}>
+                <Panel  bordered header={<h2>{value.cam_location}</h2>}>
+                  <div>{<h4>Camera ID: {value.cam_id}</h4>}</div>
+                          <video style={{"width":"100%"}}  controls >
+                            <source src={value.cam_url} type="video/mp4"/>
+                          </video>
                 </Panel>
             </Col>
           ) 
@@ -48,9 +48,11 @@ const elements=[
          
     )
           return(
-            <Row>
-            {items}
-          </Row>
+            <Grid fluid>
+              <Row fluid>
+                {items}
+              </Row>
+            </Grid>
           )
       }
   }
