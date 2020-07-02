@@ -11,6 +11,7 @@ import { render } from 'react-dom'
 import HistoricalVideo from '../components/HistoricalVideo'
 import VideoSearchForm from '../components/VideoSearchForm'
 import { Container, Header, Content, Footer} from 'rsuite'
+import LiveVideo from '../components/LiveVideoLayout'
 const styling = {
   "backgroundColor": "black"
 }
@@ -43,7 +44,7 @@ function Index (props){
           <Header><div style={{textAlign :'center'}}><h1>Watchdog</h1></div></Header>
           <Container>
             <SideNavBar MenuNumber={'3'}/>
-            <Content><HistoricalVideo/></Content>
+            <Content><LiveVideo/></Content>
           </Container>
           <Footer></Footer>
         </Container>
