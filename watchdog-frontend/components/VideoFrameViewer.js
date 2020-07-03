@@ -151,9 +151,9 @@ class App extends Component {
     const SEPARATOR = ' · '
 
     return (
-        <div>
+        <div >
         <div className="modal-container">
-        <Modal show={this.state.show} onHide={this.close}>
+        <Modal overflow={false} size={'md'} show={this.state.show} onHide={this.close}>
           <Modal.Header>
             <Modal.Title></Modal.Title>
           </Modal.Header>

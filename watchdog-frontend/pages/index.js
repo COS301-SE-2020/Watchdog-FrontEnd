@@ -9,6 +9,7 @@ import SideNavBar from '../components/SideNavBar'
 import {Container, Header, Content} from 'rsuite'
 import HistoricalVideo from '../components/HistoricalVideo'
 import LiveVideo from '../components/LiveVideoLayout'
+import HomePage from '../components/HomePage'
 
 const styling = {
   "backgroundColor": "black"
@@ -85,6 +86,7 @@ class Index extends Component{
           <Container>
             <SideNavBar handleChange = {this.tabHandler}/>
             <Content>
+              {this.state.activeKey===1&&<HomePage/>}
               {this.state.activeKey===2&&<LiveVideo/>}
               {this.state.activeKey===3&&<HistoricalVideo/>}
             </Content>
