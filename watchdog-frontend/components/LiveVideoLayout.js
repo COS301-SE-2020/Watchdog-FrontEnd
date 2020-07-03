@@ -28,7 +28,7 @@ const elements=[
   class LiveVideo extends Component {
     constructor(){
         super()
-        this.canvasRef = React.createRef();
+        
     }
     
       render(){

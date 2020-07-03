@@ -5,13 +5,14 @@ import '../config/AmplifyConfig'
 import SideNavBar from '../components/SideNavBar'
 import 'rsuite/lib/styles/themes/dark/index.less'
 // import 'custom-theme.less';
-import VideoFilterForm from '../components/VideoFilterForm'
+import Home from '../components/HomePage'
 
 import { render } from 'react-dom'
 import HistoricalVideo from '../components/HistoricalVideo'
 import VideoSearchForm from '../components/VideoSearchForm'
 import { Container, Header, Content, Footer} from 'rsuite'
 import LiveVideo from '../components/LiveVideoLayout'
+import HomePage from '../components/HomePage'
 const styling = {
   "backgroundColor": "black"
 }
@@ -41,10 +42,11 @@ function Index (props){
         
         </Head>
         <Container>
-          <Header><div style={{textAlign :'center'}}><h1>Watchdog</h1></div></Header>
+          <Header><div  style={{textAlign :'center'}}>
+          <h1><img src={"/logo.png"} width="50" height="50" />Watchdog</h1></div></Header>
           <Container>
             <SideNavBar MenuNumber={'3'}/>
-            <Content><LiveVideo/></Content>
+            <Content><HomePage/></Content>
           </Container>
           <Footer></Footer>
         </Container>
