@@ -11,7 +11,7 @@ class SideNavBar extends Component {
         //console.log(this.props)
         this.state = {
           expanded: false,
-          activeKey: this.props.MenuNumber
+          activeKey: '1'
         };
         this.handleToggle = this.handleToggle.bind(this)
         this.handleLogout = this.handleLogout.bind(this)
@@ -25,6 +25,7 @@ class SideNavBar extends Component {
       }
 
       handleLogout(){
+        this.props.handleChange(1)
         Auth.signOut();
 
       }
@@ -56,16 +57,16 @@ class SideNavBar extends Component {
                 <div className="but"><Nav.Item onClick={this.handleToggle}  icon={<Icon icon="list" />}>
                     <h4>MENU</h4>
                   </Nav.Item></div>
-                  <Nav.Item eventKey="1" onClick={() => Router.push('/Home')} icon={<Icon icon="home" />}>
+                  <Nav.Item eventKey="1" onClick={() =>this.setState({activeKey : '1'}, this.props.handleChange(1))} icon={<Icon icon="home" />}>
                     Home
                   </Nav.Item>
-                  <Nav.Item eventKey="2" onClick={() => Router.push('/liveVideo')}  icon={<Icon icon="video-camera" />}>
+                  <Nav.Item eventKey="2" onClick={() => this.setState({activeKey : '2'}, this.props.handleChange(2))}  icon={<Icon icon="video-camera" />}>
                     Live
                   </Nav.Item>
-                  <Nav.Item eventKey="3" onClick={() => Router.push('/SavedVideo')}  icon={<Icon icon="logo-video" />}>
+                  <Nav.Item eventKey="3" onClick={() => this.setState({activeKey : '3'}, this.props.handleChange(3))}  icon={<Icon icon="logo-video" />}>
                     Recordings
                   </Nav.Item>
-                  <Nav.Item eventKey="4"onClick={() => Router.push('/Profile')}  icon={<Icon icon="profile" />}>
+                  <Nav.Item eventKey="4"onClick={() =>this.setState({activeKey : '4'}, this.props.handleChange(4))}  icon={<Icon icon="profile" />}>
                     Profile
                   </Nav.Item>
                   <Nav.Item eventKey="5" onClick={this.handleLogout} icon={<Icon icon="sign-out" />}>

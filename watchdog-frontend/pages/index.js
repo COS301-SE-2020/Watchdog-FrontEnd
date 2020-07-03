@@ -5,50 +5,139 @@ import { Auth, Hub } from 'aws-amplify'
 import Router, { useRouter } from 'next/router'
 import '../config/AmplifyConfig'
 import 'rsuite/lib/styles/themes/dark/index.less'
+import SideNavBar from '../components/SideNavBar'
+import {Container, Header, Content} from 'rsuite'
+import HistoricalVideo from '../components/HistoricalVideo'
+import LiveVideo from '../components/LiveVideoLayout'
 
 const styling = {
   "backgroundColor": "black"
 }
 const defaulTitle = "Watchdog System"
 
+class Index extends Component{
+  constructor(){
+    super()
+    this.state ={
+      loggedIn : false,
+      activeKey : 1
 
-function Index (props){
-  //const router = useRouter()
-  useEffect(() => {
-      Hub.listen('auth', (data) => {
-        const { payload } = data
-        //console.log('A new auth event has happened: ', data)
-         if (payload.event === 'signIn') {
-           //console.log('a user has signed in!')
-           Router.push("/Home")
-         }
-         if (payload.event === 'signOut') {
-           //console.log('a user has signed out!')
-         }
-      })
-    }, [])
+    }
+
+    Hub.listen('auth', (data) => {
+              const { payload } = data
+              //console.log('A new auth event has happened: ', data)
+               if (payload.event === 'signIn') {
+                 console.log('a user has signed in!')
+                 this.setState({loggedIn : true})
+                 //Router.push("/Home")
+               }
+               if (payload.event === 'signOut') {
+                 this.setState({loggedIn : false})
+                 //console.log('a user has signed out!')
+               }
+            })
+    
     Auth.currentAuthenticatedUser()
-    .then(data => Router.push("/Home"))
+    .then(data => this.setState({loggedIn : true}))
     .catch(error => {})
-    return (
-      
-      <div  >
-        <Head>
-          <style>{'body { background-color: black; }'}</style>
+
+    this.tabHandler = this.tabHandler.bind(this)
+          
+  }
+
+  tabHandler(val){
+    this.setState({activeKey : val})
+  }
+
+  render(){
+    if(!this.state.loggedIn){
+      return(
+        <div  >
+          <Head>
+            <style>{'body { background-color: black; }'}</style>
+            <meta charSet="UTF-8"/>
+            <title>{this.props.title || defaulTitle}</title>
+            <link rel = "stylesheet"
+                  type = "text/css"
+                  href = "/style.css"/>
+          
+          </Head>
+          <Login /> 
+
+          
+          
+        </div>
+      )
+    }else{
+      return(
+        <div>
+          <Head>
           <meta charSet="UTF-8"/>
-          <title>{props.title || defaulTitle}</title>
+          <title>{this.props.title || defaulTitle}</title>
           <link rel = "stylesheet"
                 type = "text/css"
                 href = "/style.css"/>
         
         </Head>
-          <Login />
-        
-      </div>
-      
-    )
+        <Container>
+          <Header><div style={{textAlign :'center'}}><h1>Watchdog</h1></div></Header>
+          <Container>
+            <SideNavBar handleChange = {this.tabHandler}/>
+            <Content>
+              {this.state.activeKey===2&&<LiveVideo/>}
+              {this.state.activeKey===3&&<HistoricalVideo/>}
+            </Content>
+            
+
+
+          </Container>
+        </Container>
+        </div>
+      )
+    }
+
+  }
   
 }
+
+// function Index (props){
+//   //const router = useRouter()
+//   useEffect(() => {
+//       Hub.listen('auth', (data) => {
+//         const { payload } = data
+//         //console.log('A new auth event has happened: ', data)
+//          if (payload.event === 'signIn') {
+//            //console.log('a user has signed in!')
+//            Router.push("/Home")
+//          }
+//          if (payload.event === 'signOut') {
+//            //console.log('a user has signed out!')
+//          }
+//       })
+//     }, [])
+//     Auth.currentAuthenticatedUser()
+//     .then(data => Router.push("/Home"))
+//     .catch(error => {})
+//     return (
+      
+//       <div  >
+//         <Head>
+//           <style>{'body { background-color: black; }'}</style>
+//           <meta charSet="UTF-8"/>
+//           <title>{props.title || defaulTitle}</title>
+//           <link rel = "stylesheet"
+//                 type = "text/css"
+//                 href = "/style.css"/>
+        
+//         </Head>
+//           <Login />
+        
+//       </div>
+      
+//     )
+  
+// }
 
 
 
