@@ -7,6 +7,7 @@ import '../config/AmplifyConfig'
 import 'rsuite/lib/styles/themes/dark/index.less'
 import SideNavBar from '../components/SideNavBar'
 import { Container, Header, Content, Footer} from 'rsuite'
+import SettingsScreen from '../components/SettingsScreen'
 
 const defaulTitle = "Watchdog System"
 function Profile(props){
@@ -44,7 +45,7 @@ function Profile(props){
           <Header><div style={{textAlign :'center'}}><h1>Watchdog</h1></div></Header>
           <Container>
             <SideNavBar MenuNumber={'4'}/>
-            <Content></Content>
+            <Content><SettingsScreen /></Content>
             <Footer></Footer>
           </Container>
         </Container>
