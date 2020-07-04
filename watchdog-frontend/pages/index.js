@@ -10,6 +10,7 @@ import {Container, Header, Content} from 'rsuite'
 import HistoricalVideo from '../components/HistoricalVideo'
 import LiveVideo from '../components/LiveVideoLayout'
 import HomePage from '../components/HomePage'
+import SettingsScreen from '../components/SettingsScreen'
 
 const styling = {
   "backgroundColor": "black"
@@ -89,6 +90,7 @@ class Index extends Component{
               {this.state.activeKey===1&&<HomePage/>}
               {this.state.activeKey===2&&<LiveVideo/>}
               {this.state.activeKey===3&&<HistoricalVideo/>}
+              {this.state.activeKey===4&&<SettingsScreen/>}
             </Content>
             
 
