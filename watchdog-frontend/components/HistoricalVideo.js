@@ -175,7 +175,7 @@ class HistoricalVideo extends Component{
         //console.log("hello")
         if(this.state.loaded)
             return(
-                <div>
+                
                     <Grid fluid>
                         <Row className="show-grid" gutter={16}>
                             <Col xs={8} >
@@ -231,7 +231,7 @@ class HistoricalVideo extends Component{
                     
                     
                     </Grid>
-                </div>
+                
                 
             )
         
