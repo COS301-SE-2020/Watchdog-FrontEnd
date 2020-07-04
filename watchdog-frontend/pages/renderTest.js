@@ -6,6 +6,7 @@ import SideNavBar from '../components/SideNavBar'
 import 'rsuite/lib/styles/themes/dark/index.less'
 // import 'custom-theme.less';
 import Home from '../components/HomePage'
+import AddIdentityModal from '../components/AddIdentityModal'
 
 import { render } from 'react-dom'
 import HistoricalVideo from '../components/HistoricalVideo'
@@ -47,7 +48,7 @@ function Index (props){
           <h1><img src={"/logo.png"} width="50" height="50" />Watchdog</h1></div></Header>
           <Container>
             <SideNavBar MenuNumber={'3'}/>
-            <Content><Notify/></Content>
+            <Content><AddIdentityModal /></Content>
           </Container>
           <Footer></Footer>
         </Container>

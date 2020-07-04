@@ -1,6 +1,6 @@
 import React, {Component, useEffect} from 'react';
 import { render } from 'react-dom';
-import {FormGroup,Radio,RadioGroup, Grid, Row,Col, Icon, Button} from 'rsuite'
+import {FlexboxGrid,Panel,IconButton, Grid, Row,Col, Icon, Button, Form, FormGroup} from 'rsuite'
 
 
 
@@ -10,7 +10,34 @@ class Download extends Component{
     }
     render(){
         return(
-            <Grid >
+            <FlexboxGrid style={{"marginTop":"10"}} justify="center">
+                <FlexboxGrid.Item colspan={22}>
+                    <Panel  header={<h3>Home Control Panel Downloads</h3>} >
+                        <Form layout="inline">
+                            <FormGroup>
+                                <IconButton  icon={<Icon icon="windows" />} circle size="lg" ></IconButton>
+                                
+                            </FormGroup>
+                            <FormGroup>
+                                <IconButton  icon={<Icon icon="linux" />} circle size="lg" ></IconButton>
+                            </FormGroup>
+                            <FormGroup>
+                                <IconButton  icon={<Icon icon="apple" />} circle size="lg" ></IconButton>
+                            </FormGroup>
+                        </Form>
+                        
+                    </Panel>
+                    <Panel  header={<h3>App Downloads</h3>} >
+                        <Form layout="inline">
+                            <FormGroup>
+                                <IconButton  icon={<Icon icon="android" />} circle size="lg" ></IconButton>
+                            </FormGroup>
+                            <FormGroup>
+                                <IconButton  icon={<Icon icon="ios" />} circle size="lg" ></IconButton>
+                            </FormGroup>
+                        </Form>
+                    </Panel>
+            {/* <Grid >
                 <Row style={{height:200}}>
                     <hr/>
                     <Col style={{textAlign: "center"}} lg={12}><h2>App Download</h2></Col>
@@ -34,7 +61,9 @@ class Download extends Component{
                     <Col style={{textAlign: "center"}} md={12}><Button><h4>IOS</h4></Button></Col>
                     <Col style={{textAlign: "center"}} md={12}><Button><h4>Linux</h4></Button></Col>
                 </Row>
-            </Grid>
+            </Grid> */}
+                </FlexboxGrid.Item>
+            </FlexboxGrid>
         )
     }
 }
