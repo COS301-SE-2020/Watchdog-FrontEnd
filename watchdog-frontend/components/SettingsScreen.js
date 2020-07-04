@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import {Container, Icon , Sidebar, Sidenav, Nav, Header, Content} from 'rsuite'
 import IdentitySettings from './IdentitySettings'
+import Notify from './NotificationComponent'
+import Pass from './ResetPasswordComponent'
+import Download from './DownloadComponent'
 
 class SettingsScreen extends Component{
     constructor(){
@@ -41,6 +44,9 @@ class SettingsScreen extends Component{
                     
                     <Content>
                         {this.state.activeKey==='1'&&<IdentitySettings/>}
+                        {this.state.activeKey==='2'&&<Notify/>}
+                        {this.state.activeKey==='3'&&<Pass/>}
+                        {this.state.activeKey==='4'&&<Download/>}
 
                     </Content>
             
