@@ -1,26 +1,34 @@
 import React, { Component } from 'react'
 import {Container, Icon , Sidebar, Sidenav, Nav, Header, Content} from 'rsuite'
+import IdentitySettings from './IdentitySettings'
 
 class SettingsScreen extends Component{
     constructor(){
         super()
+        this.state ={
+            activeKey : '1',
+            
+        }
     }
 
     render(){
         return(
             <Container>
                 <Sidebar>
-                    <Sidenav appearance={'subtle'} activeKey="1">
+                    <Sidenav appearance={'subtle'} activeKey={this.state.activeKey}>
                         <Sidenav.Body>
                             <Nav>
-                                <Nav.Item eventKey="1" icon={<Icon icon="group" />}>
+                                <Nav.Item eventKey="1" onClick={() =>this.setState({activeKey : '1'})} icon={<Icon icon="group" />}>
                                     Identity Settings
                                 </Nav.Item>
-                                <Nav.Item eventKey="2" icon={<Icon icon="bell" />}>
+                                <Nav.Item eventKey="2" onClick={() =>this.setState({activeKey : '2'})} icon={<Icon icon="bell" />}>
                                     Notification Settings
                                 </Nav.Item>
-                                <Nav.Item eventKey="2" icon={<Icon icon="key" />}>
+                                <Nav.Item eventKey="3" onClick={() =>this.setState({activeKey : '3'})} icon={<Icon icon="key" />}>
                                    Password Settings
+                                </Nav.Item>
+                                <Nav.Item eventKey="4" onClick={() =>this.setState({activeKey : '4'})} icon={<Icon icon="download" />}>
+                                   Downloads
                                 </Nav.Item>
                                 
                             </Nav>
@@ -30,10 +38,11 @@ class SettingsScreen extends Component{
                 </Sidebar>
 
                 <Container>
-                    <Header>
-                        <h2>Page Title</h2>
-                    </Header>
-                    <Content></Content>
+                    
+                    <Content>
+                        {this.state.activeKey==='1'&&<IdentitySettings/>}
+
+                    </Content>
             
                 </Container>
 
