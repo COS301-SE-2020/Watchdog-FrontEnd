@@ -33,7 +33,7 @@ class IdentitySettings extends Component{
     }
 
     handleRemove(id){
-        console.log("here")
+        //console.log("here")
         //this.setState({users : temp, showRemoveModal : !this.state.showRemoveModal})
         this.setState({showRemoveModal : !this.state.showRemoveModal})
 
@@ -42,7 +42,7 @@ class IdentitySettings extends Component{
     
     render(){
         let users_array = this.state.users.map((item)=>{
-            console.log(item)
+            //console.log(item)
             return(
                 <Row fluid>
                     <Col xs={3}>
