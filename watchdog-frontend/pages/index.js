@@ -9,6 +9,7 @@ import SideNavBar from '../components/SideNavBar'
 import {Container, Header, Content} from 'rsuite'
 import HistoricalVideo from '../components/HistoricalVideo'
 import LiveVideo from '../components/LiveVideoLayout'
+import SettingsScreen from '../components/SettingsScreen'
 
 const styling = {
   "backgroundColor": "black"
@@ -87,6 +88,7 @@ class Index extends Component{
             <Content>
               {this.state.activeKey===2&&<LiveVideo/>}
               {this.state.activeKey===3&&<HistoricalVideo/>}
+              {this.state.activeKey===4&&<SettingsScreen/>}
             </Content>
             
 

@@ -66,8 +66,8 @@ class SideNavBar extends Component {
                   <Nav.Item eventKey="3" onClick={() => this.setState({activeKey : '3'}, this.props.handleChange(3))}  icon={<Icon icon="logo-video" />}>
                     Recordings
                   </Nav.Item>
-                  <Nav.Item eventKey="4"onClick={() =>this.setState({activeKey : '4'}, this.props.handleChange(4))}  icon={<Icon icon="profile" />}>
-                    Profile
+                  <Nav.Item eventKey="4"onClick={() =>this.setState({activeKey : '4'}, this.props.handleChange(4))}  icon={<Icon icon="cog" />}>
+                    Settings
                   </Nav.Item>
                   <Nav.Item eventKey="5" onClick={this.handleLogout} icon={<Icon icon="sign-out" />}>
                     Logout
