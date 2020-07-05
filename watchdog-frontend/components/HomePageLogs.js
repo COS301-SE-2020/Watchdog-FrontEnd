@@ -45,7 +45,7 @@ class Log extends Component{
                 console.log(data);
                 }}
             >
-                <Column flexGrow={0.5} align="center" fixed>
+                <Column flexGrow={0.2} align="center" fixed>
                 <HeaderCell>Id</HeaderCell>
                 <Cell dataKey="id" />
                 </Column>
@@ -60,7 +60,7 @@ class Log extends Component{
                 <Cell dataKey="time" />
                 </Column>
 
-                <Column flexGrow={1}>
+                <Column flexGrow={2}>
                 <HeaderCell>Message</HeaderCell>
                 <Cell dataKey="log_message" />
                 </Column>
