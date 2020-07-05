@@ -22,7 +22,8 @@ class Index extends Component{
     super()
     this.state ={
       loggedIn : false,
-      activeKey : 1
+      activeKey : 1,
+      defaultKey : "1"
 
     }
 
@@ -45,11 +46,17 @@ class Index extends Component{
     .catch(error => {})
 
     this.tabHandler = this.tabHandler.bind(this)
+    this.quickAccess = this.quickAccess.bind(this)
           
   }
 
   tabHandler(val){
-    this.setState({activeKey : val})
+    this.setState({activeKey : val, defaultKey : `${val}`})
+  }
+
+  quickAccess(val){
+    this.setState({activeKey : val, defaultKey : `${val}`},()=>console.log(this.state))
+
   }
 
   render(){
@@ -85,9 +92,9 @@ class Index extends Component{
         <Container>
           <Header><div style={{textAlign :'center'}}><h1>Watchdog</h1></div></Header>
           <Container>
-            <SideNavBar handleChange = {this.tabHandler}/>
+            <SideNavBar handleChange = {this.tabHandler} defaultKeyVal={this.state.defaultKey}/>
             <Content>
-              {this.state.activeKey===1&&<HomePage/>}
+              {this.state.activeKey===1&&<HomePage handleChange={this.quickAccess}/>}
               {this.state.activeKey===2&&<LiveVideo/>}
               {this.state.activeKey===3&&<HistoricalVideo/>}
               {this.state.activeKey===4&&<SettingsScreen/>}
