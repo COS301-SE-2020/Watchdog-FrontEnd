@@ -10,7 +10,7 @@ class SideNavBar extends Component {
         super(props);
         //console.log(this.props)
         this.state = {
-          expanded: true,
+          expanded: false,
           activeKey: '1',
           activeKey: this.props.defaultKeyVal
         };
