@@ -61,8 +61,8 @@ class Log extends Component{
                 </Column>
 
                 <Column flexGrow={2}>
-                <HeaderCell>Message</HeaderCell>
-                <Cell dataKey="log_message" />
+                <HeaderCell style={{textAlign : "left"}} >Message</HeaderCell>
+                <Cell style={{textAlign : "left"}} dataKey="log_message" />
                 </Column>
     
             </Table>
