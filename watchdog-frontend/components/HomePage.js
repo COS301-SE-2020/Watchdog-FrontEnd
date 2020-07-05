@@ -3,6 +3,8 @@ import {FlexboxGrid,SelectPicker,Button,Alert,Panel, IconButton,Table,Icon, Grid
 // import Col from 'rsuite/lib/Carousel';
 import CameraStatusTable from './CameraStatusTable'
 import SystemState from './SystemState'
+import Log from './HomePageLogs'
+import  { Auth } from 'aws-amplify'
 const { Column, HeaderCell, Cell, Pagination } = Table;
 
 const states=[ {
@@ -66,6 +68,7 @@ class HomePage extends Component{
         this.handleChange = this.handleChange.bind(this);
         this.close = this.close.bind(this);
         this.open = this.open.bind(this);
+        this.handleLogout = this.handleLogout.bind(this)
   }
   close() {
     this.setState({ show: false });
@@ -101,6 +104,13 @@ class HomePage extends Component{
             return(<IconButton icon={<Icon icon="off" />} circle size="lg"/>)
         }
     }
+
+
+    handleLogout(){
+      this.props.handleChange(1)
+      Auth.signOut();
+
+    }
  
     render(){
         const items = []
@@ -130,9 +140,52 @@ class HomePage extends Component{
         return(
           <Grid fluid> 
             <Row fluid>
+              <Col xs={12}>                  
+                  <SystemState />   
+                  <Row>
+                    <Col md={12} sm={12}>
+                      <Panel header={<div style={{textAlign: 'center'}} >Live Stream</div>} shaded>
+                        <div style={{textAlign: 'center'}} >
+                          <IconButton onClick={()=>{this.props.handleChange(2)}} icon={<Icon icon="video-camera" />} size="lg" />
+                        </div>
+                      </Panel> 
+                    </Col>  
+                    <Col md={12} sm={12}>
+                      <Panel  header={<div style={{textAlign: 'center'}} >Recordings</div>} shaded>
+                        <div style={{textAlign: 'center'}} >
+                          <IconButton onClick={()=>{this.props.handleChange(3)}}  icon={<Icon icon="logo-video" />} size="lg" />
+                        </div>
+                      </Panel>  
+                    </Col>
+                  </Row> 
+                  <Row>
+                    <Col md={12} sm={12}>
+                      <Panel  header={<div style={{textAlign: 'center'}} >Settings</div>} shaded>
+                        <div style={{textAlign: 'center'}} >
+                          <IconButton onClick={()=>{this.props.handleChange(4)}} icon={<Icon icon="cog" />} size="lg" />  
+                        </div>
+                      </Panel>  
+                    </Col>  
+                    <Col md={12} sm={12}>
+                        <Panel  header={<div style={{textAlign: 'center'}} >Logout</div>} shaded>
+                        <div style={{textAlign: 'center'}} >
+                          <IconButton onClick={this.handleLogout} icon={<Icon icon="sign-out" />} size="lg" />
+                        </div>
+                      </Panel>
+                    </Col>
+                  </Row>     
+              </Col>
               <Col xs={12}>
                   <CameraStatusTable />
-                  <SystemState />
+                  
+              </Col>
+            </Row>
+            <Row fluid>
+              
+              
+              <Col  xs={24}>
+                 
+                  <Log />
               </Col>
             </Row>
           </Grid>

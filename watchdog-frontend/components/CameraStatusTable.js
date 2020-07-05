@@ -49,10 +49,10 @@ class CameraStatusTable extends Component{
 
     render(){
         return(
-            <Panel header="Historical Video List" bordered bodyFill>
+            <Panel header="Camera Status" bordered bodyFill>
                 <Table
                 virtualized
-                height={400}
+                height={340}
                 data={cameras}
                 fluid
                 onRowClick={data => {

@@ -11,7 +11,7 @@ class SideNavBar extends Component {
         //console.log(this.props)
         this.state = {
           expanded: true,
-          activeKey: '1'
+          activeKey: this.props.defaultKeyVal
         };
         this.handleToggle = this.handleToggle.bind(this)
         this.handleLogout = this.handleLogout.bind(this)
@@ -48,7 +48,7 @@ class SideNavBar extends Component {
           >
             <Sidenav
               expanded={expanded}
-              activeKey={this.state.activeKey}
+              activeKey={this.props.defaultKeyVal}
               // onSelect={this.handleSelect}
             >
               
