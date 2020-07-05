@@ -38,6 +38,14 @@ render(){
                         <Radio value="B">Disabled</Radio>
                       </RadioGroup>
                     </Row>
+
+                    <Row>
+                      <RadioGroup name="radioList" inline appearance="picker" defaultValue="B">
+                        <div style={styles.radioGroupLabel}>Push Notifications</div>
+                        <Radio value="A">Enabled</Radio>
+                        <Radio value="B">Disabled</Radio>
+                      </RadioGroup>
+                    </Row>
                   
                 </FormGroup>
               </Form>

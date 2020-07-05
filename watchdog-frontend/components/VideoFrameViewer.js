@@ -251,7 +251,11 @@ class App extends Component {
       <div>
         <Table
           virtualized
-          height={400}
+          //autoHeight
+          minHeight={400}
+          height={700}
+          //loading={true}
+          fluid
           data={this.props.data}
           onRowClick={data => {
             console.log(data);
