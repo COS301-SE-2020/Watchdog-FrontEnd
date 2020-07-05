@@ -89,7 +89,7 @@ class Index extends Component{
                 href = "/style.css"/>
         
         </Head>
-        <Container>
+        <Container style={{maxWidth: "1700px", textAlign: 'center', margin: 'auto'}}>
           <Header><div style={{textAlign :'center'}}><h1>Watchdog</h1></div></Header>
           <Container>
             <SideNavBar handleChange = {this.tabHandler} defaultKeyVal={this.state.defaultKey}/>
