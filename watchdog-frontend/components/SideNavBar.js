@@ -10,7 +10,7 @@ class SideNavBar extends Component {
         super(props);
         //console.log(this.props)
         this.state = {
-          expanded: false,
+          expanded: true,
           activeKey: '1'
         };
         this.handleToggle = this.handleToggle.bind(this)
