@@ -15,6 +15,7 @@ import { Container, Header, Content, Footer} from 'rsuite'
 import LiveVideo from '../components/LiveVideoLayout'
 import HomePage from '../components/HomePage'
 import Notify from '../components/NotificationComponent'
+import Log from '../components/HomePageLogs'
 const styling = {
   "backgroundColor": "black"
 }
@@ -48,7 +49,7 @@ function Index (props){
           <h1><img src={"/logo.png"} width="50" height="50" />Watchdog</h1></div></Header>
           <Container>
             <SideNavBar MenuNumber={'3'}/>
-            <Content><AddIdentityModal /></Content>
+            <Content><Log /></Content>
           </Container>
           <Footer></Footer>
         </Container>
