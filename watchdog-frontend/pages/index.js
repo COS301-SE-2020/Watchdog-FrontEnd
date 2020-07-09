@@ -89,7 +89,7 @@ class Index extends Component{
                 href = "/style.css"/>
         
         </Head>
-        <Container style={{maxWidth: "1700px", textAlign: 'center', margin: 'auto'}}>
+        <Container style={{maxWidth: "1700px", margin: 'auto'}}>
           <Header><div style={{textAlign :'center'}}><h1>Watchdog</h1></div></Header>
           <Container>
             <SideNavBar handleChange = {this.tabHandler} defaultKeyVal={this.state.defaultKey}/>
@@ -97,7 +97,7 @@ class Index extends Component{
               {this.state.activeKey===1&&<HomePage handleChange={this.quickAccess}/>}
               {this.state.activeKey===2&&<LiveVideo/>}
               {this.state.activeKey===3&&<HistoricalVideo/>}
-              {this.state.activeKey===4&&<SettingsScreen/>}
+              {this.state.activeKey===4&&<SettingsScreen />}
             </Content>
             
 

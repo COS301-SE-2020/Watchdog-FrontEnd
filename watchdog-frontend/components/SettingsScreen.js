@@ -17,7 +17,7 @@ class SettingsScreen extends Component{
 
     render(){
         return(
-            <Container>
+            <Container >
                 <Sidebar>
                     <Sidenav appearance={'subtle'} activeKey={this.state.activeKey}>
                         <Sidenav.Body>
