@@ -39,23 +39,25 @@ class SideNavBar extends Component {
       render() {
         const { expanded } = this.state;
         //this.setState({activeKey : this.props.key})
-        console.log(this.props.children)
+        
     
         return (
           <Sidebar
             style={{ display: 'flex', flexDirection: 'column' }}
             width={expanded ? 260 : 56}
             collapsible
+            
           >
             <Sidenav
               expanded={expanded}
+              
               activeKey={this.props.defaultKeyVal}
               // onSelect={this.handleSelect}
             >
               
               <Sidenav.Body>
                 <Nav>
-                <div className="but"><Nav.Item onClick={this.handleToggle}  icon={<Icon icon="list" />}>
+                <div  className="but"><Nav.Item onClick={this.handleToggle}  icon={<Icon icon="list" />}>
                     <h4>MENU</h4>
                   </Nav.Item></div>
                   <Nav.Item eventKey="1" onClick={() =>this.setState({activeKey : '1'}, this.props.handleChange(1))} icon={<Icon icon="home" />}>
