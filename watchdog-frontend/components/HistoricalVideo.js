@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import {Panel, PanelGroup, Grid, Row, Col, DateRangePicker, DatePicker, CheckPicker, InputGroup} from 'rsuite'
 import VideoFrameViewer from './VideoFrameViewer'
 import Loading from './Loading'
+import {getVideos} from '../api/api'
 const VideoTypes = [
       {
         "label": "Movement",
@@ -291,7 +292,7 @@ class HistoricalVideo extends Component{
         super()
         this.state ={
             dateFilter : [],
-            displayData : data,
+            displayData : [],
             startTimeFilter : [],
             endTimeFilter : [],
             videoTypeFilter : [],
@@ -308,6 +309,8 @@ class HistoricalVideo extends Component{
         this.handleChangeCameraLocation = this.handleChangeCameraLocation.bind(this)
         //this.applyFilter = this.applyFilter.bind(this)
     }
+
+    
 
     applyFilter(){
         let array = data
@@ -411,7 +414,20 @@ class HistoricalVideo extends Component{
 
     }
     componentDidMount() {
-        this.setState({loaded : true})
+        console.log("here")
+        let settings = {
+           params: { user_id : 'demo1'},
+           headers :{'Content-Type' : 'application/json'}
+          }
+        // fetch('https://aprebrte8g.execute-api.af-south-1.amazonaws.com/beta/storage/video?user_id=demo1', {
+        //   mode: 'no-cors' // 'cors' by default
+        // })
+        // .then(function(response) {
+        //   console.log(response)
+        //   // Do something with response
+        // }).then((data) => console.log('This is your data', data)).catch((err)=>console.log(err));
+        getVideos(settings, (res)=>console.log(res), (err)=>console.log(err))
+        this.setState({loaded : true, displayData : data})
     }
 
 
