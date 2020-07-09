@@ -114,29 +114,6 @@ class HomePage extends Component{
  
     render(){
         const items = []
-        const videoData=cameras.map((value)=>{
-      items.push(
-          <Row>
-        <Col style={{textAlign: "center"}} md={6}>
-            {value.cam_id}
-        </Col>
-        <Col style={{textAlign: "center"}} md={6}>
-            {value.cam_location}
-        </Col>
-        <Col style={{textAlign: "center"}} md={6}>
-            {value.status=="offline"?
-            <Avatar circle style={{ background: 'red' }}>
-            <Icon icon={"off"} />
-            </Avatar>:
-            <Avatar circle style={{ background: 'green' }}>
-            <Icon icon={"check-circle"} />
-            </Avatar>                  }
-        </Col>
-        </Row>
-      ) 
-    }  
-     
-)
         return(
           <Grid fluid> 
             <Row fluid>

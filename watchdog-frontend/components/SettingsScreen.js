@@ -4,6 +4,7 @@ import IdentitySettings from './IdentitySettings'
 import Notify from './NotificationComponent'
 import Pass from './ResetPasswordComponent'
 import Download from './DownloadComponent'
+import NotificationView from './NotificationSettings'
 
 class SettingsScreen extends Component{
     constructor(){
@@ -16,7 +17,7 @@ class SettingsScreen extends Component{
 
     render(){
         return(
-            <Container>
+            <Container >
                 <Sidebar>
                     <Sidenav appearance={'subtle'} activeKey={this.state.activeKey}>
                         <Sidenav.Body>
@@ -44,7 +45,7 @@ class SettingsScreen extends Component{
                     
                     <Content>
                         {this.state.activeKey==='1'&&<IdentitySettings/>}
-                        {this.state.activeKey==='2'&&<Notify/>}
+                        {this.state.activeKey==='2'&&<NotificationView/>}
                         {this.state.activeKey==='3'&&<Pass/>}
                         {this.state.activeKey==='4'&&<Download/>}
 
