@@ -165,20 +165,17 @@ class HistoricalVideo extends Component{
           let location = item.metadata.room
           locations.push(location.charAt(0).toUpperCase() + location.slice(1))
           let type = item.tag
-          let date = new Date(item.metadata.timestamp * 1000);
-          
-          
+          let date = new Date(item.metadata.timestamp * 1000)
           let  utcString = date.toUTCString()
           let  time = date.toTimeString()
-           time = time.split(' ')[0]
-           let new_element =  {
-             id : index+1,
-             "date": date.toISOString().slice(0,10),
-              "time": time.substr(0,8), //(date.getHours()+2) +":"+date.getMinutes(),
-              "type": type.charAt(0).toUpperCase() + type.slice(1),
-              "location": location.charAt(0).toUpperCase() + location.slice(1),
-              "url": item.path_in_s3
-
+          time = time.split(' ')[0]
+          let new_element =  {
+            id : index+1,
+            "date": date.toISOString().slice(0,10),
+            "time": time.substr(0,8), //(date.getHours()+2) +":"+date.getMinutes(),
+            "type": type.charAt(0).toUpperCase() + type.slice(1),
+            "location": location.charAt(0).toUpperCase() + location.slice(1),
+            "url": item.path_in_s3
             }
             return new_element
           })
