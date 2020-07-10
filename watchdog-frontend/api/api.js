@@ -1,8 +1,16 @@
 import axios from 'axios'
+import { Auth } from 'aws-amplify'
 
-function getVideos(config, callback, errorcallback){
-    let url = "https://aprebrte8g.execute-api.af-south-1.amazonaws.com/testing/`storage/video`"
-    axios.get(url, config)
+async function getVideos( callback, errorcallback){
+    let url = await "https://aprebrte8g.execute-api.af-south-1.amazonaws.com/testing/ui/recordings"
+    let {idToken} = await Auth.currentSession()
+    console.log(idToken)
+    axios.get(url, {
+      headers: {
+        Authorization: idToken.jwtToken
+        
+      }
+    })
     .then(res => {
       //do something
       if(callback != null){

@@ -414,11 +414,7 @@ class HistoricalVideo extends Component{
 
     }
     componentDidMount() {
-        console.log("here")
-        let settings = {
-           params: { user_id : 'demo1'},
-           headers :{'Content-Type' : 'application/json'}
-          }
+        
         // fetch('https://aprebrte8g.execute-api.af-south-1.amazonaws.com/beta/storage/video?user_id=demo1', {
         //   mode: 'no-cors' // 'cors' by default
         // })
@@ -426,7 +422,7 @@ class HistoricalVideo extends Component{
         //   console.log(response)
         //   // Do something with response
         // }).then((data) => console.log('This is your data', data)).catch((err)=>console.log(err));
-        getVideos(settings, (res)=>console.log(res), (err)=>console.log(err))
+        getVideos( (res)=>console.log(res), (err)=>console.log(err))
         this.setState({loaded : true, displayData : data})
     }
 
