@@ -3,6 +3,7 @@ import {Panel, PanelGroup, Grid, Row, Col, DateRangePicker, DatePicker, CheckPic
 import VideoFrameViewer from './VideoFrameViewer'
 import Loading from './Loading'
 import {getVideos} from '../api/api'
+import Index from '../pages'
 const VideoTypes = [
       {
         "label": "Movement",
@@ -18,279 +19,12 @@ const VideoTypes = [
       }
 ]
 
-const CameraLocations = [
-      {
-        "label": "Kitchen",
-        "value": "Kitchen"
-      },
-      {
-        "label": "Bedroom",
-        "value": "Bedroom"
-      },
-      {
-        "label": "Yard",
-        "value": "Yard"
-      }
-]
-const data = [
-    {
-      "id": 1,
-      "date": "2016-09-23",
-      "time": "12:00",
-      "type": "Intruder",
-      "location": "Yard",
-      "url": "https://s3.af-south-1.amazonaws.com/watchdog.uservideocontent/video/Chelsea+2-1+Manchester+City+_+Pulisic+%26+Willian+Seal+Dramatic+Victory+_+Premier+League+Highlights.mp4"
-  
-    },
-    {
-        "id": 1,
-        "date": "2016-09-23",
-        "time": "12:00",
-        "type": "Intruder",
-        "location": "Yard",
-        "url": "https://s3.af-south-1.amazonaws.com/watchdog.uservideocontent/video/Chelsea+2-1+Manchester+City+_+Pulisic+%26+Willian+Seal+Dramatic+Victory+_+Premier+League+Highlights.mp4"
-    
-      },
-      {
-        "id": 1,
-        "date": "2016-09-23",
-        "time": "12:00",
-        "type": "Intruder",
-        "location": "Yard",
-        "url": "https://s3.af-south-1.amazonaws.com/watchdog.uservideocontent/video/Chelsea+2-1+Manchester+City+_+Pulisic+%26+Willian+Seal+Dramatic+Victory+_+Premier+League+Highlights.mp4"
-    
-      },
-      {
-        "id": 1,
-        "date": "2016-09-23",
-        "time": "12:00",
-        "type": "Intruder",
-        "location": "Yard",
-        "url": "https://s3.af-south-1.amazonaws.com/watchdog.uservideocontent/video/Chelsea+2-1+Manchester+City+_+Pulisic+%26+Willian+Seal+Dramatic+Victory+_+Premier+League+Highlights.mp4"
-    
-      },
-      {
-        "id": 1,
-        "date": "2016-09-23",
-        "time": "12:00",
-        "type": "Intruder",
-        "location": "Yard",
-        "url": "https://s3.af-south-1.amazonaws.com/watchdog.uservideocontent/video/Chelsea+2-1+Manchester+City+_+Pulisic+%26+Willian+Seal+Dramatic+Victory+_+Premier+League+Highlights.mp4"
-    
-      },
-      {
-          "id": 1,
-          "date": "2016-09-23",
-          "time": "12:00",
-          "type": "Intruder",
-          "location": "Yard",
-          "url": "https://s3.af-south-1.amazonaws.com/watchdog.uservideocontent/video/Chelsea+2-1+Manchester+City+_+Pulisic+%26+Willian+Seal+Dramatic+Victory+_+Premier+League+Highlights.mp4"
-      
-        },
-        {
-          "id": 1,
-          "date": "2016-09-23",
-          "time": "12:00",
-          "type": "Intruder",
-          "location": "Yard",
-          "url": "https://s3.af-south-1.amazonaws.com/watchdog.uservideocontent/video/Chelsea+2-1+Manchester+City+_+Pulisic+%26+Willian+Seal+Dramatic+Victory+_+Premier+League+Highlights.mp4"
-      
-        },
-        {
-          "id": 1,
-          "date": "2016-09-23",
-          "time": "12:00",
-          "type": "Intruder",
-          "location": "Yard",
-          "url": "https://s3.af-south-1.amazonaws.com/watchdog.uservideocontent/video/Chelsea+2-1+Manchester+City+_+Pulisic+%26+Willian+Seal+Dramatic+Victory+_+Premier+League+Highlights.mp4"
-      
-        },
-        {
-            "id": 1,
-            "date": "2016-09-23",
-            "time": "12:00",
-            "type": "Intruder",
-            "location": "Yard",
-            "url": "https://s3.af-south-1.amazonaws.com/watchdog.uservideocontent/video/Chelsea+2-1+Manchester+City+_+Pulisic+%26+Willian+Seal+Dramatic+Victory+_+Premier+League+Highlights.mp4"
-        
-          },
-          {
-              "id": 1,
-              "date": "2016-09-23",
-              "time": "12:00",
-              "type": "Intruder",
-              "location": "Yard",
-              "url": "https://s3.af-south-1.amazonaws.com/watchdog.uservideocontent/video/Chelsea+2-1+Manchester+City+_+Pulisic+%26+Willian+Seal+Dramatic+Victory+_+Premier+League+Highlights.mp4"
-          
-            },
-            {
-              "id": 1,
-              "date": "2016-09-23",
-              "time": "12:00",
-              "type": "Intruder",
-              "location": "Yard",
-              "url": "https://s3.af-south-1.amazonaws.com/watchdog.uservideocontent/video/Chelsea+2-1+Manchester+City+_+Pulisic+%26+Willian+Seal+Dramatic+Victory+_+Premier+League+Highlights.mp4"
-          
-            },
-            {
-              "id": 1,
-              "date": "2016-09-23",
-              "time": "12:00",
-              "type": "Intruder",
-              "location": "Yard",
-              "url": "https://s3.af-south-1.amazonaws.com/watchdog.uservideocontent/video/Chelsea+2-1+Manchester+City+_+Pulisic+%26+Willian+Seal+Dramatic+Victory+_+Premier+League+Highlights.mp4"
-          
-            },
-            {
-                "id": 1,
-                "date": "2016-09-23",
-                "time": "12:00",
-                "type": "Intruder",
-                "location": "Yard",
-                "url": "https://s3.af-south-1.amazonaws.com/watchdog.uservideocontent/video/Chelsea+2-1+Manchester+City+_+Pulisic+%26+Willian+Seal+Dramatic+Victory+_+Premier+League+Highlights.mp4"
-            
-              },
-              {
-                  "id": 1,
-                  "date": "2016-09-23",
-                  "time": "12:00",
-                  "type": "Intruder",
-                  "location": "Yard",
-                  "url": "https://s3.af-south-1.amazonaws.com/watchdog.uservideocontent/video/Chelsea+2-1+Manchester+City+_+Pulisic+%26+Willian+Seal+Dramatic+Victory+_+Premier+League+Highlights.mp4"
-              
-                },
-                {
-                  "id": 1,
-                  "date": "2016-09-23",
-                  "time": "12:00",
-                  "type": "Intruder",
-                  "location": "Yard",
-                  "url": "https://s3.af-south-1.amazonaws.com/watchdog.uservideocontent/video/Chelsea+2-1+Manchester+City+_+Pulisic+%26+Willian+Seal+Dramatic+Victory+_+Premier+League+Highlights.mp4"
-              
-                },
-                {
-                  "id": 1,
-                  "date": "2016-09-23",
-                  "time": "12:00",
-                  "type": "Intruder",
-                  "location": "Yard",
-                  "url": "https://s3.af-south-1.amazonaws.com/watchdog.uservideocontent/video/Chelsea+2-1+Manchester+City+_+Pulisic+%26+Willian+Seal+Dramatic+Victory+_+Premier+League+Highlights.mp4"
-              
-                },
-                {
-                    "id": 1,
-                    "date": "2016-09-23",
-                    "time": "12:00",
-                    "type": "Intruder",
-                    "location": "Yard",
-                    "url": "https://s3.af-south-1.amazonaws.com/watchdog.uservideocontent/video/Chelsea+2-1+Manchester+City+_+Pulisic+%26+Willian+Seal+Dramatic+Victory+_+Premier+League+Highlights.mp4"
-                
-                  },
-                  {
-                      "id": 1,
-                      "date": "2016-09-23",
-                      "time": "12:00",
-                      "type": "Intruder",
-                      "location": "Yard",
-                      "url": "https://s3.af-south-1.amazonaws.com/watchdog.uservideocontent/video/Chelsea+2-1+Manchester+City+_+Pulisic+%26+Willian+Seal+Dramatic+Victory+_+Premier+League+Highlights.mp4"
-                  
-                    },
-                    {
-                      "id": 1,
-                      "date": "2016-09-23",
-                      "time": "12:00",
-                      "type": "Intruder",
-                      "location": "Yard",
-                      "url": "https://s3.af-south-1.amazonaws.com/watchdog.uservideocontent/video/Chelsea+2-1+Manchester+City+_+Pulisic+%26+Willian+Seal+Dramatic+Victory+_+Premier+League+Highlights.mp4"
-                  
-                    },
-                    {
-                      "id": 1,
-                      "date": "2016-09-23",
-                      "time": "12:00",
-                      "type": "Intruder",
-                      "location": "Yard",
-                      "url": "https://s3.af-south-1.amazonaws.com/watchdog.uservideocontent/video/Chelsea+2-1+Manchester+City+_+Pulisic+%26+Willian+Seal+Dramatic+Victory+_+Premier+League+Highlights.mp4"
-                  
-                    },
-                    {
-                        "id": 1,
-                        "date": "2016-09-23",
-                        "time": "12:00",
-                        "type": "Intruder",
-                        "location": "Yard",
-                        "url": "https://s3.af-south-1.amazonaws.com/watchdog.uservideocontent/video/Chelsea+2-1+Manchester+City+_+Pulisic+%26+Willian+Seal+Dramatic+Victory+_+Premier+League+Highlights.mp4"
-                    
-                      },
-                      {
-                          "id": 1,
-                          "date": "2016-09-23",
-                          "time": "12:00",
-                          "type": "Intruder",
-                          "location": "Yard",
-                          "url": "https://s3.af-south-1.amazonaws.com/watchdog.uservideocontent/video/Chelsea+2-1+Manchester+City+_+Pulisic+%26+Willian+Seal+Dramatic+Victory+_+Premier+League+Highlights.mp4"
-                      
-                        },
-                        {
-                          "id": 1,
-                          "date": "2016-09-23",
-                          "time": "12:00",
-                          "type": "Intruder",
-                          "location": "Yard",
-                          "url": "https://s3.af-south-1.amazonaws.com/watchdog.uservideocontent/video/Chelsea+2-1+Manchester+City+_+Pulisic+%26+Willian+Seal+Dramatic+Victory+_+Premier+League+Highlights.mp4"
-                      
-                        },
-                        {
-                          "id": 1,
-                          "date": "2016-09-23",
-                          "time": "12:00",
-                          "type": "Intruder",
-                          "location": "Yard",
-                          "url": "https://s3.af-south-1.amazonaws.com/watchdog.uservideocontent/video/Chelsea+2-1+Manchester+City+_+Pulisic+%26+Willian+Seal+Dramatic+Victory+_+Premier+League+Highlights.mp4"
-                      
-                        },
-                        {
-                            "id": 1,
-                            "date": "2016-09-23",
-                            "time": "12:00",
-                            "type": "Intruder",
-                            "location": "Yard",
-                            "url": "https://s3.af-south-1.amazonaws.com/watchdog.uservideocontent/video/Chelsea+2-1+Manchester+City+_+Pulisic+%26+Willian+Seal+Dramatic+Victory+_+Premier+League+Highlights.mp4"
-                        
-                          },
-                          {
-                              "id": 1,
-                              "date": "2016-09-23",
-                              "time": "12:00",
-                              "type": "Intruder",
-                              "location": "Yard",
-                              "url": "https://s3.af-south-1.amazonaws.com/watchdog.uservideocontent/video/Chelsea+2-1+Manchester+City+_+Pulisic+%26+Willian+Seal+Dramatic+Victory+_+Premier+League+Highlights.mp4"
-                          
-                            },
-                            {
-                              "id": 1,
-                              "date": "2016-09-23",
-                              "time": "12:00",
-                              "type": "Intruder",
-                              "location": "Yard",
-                              "url": "https://s3.af-south-1.amazonaws.com/watchdog.uservideocontent/video/Chelsea+2-1+Manchester+City+_+Pulisic+%26+Willian+Seal+Dramatic+Victory+_+Premier+League+Highlights.mp4"
-                          
-                            },
-                            {
-                              "id": 1,
-                              "date": "2016-09-23",
-                              "time": "12:00",
-                              "type": "Intruder",
-                              "location": "Yard",
-                              "url": "https://s3.af-south-1.amazonaws.com/watchdog.uservideocontent/video/Chelsea+2-1+Manchester+City+_+Pulisic+%26+Willian+Seal+Dramatic+Victory+_+Premier+League+Highlights.mp4"
-                          
-                            }
-]
-
 class HistoricalVideo extends Component{
     constructor(){
         super()
         this.state ={
+            data : [],
+            rooms : [],
             dateFilter : [],
             displayData : [],
             startTimeFilter : [],
@@ -307,13 +41,14 @@ class HistoricalVideo extends Component{
         this.handleClearEndTime = this.handleClearEndTime.bind(this)
         this.handleChangeVideoType = this.handleChangeVideoType.bind(this)
         this.handleChangeCameraLocation = this.handleChangeCameraLocation.bind(this)
-        //this.applyFilter = this.applyFilter.bind(this)
+
+        this.applyFilter = this.applyFilter.bind(this)
     }
 
     
 
     applyFilter(){
-        let array = data
+        let array = this.state.data
         //console.log(this.state.dateFilter.length)
         if(this.state.dateFilter.length===2){
             //console.log("here")
@@ -422,8 +157,44 @@ class HistoricalVideo extends Component{
         //   console.log(response)
         //   // Do something with response
         // }).then((data) => console.log('This is your data', data)).catch((err)=>console.log(err));
-        getVideos( (res)=>console.log(res), (err)=>console.log(err))
-        this.setState({loaded : true, displayData : data})
+        getVideos( (res)=>{
+          const videos = res.data.data.videos
+          let locations = []
+          console.log(videos)
+          let result = videos.map((item, index)=>{
+          let location = item.metadata.room
+          locations.push(location.charAt(0).toUpperCase() + location.slice(1))
+          let type = item.tag
+          let date = new Date(item.metadata.timestamp * 1000);
+          
+          
+          let  utcString = date.toUTCString()
+          let  time = date.toTimeString()
+           time = time.split(' ')[0]
+           let new_element =  {
+             id : index+1,
+             "date": date.toISOString().slice(0,10),
+              "time": time.substr(0,8), //(date.getHours()+2) +":"+date.getMinutes(),
+              "type": type.charAt(0).toUpperCase() + type.slice(1),
+              "location": location.charAt(0).toUpperCase() + location.slice(1),
+              "url": item.path_in_s3
+
+            }
+            return new_element
+          })
+          console.log(result)
+          let unique = [...new Set(locations)];
+          let filter = unique.map((item)=>{
+            let option ={
+              "label": item,
+              "value": item
+            }
+            return option
+          })
+          this.setState({loaded : true, displayData : result, data : result, rooms: filter})
+          
+        }, (err)=>console.log(err))
+        
     }
 
 
@@ -467,10 +238,10 @@ class HistoricalVideo extends Component{
                                             />
                                         </InputGroup>
                                     </Panel>
-                                    <Panel header="Camera Location Filter">
+                                    <Panel header="Camera Room Filter">
                                     <CheckPicker
                                             sticky
-                                            data={CameraLocations}
+                                            data={this.state.rooms}
                                             style={{ width: 224 }}
                                             onChange={this.handleChangeCameraLocation}
                                         />

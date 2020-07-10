@@ -5,9 +5,9 @@ async function getVideos( callback, errorcallback){
     let url = await "https://aprebrte8g.execute-api.af-south-1.amazonaws.com/testing/ui/recordings"
     let {idToken} = await Auth.currentSession()
     console.log(idToken)
-    axios.get(url, {
+     await axios.get(url, {
       headers: {
-        Authorization: idToken.jwtToken
+      Authorization: `${idToken.jwtToken}`
         
       }
     })
