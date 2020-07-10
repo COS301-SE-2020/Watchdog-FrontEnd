@@ -282,7 +282,7 @@ class App extends Component {
           </Column>
 
           <Column flexGrow={1} minWidth={120}>
-            <HeaderCell>Camera Location</HeaderCell>
+            <HeaderCell>Camera Room</HeaderCell>
             <Cell dataKey="location" />
           </Column>
         
