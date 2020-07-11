@@ -5,7 +5,7 @@ async function getVideos( callback, errorcallback){
     let url = await "https://aprebrte8g.execute-api.af-south-1.amazonaws.com/testing/ui/recordings"
     let {idToken} = await Auth.currentSession()
     console.log(idToken)
-     await axios.get(url, {
+     await axios.get(url, { 
       headers: {
       Authorization: `${idToken.jwtToken}`
         
@@ -26,4 +26,30 @@ async function getVideos( callback, errorcallback){
 
 }
 
-export {getVideos}
+async function addIdentity(identity_name,fileName, setUrl){
+  let url = await "https://aprebrte8g.execute-api.af-south-1.amazonaws.com/testing/identities/upload?name="+identity_name+"&filename="+fileName+"&tag=whitelist"
+  let {idToken} = await Auth.currentSession()
+  
+  await axios.post(url,{
+    
+    name: identity_name ,
+    filename: fileName,
+    tag: "whitelist"
+    
+  }, 
+  {
+
+    headers: {
+      Authorization: `${idToken.jwtToken}`
+        
+      }
+  }).then(
+      res => {console.log(res.data.data.url)
+        setUrl(res.data.data.url)}
+  ).catch(
+    res => console.log(res)
+  )
+
+}
+
+export {getVideos, addIdentity}
