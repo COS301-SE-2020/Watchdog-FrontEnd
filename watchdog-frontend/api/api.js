@@ -44,8 +44,8 @@ async function addIdentity(identity_name,fileName, setUrl){
         
       }
   }).then(
-      res => {console.log(res.data.data.url)
-        setUrl(res.data.data.url)}
+      res => {console.log(res)
+         setUrl(res.data.data.url, res.data.data.fields)}
   ).catch(
     res => console.log(res)
   )

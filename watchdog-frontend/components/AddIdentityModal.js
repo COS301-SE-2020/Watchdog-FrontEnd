@@ -22,7 +22,8 @@ class AddIdentityModal extends Component{
             setFileInfo : null,
             name : "",
             url : null,
-            fname : null
+            fname : null,
+            data: null,
         }
 
         this.previewFile = this.previewFile.bind(this)
@@ -38,22 +39,22 @@ class AddIdentityModal extends Component{
         reader.readAsDataURL(file);
       }
     
-    addIdentity(){
+    async addIdentity(){
 
         //check if the name field is filled in
 
         //check if there is a picture 
         
-        addIdentity(this.state.name, this.state.fname, this.setUrl )
-        
+        await addIdentity(this.state.name, this.state.fname, this.setUrl )
+        await this.uploader.start()
 
-        this.setState({fileInfo: null, name : null},()=>this.props.toClose())
+        this.setState({fileInfo: null, name : null},()=>{this.props.toClose()})
 
     }
 
-    setUrl(Upload_url){
-        console.log(Upload_url)
-        this.setState({url : Upload_url }, this.uploader.start())
+    setUrl(Upload_url, upload_data){
+        //console.log(upload_data)
+        this.setState({url : Upload_url, data: upload_data })
     }
 
 
@@ -74,6 +75,8 @@ class AddIdentityModal extends Component{
                             fileListVisible={false}
                             listType="picture"
                             action={this.state.url}
+                            headers={this.state.data}
+                            data={this.state.data}
                             ref={ref => {
                                 this.uploader = ref;
                               }}
