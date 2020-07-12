@@ -45,8 +45,8 @@ class AddIdentityModal extends Component{
 
         //check if there is a picture 
         
-        await addIdentity(this.state.name, this.state.fname, this.setUrl )
-        await this.uploader.start()
+        await addIdentity(this.state.name, this.state.fname, this.setUrl, this.state.fileInfo )
+        //await this.uploader.start()
 
         this.setState({fileInfo: null, name : null},()=>{this.props.toClose()})
 
@@ -75,7 +75,7 @@ class AddIdentityModal extends Component{
                             fileListVisible={false}
                             listType="picture"
                             action={this.state.url}
-                            headers={this.state.data}
+                            //headers={this.state.data}
                             data={this.state.data}
                             ref={ref => {
                                 this.uploader = ref;
