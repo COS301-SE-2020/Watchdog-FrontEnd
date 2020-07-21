@@ -42,13 +42,22 @@ class AddIdentityModal extends Component{
     async addIdentity(){
 
         //check if the name field is filled in
+        if(this.state.name===null||this.state.name===''){
+            Alert.error('Please enter a name.')
+            return
+        }
+
+        if(this.state.fileInfo===null){
+            Alert.error('Please select a file.')
+            return
+        }
 
         //check if there is a picture 
         
-        await addIdentity(this.state.name, this.state.fname, this.setUrl, this.state.fileInfo )
+        await addIdentity(this.state.name, this.state.fname, this.setUrl, this.state.fileInfo, this.props.updatelist )
         //await this.uploader.start()
-
-        this.setState({fileInfo: null, name : null},()=>{this.props.toClose()})
+        Alert.success('Identity Added')
+        this.setState({fileInfo: null, name : null},()=>{ this.props.toClose()})
 
     }
 

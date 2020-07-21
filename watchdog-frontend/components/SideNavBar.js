@@ -1,7 +1,8 @@
 import React, {Component} from 'react'
-import { Toggle, Sidenav, Nav, Icon, Sidebar, IconButton   } from 'rsuite'
+import { Modal, Sidenav, Nav, Icon, Sidebar, IconButton, Button    } from 'rsuite'
 import  { Auth } from 'aws-amplify'
 import Router from 'next/router'
+
 
 
 
@@ -12,12 +13,22 @@ class SideNavBar extends Component {
         this.state = {
           expanded: false,
           activeKey: '1',
-          activeKey: this.props.defaultKeyVal
+          activeKey: this.props.defaultKeyVal,
+          logoutModal : false,
+          show: false
         };
         this.handleToggle = this.handleToggle.bind(this)
         this.handleLogout = this.handleLogout.bind(this)
+        this.close = this.close.bind(this);
+        this.open = this.open.bind(this);
         
         // this.handleSelect = this.handleSelect.bind(this);
+      }
+      close() {
+        this.setState({ show: false });
+      }
+      open() {
+        this.setState({ show: true });
       }
       handleToggle() {
         this.setState({
@@ -26,8 +37,9 @@ class SideNavBar extends Component {
       }
 
       handleLogout(){
-        this.props.handleChange(1)
-        Auth.signOut();
+        this.open()
+        
+        
 
       }
 
@@ -43,11 +55,35 @@ class SideNavBar extends Component {
     
         return (
           <Sidebar
-            style={{ display: 'flex', flexDirection: 'column' }}
+            style={{ display: 'flex', flexDirection: 'column', backgroundColor: '#1a1d24' }}
             width={expanded ? 260 : 56}
             collapsible
             
           >
+             <Modal backdrop="static" show={this.state.show} onHide={this.close} size="xs">
+            <Modal.Body>
+              <Icon
+                icon="remind"
+                style={{
+                  color: '#ffb300',
+                  fontSize: 24
+                }}
+              />
+              {'  '}
+              You are about to logout. Are you sure you want to proceed?
+            </Modal.Body>
+            <Modal.Footer>
+              <Button onClick={()=>{
+                  this.props.handleChange(1)
+                  Auth.signOut()
+              }} appearance="primary">
+                Ok
+              </Button>
+              <Button onClick={this.close} appearance="subtle">
+                Cancel
+              </Button>
+            </Modal.Footer>
+          </Modal>
             <Sidenav
               expanded={expanded}
               
@@ -72,12 +108,16 @@ class SideNavBar extends Component {
                   <Nav.Item eventKey="4"onClick={() =>this.setState({activeKey : '4'}, this.props.handleChange(4))}  icon={<Icon icon="cog" />}>
                     Settings
                   </Nav.Item>
-                  <Nav.Item eventKey="5" onClick={this.handleLogout} icon={<Icon icon="sign-out" />}>
+                  <Nav.Item  eventKey="5" onClick={this.handleLogout} icon={<Icon icon="sign-out" />}>
                     Logout
+                    
                   </Nav.Item>
+                  
                  
                 </Nav>
+                
               </Sidenav.Body>
+              
             </Sidenav>
             </Sidebar>
           
