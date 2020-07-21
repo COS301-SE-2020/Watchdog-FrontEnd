@@ -29,7 +29,9 @@ async function getVideos( callback, errorcallback){
 async function addIdentity(identity_name,fileName, setUrl,file){
   let url = await "https://aprebrte8g.execute-api.af-south-1.amazonaws.com/testing/identities/upload?name="+identity_name+"&filename="+fileName+"&tag=whitelist"
   let {idToken} = await Auth.currentSession()
-  
+  let newName = fileName.replace(/ /g, '')
+  newName = newName.replace(/[`~!@#$%^&*()_|+\-=?;:'",<>\{\}\[\]\\\/]/gi, '');
+  console.log(newName)
   await axios.post(url,{
     
     name: identity_name ,
@@ -45,7 +47,7 @@ async function addIdentity(identity_name,fileName, setUrl,file){
       }
   }).then(
       (res) => {console.log(res)
-              AddToBucket(res.data.data.url ,file,res.data.data.fields)
+              AddToBucket(res.data.data.url ,file,res.data.data.fields, newName)
 
               //setUrl(res.data.data.url, res.data.data.fields)
       }).catch(
@@ -55,22 +57,12 @@ async function addIdentity(identity_name,fileName, setUrl,file){
 }
 
 async function AddToBucket(url, file, formFields){
-  console.log(formFields)
+  console.log(file)
   const formData = new FormData()
   for ( let key in formFields ) {
     formData.append(key, formFields[key]);
 }
-  //formData.append(formFields)
-  // formData.append('AWSAccessKeyId', formFields.AWSAccessKeyId)
-  // formData.append('key', formFields.key)
-  // formData.append('signature', formFields.signature)
-  // formData.append('policy', formFields.policy)
-  //formData.append('x-amz-meta-key', formFields.x-amz-meta-key)
-  // formData.append('x-amz-meta-name',formFields.x-amz-meta-name)
-  // formData.append('x-amz-meta-tag', formFields.x-amz-meta-tag)
-  // formData.append('x-amz-meta-uuid', formFields.x-amz-meta-uuid)
-
-  // formData.append('x-amz-security-token', formFields.x-amz-security-token)
+  
 
   formData.append('file', file)
 
