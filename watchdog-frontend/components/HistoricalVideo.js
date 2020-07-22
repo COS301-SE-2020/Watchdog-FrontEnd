@@ -158,7 +158,7 @@ class HistoricalVideo extends Component{
         //   // Do something with response
         // }).then((data) => console.log('This is your data', data)).catch((err)=>console.log(err));
         getVideos( (res)=>{
-          const videos = res.data.data.videos
+          const videos = res.data.data.videos || []
           let locations = []
           console.log(videos)
           let result = videos.map((item, index)=>{
