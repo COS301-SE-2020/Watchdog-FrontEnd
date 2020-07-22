@@ -30,9 +30,7 @@ async function getVideos( callback, errorcallback){
 async function addIdentity(identity_name,fileName, setUrl,file, updatelist){
   let url = await "https://aprebrte8g.execute-api.af-south-1.amazonaws.com/testing/identities/upload?name="+identity_name+"&filename="+fileName+"&tag=whitelist"
   let {idToken} = await Auth.currentSession()
-  let newName = fileName.replace(/ /g, '')
-  newName = newName.replace(/[`~!@#$%^&*()_|+\-=?;:'",<>\{\}\[\]\\\/]/gi, '');
-  console.log(newName)
+  
   await axios.post(url,{
     
     name: identity_name ,
@@ -59,15 +57,19 @@ async function addIdentity(identity_name,fileName, setUrl,file, updatelist){
 
 async function AddToBucket(url, file, formFields){
   const formData = new FormData()
-  
+  const type = file.split(';')[0].split('/')[1]
+  const buffer = Buffer.from(file.replace(/^data:image\/\w+;base64,/, ""),'base64');
+  //console.log(file.result.split(',')[1])
   for ( let key in formFields ) {
       formData.append(key, formFields[key])
   }
+  //formData.append('Accept-Encoding','base64')
+ // formData.append('key', formFields['key'])
   
   formData.append('file', file)
   
  
-  await axios.post(url, formData).then(res=>console.log(res)).catch(res=>console.log(res))
+  await axios.post(url, formData ).then(res=>console.log(res)).catch(res=>console.log(res))
 
 
 // const config = {
@@ -105,6 +107,7 @@ async function getIdentities(setUser){
      await axios.get(url, { 
       headers: {
       Authorization: `${idToken.jwtToken}`
+
       
         
       }
