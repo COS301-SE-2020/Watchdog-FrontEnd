@@ -55,7 +55,7 @@ class SideNavBar extends Component {
     
         return (
           <Sidebar
-            style={{ display: 'flex', flexDirection: 'column', backgroundColor: '#1a1d24' }}
+            style={{ display: 'flex', flexDirection: 'column'}}
             width={expanded ? 260 : 56}
             collapsible
             
