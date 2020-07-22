@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
-import {Modal , Button, Input, FormGroup, Col, InputGroup, Icon, Form, Uploader} from 'rsuite'
+import {Modal , Button, Input, FormGroup, Col, InputGroup, Icon, Form, Uploader, Alert} from 'rsuite'
+
+import {addIdentity} from '../api/api'
 const styles = {
     width: 150,
     height: 150
@@ -11,16 +13,22 @@ marginBottom: 10
 };
 
 class AddIdentityModal extends Component{
-    constructor(){
-        super()
+    constructor(props){
+        super(props)
         this.state ={
             uploading : false,
             setUploading : false,
             fileInfo : null,
-            setFileInfo : null
+            setFileInfo : null,
+            name : "",
+            url : null,
+            fname : null,
+            data: null,
         }
 
         this.previewFile = this.previewFile.bind(this)
+        this.addIdentity = this.addIdentity.bind(this)
+        this.setUrl = this.setUrl.bind(this)
     }
 
     previewFile(file, callback) {
@@ -30,10 +38,41 @@ class AddIdentityModal extends Component{
         };
         reader.readAsDataURL(file);
       }
+    
+    async addIdentity(){
+
+        //check if the name field is filled in
+        if(this.state.name===null||this.state.name===''){
+            Alert.error('Please enter a name.')
+            return
+        }
+
+        if(this.state.fileInfo===null){
+            Alert.error('Please select a file.')
+            return
+        }
+
+        //check if there is a picture 
+        
+        await addIdentity(this.state.name, this.state.fname, this.setUrl, this.state.fileInfo, this.props.updatelist )
+        //await this.uploader.start()
+        Alert.success('Identity Added')
+        this.setState({fileInfo: null, name : null},()=>{ this.props.toClose()})
+
+    }
+
+    setUrl(Upload_url, upload_data){
+        //console.log(upload_data)
+        this.setState({url : Upload_url, data: upload_data })
+    }
+
+
 
     render(){
         return(
-            <Modal size={"md"} show={this.props.toDisplay} onHide={this.props.toClose}>
+            <Modal size={"md"} show={this.props.toDisplay} onHide={()=>{
+                this.setState({fileInfo: null, name : null})
+                this.props.toClose()}}>
                 <Modal.Header>
                 <Modal.Title>Add an Identity</Modal.Title>
                 </Modal.Header>
@@ -41,29 +80,38 @@ class AddIdentityModal extends Component{
                     <Form layout="inline">
                     <FormGroup>
                         <Uploader
+                            autoUpload={false}
                             fileListVisible={false}
                             listType="picture"
-                            action=""
-                            onUpload={file => {
+                            action={this.state.url}
+                            //headers={this.state.data}
+                            data={this.state.data}
+                            ref={ref => {
+                                this.uploader = ref;
+                              }}
+                            onChange={(file) => {
+                                //console.log(file[0])
+                                
                                 this.setState({setUploading : true})
-                                this.previewFile(file.blobFile, value => {
-                                  console.log(value)
-                                  this.setState({fileInfo : value})
+                                this.previewFile(file[0].blobFile, value => {
+                                  //console.log(value)
+                                  this.setState({fileInfo : value, fname: file[0].name})
                             
                                   //setFileInfo(value);
                                 });
                               }}
 
-                            //   onSuccess={(response, file) => {
-                            //     //setUploading(false);
-                            //     Alert.success('Uploaded successfully');
-                            //     console.log(response);
-                            //   }}
-                            //   onError={() => {
-                            //     //setFileInfo(null);
-                            //     //setUploading(false);
-                            //     Alert.error('Upload failed');
-                            //   }}
+                              onSuccess={(response, file) => {
+                                //setUploading(false);
+                                Alert.success('Uploaded successfully');
+                                console.log(response);
+                              }}
+                              onError={(err, file) => {
+                                //setFileInfo(null);
+                                //setUploading(false);
+                                console.log(err)
+                                Alert.error('Upload failed');
+                              }}
                             
                         >
                         <button style={styles}>
@@ -81,17 +129,19 @@ class AddIdentityModal extends Component{
                             <InputGroup.Addon>
                                 <Icon icon="avatar" />
                             </InputGroup.Addon>
-                            <Input  placeholder="Full Name" />
+                            <Input value={this.state.name} onChange={(val)=>this.setState({name : val})} placeholder="Full Name" />
                         </InputGroup>
                         </FormGroup>
                     </Form>    
                 
                 </Modal.Body>
                 <Modal.Footer>
-                <Button onClick={this.props.toClose} appearance="primary">
+                <Button onClick={this.addIdentity} appearance="primary">
                     Add
                 </Button>
-                <Button onClick={this.props.toClose} appearance="subtle">
+                <Button onClick={()=>{
+                            this.setState({fileInfo: null, name : null})
+                            this.props.toClose()}} appearance="subtle">
                     Cancel
                 </Button>
                 </Modal.Footer>

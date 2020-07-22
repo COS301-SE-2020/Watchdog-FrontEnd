@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import {Panel, Avatar, Grid, Row, Col, IconButton, Icon, Whisper, Tooltip, FlexboxGrid} from 'rsuite'
 import RemoveIdentityModal from './RemoveIdentityModal'
 import AddIdentityModal from './AddIdentityModal'
-
+import {getIdentities} from '../api/api'
+import Loading from './Loading'
 const test_users = [
     {
         id : 1,
@@ -19,16 +20,20 @@ class IdentitySettings extends Component{
     constructor(){
         super()
         this.state = {
+            loaded : false,
             showRemoveModal : false,
             showAddModal : false,
             removeId : 0,
             toRemove : {},
-            users : test_users
+            users : []
         }
 
         this.toggleRemoveModal = this.toggleRemoveModal.bind(this)
         this.handleRemove = this.handleRemove.bind(this)
         this.toggleAddModal = this.toggleAddModal.bind(this)
+        this.setUser = this.setUser.bind(this)
+        this.updateList = this.updateList.bind(this)
+        
     }
 
     toggleRemoveModal(){
@@ -36,7 +41,9 @@ class IdentitySettings extends Component{
     }
 
     toggleAddModal(){
-        this.setState({showAddModal : !this.state.showAddModal})
+        this.setState({showAddModal : !this.state.showAddModal}, ()=>{
+            
+        })
     }
 
     handleRemove(id){
@@ -47,9 +54,31 @@ class IdentitySettings extends Component{
 
     }
     
+    setUser(user_list){
+        this.setState({users : user_list, loaded: true})
+    }
+
+
+    async updateList(){
+        this.setState({loaded:false}, this.componentDidMount)
+        
+    
+        //getIdentities(this.setUser)
+    }
+
+    componentDidMount(){
+        getIdentities(this.setUser)
+        
+        
+
+    }
+    
     render(){
         let users_array = this.state.users.map((item)=>{
             //console.log(item)
+            if(this.state.loaded===false){
+                return(<Loading />)
+            }
             return(
                 <Row fluid>
                     <Col xs={3}>
@@ -95,6 +124,7 @@ class IdentitySettings extends Component{
                 <AddIdentityModal
                  toDisplay={this.state.showAddModal} 
                  toClose={this.toggleAddModal}
+                 updatelist ={this.updateList}
                 />
 
             </Panel>
