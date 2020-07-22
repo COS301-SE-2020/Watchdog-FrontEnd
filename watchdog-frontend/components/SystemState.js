@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {Radio, RadioGroup, Panel, Alert} from 'rsuite'
-
+import {getSystemState, updateSystemState} from '../api/api'
 const styles = {
     radioGroupLabel: {
       padding: '8px 2px 8px 10px',
@@ -13,11 +13,13 @@ class SystemState extends Component{
     constructor(){
         super()
         this.state ={
-            system_state : "Armed"
+            system_state : "",
+            prev : ""
         }
 
         this.handleChange = this.handleChange.bind(this)
         this.displayAlert = this.displayAlert.bind(this)
+        this.setSystemState = this.setSystemState.bind(this)
     }
 
     displayAlert(){
@@ -33,11 +35,23 @@ class SystemState extends Component{
 
     }
 
-    handleChange(name, value) {
-        this.setState({
+    async handleChange(name, value) {
+        await this.setState({
+          prev : this.state.system_state,
           [name]: value
         }, this.displayAlert);
         //console.log(name, value);
+        updateSystemState(value, this.state.system_state, this.setSystemState )
+    }
+
+    setSystemState(val){
+        console.log(val)
+        this.setState({system_state : val})
+        console.log(this.state.system_state)
+    }
+
+    componentDidMount(){
+        getSystemState(this.setSystemState)
     }
 
     render(){
@@ -46,7 +60,7 @@ class SystemState extends Component{
                     <RadioGroup 
                         name="radioList" 
                         inline appearance="picker" 
-                        defaultValue="Armed" 
+                        value= {this.state.system_state}
                         onChange={value => {
                             this.handleChange('system_state', value);
                           }}>

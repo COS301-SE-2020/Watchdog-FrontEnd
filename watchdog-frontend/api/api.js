@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { Auth } from 'aws-amplify'
+import {Radio, RadioGroup, Panel, Alert} from 'rsuite'
 
 async function getVideos( callback, errorcallback){
     let url = await "https://aprebrte8g.execute-api.af-south-1.amazonaws.com/testing/ui/recordings"
@@ -130,22 +131,140 @@ async function getIdentities(setUser){
 
 }
 
-async function getSystemState(){
+async function getSystemState(set_func){
+  let url = "https://aprebrte8g.execute-api.af-south-1.amazonaws.com/testing/preferences/securitylevel"
 
+  let {idToken} = await Auth.currentSession()
+    console.log(idToken)
+     await axios.get(url, { 
+      headers: {
+      Authorization: `${idToken.jwtToken}`
+      
+        
+      }
+    })
+    .then(res => {
+      //do something
+      console.log(res)
+      var response
+      let security_level = res.data.data.preferences.security_level
+      console.log(security_level)
+      if(security_level==="0"){
+        response= "Disarmed"
+      }else if(security_level==="1"){
+        response="Recognised"
+      }else{
+        response="Armed"
+      }
+      set_func(response)
+      
+    })
+    .catch(err => {
+      // catch error
+      
+    })
+  // set_func("Armed")
 }
 
-async function updateSystemState(state, error_callback){
+async function updateSystemState(state,prev, error_callback){
+  var response
+  if(state==="Armed"){
+    response=2
+  }else if(state==="Recognised"){
+    response=1
+  }else{
+    response=0
+  }
+  let url="https://aprebrte8g.execute-api.af-south-1.amazonaws.com/testing/preferences/securitylevel"
+  let {idToken} = await Auth.currentSession()
+    console.log(idToken)
+  await axios.post(url,{
+    
+    security_level: response 
+    
+  }, 
+  {
 
+    headers: {
+      Authorization: `${idToken.jwtToken}`
+        
+      }
+  }).then(
+      async (res) => {console.log(res)
+               
+              //setUrl(res.data.data.url, res.data.data.fields)
+      }).catch(
+    res => {console.log(res)
+    error_callback(prev)
+    Alert.error("Unable to change system state at the moment, please try again later.")
+                      }
+  )
 }
 
 async function getNotificationSettings(body, set_func){
-    let set ={
-      type : "Email",
-      email : "email@me.com",
-      security : "0740234565"
-    }
+  let url = "https://aprebrte8g.execute-api.af-south-1.amazonaws.com/testing/preferences"
 
-    set_func(set)
+  let {idToken} = await Auth.currentSession()
+    console.log(idToken)
+     await axios.get(url, { 
+      headers: {
+      Authorization: `${idToken.jwtToken}`
+      
+        
+      }
+    })
+    .then(res => {
+      //do something
+      let notification = res.data.data.preferences.notifications
+      console.log(notification)
+      // let format = notification.map((item, index)=>{
+      //   let el ={
+      //     type : item.type,
+      //     value : item.value,
+      //     security : item.security_company
+      //   }
+      //   // console.log(el)
+      //   return el
+        
+      // })
+      // console.log(format)
+      // {security_company: "", type: "email", value: "jonathensundy@gmail.com"}
+      let sec = notification.security_company
+      let Type = "Push Notifications"
+      let Email = ""
+      let NumberSms = ""
+      if(notification.type==="email") {
+        Type = "Email"
+        Email = notification.value
+      }
+      if(notification.type==="sms") {
+        Type = "SMS"
+        NumberSms = notification.value
+      }
+      let set ={
+        type : Type,
+        security : sec,
+        email : Email,
+        number : NumberSms
+      }
+      set_func(set)
+      // console.log(format)
+      console.log(res.data.data.preferences.notifications)
+      
+    })
+    .catch(err => {
+      // catch error
+      
+    })
+
+
+    // let set ={
+    //   type : "Email",
+    //   email : "email@me.com",
+    //   security : "0740234565"
+    // }
+
+    // set_func(set)
 }
 
 async function updateNotification(body, set_func){

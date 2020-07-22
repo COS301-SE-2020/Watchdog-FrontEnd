@@ -29,6 +29,10 @@ class NotificationView extends Component{
     }
 
     setSettings(settings){
+        // if(settings.type=="email"){
+        //     let value= settings.value
+        // }
+        
         this.setState({type: settings.type,
         email: settings.email || "",
         number: settings.number||"",
