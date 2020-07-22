@@ -57,18 +57,14 @@ async function addIdentity(identity_name,fileName, setUrl,file, updatelist){
 
 async function AddToBucket(url, file, formFields){
   const formData = new FormData()
-  const type = file.split(';')[0].split('/')[1]
-  const buffer = Buffer.from(file.replace(/^data:image\/\w+;base64,/, ""),'base64');
-  //console.log(file.result.split(',')[1])
+  console.log(file)
   for ( let key in formFields ) {
       formData.append(key, formFields[key])
   }
-  //formData.append('Accept-Encoding','base64')
- // formData.append('key', formFields['key'])
   
-  formData.append('file', file)
   
- 
+  formData.append('file', file.blobFile)
+  
   await axios.post(url, formData ).then(res=>console.log(res)).catch(res=>console.log(res))
 
 
@@ -271,14 +267,53 @@ async function getNotificationSettings(body, set_func){
 }
 
 async function updateNotification(body, set_func){
+  let {idToken} = await Auth.currentSession()
+  let not_type = "push"
+  let not_value = ""
 
-  let set ={
-    type : body.type,
-    email : body.email,
-    number : body.number,
-    security : body.security
+  if(body.type==="Email"){
+    not_type = "email"
+    not_value = body.email
   }
-  set_func(set)
+  if(body.type==="SMS"){
+    not_type = "sms"
+    not_value = body.number
+    
+  }
+  let url = "https://aprebrte8g.execute-api.af-south-1.amazonaws.com/testing/preferences/notifications"
+  await axios.post(url,{
+    
+      security_company: body.security,
+      type: not_type,
+      value: not_value
+    
+  }, 
+  {
+
+    headers: {
+      Authorization: `${idToken.jwtToken}`
+        
+      }
+  }).then(
+      async (res) => {console.log(res)
+        let set ={
+          type : body.type,
+          email : body.email,
+          number : body.number,
+          security : body.security
+        }
+        Alert.success("Notification settings updated", 3000)
+        set_func(set)
+               
+              //setUrl(res.data.data.url, res.data.data.fields)
+      }).catch(
+    res => {console.log(res)
+    
+    Alert.error("Unable to change notification settings at the moment, please try again later.", 3000)
+                      }
+  )
+
+  
 
 }
 

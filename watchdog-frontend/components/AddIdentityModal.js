@@ -24,6 +24,7 @@ class AddIdentityModal extends Component{
             url : null,
             fname : null,
             data: null,
+            file_to_upload : null
         }
 
         this.previewFile = this.previewFile.bind(this)
@@ -54,10 +55,10 @@ class AddIdentityModal extends Component{
 
         //check if there is a picture 
         
-        await addIdentity(this.state.name, this.state.fname, this.setUrl, this.state.fileInfo, this.props.updatelist )
+        await addIdentity(this.state.name, this.state.fname, this.setUrl, this.state.file_to_upload, this.props.updatelist )
         //await this.uploader.start()
         Alert.success('Identity Added')
-        this.setState({fileInfo: null, name : null},()=>{ this.props.toClose()})
+        this.setState({fileInfo: null, name : null, file_to_upload: null},()=>{ this.props.toClose()})
 
     }
 
@@ -92,7 +93,7 @@ class AddIdentityModal extends Component{
                             onChange={(file) => {
                                 //console.log(file[0])
                                 
-                                this.setState({setUploading : true})
+                                this.setState({setUploading : true, file_to_upload: file[0]})
                                 this.previewFile(file[0].blobFile, value => {
                                   //console.log(value)
                                   this.setState({fileInfo : value, fname: file[0].name})
