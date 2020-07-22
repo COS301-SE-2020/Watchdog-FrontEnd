@@ -47,7 +47,7 @@ async function addIdentity(identity_name,fileName, setUrl,file, updatelist){
       }
   }).then(
       async (res) => {console.log(res)
-               await AddToBucket(res.data.data.url ,file,res.data.data.fields)
+               await AddToBucket(res.data.data.url,file,res.data.data.fields)
                updatelist()
               //setUrl(res.data.data.url, res.data.data.fields)
       }).catch(
@@ -57,17 +57,42 @@ async function addIdentity(identity_name,fileName, setUrl,file, updatelist){
 }
 
 async function AddToBucket(url, file, formFields){
-  console.log(file)
   const formData = new FormData()
-  for ( let key in formFields ) {
-    formData.append(key, formFields[key]);
-}
   
-
+  for ( let key in formFields ) {
+      formData.append(key, formFields[key])
+  }
+  
   formData.append('file', file)
-
+  
+ 
   await axios.post(url, formData).then(res=>console.log(res)).catch(res=>console.log(res))
 
+
+// const config = {
+//   onUploadProgress: function(progressEvent) { 
+//       var percentCompleted = Math.round(
+//           (progressEvent.loaded * 100) / progressEvent.total
+//       );
+//       console.log(percentCompleted);
+//   },
+//   headers: {
+//     "Content-Type": "image/*"
+//   },
+//   params: {
+//     ...formFields
+//   }
+// };
+
+// console.log({"CONFIG": config});
+
+// axios.post(url, file, config)
+//  .then(async res => {
+//       callback({res, key})
+//   })
+//   .catch(err => {
+//       console.log(err);
+//   })
 
 }
 
@@ -79,6 +104,7 @@ async function getIdentities(setUser){
      await axios.get(url, { 
       headers: {
       Authorization: `${idToken.jwtToken}`
+      
         
       }
     })
@@ -104,4 +130,34 @@ async function getIdentities(setUser){
 
 }
 
-export {getVideos, addIdentity, AddToBucket, getIdentities}
+async function getSystemState(){
+
+}
+
+async function updateSystemState(state, error_callback){
+
+}
+
+async function getNotificationSettings(body, set_func){
+    let set ={
+      type : "Email",
+      email : "email@me.com",
+      security : "0740234565"
+    }
+
+    set_func(set)
+}
+
+async function updateNotification(body, set_func){
+
+  let set ={
+    type : body.type,
+    email : body.email,
+    number : body.number,
+    security : body.security
+  }
+  set_func(set)
+
+}
+
+export {updateNotification, getVideos, addIdentity, AddToBucket, getIdentities, getSystemState, updateSystemState, getNotificationSettings}

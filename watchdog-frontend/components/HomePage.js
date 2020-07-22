@@ -104,6 +104,7 @@ class HomePage extends Component{
             return(<IconButton icon={<Icon icon="off" />} circle size="lg"/>)
         }
     }
+    
 
 
     handleLogout(){
