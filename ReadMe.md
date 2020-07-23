@@ -1,6 +1,16 @@
 # Watchdog
 
+
+- [API](https://eu-west-1.console.aws.amazon.com/codesuite/codecommit/repositories/API/browse?region=eu-west-1)
+- [Home Control Panel](https://eu-west-1.console.aws.amazon.com/codesuite/codecommit/repositories/Home_Control_Panel/browse?region=eu-west-1)
+- [Frontend](https://eu-west-1.console.aws.amazon.com/codesuite/codecommit/repositories/FrontEnd/browse?region=eu-west-1)
+
+
+### Demo
 - [LynkSolutions-Demo2](https://drive.google.com/file/d/1JfVWYLl65t5PzllO-vNKPR-YlOt7DRnX/view?usp=sharing)
+
+
+### Documentation
 - [Watchdog System](https://master.d18pg5ypwr9xji.amplifyapp.com/)
 - [Watchdog User Manual](https://drive.google.com/file/d/1gu36_44IbnKeGjC61VaDXLu3mLKEqTvr/view?usp=sharing)
 - [Coding Standards Document]()
@@ -17,12 +27,10 @@ redundant video storage our product utilizes machine learning and a modern cloud
 
 
 
-
-
 ### How to run the code in this repo:
 
-
 First of all begin by changing your directory to watchdog-frontend.
+
     
 #### Start the development server
 - npm run dev
