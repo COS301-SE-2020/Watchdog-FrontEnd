@@ -8,7 +8,11 @@ learning to identify an intruder and alert users and security companies on the p
 redundant video storage our product utilizes machine learning and a modern cloud architecture to deliver a real-time security system.
 
 
-### User Manual
+### Link to Deployed Website:
+- [Watchdog System](https://master.d18pg5ypwr9xji.amplifyapp.com/)
+
+
+### User Manual:
 - [Watchdog User Manual](https://drive.google.com/file/d/1gu36_44IbnKeGjC61VaDXLu3mLKEqTvr/view?usp=sharing)
 
 
