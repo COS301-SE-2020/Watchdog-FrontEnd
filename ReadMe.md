@@ -19,6 +19,10 @@
 require access please email a team member and we will add you to our workspace, since clubhouse does not allow external viewing)
 
 
+### Deployed Website Link:
+- [Watchdog System](https://master.d18pg5ypwr9xji.amplifyapp.com/)
+
+
 ### Project Description:
 
 For the South African household who need an efficient way to ensure their safety and security the Watchdog system is a home security system that utilizes machine 
