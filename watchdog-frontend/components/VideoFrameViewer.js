@@ -151,16 +151,16 @@ class App extends Component {
     const SEPARATOR = ' · '
 
     return (
-        <div>
+        <div >
         <div className="modal-container">
-        <Modal show={this.state.show} onHide={this.close}>
+        <Modal overflow={false} size={'md'} show={this.state.show} onHide={this.close}>
           <Modal.Header>
             <Modal.Title></Modal.Title>
           </Modal.Header>
           <Modal.Body>
-    
-          
+              
 
+            
           <Grid fluid>
 
             <Row fluid>
@@ -191,9 +191,9 @@ class App extends Component {
                     onDuration={this.handleDuration}
                     
                   />
-
+              
               </Col>
-
+        
             </Row>
             <Row>
               <Col xs={2}>
@@ -251,7 +251,11 @@ class App extends Component {
       <div>
         <Table
           virtualized
-          height={400}
+          //autoHeight
+          minHeight={400}
+          height={700}
+          //loading={true}
+          fluid
           data={this.props.data}
           onRowClick={data => {
             console.log(data);
@@ -278,7 +282,7 @@ class App extends Component {
           </Column>
 
           <Column flexGrow={1} minWidth={120}>
-            <HeaderCell>Camera Location</HeaderCell>
+            <HeaderCell>Camera Room</HeaderCell>
             <Cell dataKey="location" />
           </Column>
         
