@@ -56,7 +56,7 @@ class SystemState extends Component{
 
     render(){
         return(
-            <Panel header="System State" shaded>
+            <Panel header="System State" shaded align='center'>
                     <RadioGroup 
                         name="radioList" 
                         inline appearance="picker" 
