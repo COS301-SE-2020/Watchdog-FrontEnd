@@ -44,7 +44,7 @@ class Index extends Component{
     Auth.currentAuthenticatedUser()
     .then(data => this.setState({loggedIn : true}))
     .catch(error => {})
-
+      
     this.tabHandler = this.tabHandler.bind(this)
     this.quickAccess = this.quickAccess.bind(this)
           
@@ -99,8 +99,8 @@ class Index extends Component{
               {this.state.activeKey===3&&<HistoricalVideo/>}
               {this.state.activeKey===4&&<SettingsScreen />}
             </Content>
-            
-
+        
+      
 
           </Container>
         </Container>
@@ -149,6 +149,8 @@ class Index extends Component{
 //     )
   
 // }
+
+
 
 
 
