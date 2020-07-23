@@ -129,6 +129,31 @@ async function getIdentities(setUser){
     })
 
 }
+async function getLogs(set_func){
+  let url = "https://aprebrte8g.execute-api.af-south-1.amazonaws.com/testing/logs"
+
+  let {idToken} = await Auth.currentSession()
+    console.log(idToken)
+     await axios.get(url, { 
+      headers: {
+      Authorization: `${idToken.jwtToken}`
+      
+        
+      }
+    })
+    .then(res => {
+      let logs = res.data.data.logs
+      //do something
+      console.log(logs)
+      
+      set_func(logs)
+      
+    })
+    .catch(err => {
+      // catch error
+      
+    })
+}
 
 async function getSystemState(set_func){
   let url = "https://aprebrte8g.execute-api.af-south-1.amazonaws.com/testing/preferences/securitylevel"
@@ -317,4 +342,4 @@ async function updateNotification(body, set_func){
 
 }
 
-export {updateNotification, getVideos, addIdentity, AddToBucket, getIdentities, getSystemState, updateSystemState, getNotificationSettings}
+export {getLogs,updateNotification, getVideos, addIdentity, AddToBucket, getIdentities, getSystemState, updateSystemState, getNotificationSettings}

@@ -49,7 +49,7 @@ class CameraStatusTable extends Component{
 
     render(){
         return(
-            <Panel header="Camera Status" bordered bodyFill>
+            <Panel header="Camera Status" bordered bodyFill align='center'>
                 <Table
                 virtualized
                 height={340}
