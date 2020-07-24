@@ -150,7 +150,7 @@ class HistoricalVideo extends Component{
     }
     componentDidMount() {
         
-        // fetch('https://aprebrte8g.execute-api.af-south-1.amazonaws.com/beta/storage/video?user_id=demo1', {
+        // fetch('https://b534kvo5c6.execute-api.af-south-1.amazonaws.com/beta/storage/video?user_id=demo1', {
         //   mode: 'no-cors' // 'cors' by default
         // })
         // .then(function(response) {

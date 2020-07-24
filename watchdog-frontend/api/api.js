@@ -3,7 +3,7 @@ import { Auth } from 'aws-amplify'
 import {Radio, RadioGroup, Panel, Alert} from 'rsuite'
 
 async function getVideos( callback, errorcallback){
-    let url = await "https://aprebrte8g.execute-api.af-south-1.amazonaws.com/testing/ui/recordings"
+    let url = await "https://b534kvo5c6.execute-api.af-south-1.amazonaws.com/testing/ui/recordings"
     let {idToken} = await Auth.currentSession()
     console.log(idToken)
      await axios.get(url, { 
@@ -28,7 +28,7 @@ async function getVideos( callback, errorcallback){
 }
 
 async function addIdentity(identity_name,fileName, setUrl,file, updatelist){
-  let url = await "https://aprebrte8g.execute-api.af-south-1.amazonaws.com/testing/identities/upload?name="+identity_name+"&filename="+fileName+"&tag=whitelist"
+  let url = await "https://b534kvo5c6.execute-api.af-south-1.amazonaws.com/testing/identities/upload?name="+identity_name+"&filename="+fileName+"&tag=whitelist"
   let {idToken} = await Auth.currentSession()
   
   await axios.post(url,{
@@ -96,7 +96,7 @@ async function AddToBucket(url, file, formFields){
 }
 
 async function getIdentities(setUser){
-  let url = "https://aprebrte8g.execute-api.af-south-1.amazonaws.com/testing/detectintruder"
+  let url = "https://b534kvo5c6.execute-api.af-south-1.amazonaws.com/testing/detectintruder"
 
   let {idToken} = await Auth.currentSession()
     console.log(idToken)
@@ -130,7 +130,7 @@ async function getIdentities(setUser){
 
 }
 async function getLogs(set_func){
-  let url = "https://aprebrte8g.execute-api.af-south-1.amazonaws.com/testing/logs"
+  let url = "https://b534kvo5c6.execute-api.af-south-1.amazonaws.com/testing/logs"
 
   let {idToken} = await Auth.currentSession()
     console.log(idToken)
@@ -156,7 +156,7 @@ async function getLogs(set_func){
 }
 
 async function getSystemState(set_func){
-  let url = "https://aprebrte8g.execute-api.af-south-1.amazonaws.com/testing/preferences/securitylevel"
+  let url = "https://b534kvo5c6.execute-api.af-south-1.amazonaws.com/testing/preferences/securitylevel"
 
   let {idToken} = await Auth.currentSession()
     console.log(idToken)
@@ -199,7 +199,7 @@ async function updateSystemState(state,prev, error_callback){
   }else{
     response=0
   }
-  let url="https://aprebrte8g.execute-api.af-south-1.amazonaws.com/testing/preferences/securitylevel"
+  let url="https://b534kvo5c6.execute-api.af-south-1.amazonaws.com/testing/preferences/securitylevel"
   let {idToken} = await Auth.currentSession()
     console.log(idToken)
   await axios.post(url,{
@@ -226,7 +226,7 @@ async function updateSystemState(state,prev, error_callback){
 }
 
 async function getNotificationSettings(body, set_func){
-  let url = "https://aprebrte8g.execute-api.af-south-1.amazonaws.com/testing/preferences"
+  let url = "https://b534kvo5c6.execute-api.af-south-1.amazonaws.com/testing/preferences"
 
   let {idToken} = await Auth.currentSession()
     console.log(idToken)
@@ -305,7 +305,7 @@ async function updateNotification(body, set_func){
     not_value = body.number
     
   }
-  let url = "https://aprebrte8g.execute-api.af-south-1.amazonaws.com/testing/preferences/notifications"
+  let url = "https://b534kvo5c6.execute-api.af-south-1.amazonaws.com/testing/preferences/notifications"
   await axios.post(url,{
     
       security_company: body.security,
