@@ -30,7 +30,7 @@ learning to identify an intruder and alert users and security companies on the p
 redundant video storage our product utilizes machine learning and a modern cloud architecture to deliver a real-time security system.
 
 
-
+# change to run web app
 ### How to run the code in this repo:
 
 First of all begin by changing your directory to watchdog-frontend.
@@ -47,7 +47,13 @@ First of all begin by changing your directory to watchdog-frontend.
 #### Run the built app in production mode. 
 - npm start
 
+# FIX THIS LAYOUT AND ADD this stuff---RUN app
 
+- cd WatchdogApp
+- npm start # you can open iOS, Android, or web from here, or run them directly with the commands below.
+- npm run android
+- npm run ios # requires an iOS device or macOS for access to an iOS simulator
+- npm run web
 ### Members
 
 |Member|Student #|Page|LinkedIn|
