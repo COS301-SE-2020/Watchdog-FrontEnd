@@ -63,7 +63,7 @@ class Log extends Component{
         return(
             <Panel header="Camera Logs" bordered bodyFill align='center'>
                 <Table
-                virtualized
+                wordWrap
                 height={400}
                 data={this.state.logs}
                 fluid
