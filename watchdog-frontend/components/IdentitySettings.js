@@ -108,7 +108,7 @@ class IdentitySettings extends Component{
                 return(<Loading />)
             }
             return(
-                <Row fluid>
+                <Row key={item.id} fluid>
                     <Col xs={3}>
                         <Avatar size={'lg'} src={item.img} />
 

@@ -5,7 +5,7 @@ import {Radio, RadioGroup, Panel, Alert} from 'rsuite'
 async function getVideos( callback, errorcallback){
     let url = await "https://b534kvo5c6.execute-api.af-south-1.amazonaws.com/testing/ui/recordings"
     let {idToken} = await Auth.currentSession()
-    console.log(idToken)
+    //console.log(idToken)
      await axios.get(url, { 
       headers: {
       Authorization: `${idToken.jwtToken}`
@@ -45,7 +45,8 @@ async function addIdentity(identity_name,fileName, setUrl,file, updatelist){
         
       }
   }).then(
-      async (res) => {console.log(res)
+      async (res) => {
+        //console.log(res)
                await AddToBucket(res.data.data.url,file,res.data.data.fields)
                //updatelist()
               //setUrl(res.data.data.url, res.data.data.fields)
@@ -120,7 +121,7 @@ async function getIdentities(setUser){
         return el
       })
       setUser(format)
-      console.log(res.data.data.identities.whitelist)
+      //console.log(res.data.data.identities.whitelist)
       
     })
     .catch(err => {
@@ -133,7 +134,7 @@ async function getLogs(set_func){
   let url = "https://b534kvo5c6.execute-api.af-south-1.amazonaws.com/testing/logs"
 
   let {idToken} = await Auth.currentSession()
-    console.log(idToken)
+    //console.log(idToken)
      await axios.get(url, { 
       headers: {
       Authorization: `${idToken.jwtToken}`
@@ -144,7 +145,7 @@ async function getLogs(set_func){
     .then(res => {
       let logs = res.data.data.logs
       //do something
-      console.log(logs)
+      //console.log(logs)
       
       set_func(logs)
       
@@ -159,7 +160,7 @@ async function getSystemState(set_func){
   let url = "https://b534kvo5c6.execute-api.af-south-1.amazonaws.com/testing/preferences/securitylevel"
 
   let {idToken} = await Auth.currentSession()
-    console.log(idToken)
+    //console.log(idToken)
      await axios.get(url, { 
       headers: {
       Authorization: `${idToken.jwtToken}`
@@ -169,10 +170,10 @@ async function getSystemState(set_func){
     })
     .then(res => {
       //do something
-      console.log(res)
+     // console.log(res)
       var response
       let security_level = res.data.data.preferences.security_level
-      console.log(security_level)
+     // console.log(security_level)
       if(security_level==="0"){
         response= "Disarmed"
       }else if(security_level==="1"){
@@ -201,7 +202,7 @@ async function updateSystemState(state,prev, error_callback){
   }
   let url="https://b534kvo5c6.execute-api.af-south-1.amazonaws.com/testing/preferences/securitylevel"
   let {idToken} = await Auth.currentSession()
-    console.log(idToken)
+    //console.log(idToken)
   await axios.post(url,{
     
     security_level: response 
@@ -214,11 +215,13 @@ async function updateSystemState(state,prev, error_callback){
         
       }
   }).then(
-      async (res) => {console.log(res)
+      async (res) => {
+        //console.log(res)
                
               //setUrl(res.data.data.url, res.data.data.fields)
       }).catch(
-    res => {console.log(res)
+    res => {
+      //console.log(res)
     error_callback(prev)
     Alert.error("Unable to change system state at the moment, please try again later.")
                       }
@@ -229,7 +232,7 @@ async function getNotificationSettings(body, set_func){
   let url = "https://b534kvo5c6.execute-api.af-south-1.amazonaws.com/testing/preferences"
 
   let {idToken} = await Auth.currentSession()
-    console.log(idToken)
+    //console.log(idToken)
      await axios.get(url, { 
       headers: {
       Authorization: `${idToken.jwtToken}`
@@ -240,7 +243,7 @@ async function getNotificationSettings(body, set_func){
     .then(res => {
       //do something
       let notification = res.data.data.preferences.notifications
-      console.log(notification)
+      //console.log(notification)
       // let format = notification.map((item, index)=>{
       //   let el ={
       //     type : item.type,
@@ -273,7 +276,7 @@ async function getNotificationSettings(body, set_func){
       }
       set_func(set)
       // console.log(format)
-      console.log(res.data.data.preferences.notifications)
+     // console.log(res.data.data.preferences.notifications)
       
     })
     .catch(err => {
@@ -320,7 +323,8 @@ async function updateNotification(body, set_func){
         
       }
   }).then(
-      async (res) => {console.log(res)
+      async (res) => {
+        //console.log(res)
         let set ={
           type : body.type,
           email : body.email,
@@ -332,7 +336,8 @@ async function updateNotification(body, set_func){
                
               //setUrl(res.data.data.url, res.data.data.fields)
       }).catch(
-    res => {console.log(res)
+    res => {
+      //console.log(res)
     
     Alert.error("Unable to change notification settings at the moment, please try again later.", 3000)
                       }
