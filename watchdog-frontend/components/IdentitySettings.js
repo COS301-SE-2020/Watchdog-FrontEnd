@@ -32,7 +32,9 @@ class IdentitySettings extends Component{
         this.handleRemove = this.handleRemove.bind(this)
         this.toggleAddModal = this.toggleAddModal.bind(this)
         this.setUser = this.setUser.bind(this)
+        this.addToList = this.addToList.bind(this)
         this.updateList = this.updateList.bind(this)
+        this.removeFromList = this.removeFromList.bind(this)
         
     }
 
@@ -49,6 +51,8 @@ class IdentitySettings extends Component{
     handleRemove(id){
         //console.log("here")
         //this.setState({users : temp, showRemoveModal : !this.state.showRemoveModal})
+        console.log(this.state.toRemove.name)
+        this.removeFromList(this.state.toRemove.name)
         this.setState({showRemoveModal : !this.state.showRemoveModal})
 
 
@@ -64,6 +68,30 @@ class IdentitySettings extends Component{
         
     
         //getIdentities(this.setUser)
+    }
+
+    removeFromList(name){
+        let filter_list = this.state.users.filter((item)=>{
+            return item.name!==name
+        })
+
+        this.setState({users : filter_list})
+    }
+
+    addToList(user){
+        let users =[
+            ...this.state.users,
+            {
+                id : this.state.users.length,
+                name : user.name,
+                img : user.img  
+            }
+            
+        ]
+
+        console.log(user.img)
+
+        this.setState({users: users})
     }
 
     componentDidMount(){
@@ -117,11 +145,14 @@ class IdentitySettings extends Component{
                 </Whisper>
                 <RemoveIdentityModal 
                             user_id={this.state.toRemove.id}
+                            local_list_remove = {this.removeFromList}
                             name={this.state.toRemove.name} 
                             toDisplay={this.state.showRemoveModal} 
                             toClose={this.toggleRemoveModal} 
                             remove={this.handleRemove}/>
                 <AddIdentityModal
+                 current_list = {this.state.users}
+                 local_list_add = {this.addToList}
                  toDisplay={this.state.showAddModal} 
                  toClose={this.toggleAddModal}
                  updatelist ={this.updateList}

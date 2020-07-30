@@ -47,7 +47,7 @@ async function addIdentity(identity_name,fileName, setUrl,file, updatelist){
   }).then(
       async (res) => {console.log(res)
                await AddToBucket(res.data.data.url,file,res.data.data.fields)
-               updatelist()
+               //updatelist()
               //setUrl(res.data.data.url, res.data.data.fields)
       }).catch(
     res => console.log(res)

@@ -44,12 +44,19 @@ class AddIdentityModal extends Component{
 
         //check if the name field is filled in
         if(this.state.name===null||this.state.name===''){
-            Alert.error('Please enter a name.')
+            Alert.error('Please enter a name.',3000)
             return
         }
 
+        let filter_list = this.props.current_list.filter((item)=>{
+            return item.name.toLowerCase()===this.state.name.toLowerCase()})
+        //console.log(filter_list.length)
+        if(filter_list.length >0){
+            Alert.error('An identity with the name '+ this.state.name+' already exists',3000)
+            return
+        }
         if(this.state.fileInfo===null){
-            Alert.error('Please select a file.')
+            Alert.error('Please select a file.',3000)
             return
         }
 
@@ -57,6 +64,12 @@ class AddIdentityModal extends Component{
         
         await addIdentity(this.state.name, this.state.fname, this.setUrl, this.state.file_to_upload, this.props.updatelist )
         //await this.uploader.start()
+        let newUser = {
+            name : this.state.name,
+            img: this.state.fileInfo
+        }
+
+        this.props.local_list_add(newUser)
         Alert.success('Identity Added')
         this.setState({fileInfo: null, name : null, file_to_upload: null},()=>{ this.props.toClose()})
 
