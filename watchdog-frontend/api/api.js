@@ -115,14 +115,14 @@ async function getIdentities(setUser){
       let users = res.data.data.identities.whitelist
       let format = users.map((item, index)=>{
         let el ={
-          id : index +1 ,
+          id : item.index ,
           name : item.name,
           img : item.path_in_s3
         }
         return el
       })
       setUser(format)
-      //console.log(res.data.data.identities.whitelist)
+      console.log(users)
       
     })
     .catch(err => {
@@ -348,4 +348,15 @@ async function updateNotification(body, set_func){
 
 }
 
-export {getLogs,updateNotification, getVideos, addIdentity, AddToBucket, getIdentities, getSystemState, updateSystemState, getNotificationSettings}
+async function deleteIdentity(id, succ, err){
+  let url = "https://b534kvo5c6.execute-api.af-south-1.amazonaws.com/testing/identities?index="+id
+  let {idToken} = await Auth.currentSession()
+  axios.delete(url, {
+    headers: {
+      Authorization: `${idToken.jwtToken}`
+    }
+  }).then(succ).catch(err);
+
+}
+
+export {getLogs,updateNotification, getVideos, addIdentity, AddToBucket, getIdentities, getSystemState, updateSystemState, getNotificationSettings, deleteIdentity}

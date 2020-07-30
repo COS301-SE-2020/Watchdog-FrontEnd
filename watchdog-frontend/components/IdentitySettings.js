@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import {Panel, Avatar, Grid, Row, Col, IconButton, Icon, Whisper, Tooltip, FlexboxGrid} from 'rsuite'
+import {Panel, Avatar, Grid, Row, Col, IconButton, Icon, Whisper, Tooltip, FlexboxGrid, Alert} from 'rsuite'
 import RemoveIdentityModal from './RemoveIdentityModal'
 import AddIdentityModal from './AddIdentityModal'
-import {getIdentities} from '../api/api'
+import {getIdentities, deleteIdentity} from '../api/api'
 import Loading from './Loading'
 const test_users = [
     {
@@ -48,12 +48,22 @@ class IdentitySettings extends Component{
         })
     }
 
-    handleRemove(id){
+    handleRemove(){
         //console.log("here")
         //this.setState({users : temp, showRemoveModal : !this.state.showRemoveModal})
-        console.log(this.state.toRemove.name)
-        this.removeFromList(this.state.toRemove.name)
-        this.setState({showRemoveModal : !this.state.showRemoveModal})
+       // console.log(this.state.toRemove.id)
+        deleteIdentity(this.state.toRemove.id,
+            ()=>{
+                this.removeFromList(this.state.toRemove.name)
+                this.setState({showRemoveModal : !this.state.showRemoveModal})
+            },
+            ()=>{
+                Alert.error("Unable to remove identity.", 3000)
+                this.setState({showRemoveModal : !this.state.showRemoveModal})
+            }
+        )
+        // this.removeFromList(this.state.toRemove.name)
+        // this.setState({showRemoveModal : !this.state.showRemoveModal})
 
 
     }
