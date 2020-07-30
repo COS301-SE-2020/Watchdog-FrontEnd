@@ -47,11 +47,12 @@ async function addIdentity(identity_name,fileName, setUrl,file, updatelist){
   }).then(
       async (res) => {
         //console.log(res)
-               await AddToBucket(res.data.data.url,file,res.data.data.fields)
+           await AddToBucket(res.data.data.url,file,res.data.data.fields)
+            
                //updatelist()
               //setUrl(res.data.data.url, res.data.data.fields)
       }).catch(
-    res => console.log(res)
+    res => Alert.error("Fail to add to whitelist", 3000)
   )
 
 }
@@ -66,7 +67,7 @@ async function AddToBucket(url, file, formFields){
   
   formData.append('file', file.blobFile)
   
-  await axios.post(url, formData ).then(res=>console.log(res)).catch(res=>console.log(res))
+  await axios.post(url, formData ).then(res=>{}).catch(res=>{Alert.error("Fail to add to whitelist", 3000)})
 
 
 // const config = {
