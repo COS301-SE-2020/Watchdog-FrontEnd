@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {Modal , Button, Input, FormGroup, Col, InputGroup, Icon, Form, Uploader, Alert} from 'rsuite'
+import {Modal , Button, Input, FormGroup, Col, InputGroup, Icon, Form, Uploader, Alert, Loader} from 'rsuite'
 
 import {addIdentity} from '../api/api'
 const styles = {
@@ -24,7 +24,8 @@ class AddIdentityModal extends Component{
             url : null,
             fname : null,
             data: null,
-            file_to_upload : null
+            file_to_upload : null,
+            loading : false
         }
 
         this.previewFile = this.previewFile.bind(this)
@@ -61,17 +62,19 @@ class AddIdentityModal extends Component{
         }
 
         //check if there is a picture 
-        
-        await addIdentity(this.state.name, this.state.fname, this.setUrl, this.state.file_to_upload, this.props.updatelist )
+        await this.setState({loading : true})
+        await addIdentity(this.state.name, this.state.fname, this.setUrl, this.state.file_to_upload, this.props.updatelist, ()=>{
+            let newUser = {
+                name : this.state.name,
+                img: this.state.fileInfo
+            }
+    
+            this.props.local_list_add(newUser)
+            Alert.success('Identity Added')
+        }, ()=>{Alert.error("Fail to add to whitelist", 3000)} )
         //await this.uploader.start()
-        let newUser = {
-            name : this.state.name,
-            img: this.state.fileInfo
-        }
-
-        this.props.local_list_add(newUser)
-        Alert.success('Identity Added')
-        this.setState({fileInfo: null, name : null, file_to_upload: null},()=>{ this.props.toClose()})
+        
+        this.setState({fileInfo: null, name : null, file_to_upload: null, loading: false},()=>{ this.props.toClose()})
 
     }
 
@@ -91,6 +94,12 @@ class AddIdentityModal extends Component{
                 <Modal.Title>Add an Identity</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
+                    {this.state.loading? (
+                     <div style={{ textAlign: 'center' }}>
+                        <Loader size="md" />
+                        </div>
+                     
+                    ):(
                     <Form layout="inline">
                     <FormGroup>
                         <Uploader
@@ -147,7 +156,7 @@ class AddIdentityModal extends Component{
                         </InputGroup>
                         </FormGroup>
                     </Form>    
-                
+                    )}
                 </Modal.Body>
                 <Modal.Footer>
                 <Button onClick={this.addIdentity} appearance="primary">

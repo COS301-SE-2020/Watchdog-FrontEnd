@@ -25,7 +25,8 @@ class IdentitySettings extends Component{
             showAddModal : false,
             removeId : 0,
             toRemove : {},
-            users : []
+            users : [],
+            loading : false
         }
 
         this.toggleRemoveModal = this.toggleRemoveModal.bind(this)
@@ -52,14 +53,15 @@ class IdentitySettings extends Component{
         //console.log("here")
         //this.setState({users : temp, showRemoveModal : !this.state.showRemoveModal})
        // console.log(this.state.toRemove.id)
+       this.setState({loading: true, showRemoveModal : !this.state.showRemoveModal})
         deleteIdentity(this.state.toRemove.id,
             ()=>{
                 this.removeFromList(this.state.toRemove.name)
-                this.setState({showRemoveModal : !this.state.showRemoveModal})
+                this.setState({ loading : false})
             },
             ()=>{
                 Alert.error("Unable to remove identity.", 3000)
-                this.setState({showRemoveModal : !this.state.showRemoveModal})
+                this.setState({ loading : false})
             }
         )
         // this.removeFromList(this.state.toRemove.name)
@@ -115,6 +117,10 @@ class IdentitySettings extends Component{
         let users_array = this.state.users.map((item)=>{
             //console.log(item)
             if(this.state.loaded===false){
+                return(<Loading />)
+            }
+
+            if(this.state.loading===true){
                 return(<Loading />)
             }
             return(

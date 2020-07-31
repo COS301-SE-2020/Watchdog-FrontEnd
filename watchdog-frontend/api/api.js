@@ -27,7 +27,7 @@ async function getVideos( callback, errorcallback){
 
 }
 
-async function addIdentity(identity_name,fileName, setUrl,file, updatelist){
+async function addIdentity(identity_name,fileName, setUrl,file, updatelist,success_callback,error_callback){
   let url = await "https://b534kvo5c6.execute-api.af-south-1.amazonaws.com/testing/identities/upload?name="+identity_name+"&filename="+fileName+"&tag=whitelist"
   let {idToken} = await Auth.currentSession()
   
@@ -47,17 +47,15 @@ async function addIdentity(identity_name,fileName, setUrl,file, updatelist){
   }).then(
       async (res) => {
         //console.log(res)
-           await AddToBucket(res.data.data.url,file,res.data.data.fields)
+           await AddToBucket(res.data.data.url,file,res.data.data.fields, success_callback, error_callback)
             
                //updatelist()
               //setUrl(res.data.data.url, res.data.data.fields)
-      }).catch(
-    res => Alert.error("Fail to add to whitelist", 3000)
-  )
+      }).catch(error_callback)
 
 }
 
-async function AddToBucket(url, file, formFields){
+async function AddToBucket(url, file, formFields, success_callback, error_callback){
   const formData = new FormData()
   console.log(file)
   for ( let key in formFields ) {
@@ -67,7 +65,7 @@ async function AddToBucket(url, file, formFields){
   
   formData.append('file', file.blobFile)
   
-  await axios.post(url, formData ).then(res=>{}).catch(res=>{Alert.error("Fail to add to whitelist", 3000)})
+  await axios.post(url, formData ).then(success_callback).catch(error_callback)
 
 
 // const config = {
