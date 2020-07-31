@@ -101,8 +101,7 @@ class IdentitySettings extends Component{
             
         ]
 
-        console.log(user.img)
-
+        
         this.setState({users: users})
     }
 
