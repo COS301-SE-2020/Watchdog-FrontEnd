@@ -27,7 +27,7 @@ async function getVideos( callback, errorcallback){
 
 }
 
-async function addIdentity(identity_name,fileName, setUrl,file, updatelist,success_callback,error_callback){
+async function addIdentity(identity_name,fileName,file,success_callback,error_callback){
   let url = await "https://b534kvo5c6.execute-api.af-south-1.amazonaws.com/testing/identities/upload?name="+identity_name+"&filename="+fileName+"&tag=whitelist"
   let {idToken} = await Auth.currentSession()
   
@@ -68,30 +68,6 @@ async function AddToBucket(url, file, formFields, success_callback, error_callba
   await axios.post(url, formData ).then(success_callback).catch(error_callback)
 
 
-// const config = {
-//   onUploadProgress: function(progressEvent) { 
-//       var percentCompleted = Math.round(
-//           (progressEvent.loaded * 100) / progressEvent.total
-//       );
-//       console.log(percentCompleted);
-//   },
-//   headers: {
-//     "Content-Type": "image/*"
-//   },
-//   params: {
-//     ...formFields
-//   }
-// };
-
-// console.log({"CONFIG": config});
-
-// axios.post(url, file, config)
-//  .then(async res => {
-//       callback({res, key})
-//   })
-//   .catch(err => {
-//       console.log(err);
-//   })
 
 }
 
@@ -109,7 +85,7 @@ async function getIdentities(setUser){
       }
     })
     .then(res => {
-      //do something
+      
       let users = res.data.data.identities.whitelist
       let format = users.map((item, index)=>{
         let el ={

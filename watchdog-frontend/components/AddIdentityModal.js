@@ -63,7 +63,7 @@ class AddIdentityModal extends Component{
 
         //check if there is a picture 
         await this.setState({loading : true})
-        await addIdentity(this.state.name, this.state.fname, this.setUrl, this.state.file_to_upload, this.props.updatelist, ()=>{
+        await addIdentity(this.state.name, this.state.fname, this.state.file_to_upload,  ()=>{
             let newUser = {
                 name : this.state.name,
                 img: this.state.fileInfo
