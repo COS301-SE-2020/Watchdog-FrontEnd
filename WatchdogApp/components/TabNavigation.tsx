@@ -5,8 +5,7 @@ import DashboardTab from './DashboardTab'
 import LiveTab from './LiveTab'
 import RecordingsTab from './RecordingsTab'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
-import { Icon } from 'react-native-elements'
-
+import { MaterialIcons, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
 
 
 const Tab = createBottomTabNavigator();
@@ -23,21 +22,21 @@ class TabNavigation extends Component{
                     <Tab.Navigator
                         screenOptions={(route: any)=>({
                             tabBarIcon: ({ focused, color, size }) => {
-                                let iconName =''
+                                let icon:any
                                 
                     
                                 if (route.route.name === 'Dashboard') {
-                                  iconName = focused
-                                    ? 'ios-information-circle'
-                                    : 'ios-information-circle-outline'
+                                  icon = <MaterialCommunityIcons name={"view-dashboard-outline"} size={size} color={color} />
                                 } else if (route.route.name === 'Recordings') {
-                                  iconName = focused ? 'ios-recording' : 'ios-recording'
+                                  icon = <Ionicons name={"ios-recording"} size={size} color={color} />
                                 }else if(route.route.name === 'Live'){
-                                    iconName = focused ? 'videocam-outline' : 'videocam-outline'
+                                    icon = <MaterialIcons name={"live-tv"} size={size} color={color} />
                                 }
                             
                                 // You can return any component that you like here!
-                                return <Icon name={iconName} size={size} color={color} />;
+                                return icon
+
+                                // return <Icon type='materialIcons' name={iconName} size={size} color={color} />;
                               },
                         })}
                     >
