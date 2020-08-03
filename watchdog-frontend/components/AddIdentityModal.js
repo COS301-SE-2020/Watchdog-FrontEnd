@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {Modal , Button, Input, FormGroup, Col, InputGroup, Icon, Form, Uploader, Alert} from 'rsuite'
+import {Modal , Button, Input, FormGroup, Col, InputGroup, Icon, Form, Uploader, Alert, Loader} from 'rsuite'
 
 import {addIdentity} from '../api/api'
 const styles = {
@@ -24,7 +24,8 @@ class AddIdentityModal extends Component{
             url : null,
             fname : null,
             data: null,
-            file_to_upload : null
+            file_to_upload : null,
+            loading : false
         }
 
         this.previewFile = this.previewFile.bind(this)
@@ -44,21 +45,36 @@ class AddIdentityModal extends Component{
 
         //check if the name field is filled in
         if(this.state.name===null||this.state.name===''){
-            Alert.error('Please enter a name.')
+            Alert.error('Please enter a name.',3000)
             return
         }
 
+        let filter_list = this.props.current_list.filter((item)=>{
+            return item.name.toLowerCase()===this.state.name.toLowerCase()})
+        //console.log(filter_list.length)
+        if(filter_list.length >0){
+            Alert.error('An identity with the name '+ this.state.name+' already exists',3000)
+            return
+        }
         if(this.state.fileInfo===null){
-            Alert.error('Please select a file.')
+            Alert.error('Please select a file.',3000)
             return
         }
 
         //check if there is a picture 
-        
-        await addIdentity(this.state.name, this.state.fname, this.setUrl, this.state.file_to_upload, this.props.updatelist )
+        await this.setState({loading : true})
+        await addIdentity(this.state.name, this.state.fname, this.state.file_to_upload,  ()=>{
+            let newUser = {
+                name : this.state.name,
+                img: this.state.fileInfo
+            }
+    
+            this.props.local_list_add(newUser)
+            Alert.success('Identity Added')
+        }, ()=>{Alert.error("Fail to add to whitelist", 3000)} )
         //await this.uploader.start()
-        Alert.success('Identity Added')
-        this.setState({fileInfo: null, name : null, file_to_upload: null},()=>{ this.props.toClose()})
+        
+        this.setState({fileInfo: null, name : null, file_to_upload: null, loading: false},()=>{ this.props.toClose()})
 
     }
 
@@ -78,6 +94,12 @@ class AddIdentityModal extends Component{
                 <Modal.Title>Add an Identity</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
+                    {this.state.loading? (
+                     <div style={{ textAlign: 'center' }}>
+                        <Loader size="md" />
+                        </div>
+                     
+                    ):(
                     <Form layout="inline">
                     <FormGroup>
                         <Uploader
@@ -134,7 +156,7 @@ class AddIdentityModal extends Component{
                         </InputGroup>
                         </FormGroup>
                     </Form>    
-                
+                    )}
                 </Modal.Body>
                 <Modal.Footer>
                 <Button onClick={this.addIdentity} appearance="primary">
