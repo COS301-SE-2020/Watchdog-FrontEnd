@@ -1,12 +1,9 @@
 import React, {Component} from 'react'
-import { StyleSheet, Text, View } from 'react-native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import DashboardTab from './Dashboard'
-import LiveTab from './Live'
-import RecordingsTab from './Recordings'
+import DashboardTab from './DashboardTab'
+import LiveTab from './LiveTab'
+import RecordingsTab from './RecordingsTab'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
-import { NavigationContainer } from '@react-navigation/native'
-
 
 
 const Tab = createBottomTabNavigator();
