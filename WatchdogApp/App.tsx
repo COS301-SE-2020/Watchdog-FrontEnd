@@ -1,8 +1,9 @@
-import { StatusBar } from 'expo-status-bar';
-import React, {Component} from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-
+import { StatusBar } from 'expo-status-bar'
+import React, {Component} from 'react'
+import { StyleSheet, Text, View } from 'react-native'
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import { NavigationContainer } from '@react-navigation/native'
+import TabNavigation from './components/TabNavigation'
 const Tab = createBottomTabNavigator();
 
 const styles = StyleSheet.create({
@@ -15,6 +16,7 @@ const styles = StyleSheet.create({
 });
 
 
+
 class App extends Component{
   constructor(props: any){
     super(props)
@@ -22,10 +24,9 @@ class App extends Component{
 
   render(){
     return(
-      <View style={styles.container}>
-        <Text>Open up App.tsx to start working on your app!</Text>
-       <StatusBar style="auto" />
-     </View>
+      <NavigationContainer>
+        <TabNavigation />
+      </NavigationContainer>      
     )
   }
 
