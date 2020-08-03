@@ -43,6 +43,15 @@ class TabNavigation extends Component{
                                 // return <Icon type='materialIcons' name={iconName} size={size} color={color} />;
                               },
                         })}
+                        
+                        tabBarOptions={{
+                            activeTintColor: '#169de0',
+                            inactiveTintColor: 'white',
+                            inactiveBackgroundColor : 'black',
+                            
+                          }}
+                        
+                        
                     >
                         <Tab.Screen name="Dashboard" component={DashboardTab} />
                         <Tab.Screen  name="Recordings" component={RecordingsTab} />
