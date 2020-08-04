@@ -1,9 +1,10 @@
-import React, { Component, ReactNode } from "react"
+import React, { Component } from "react"
 import { Text, View, FlatList } from "react-native"
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { Card, Avatar } from 'react-native-elements'
 import moment from 'moment'
 
+//Dynamically create dummy data
 const dummyData = Array.from({ length: 10 }, (_, index) => (
     {
         path_in_s3: "somepath",
@@ -23,8 +24,8 @@ class RecordingsTab extends Component {
     }
 
     render() {
-        var renderVideo = (obj: any) => {
-            return <Card key={obj.index} image={require('../assets/intruder.jpg')}>
+        var renderVideo = (obj: any) => (
+            <Card key={obj.index} image={require('../assets/intruder.jpg')}>
                 <View style={{
                     flexDirection: "row",
                     padding: 10,
@@ -43,7 +44,7 @@ class RecordingsTab extends Component {
                     </View>
                 </View>
             </Card>
-        }
+        )
 
         var videos = [...this.state.videos]
 
