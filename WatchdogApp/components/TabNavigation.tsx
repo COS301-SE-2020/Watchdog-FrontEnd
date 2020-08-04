@@ -4,6 +4,7 @@ import { createBottomTabNavigator  } from '@react-navigation/bottom-tabs'
 import DashboardTab from './DashboardTab'
 import LiveTab from './LiveTab'
 import RecordingsTab from './RecordingsTab'
+import SettingsTab from './SettingsTab'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { MaterialIcons, Ionicons, MaterialCommunityIcons, Feather, FontAwesome  } from '@expo/vector-icons'
 
@@ -55,7 +56,7 @@ class TabNavigation extends Component{
                         <Tab.Screen name="Dashboard" component={DashboardTab} />
                         <Tab.Screen  name="Recordings" component={RecordingsTab} />
                         <Tab.Screen name="Live" component={LiveTab} />  
-                        <Tab.Screen name="Settings" component={LiveTab} />      
+                        <Tab.Screen name="Settings" component={SettingsTab} />      
                         <Tab.Screen name="Account" component={LiveTab} />                
                     </Tab.Navigator>
 
