@@ -1,65 +1,11 @@
 import React, { Component } from 'react'
-import { StyleSheet, Text, Image } from 'react-native'
+import { Alert, View, Image } from 'react-native'
 import { SignIn , Authenticator, SignUp, ConfirmSignIn } from 'aws-amplify-react-native'
 import LoginScreen from './loginScreen/LoginScreen.js'
 import { MaterialIcons, Ionicons, MaterialCommunityIcons, Feather, FontAwesome  } from '@expo/vector-icons'
 import  { Auth } from 'aws-amplify'
+import Spinner from 'react-native-loading-spinner-overlay'
 
-const signUpConfig = {
-    header: 'Sign Up',
-    hideAllDefaults: true,
-    defaultCountryCode: '27',
-    signUpFields: [
-      {
-        label: 'Create a username',
-        key: 'username',
-        required: true,
-        displayOrder: 1,
-        type: 'string'
-        
-     },
-     {
-        label: 'Fullname',
-        key: 'name',
-        required: true,
-        displayOrder: 2,
-        type: 'string'
-        
-     },
-     {
-        label: 'Email',
-        key: 'email',
-        required: true,
-        displayOrder: 3,
-        type: 'string'
-        
-     },
-     {
-        label: 'Password',
-        key: 'password',
-        required: true,
-        displayOrder: 6,
-        type: 'password'
-        
-     },
-     {
-        label: 'Phone Number',
-        key: 'phone_number',
-        required: true,
-        displayOrder: 4,
-        type: 'number'
-        
-     },
-     {
-        label: 'Address',
-        key: 'adress',
-        required: true,
-        displayOrder: 5,
-        type: 'number'
-        
-     },
-    ]
-  };
 
 interface loginProps{
 
@@ -67,7 +13,8 @@ interface loginProps{
 
 interface loginState{
     username : string,
-    password : string
+    password : string,
+    loading : boolean
 }
 class Login extends Component<loginProps, loginState> {
 
@@ -76,34 +23,83 @@ class Login extends Component<loginProps, loginState> {
 
         this.state ={
             username : "",
-            password : ""
+            password : "",
+            loading : false
         }
 
         this.handleSignIn = this.handleSignIn.bind(this)
     }
 
     handleSignIn(){
-        Auth.signIn(this.state.username, this.state.password)
+        if(this.state.username ===''){
+            Alert.alert(
+                "Login Fail",
+                "Please enter your username",
+                [
+                  
+                  { text: "OK", onPress: () => console.log("OK Pressed") }
+                ],
+                { cancelable: false }
+              )
+            return
+        }
+
+        if(this.state.password ===''){
+            Alert.alert(
+                "Login Fail",
+                "Please enter your password",
+                [
+                  
+                  { text: "OK", onPress: () => console.log("OK Pressed") }
+                ],
+                { cancelable: false }
+              )
+            return
+        }
+        this.setState({loading:true})
+        Auth.signIn(this.state.username, this.state.password).then(()=>{this.setState({loading:false})}).catch(()=>{
+            Alert.alert(
+                "Login Fail",
+                "Invalid username and/or password",
+                [
+                  
+                  { text: "OK", onPress: () => this.setState({loading:false}) }
+                ],
+                { cancelable: false }
+              )
+            
+        })
     }
 
     render() {
         return (
+            <View>
+            <Spinner
+                visible={this.state.loading}
+                textContent={''}
+                //textStyle={styles.spinnerTextStyle}
+                />
+            
             <LoginScreen 
             // logoComponent  ={<Text style={{fontSize: 27,
             //     color: "#fdfdfd",
             //     }}>Watchdog</Text>}
+            
             logoText = "Watchdog" 
             disableSettings ={true}
             //source  = {{ uri: "https://reactjs.org/logo-og.png" }}
             source  = {require("../assets/background.jpg")}
-            onPressLogin ={()=>{Auth.signIn(this.state.username, this.state.password)}}
+            onPressLogin ={this.handleSignIn}
             usernameOnChangeText ={(val)=>{this.setState({username : val})}}
             passwordOnChangeText ={(val)=>{this.setState({password : val})}}
             emailOnChangeText ={(val)=>{console.log(val)}}
-            signupUsernameOnChangeText ={(val)=>{console.log(val)}}
+            signupUsernameOnChangeText ={(val)=>{}}
             
             repasswordOnChangeText={(val)=>{console.log(val)}}
-            />
+            >
+                
+            </LoginScreen>
+            </View>
             // <Authenticator
             //     // hideDefault={true}
             //     signUpConfig={ signUpConfig }

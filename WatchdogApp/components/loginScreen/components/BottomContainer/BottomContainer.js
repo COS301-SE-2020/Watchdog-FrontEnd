@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { Text, View, TouchableOpacity } from "react-native";
+import { Text, View, TouchableOpacity, ScrollView, KeyboardAvoidingView  } from "react-native";
 import Card from "../Card/Card";
 import Icon from "react-native-dynamic-vector-icons";
 import styles, { container } from "./BottomContainer.style";
@@ -70,7 +70,7 @@ const BottomContainer = (props) => {
 
   renderSignupCards = () => {
     return (
-      <View>
+      <ScrollView >
         <Card
           title={emailTitle}
           value={emailTextInputValue}
@@ -110,7 +110,7 @@ const BottomContainer = (props) => {
           type="FontAwesome"
           {...props}
         />
-      </View>
+      </ScrollView >
     );
   };
 

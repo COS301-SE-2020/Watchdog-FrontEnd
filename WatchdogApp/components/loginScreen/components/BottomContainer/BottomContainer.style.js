@@ -10,6 +10,8 @@ export const container = (backgroundColor, cardState) => {
     position: "absolute",
     bottom: height * 0.15,
     height: cardState ? 250 : 420,
+    
+    
   };
 };
 
@@ -26,6 +28,7 @@ export default {
   },
   signupContainer: {
     marginLeft: "auto",
+   
   },
   signupTextStyle: {
     color: "#fdfdfd",
