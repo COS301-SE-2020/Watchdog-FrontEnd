@@ -17,7 +17,7 @@ class TabNavigation extends Component{
     render(){
 
         return(
-            <SafeAreaProvider>
+            <SafeAreaProvider style={{backgroundColor: "black"}}>
                 
                     <Tab.Navigator
                         screenOptions={(route: any)=>({
@@ -40,14 +40,13 @@ class TabNavigation extends Component{
                                 // You can return any component that you like here!
                                 return icon
 
-                                // return <Icon type='materialIcons' name={iconName} size={size} color={color} />;
                               },
                         })}
                         
                         tabBarOptions={{
                             activeTintColor: '#169de0',
-                            inactiveTintColor: 'white',
-                            inactiveBackgroundColor : 'black',
+                            
+                            
                             
                           }}
                         

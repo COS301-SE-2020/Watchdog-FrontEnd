@@ -4,6 +4,7 @@ import { StyleSheet, Text, View } from 'react-native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { NavigationContainer } from '@react-navigation/native'
 import TabNavigation from './components/TabNavigation'
+import { AppearanceProvider } from 'react-native-appearance'
 const Tab = createBottomTabNavigator();
 
 const styles = StyleSheet.create({
@@ -24,9 +25,11 @@ class App extends Component{
 
   render(){
     return(
-      <NavigationContainer>
-        <TabNavigation />
-      </NavigationContainer>      
+      <AppearanceProvider>
+        <NavigationContainer>
+          <TabNavigation />
+        </NavigationContainer>  
+      </AppearanceProvider>    
     )
   }
 
