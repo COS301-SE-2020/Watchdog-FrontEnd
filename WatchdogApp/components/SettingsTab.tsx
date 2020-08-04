@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import { Text, View, SectionList } from "react-native"
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { Divider, Input } from 'react-native-elements'
+import { Divider, Input, ListItem } from 'react-native-elements'
 import HeaderBar from './HeaderBar'
 import styles from '../styling'
 import moment from 'moment'
@@ -63,8 +63,15 @@ class SettingsTab extends Component {
 
         let componentRenderer = (obj: any) => (
             <View>
-                <Text>{obj.item.setting}</Text>
-                <Text>{obj.item.value}</Text>
+                {/* <Text>{obj.item.setting}</Text> */}
+                {/* <Text>{obj.item.value}</Text> */}
+                <ListItem
+                    key={obj.index}
+                    title={'Title'}
+                    // leftIcon={{ name: item.icon }}
+                    bottomDivider
+                    chevron
+                />
                 <Input
                     placeholder={obj.item.setting}
                 />
