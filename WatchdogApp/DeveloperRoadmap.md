@@ -9,10 +9,17 @@
 
 # TODO:
 
--> Change app.tsx to class based component
--> Create simple nav bar with core components (tabs) linked
--> Copy Api from Webapp to Mobile app
--> Npm install: Axios, react-native-elements, redux, redux-thunk, redux-logger
+### 03/08
+- [x] Change app.tsx to class based component
+- [x] Create simple nav bar with core components (tabs) linked
+- [] Copy Api from Webapp to Mobile app
+- [x] Npm install: Axios, react-native-elements, redux, redux-thunk, redux-logger
+
+### 04/08
+- [] Settings Tab
+- [] User Auth:Login
+- [] Live Tab
+- [] Dashboard
 
 # Redux
 
