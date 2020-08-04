@@ -2,6 +2,7 @@ import React, { Component } from "react"
 import { Text, View, FlatList } from "react-native"
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { Card, Avatar } from 'react-native-elements'
+import HeaderBar from './HeaderBar'
 import moment from 'moment'
 
 //Dynamically create dummy data
@@ -49,9 +50,10 @@ class RecordingsTab extends Component {
         var videos = [...this.state.videos]
 
         return (
-            <SafeAreaView>
+            <View>
+                <HeaderBar text={'Recordings'}/>
                 <FlatList data={videos} renderItem={renderVideo} />
-            </SafeAreaView>
+            </View>
         );
     }
 }
