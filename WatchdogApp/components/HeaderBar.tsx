@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import {Header} from 'react-native-elements' 
-import styles from '../styling'
+import stylesheet from '../styling'
+import { useTheme } from "react-native-themed-styles"
 
 interface HeaderBarProps{
     text : string
@@ -16,7 +17,7 @@ class HeaderBar extends Component<HeaderBarProps> {
         return (
             <Header
             placement="center"
-            centerComponent={{ text: this.props.text, style:  styles.Heading }}
+            centerComponent={{ text: this.props.text, style : stylesheet.Heading}}
             containerStyle={{
                 backgroundColor: '#169de0',
                 justifyContent: 'space-around',
