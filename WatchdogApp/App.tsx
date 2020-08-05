@@ -98,9 +98,7 @@ class App extends Component<appProps, appState>{
       <ApplicationProvider {...eva} theme={ theme}>
       <AppearanceProvider>    
         {this.state.loggedIn?   
-        <NavigationContainer>
-          <TabNavigation />
-        </NavigationContainer> :
+          <TabNavigation />:
         <Login/>} 
       </AppearanceProvider> 
       </ApplicationProvider>   

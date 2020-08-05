@@ -8,6 +8,7 @@ import SettingsTab from './SettingsTab'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { MaterialIcons, Ionicons, MaterialCommunityIcons, Feather, FontAwesome  } from '@expo/vector-icons'
 import { BottomNavigation, BottomNavigationTab, Layout, Text, Icon  } from '@ui-kitten/components'
+import { NavigationContainer } from '@react-navigation/native'
 
 
 const BottomTab = createBottomTabNavigator();
@@ -66,7 +67,9 @@ class TabNavigation extends Component{
     render(){
 
         return(           
+          <NavigationContainer>
             <TabNavigator/>
+          </NavigationContainer>
         )
     }
 }
