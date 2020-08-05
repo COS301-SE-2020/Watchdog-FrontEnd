@@ -15,6 +15,7 @@
     "@react-navigation/bottom-tabs": "^5.7.3",
     "@react-navigation/native": "^5.7.2",
     "@react-navigation/stack": "^5.8.0",
+    "amplify": "0.0.11",
     "aws-amplify": "^3.0.22",
     "aws-amplify-react": "^4.1.21",
     "aws-amplify-react-native": "^4.2.3",
@@ -37,8 +38,7 @@
     "react-native-screens": "~2.9.0",
     "react-native-spinkit": "^1.5.0",
     "react-native-vector-icons": "^7.0.0",
-    "react-native-web": "~0.11.7",
-    "undefined": "@expo/vector-icons/Icon"
+    "react-native-web": "~0.11.7"
   },
   "devDependencies": {
     "@babel/core": "^7.8.6",
