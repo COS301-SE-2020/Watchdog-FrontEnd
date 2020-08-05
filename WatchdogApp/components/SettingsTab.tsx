@@ -5,6 +5,7 @@ import { Divider, Input, ListItem } from 'react-native-elements'
 import HeaderBar from './HeaderBar'
 import styles from '../styling'
 import moment from 'moment'
+import { Layout } from "@ui-kitten/components"
 
 //Dynamically create dummy data
 const dummyData = Array.from({ length: 10 }, (_, index) => (
@@ -43,7 +44,7 @@ class SettingsTab extends Component {
         let preferences: object[] = []
 
         let createArray = (title: string) => {
-            let temp: string[] = []
+            let temp: object[] = []
             Object.keys(this.state.UserData.preferences[`${title}`]).forEach(
                 (key) => temp.push({ setting: key, value: this.state.UserData.preferences[title][key] })
             )
@@ -61,39 +62,10 @@ class SettingsTab extends Component {
 
         console.log(preferences);
 
-        let componentRenderer = (obj: any) => (
-            <View>
-                {/* <Text>{obj.item.setting}</Text> */}
-                {/* <Text>{obj.item.value}</Text> */}
-                <ListItem
-                    key={obj.index}
-                    title={'Title'}
-                    // leftIcon={{ name: item.icon }}
-                    bottomDivider
-                    chevron
-                />
-                <Input
-                    placeholder={obj.item.setting}
-                />
-            </View>
-        )
-
         return (
-            <View>
-                <HeaderBar text={'Settings'} />
-                <SectionList
-                    sections={preferences}
-                    keyExtractor={(item, index) => item + index}
-                    renderItem={componentRenderer}
-                    renderSectionHeader={({ section: { title } }) => (
-                        <View style={{ backgroundColor: 'white' }}>
-                            <Divider style={{ backgroundColor: 'blue' }} />
-                            <Text style={{ ...styles.Heading, color: 'black', margin: 20 }}>{title}</Text>
-                            <Divider style={{ backgroundColor: 'blue' }} />
-                        </View>
-                    )}
-                />
-            </View>
+                <Layout>
+                    <Text>{'Hello Settings World'}</Text>
+                </Layout>
         );
     }
 }
