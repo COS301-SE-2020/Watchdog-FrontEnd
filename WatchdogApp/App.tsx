@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar'
 import React, {Component} from 'react'
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet, Appearance } from 'react-native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { NavigationContainer } from '@react-navigation/native'
 import TabNavigation from './components/TabNavigation'
@@ -48,18 +48,28 @@ const styles = StyleSheet.create({
 
 interface appState{
   loggedIn : boolean
+  theme : any
 }
 
 interface appProps{
-
+  
 }
 
 class App extends Component<appProps, appState>{
   constructor(props: any){
     super(props)
     this.state ={
-      loggedIn : false
+      loggedIn : false,
+      theme : "light"
     }
+
+    let colorScheme= Appearance.getColorScheme();
+        //console.log(colorScheme)
+        this.setState({theme:colorScheme})
+        Appearance.addChangeListener((color)=>{
+            this.setState({theme:color.colorScheme})
+            //console.log(color.colorScheme)
+        })
 
     Hub.listen('auth', (data) => {
       const { payload } = data
@@ -81,10 +91,11 @@ class App extends Component<appProps, appState>{
   }
 
   render(){
+    const theme = this.state.theme==='dark'?eva.dark:eva.light
     return(
       <>
       <IconRegistry icons={EvaIconsPack} />
-      <ApplicationProvider {...eva} theme={eva.light}>
+      <ApplicationProvider {...eva} theme={ theme}>
       <AppearanceProvider>    
         {this.state.loggedIn?   
         <NavigationContainer>
