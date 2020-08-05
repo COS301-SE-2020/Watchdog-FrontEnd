@@ -1,14 +1,62 @@
 import React, {Component} from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import { createBottomTabNavigator  } from '@react-navigation/bottom-tabs'
 import DashboardTab from './DashboardTab'
 import LiveTab from './LiveTab'
 import RecordingsTab from './RecordingsTab'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { MaterialIcons, Ionicons, MaterialCommunityIcons, Feather, FontAwesome  } from '@expo/vector-icons'
+import { BottomNavigation, BottomNavigationTab, Layout, Text, Icon  } from '@ui-kitten/components'
 
 
-const Tab = createBottomTabNavigator();
+const BottomTab = createBottomTabNavigator();
+const { Navigator, Screen } = createBottomTabNavigator();
+
+const PersonIcon = (props) => (
+    <Icon {...props} name='person-outline'/>
+  );
+
+const camera = (props) => (
+<Icon {...props} name='video-outline'/>
+);
+
+const film = (props) => (
+    <Icon {...props} name='film-outline'/>
+  );
+
+  const settings = (props) => (
+    <Icon {...props} name='settings-2-outline'/>
+  )
+
+  const home = (props) => (
+    <Icon {...props} name='home-outline'/>
+  )
+
+const BottomTabBar = ({ navigation, state }) => (
+  <BottomNavigation
+    
+    selectedIndex={state.index}
+    onSelect={index => navigation.navigate(state.routeNames[index])}>
+    <BottomNavigationTab title='Dashboard' icon={home} style={{ height:55,  paddingBottom: 15}} />
+    <BottomNavigationTab title='Recordings' icon={film} style={{ height:55,  paddingBottom: 15}}/>
+    <BottomNavigationTab title='Live' icon={camera } style={{ height:55,  paddingBottom: 15}}/>
+    <BottomNavigationTab title='Settings' icon={settings} style={{ height:55,  paddingBottom: 15}}/>
+    
+  </BottomNavigation>
+);
+
+const TabNavigator = () => (
+  <Navigator  tabBar={props => <BottomTabBar {...props} />}>
+    <Screen name='Dashboard' component={DashboardTab}  />
+    <Screen name='Recordings' component={RecordingsTab}/>
+    <Screen name='Live' component={LiveTab}/>
+    <Screen name='Settings' component={LiveTab}/>
+    
+  </Navigator>
+);
+
+
+
 class TabNavigation extends Component{
     constructor(props: any){
         super(props)
@@ -16,53 +64,8 @@ class TabNavigation extends Component{
 
     render(){
 
-        return(
-            <SafeAreaProvider style={{backgroundColor: "black"}}>
-                
-                    <Tab.Navigator
-                        screenOptions={(route: any)=>({
-                            tabBarIcon: ({ focused, color, size }) => {
-                                let icon:any
-                                
-                    
-                                if (route.route.name === 'Dashboard') {
-                                  icon = <MaterialCommunityIcons name={"view-dashboard-outline"} size={size} color={color} />
-                                } else if (route.route.name === 'Recordings') {
-                                  icon = <Ionicons name={"ios-recording"} size={size} color={color} />
-                                }else if(route.route.name === 'Live'){
-                                    icon = <MaterialIcons name={"live-tv"} size={size} color={color} />
-                                }else if(route.route.name === 'Settings'){
-                                    icon = <Feather name={"settings"} size={size} color={color} />
-                                }else if(route.route.name === 'Account'){
-                                   icon =  <FontAwesome name="user-o" size={size} color={color} />  
-                                }
-                            
-                                // You can return any component that you like here!
-                                return icon
-
-                              },
-                        })}
-                        
-                        tabBarOptions={{
-                            activeTintColor: '#169de0',
-                            
-                            
-                            
-                          }}
-                        
-                        
-                    >
-                        <Tab.Screen name="Dashboard" component={DashboardTab} />
-                        <Tab.Screen  name="Recordings" component={RecordingsTab} />
-                        <Tab.Screen name="Live" component={LiveTab} />  
-                        <Tab.Screen name="Settings" component={LiveTab} />      
-                        <Tab.Screen name="Account" component={LiveTab} />                
-                    </Tab.Navigator>
-
-                
-            </SafeAreaProvider>
-                
-            
+        return(           
+            <TabNavigator/>
         )
     }
 }

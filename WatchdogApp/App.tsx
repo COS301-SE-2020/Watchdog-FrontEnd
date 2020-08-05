@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar'
 import React, {Component} from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { NavigationContainer } from '@react-navigation/native'
 import TabNavigation from './components/TabNavigation'
@@ -8,7 +8,9 @@ import { AppearanceProvider } from 'react-native-appearance'
 import Amplify from 'aws-amplify'
 import { Authenticator } from 'aws-amplify-react-native'
 import { Auth, Hub } from 'aws-amplify'
-
+import * as eva from '@eva-design/eva'
+import { ApplicationProvider, Layout, Text, IconRegistry } from '@ui-kitten/components'
+import { EvaIconsPack } from '@ui-kitten/eva-icons'
 import Login from './components/Login'
 const Tab = createBottomTabNavigator();
 
@@ -80,13 +82,18 @@ class App extends Component<appProps, appState>{
 
   render(){
     return(
+      <>
+      <IconRegistry icons={EvaIconsPack} />
+      <ApplicationProvider {...eva} theme={eva.light}>
       <AppearanceProvider>    
         {this.state.loggedIn?   
         <NavigationContainer>
           <TabNavigation />
         </NavigationContainer> :
         <Login/>} 
-      </AppearanceProvider>    
+      </AppearanceProvider> 
+      </ApplicationProvider>   
+      </>
     )
   }
 
