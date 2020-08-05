@@ -4,13 +4,15 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { Card, Avatar } from 'react-native-elements'
 import HeaderBar from './HeaderBar'
 import moment from 'moment'
+import CustomTab from "./CustomTab"
+import { Layout } from "@ui-kitten/components"
 
 //Dynamically create dummy data
 const dummyData = Array.from({ length: 10 }, (_, index) => (
     {
         path_in_s3: "somepath",
         location: `Location ${index}`,
-        timestamp: moment.unix(1593568800+index*24*60*60).format("dddd, MMMM Do YYYY, hh:mm a")
+        timestamp: moment.unix(1593568800 + index * 24 * 60 * 60).format("dddd, MMMM Do YYYY, hh:mm a")
     }
 ))
 
@@ -50,10 +52,15 @@ class RecordingsTab extends Component {
         var videos = [...this.state.videos]
 
         return (
-            <View>
-                <HeaderBar text={'Recordings'}/>
-                <FlatList data={videos} renderItem={renderVideo} />
-            </View>
+            <CustomTab
+                title="Recordings"
+                tabContent={
+                        <Layout>
+                            <FlatList data={videos} renderItem={renderVideo} />
+                        </Layout>
+                }
+            />
+
         );
     }
 }
