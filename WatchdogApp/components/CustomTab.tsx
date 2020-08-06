@@ -30,7 +30,7 @@ class CustomTab extends Component<TabProps> {
 
         return (
             
-            <NavigationContainer independent={true}>
+            // <NavigationContainer independent={true}>
                 <Stack.Navigator>
                     <Stack.Screen
                         name={this.props.title}
@@ -42,7 +42,7 @@ class CustomTab extends Component<TabProps> {
                     />
                     <Stack.Screen name='Settings' component={SettingsTab} />
                 </Stack.Navigator>
-            </NavigationContainer>
+            // </NavigationContainer>
 
         )
     }
