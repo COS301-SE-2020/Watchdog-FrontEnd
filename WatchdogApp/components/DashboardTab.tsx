@@ -103,13 +103,13 @@ class DashboardTab extends Component<propsDashboard, stateDashboard> {
 
     render() {
         return (
-            <Layout  style={{flex:1}}>
+            <Layout  style={{flex:1}} level={'2'}>
                 <HeaderBar text ="Dashboard"/>
                 <ScrollView>
                 
                 <Divider />
-                <Layout  style={{padding:10}}>
-                    <Card  status={this.state.card} >
+                <Layout level={'2'}  style={{padding:10}}>
+                    <Card  status={this.state.card} style={{marginBottom :20}} >
                         <Text status={this.state.card} category="h3" style={{textAlign:"center",  fontStyle:'normal'}}>System State</Text>
                         
                         <Radio
@@ -151,14 +151,15 @@ class DashboardTab extends Component<propsDashboard, stateDashboard> {
                             
                         </Radio>
                     </Card>
-                    <Divider style={{paddingVertical : 10}}/>
+                    {/* <Divider style={{paddingVertical : 10}}/> */}
                     
-                    <Card  status='primary'>
+                    <Card  status='primary' style={{marginBottom :20}} >
                         <Text status='primary' category="h3" style={{textAlign:"center", fontStyle:'normal'}}>Camera Status</Text>
+                        
                         <CameraStatus />
                     </Card>
 
-                    <Divider style={{paddingVertical : 10}}/>
+                    
                     
                     <Card  status='info'>
                         <Text status='info' category="h3" style={{textAlign:"center", fontStyle:'normal'}}>Camera Logs</Text>

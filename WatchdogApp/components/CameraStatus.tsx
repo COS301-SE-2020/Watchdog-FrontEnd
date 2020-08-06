@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import { Button, Icon, List, ListItem, Divider } from '@ui-kitten/components'
-import { Text } from 'react-native'
+import { Button, Icon, List, ListItem, Divider, Text, Layout } from '@ui-kitten/components'
+
 
 const Data = new Array(8).fill({
     location: 'Bedroom',
@@ -35,6 +35,7 @@ class CameraStatus extends Component<propsCameraStatus, stateCameraStatus> {
         //console.log(item)
         
         return(
+            
             <ListItem
                 title ={`${item.item.location}` }
                 //accessoryRight={item.item.status==='Online'?renderItemIconOnline : renderItemIconOfline}
@@ -46,6 +47,7 @@ class CameraStatus extends Component<propsCameraStatus, stateCameraStatus> {
                 
                
             />
+           
 
             
         )
@@ -55,8 +57,9 @@ class CameraStatus extends Component<propsCameraStatus, stateCameraStatus> {
         
        
         return (
+            
             <List ItemSeparatorComponent={Divider} style={{maxHeight:280}} data={this.state.data} renderItem={this.renderItem} />
-               
+             
             
         )
     }
