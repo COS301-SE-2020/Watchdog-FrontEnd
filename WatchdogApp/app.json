@@ -6,6 +6,7 @@
     "orientation": "portrait",
     "icon": "./assets/user.png",
     "userInterfaceStyle": "automatic",
+    "privacy": "unlisted",
     "splash": {
       "image": "./assets/user.png",
       "resizeMode": "contain",
@@ -22,6 +23,7 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "description": ""
   }
 }
