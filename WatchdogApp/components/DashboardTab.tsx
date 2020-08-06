@@ -111,7 +111,7 @@ class DashboardTab extends Component<propsDashboard, stateDashboard> {
             <CustomTab
                 title="Dashboard"
                 tabContent={
-                    <Layout style={{ flex: 1 }} level={'2'}>
+                    <Layout  level={'2'}>
                         <ScrollView>
                             <Divider />
                             <Layout level={'2'} style={{ padding: 10 }}>
@@ -173,7 +173,7 @@ class DashboardTab extends Component<propsDashboard, stateDashboard> {
                                 </Card>
 
 
-                                <Divider style={{ flex: 1 }} />
+                                
                                 <Button
                                     title="Logout"
 
