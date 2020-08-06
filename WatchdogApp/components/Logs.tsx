@@ -1,27 +1,25 @@
-import React, { Component } from 'react'
-import { Button, Icon, List, ListItem, Divider } from '@ui-kitten/components'
-import { Text } from 'react-native'
+import React, { Component } from 'react';
+import { Button, Icon, List, ListItem, Divider, Text } from '@ui-kitten/components'
 
 const Data = new Array(8).fill({
-    location: 'Bedroom',
-    status: 'Online',
+    message: 'This is a test for an extrememly long log message. This is a test for an extrememly long log message',
+    date: '12/06/2020',
+    time: '17:55:22'
   })
 
-interface cameraStatus{
-    location: string
-    status: string
-    
+interface LogsMessage{
+    message: string
+    date: string
+    time : string
 }
-interface propsCameraStatus{
+interface propsLogs{
 
-}
-
-interface stateCameraStatus{
-    data : cameraStatus[]
 }
 
-class CameraStatus extends Component<propsCameraStatus, stateCameraStatus> {
-
+interface stateLogs{
+    data : LogsMessage[]
+}
+class Logs extends Component<propsLogs, stateLogs> {
     constructor(props: any){
         super(props)
         this.state ={
@@ -36,30 +34,26 @@ class CameraStatus extends Component<propsCameraStatus, stateCameraStatus> {
         
         return(
             <ListItem
-                title ={`${item.item.location}` }
+                title ={`${item.item.message}` }
+                description={`${item.item.date} ${item.item.time}`}
                 //accessoryRight={item.item.status==='Online'?renderItemIconOnline : renderItemIconOfline}
                 accessoryLeft ={()=><Text style={{paddingRight:20}}>{item.index+1}</Text>}
+                
                 //accessoryRight={evaProps => <Icon  {...evaProps} name={item.item.status==='Online'?'video-outline' : 'video-off-outline'}/>}
-                accessoryRight={evaProps => <Button   status={item.item.status==='Online'?'success' : 'danger'} accessoryRight={evaProps => <Icon  {...evaProps} name={item.item.status==='Online'?'video-outline' : 'video-off-outline'}/>}>
-                                                {''}
-                                            </Button>}
+                
                 
                
             />
 
             
         )
-
     }
     render() {
         
-       
         return (
             <List ItemSeparatorComponent={Divider} style={{maxHeight:280}} data={this.state.data} renderItem={this.renderItem} />
-               
-            
-        )
+        );
     }
 }
 
-export default CameraStatus
+export default Logs;

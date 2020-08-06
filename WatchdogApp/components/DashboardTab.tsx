@@ -7,6 +7,7 @@ import HeaderBar from "./HeaderBar"
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import CameraStatus from './CameraStatus'
+import Logs from './Logs'
 const Stack = createStackNavigator();
 interface propsDashboard{
 
@@ -156,6 +157,14 @@ class DashboardTab extends Component<propsDashboard, stateDashboard> {
                         <Text status='primary' category="h3" style={{textAlign:"center", fontStyle:'normal'}}>Camera Status</Text>
                         <CameraStatus />
                     </Card>
+
+                    <Divider style={{paddingVertical : 10}}/>
+                    
+                    <Card  status='info'>
+                        <Text status='info' category="h3" style={{textAlign:"center", fontStyle:'normal'}}>Camera Logs</Text>
+                        <Logs />
+                    </Card>
+
 
                     <Divider style={{flex: 1}}/>
                     <Button
