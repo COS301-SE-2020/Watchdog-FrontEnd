@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { Button, Alert, ScrollView } from "react-native"
+import { Button, Alert, ScrollView, FlatList } from "react-native"
 import { Auth } from 'aws-amplify'
 import { Layout, Text, Radio, Card, Divider } from '@ui-kitten/components'
 import CameraStatus from './CameraStatus'
@@ -111,8 +111,9 @@ class DashboardTab extends Component<propsDashboard, stateDashboard> {
             <CustomTab
                 title="Dashboard"
                 tabContent={
-                    <Layout  level={'2'}>
-                        <ScrollView>
+                    
+                        <ScrollView >
+                            <Layout  level={'2'} >
                             <Divider />
                             <Layout level={'2'} style={{ padding: 10 }}>
                                 <Card status={this.state.card} style={{ marginBottom: 20 }} >
@@ -180,8 +181,10 @@ class DashboardTab extends Component<propsDashboard, stateDashboard> {
                                     onPress={() => Auth.signOut()}
                                 />
                             </Layout>
+                            <Divider style={{padding:50}}/>
+                            </Layout>
                         </ScrollView>
-                    </Layout>
+                    
                 }
             />
 

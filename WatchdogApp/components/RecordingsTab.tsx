@@ -57,7 +57,7 @@ class RecordingsTab extends Component {
                 title="Recordings"
                 tabContent={
                         <Layout>
-                            <FlatList data={videos} renderItem={renderVideo} />
+                            <FlatList  data={videos} renderItem={renderVideo} />
                         </Layout>
                 }
             />

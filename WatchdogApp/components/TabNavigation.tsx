@@ -36,20 +36,21 @@ const film = (props) => (
 
 const BottomTabBar = ({ navigation, state }) => (
   <BottomNavigation
+  
     
     selectedIndex={state.index}
     onSelect={index => navigation.navigate(state.routeNames[index])}>
-    <BottomNavigationTab title='Dashboard' icon={home} style={{ height:55,  paddingBottom: 15}} />
-    <BottomNavigationTab title='Recordings' icon={film} style={{ height:55,  paddingBottom: 15}}/>
-    <BottomNavigationTab title='Live' icon={camera } style={{ height:55,  paddingBottom: 15}}/>
-    <BottomNavigationTab title='Settings' icon={settings} style={{ height:55,  paddingBottom: 15}}/>
+    <BottomNavigationTab title='Dashboard' icon={home} style={{   marginBottom: 15}} />
+    <BottomNavigationTab title='Recordings' icon={film} style={{   marginBottom: 15}}/>
+    <BottomNavigationTab title='Live' icon={camera } style={{   marginBottom: 15}}/>
+    <BottomNavigationTab title='Settings' icon={settings} style={{   marginBottom: 15}}/>
     
   </BottomNavigation>
 );
 
 const TabNavigator = () => (
   <Navigator  tabBar={props => <BottomTabBar {...props} />}>
-    <Screen name='Dashboard' component={DashboardTab}  />
+    <Screen  name='Dashboard' component={DashboardTab}  />
     <Screen name='Recordings' component={RecordingsTab}/>
     <Screen name='Live' component={LiveTab}/>
     <Screen name='Settings' component={LiveTab}/>

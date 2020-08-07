@@ -58,18 +58,19 @@ interface appProps{
 class App extends Component<appProps, appState>{
   constructor(props: any){
     super(props)
-    this.state ={
-      loggedIn : false,
-      theme : "light"
-    }
+    
 
     let colorScheme= Appearance.getColorScheme();
         //console.log(colorScheme)
-        this.setState({theme:colorScheme})
-        Appearance.addChangeListener((color)=>{
-            this.setState({theme:color.colorScheme})
-            //console.log(color.colorScheme)
-        })
+    this.state ={
+      loggedIn : false,
+      theme : colorScheme
+    }
+    
+    Appearance.addChangeListener((color)=>{
+        this.setState({theme:color.colorScheme})
+        //console.log(color.colorScheme)
+    })
 
     Hub.listen('auth', (data) => {
       const { payload } = data
