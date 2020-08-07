@@ -164,7 +164,7 @@ class SettingsTab extends Component {
         return (
             // <NavigationContainer>
             <Stack.Navigator>
-                <Stack.Screen name='Main Menu' component={MainMenu} options={{ headerShown: false }} />
+                <Stack.Screen name='Main Menu' component={MainMenu} options={{ headerTitle: 'Settings', headerShown: true }} />
                 <Stack.Screen name='Notifications' component={NotificationMenu} options={{ headerTitle: 'Notifications', headerShown: true }} />
                 <Stack.Screen name='Historical' component={HistoricalMenu} options={{ headerTitle: 'Historical Video Footage', headerShown: true }} />
                 <Stack.Screen name='Security' component={SecurityMenu} options={{ headerTitle: 'Security Level', headerShown: true }} />

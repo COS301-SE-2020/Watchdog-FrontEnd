@@ -181,7 +181,7 @@ class DashboardTab extends Component<propsDashboard, stateDashboard> {
                                     onPress={() => Auth.signOut()}
                                 />
                             </Layout>
-                            <Divider style={{padding:50}}/>
+                            {/* <Divider style={{padding:50}}/> */}
                             
                         </ScrollView>
                     
