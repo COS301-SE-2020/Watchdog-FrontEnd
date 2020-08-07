@@ -113,7 +113,7 @@ class DashboardTab extends Component<propsDashboard, stateDashboard> {
                 tabContent={
                     
                         <ScrollView >
-                            <Layout  level={'2'} >
+                            
                             <Divider />
                             <Layout level={'2'} style={{ padding: 10 }}>
                                 <Card status={this.state.card} style={{ marginBottom: 20 }} >
@@ -182,7 +182,7 @@ class DashboardTab extends Component<propsDashboard, stateDashboard> {
                                 />
                             </Layout>
                             <Divider style={{padding:50}}/>
-                            </Layout>
+                            
                         </ScrollView>
                     
                 }
