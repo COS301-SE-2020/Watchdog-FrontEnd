@@ -43,7 +43,6 @@ const BottomTabBar = ({ navigation, state }) => (
     <BottomNavigationTab title='Dashboard' icon={home} style={{   marginBottom: 15}} />
     <BottomNavigationTab title='Recordings' icon={film} style={{   marginBottom: 15}}/>
     <BottomNavigationTab title='Live' icon={camera } style={{   marginBottom: 15}}/>
-    <BottomNavigationTab title='Settings' icon={settings} style={{   marginBottom: 15}}/>
     
   </BottomNavigation>
 );
@@ -53,7 +52,6 @@ const TabNavigator = () => (
     <Screen  name='Dashboard' component={DashboardTab}  />
     <Screen name='Recordings' component={RecordingsTab}/>
     <Screen name='Live' component={LiveTab}/>
-    <Screen name='Settings' component={LiveTab}/>
     
   </Navigator>
 );
