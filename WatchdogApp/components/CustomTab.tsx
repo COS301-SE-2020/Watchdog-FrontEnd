@@ -3,14 +3,20 @@ import HeaderBar from "./HeaderBar"
 import { createStackNavigator } from "@react-navigation/stack";
 import { useNavigation } from "@react-navigation/native";
 import SettingsTab from "./SettingsTab";
-import { Layout } from "@ui-kitten/components";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { Layout, Icon, Button } from "@ui-kitten/components";
+import { SafeAreaView } from "react-native-safe-area-context"
+import CameraStatus from './CameraStatus'
+import SettingsButton from './SettingsButton'
+import CameraStatusScreen from './CameraStatusScreen'
+import CameraLogsScreen from './CameraLogsScreen'
 
 interface TabProps {
     tabContent: any,
     title: string,
 }
-
+const SettingsIcon = (props) => (
+    <Icon {...props} name='settings-2'/>
+);
 const Stack = createStackNavigator();
 
 class CustomTab extends Component<TabProps> {
@@ -20,24 +26,31 @@ class CustomTab extends Component<TabProps> {
 
     render() {
 
-        const tabContent = () => {
+        const settingsbtn = () => {
             const navigation = useNavigation()
-            return <Layout style={{ flexGrow: 1, flex: 1 }}>
-                <HeaderBar text={this.props.title} onPress={() => navigation.navigate('Settings')} />
-                {this.props.tabContent}
-            </Layout>
+            return <Button  appearance='ghost' status='danger' accessoryLeft={SettingsIcon} onPress={
+                () => {
+                    console.log('Header Pressed!')
+                    navigation.navigate('Settings')
+                }
+            } />
         }
-
+       
         return (
             <Stack.Navigator>
                 <Stack.Screen
                     name={this.props.title}
-                    component={tabContent}
+                    component={()=>this.props.tabContent}
                     options={{
-                        headerShown: false
+                        headerShown: true,
+                        headerRight : ()=> <SettingsButton />
+
+                
                     }}
                 />
                 <Stack.Screen name='Settings' component={SettingsTab} options={{ headerShown: false }} />
+                <Stack.Screen name='Camera' component={CameraStatusScreen} options={{ headerShown: true, title: 'Camera Status' }} />
+                <Stack.Screen name='Logs' component={CameraLogsScreen} options={{ headerShown: true, title: 'Camera Logs' }} />
             </Stack.Navigator>
 
 
