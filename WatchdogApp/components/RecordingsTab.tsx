@@ -3,10 +3,10 @@ import { StyleSheet } from "react-native"
 import { Video } from 'expo-av'
 import moment from 'moment'
 import CustomTab from "./CustomTab"
-import { Card, List, Layout, Avatar, Text } from "@ui-kitten/components"
+import { Card, List, Layout, Avatar, Text, Drawer, DrawerGroup, Input, Datepicker, CheckBox, Select, SelectItem } from "@ui-kitten/components"
 
 //Dynamically create dummy data
-const dummyData = Array.from({ length: 1 }, (_, index) => (
+const dummyData = Array.from({ length: 3 }, (_, index) => (
     {
         key: index,
         path_in_s3: "somepath",
@@ -62,11 +62,58 @@ class RecordingsTab extends Component {
 
         )
 
+        const VideoFilter = () => {
+            const SelectRange = () => (
+                <React.Fragment>
+                    <Layout style={styles.filterLayout}>
+                        <Datepicker style={styles.input} label="From:" date={new Date()} />
+                        <Datepicker style={styles.input} label="To:" date={new Date()} />
+                    </Layout>
+                    <Layout style={styles.filterLayout}>
+                        <CheckBox checked={true}>
+                            Intruder Videos
+                        </CheckBox>
+                        <CheckBox checked={true}>
+                            Periodic Videos
+                        </CheckBox>
+                    </Layout>
+                    <Layout style={{margin: 20}}>
+                        <Select style={styles.input} label='Select Room to Filter'>
+                            <SelectItem title='Option 1' />
+                            <SelectItem title='Option 2' />
+                            <SelectItem title='Option 3' />
+                        </Select>
+                    </Layout>
+                </React.Fragment>
+            )
+            return <React.Fragment>
+                <Layout>
+                    <Input style={{ borderRadius: 0 }} placeholder='Search Videos...' />
+                    <Drawer>
+                        <DrawerGroup title='Filters'>
+                            <SelectRange />
+                        </DrawerGroup>
+                    </Drawer>
+                </Layout>
+            </React.Fragment>
+        }
+
+
         return (
             <CustomTab
                 title="Recordings"
                 tabContent={
-                    <List style={styles.container} contentContainerStyle={styles.contentContainer} data={videos} renderItem={renderVideo} />
+                    <React.Fragment>
+                        <VideoFilter />
+                        <List
+                            refreshing={false}
+                            onRefresh={() => console.log('refresh')}
+                            style={styles.container}
+                            contentContainerStyle={styles.contentContainer}
+                            data={videos}
+                            renderItem={renderVideo}
+                        />
+                    </React.Fragment>
                 }
             />
         );
@@ -84,6 +131,16 @@ const styles = StyleSheet.create({
         padding: 0,
         margin: 10
     },
+    input: {
+        marginRight: 20,
+        // marginLeft: 10
+    },
+    filterLayout: {
+        flex: 1,
+        flexDirection: 'row',
+        margin: 20,
+        alignContent: 'center'
+    }
 });
 
 export default RecordingsTab;
