@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet, Appearance } from 'react-native'
 import { createBottomTabNavigator  } from '@react-navigation/bottom-tabs'
 import DashboardTab from './DashboardTab'
 import LiveTab from './LiveTab'
@@ -9,7 +9,10 @@ import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { MaterialIcons, Ionicons, MaterialCommunityIcons, Feather, FontAwesome  } from '@expo/vector-icons'
 import { BottomNavigation, BottomNavigationTab, Layout, Text, Icon  } from '@ui-kitten/components'
 import { NavigationContainer } from '@react-navigation/native'
-
+import {
+  DefaultTheme,
+  DarkTheme,
+} from '@react-navigation/native'
 
 const BottomTab = createBottomTabNavigator();
 const { Navigator, Screen } = createBottomTabNavigator();
@@ -57,16 +60,31 @@ const TabNavigator = () => (
 );
 
 
+interface stateTab{
+  theme : any
+}
+interface propsTab{
 
-class TabNavigation extends Component{
+}
+class TabNavigation extends Component<propsTab, stateTab>{
     constructor(props: any){
         super(props)
+        let colorScheme= Appearance.getColorScheme();
+        //console.log(colorScheme)
+        this.state ={
+          theme : colorScheme
+        }
+        
+        Appearance.addChangeListener((color)=>{
+            this.setState({theme:color.colorScheme})
+            //console.log(color.colorScheme)
+        })
     }
 
     render(){
 
         return(           
-          <NavigationContainer>
+          <NavigationContainer theme={this.state.theme==='dark'?DarkTheme:DefaultTheme}>
             <TabNavigator/>
           </NavigationContainer>
         )
