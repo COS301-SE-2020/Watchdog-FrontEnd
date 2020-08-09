@@ -1,7 +1,32 @@
+# File Structure
+
+/components
+    -> /recordings.tsx
+    -> /live.tsx
+    -> /dashboard.tsx
+/api
+/app.tsx
+
+# TODO:
+
+### 03/08
+- [x] Change app.tsx to class based component
+- [x] Create simple nav bar with core components (tabs) linked
+- [] Copy Api from Webapp to Mobile app
+- [x] Npm install: Axios, react-native-elements, redux, redux-thunk, redux-logger
+
+### 04/08
+- [] Settings Tab
+- [] User Auth:Login
+- [] Live Tab
+- [] Dashboard
+
+# Redux
+
 GET_DATA
 - Get all data from api
 
-# Recordings:
+### Recordings:
 
 GET_RECORDINGS
 - Get recordings from api
@@ -11,13 +36,13 @@ DELETE_RECORDING
 - Delete from store
 - Make api call to delete
 
-# Live:
+### Live:
 
 GET_LOCATIONS
 - Get routes from api
 - Add to store
 
-# Dashboard
+### Dashboard
 
 GET_LOGS
 - Retrieve from api
@@ -38,7 +63,7 @@ CHANGE_SECURITY_LEVEL
 - Send api request
 - Update store
 
-# SETTINGS
+### SETTINGS
 
 LOAD_SETTINGS (called when the drawer opens)
 - Retrieve from api

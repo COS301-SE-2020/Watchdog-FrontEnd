@@ -4,9 +4,11 @@
     "slug": "WatchdogApp",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/user.png",
+    "userInterfaceStyle": "automatic",
+    "privacy": "unlisted",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/user.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -21,6 +23,7 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "description": ""
   }
 }
