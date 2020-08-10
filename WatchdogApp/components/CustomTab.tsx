@@ -9,7 +9,12 @@ import CameraStatus from './CameraStatus'
 import SettingsButton from './SettingsButton'
 import CameraStatusScreen from './CameraStatusScreen'
 import CameraLogsScreen from './CameraLogsScreen'
-
+import NotificationSettingsScreen from "./NotificationSettingsScreen"
+import HistoricalSettingsScreen from './HistoricalSettingsScreen'
+import IdentitySettingsScreen from './IdentitySettingsScreen'
+import AddIdentityScreen from './AddIdentityScreen'
+import PasswordSettingsScreen from './PasswordSettingsScreen'
+import AccountInformationScreen from './AccountInformationScreen'
 interface TabProps {
     tabContent: any,
     title: string,
@@ -25,17 +30,7 @@ class CustomTab extends Component<TabProps> {
     }
 
     render() {
-
-        const settingsbtn = () => {
-            const navigation = useNavigation()
-            return <Button  appearance='ghost' status='danger' accessoryLeft={SettingsIcon} onPress={
-                () => {
-                    console.log('Header Pressed!')
-                    navigation.navigate('Settings')
-                }
-            } />
-        }
-       
+      
         return (
             <Stack.Navigator>
                 <Stack.Screen
@@ -48,9 +43,15 @@ class CustomTab extends Component<TabProps> {
                 
                     }}
                 />
-                <Stack.Screen name='Settings' component={SettingsTab} options={{ headerShown: false }} />
+                <Stack.Screen name='Settings' component={SettingsTab} options={{ headerShown: true }} />
                 <Stack.Screen name='Camera' component={CameraStatusScreen} options={{ headerShown: true, title: 'Camera Status' }} />
                 <Stack.Screen name='Logs' component={CameraLogsScreen} options={{ headerShown: true, title: 'Camera Logs' }} />
+                <Stack.Screen name='Notifications' component={NotificationSettingsScreen} options={{ headerTitle: 'Notifications', headerShown: true }} />
+                <Stack.Screen name='Historical' component={HistoricalSettingsScreen} options={{ headerTitle: 'Historical ', headerShown: true }} />
+                <Stack.Screen name='Identities' component={IdentitySettingsScreen} options={{ headerTitle: 'Identities ', headerShown: true }} />
+                <Stack.Screen name='Add_Identity' component={AddIdentityScreen} options={{ headerTitle: 'Add Identity ', headerShown: true }} />
+                <Stack.Screen name='Password' component={PasswordSettingsScreen} options={{ headerTitle: 'Password Settings ', headerShown: true }} />
+                <Stack.Screen name='Account' component={AccountInformationScreen} options={{ headerTitle: 'Account Infopmation ', headerShown: true }} />
             </Stack.Navigator>
 
 
