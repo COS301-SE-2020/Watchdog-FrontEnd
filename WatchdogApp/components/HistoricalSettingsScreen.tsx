@@ -24,10 +24,10 @@ class HistoricalSettingsScreen extends Component<propsHistoricalSettingsScreen, 
             <Layout style={{flex:1, padding: 10}}>
             <Input
                     keyboardType = 'number-pad'
-                    value={this.state.clip_interval.toString()}
+                    value={this.state.clip_interval}
                     style={{ marginVertical: 10 }}
                     label='Clip Interval'
-                    onChange ={(val: any)=>this.setState({clip_interval : val})}
+                    onChange ={(val: any)=>this.setState({clip_interval : val.text})}
                     
                     caption='Set clip interval in seconds'
                 
