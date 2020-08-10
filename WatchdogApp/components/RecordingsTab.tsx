@@ -1,19 +1,24 @@
-import React, { Component } from "react"
+import React, { Component, Dispatch } from "react"
 import { StyleSheet } from "react-native"
 import { Video } from 'expo-av'
 import moment from 'moment'
-import CustomTab from "./CustomTab"
 import { Card, List, Layout, Avatar, Text, Drawer, DrawerGroup, Input, Datepicker, CheckBox, Select, SelectItem } from "@ui-kitten/components"
+import { connect } from 'react-redux'
+
+import CustomTab from "./CustomTab"
+import { getRecordings } from '../app-redux/actions'
 
 //Dynamically create dummy data
 const dummyData = Array.from({ length: 3 }, (_, index) => (
     {
-        key: index,
+        aid: index,
         path_in_s3: "somepath",
         location: `Location ${index}`,
         timestamp: moment.unix(1593568800 + index * 24 * 60 * 60).format("ddd, MM/DD/YY, hh:mm a")
     }
 ))
+
+const convertTime = (timestamp) => moment.unix(timestamp).format("ddd, MM/DD/YY, hh:mm a")
 
 class RecordingsTab extends Component {
     state = {
@@ -25,8 +30,17 @@ class RecordingsTab extends Component {
         super(props);
     }
 
+    componentDidMount = () => {
+        this.props.load("hello")
+        console.log("MOUNTED......................");
+        console.log(this.props.videos)
+        console.log("MOUNTED......................");
+        
+    }
+
     render() {
-        const videos = [...this.state.videos]
+        const videos = [...this.props.videos]
+        // const videos = []
 
         const renderVideoHeader = (headerProps, info) => (
             <Layout style={{ flex: 1, flexDirection: 'row', padding: 20 }}>
@@ -34,12 +48,13 @@ class RecordingsTab extends Component {
                     <Avatar source={require('../assets/thief.png')} style={{ marginRight: 20 }} />
                 </Layout>
                 <Layout>
-                    <Text category='h6'>{info.item.timestamp}</Text>
+                    <Text category='h6'>{convertTime(info.item.metadata.timestamp)}</Text>
                 </Layout>
             </Layout>
         )
         const renderVideoFooter = (footerProps, info) => (
-            <Text category="label" style={{ padding: 20 }}>{info.item.location.toUpperCase()}</Text>
+            // <Text category="label" style={{ padding: 20 }}>{info.item.location.toUpperCase()}</Text>
+            <Text category="label" style={{ padding: 20 }}>{"Unknown"}</Text>
         )
         const renderVideo = (info) => (
             <React.Fragment>
@@ -47,16 +62,16 @@ class RecordingsTab extends Component {
                     style={styles.item}
                     status='basic'
                     header={headerProps => renderVideoHeader(headerProps, info)}
-                    footer={footerProps => renderVideoFooter(footerProps, info)}>
-
+                    footer={footerProps => renderVideoFooter(footerProps, info)}
+                    onPress={() => console.log({ "state": this.state, "props": this.props })}
+                >
                     <Video
-                        source={{ uri: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4' }}
+                        source={{ uri: info.item.path_in_s3 }}
                         isMuted={false}
                         resizeMode="contain"
                         useNativeControls
                         style={{ width: 300, height: 300 }}
                     />
-
                 </Card>
             </React.Fragment>
 
@@ -77,7 +92,7 @@ class RecordingsTab extends Component {
                             Periodic Videos
                         </CheckBox>
                     </Layout>
-                    <Layout style={{margin: 20}}>
+                    <Layout style={{ margin: 20 }}>
                         <Select style={styles.input} label='Select Room to Filter'>
                             <SelectItem title='Option 1' />
                             <SelectItem title='Option 2' />
@@ -143,4 +158,16 @@ const styles = StyleSheet.create({
     }
 });
 
-export default RecordingsTab;
+const mapStateToProps = (store, ownProps) => ({
+    videos: store.Data.videos
+})
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+       load: message => dispatch(getRecordings())
+    }
+}
+
+export default connect(
+    mapStateToProps, mapDispatchToProps
+)(RecordingsTab);
