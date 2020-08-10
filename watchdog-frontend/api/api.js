@@ -5,7 +5,7 @@ import {Radio, RadioGroup, Panel, Alert} from 'rsuite'
 async function getVideos( callback, errorcallback){
     let url = await "https://b534kvo5c6.execute-api.af-south-1.amazonaws.com/testing/ui/recordings"
     let {idToken} = await Auth.currentSession()
-    //console.log(idToken)
+    console.log(idToken)
      await axios.get(url, { 
       headers: {
       Authorization: `${idToken.jwtToken}`
@@ -24,6 +24,33 @@ async function getVideos( callback, errorcallback){
          errorcallback(err);
       }
     })
+
+}
+
+async function getLiveList( callback, errorcallback){
+  let url = await "https://b534kvo5c6.execute-api.af-south-1.amazonaws.com/testing/controlpanel"
+  let {idToken} = await Auth.currentSession()
+  let userId = idToken.payload.sub
+
+   await axios.get(url, { 
+    headers: {
+    Authorization: `${idToken.jwtToken}`
+      
+    }
+  })
+  .then(res => {
+    //do something
+    res.userId=userId
+    if(callback != null){
+       callback(res);
+    }
+  })
+  .catch(err => {
+    // catch error
+    if(errorcallback != null){
+       errorcallback(err);
+    }
+  })
 
 }
 
@@ -333,4 +360,4 @@ async function deleteIdentity(id, succ, err){
 
 }
 
-export {getLogs,updateNotification, getVideos, addIdentity, AddToBucket, getIdentities, getSystemState, updateSystemState, getNotificationSettings, deleteIdentity}
+export {getLiveList,getLogs,updateNotification, getVideos, addIdentity, AddToBucket, getIdentities, getSystemState, updateSystemState, getNotificationSettings, deleteIdentity}

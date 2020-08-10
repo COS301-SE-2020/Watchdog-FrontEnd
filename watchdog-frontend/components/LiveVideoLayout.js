@@ -1,59 +1,135 @@
 import React, { Component } from 'react'
-import {Row,Col,Panel, Grid}  from 'rsuite'
+import {IconButton,Icon,Modal,Button, Grid,Row,Col}  from 'rsuite'
+import { Table } from 'rsuite';
+const { Column, HeaderCell, Cell, Pagination } = Table;
+import screenfull from 'screenfull'
+import { findDOMNode } from 'react-dom'
+import {getLiveList} from '../api/api'
+import Loading from './Loading'
 
-const elements=[
-    {
-    "cam_id": "1",
-    "cam_url": "https://s3.af-south-1.amazonaws.com/watchdog.uservideocontent/video/Chelsea+2-1+Manchester+City+_+Pulisic+%26+Willian+Seal+Dramatic+Victory+_+Premier+League+Highlights.mp4",
-    "cam_location": "Yard",
-    },
-    {
-    "cam_id": "2",
-    "cam_url": "https://s3.af-south-1.amazonaws.com/watchdog.uservideocontent/video/Chelsea+2-1+Manchester+City+_+Pulisic+%26+Willian+Seal+Dramatic+Victory+_+Premier+League+Highlights.mp4",
-    "cam_location": "Kitchen"
-    },
-    {
-    "cam_id": "3",
-    "cam_url": "https://s3.af-south-1.amazonaws.com/watchdog.uservideocontent/video/Chelsea+2-1+Manchester+City+_+Pulisic+%26+Willian+Seal+Dramatic+Victory+_+Premier+League+Highlights.mp4",
-    "cam_location": "Kitchen"
-    },
-    {
-    "cam_id": "4",
-    "cam_url": "https://s3.af-south-1.amazonaws.com/watchdog.uservideocontent/video/Chelsea+2-1+Manchester+City+_+Pulisic+%26+Willian+Seal+Dramatic+Victory+_+Premier+League+Highlights.mp4",
-    "cam_location": "Kitchen"
-    }
-]
 
-  
+import SocketClient from './SocketClient';
+
+
+var values=[];
+var userId;
   class LiveVideo extends Component {
     constructor(){
         super()
+        this.state = {
+          data: [],
+          loaded:false,
+          show: false,
+          rowData: []
+         
+        };
+        this.close = this.close.bind(this);
+        this.open = this.open.bind(this);
+        this.setRow=this.setRow.bind(this);
+        
         
     }
+    close() {
+      this.setState({ show: false });
+    }
+    open() {
+      this.setState({ show: true });
+    }
     
-      render(){
-        const items = []
-            const videoData=elements.map((value)=>{
-          items.push(
-            <Col xs={6}>
-                <Panel  bordered header={<h2>{value.cam_location}</h2>}>
-                  <div>{<h4>Camera ID: {value.cam_id}</h4>}</div>
-                          <video style={{"width":"100%"}}  controls >
-                            <source src={value.cam_url} type="video/mp4"/>
-                          </video>
-                </Panel>
-            </Col>
-          ) 
-        }  
+    // handleClickFullscreen = () => {
+    //   screenfull.request(findDOMNode(this.player))
+    // }
+    componentDidMount() {
+        
+     
+      getLiveList( (res)=>{
+        console.log(res)
+         userId=res.userId
+        var panel = res.data.data.control_panel
+        console.log(panel)
+        for(let site_id in panel){
+          for(let location in panel[site_id]){
+            if(location=="metadata")
+              continue;
+
+            else{
+              for(let camera_id in panel[site_id][location])
          
-    )
+            values.push({
+              "camera_id": camera_id,
+              "site": site_id,
+              "location": location
+            })
+           
+          }
+ 
+      }
+    }
+      
+      console.log(values)
+      
+        this.setState({loaded : true, data : values})
+        
+      }, (err)=>console.log(err))
+      
+  }
+  setRow(rowVal){
+    this.setState({rowData : rowVal})
+  }
+ 
+ 
+      render(){
+        if(this.state.loaded)
           return(
-            <Grid fluid>
-              <Row fluid>
-                {items}
-              </Row>
+            
+            <div >
+        <Table
+          height={400}
+          data={this.state.data}
+          
+        >
+          <Column flexGrow={1} align="center" fixed >
+            <HeaderCell>Location</HeaderCell>
+             <Cell dataKey="location" />
+          </Column>
+
+          
+          <Column flexGrow={1} align="center" fixed >
+            <HeaderCell>Play</HeaderCell>
+
+            <Cell>
+              {row =>{
+                return (
+                  <IconButton onClick={()=>{this.open(),this.setRow(row)}} icon={<Icon icon="play" />} />
+                );
+              }}
+            </Cell>
+          </Column>
+        </Table>
+        <div className="modal-container">
+        <Modal overflow={false} show={this.state.show} onHide={this.close} size='lg' backdrop="static">
+          <Modal.Body>
+          <Grid fluid>
+          <Row fluid>
+          <Col fluid xs={24}>
+            <SocketClient user={userId} data={this.state.rowData}/>
+            </Col>
+            </Row>
+            
             </Grid>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button onClick={this.close} appearance="primary">
+              Close
+            </Button>
+            
+          </Modal.Footer>
+        </Modal>
+      </div>
+      </div>
+    
           )
+          return(<Loading />)
       }
   }
    

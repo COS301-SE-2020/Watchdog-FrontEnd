@@ -160,7 +160,7 @@ class HistoricalVideo extends Component{
         getVideos( (res)=>{
           const videos = res.data.data.videos || []
           let locations = []
-          console.log(videos)
+          console.log(res)
           let result = videos.map((item, index)=>{
           let location = item.metadata.room||"Unknown"
           locations.push(location.charAt(0).toUpperCase() + location.slice(1))
