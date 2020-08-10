@@ -20,7 +20,13 @@ const dummyData = Array.from({ length: 3 }, (_, index) => (
 
 const convertTime = (timestamp) => moment.unix(timestamp).format("ddd, MM/DD/YY, hh:mm a")
 
-class RecordingsTab extends Component {
+interface RecordingsTabProps {
+    load: Function,
+    videos: [],
+    loading: boolean
+}
+
+class RecordingsTab extends Component<RecordingsTabProps> {
     state = {
         videos: [
             ...dummyData
@@ -35,7 +41,7 @@ class RecordingsTab extends Component {
         console.log("MOUNTED......................");
         console.log(this.props.videos)
         console.log("MOUNTED......................");
-        
+
     }
 
     render() {
@@ -45,7 +51,7 @@ class RecordingsTab extends Component {
         const renderVideoHeader = (headerProps, info) => (
             <Layout style={{ flex: 1, flexDirection: 'row', padding: 20 }}>
                 <Layout>
-                    <Avatar source={require('../assets/thief.png')} style={{ marginRight: 20 }} />
+                    <Avatar source={(info.item.tag == 'periodic')? require('../assets/clock.png'):require('../assets/thief.png')} style={{ marginRight: 20 }} />
                 </Layout>
                 <Layout>
                     <Text category='h6'>{convertTime(info.item.metadata.timestamp)}</Text>
@@ -53,14 +59,14 @@ class RecordingsTab extends Component {
             </Layout>
         )
         const renderVideoFooter = (footerProps, info) => (
-            // <Text category="label" style={{ padding: 20 }}>{info.item.location.toUpperCase()}</Text>
-            <Text category="label" style={{ padding: 20 }}>{"Unknown"}</Text>
+            <Text category="label" style={{ padding: 20 }}>{info.item.location.toUpperCase()}</Text>
+            // <Text category="label" style={{ padding: 20 }}>{"Unknown"}</Text>
         )
         const renderVideo = (info) => (
             <React.Fragment>
                 <Card
                     style={styles.item}
-                    status='basic'
+                    status={(info.item.tag == 'periodic')? 'basic': 'danger'}
                     header={headerProps => renderVideoHeader(headerProps, info)}
                     footer={footerProps => renderVideoFooter(footerProps, info)}
                     onPress={() => console.log({ "state": this.state, "props": this.props })}
@@ -93,7 +99,7 @@ class RecordingsTab extends Component {
                         </CheckBox>
                     </Layout>
                     <Layout style={{ margin: 20 }}>
-                        <Select style={styles.input} label='Select Room to Filter'>
+                        <Select style={styles.input} label='Select Location to Filter'>
                             <SelectItem title='Option 1' />
                             <SelectItem title='Option 2' />
                             <SelectItem title='Option 3' />
@@ -121,8 +127,8 @@ class RecordingsTab extends Component {
                     <React.Fragment>
                         <VideoFilter />
                         <List
-                            refreshing={false}
-                            onRefresh={() => console.log('refresh')}
+                            refreshing={this.props.loading}
+                            onRefresh={() => this.props.load()}
                             style={styles.container}
                             contentContainerStyle={styles.contentContainer}
                             data={videos}
@@ -159,12 +165,14 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (store, ownProps) => ({
-    videos: store.Data.videos
+    videos: store.Data.videos,
+    loading: store.UI.Recordings.loading,
+    message: store.UI.Recordings.message
 })
 
 const mapDispatchToProps = (dispatch) => {
     return {
-       load: message => dispatch(getRecordings())
+        load: message => dispatch(getRecordings())
     }
 }
 

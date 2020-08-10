@@ -23,17 +23,17 @@ function uiReducer(state=defaultState.UI, action) {
     // console.log(action);
     // console.log(state);
     switch (action.type) {
-        case actions.STARTED_LOADING:
-            console.log(actions.STARTED_LOADING);
-            return produce(state, draftState => {
-                draftState[action.component]['loading'] = true
-                draftState[action.component]['message'] = action.message
-            })
-        case actions.COMPLETED_LOADING:
-            console.log(actions.COMPLETED_LOADING);
+        case actions.SUCCESS_GET_RECORDINGS:
             return produce(state, (draftState) => {
-                draftState[action.component]['loading'] = false
-                draftState[action.component]['message'] = action.message
+                draftState.Recordings.loading = false
+            })
+        case "GET_RECORDINGS":
+            return produce(state, draftState => {
+                draftState.Recordings.loading = true
+            })
+        case "DONE_GET_RECORDINGS":
+            return produce(state, (draftState) => {
+                draftState.Recordings.loading = false
             })
         default:
             return state; 
