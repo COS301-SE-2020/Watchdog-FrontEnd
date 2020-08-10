@@ -5,46 +5,55 @@ import * as actions from './actionTypes';
 var defaultState = require('./defaultState.json');
 
 //README: Please see actionTypes.js for explinations of what the actions do 'rr
-function userDataReducer(state = defaultState.UserData, action) {
+function dataReducer(state = defaultState.UserData, action) {
+    // console.log(action);
+    switch (action.type) {
+        case actions.SUCCESS_GET_RECORDINGS:
+            // console.log(action.payload.data)
+            // return state
+            return produce(state, draftState => {
+                draftState.videos = action.payload.data.data.videos
+            })
+        default:
+            return state;
+    }
+}
+
+function uiReducer(state=defaultState.UI, action) {
+    // console.log(action);
+    // console.log(state);
     switch (action.type) {
         case actions.STARTED_LOADING:
+            console.log(actions.STARTED_LOADING);
             return produce(state, draftState => {
-                draftState[action.payload.component]['is_loading'] = true;
-            });
+                draftState[action.component]['loading'] = true
+                draftState[action.component]['message'] = action.message
+            })
         case actions.COMPLETED_LOADING:
-            return produce(state, draftState => {
-                draftState[action.payload.component]['is_loading'] = false;
-                draftState[action.payload.component]['success'] = action.payload.success;
-                draftState[action.payload.component]['message'] = action.payload.message;
-            });
-        case actions.LOADED_DATA:
-            return produce(state, draftState => {
-                draftState = {...state, ...action.payload.data};
-            });
-    
+            console.log(actions.COMPLETED_LOADING);
+            return produce(state, (draftState) => {
+                draftState[action.component]['loading'] = false
+                draftState[action.component]['message'] = action.message
+            })
         default:
-            return state;
+            return state; 
     }
 }
 
-function artefactsReducer(state = defaultState.Artefacts, action) {
+function statisticsReducer(state = {}, action) {
+    // console.log(action);
     switch (action.type) {
         default:
-            return state;
-    }
-}
-
-function statisticsReducer(state = defaultState.Statistics, action) {
-    switch (action.type) {
-        default:
-            return state;
+            return state
     }
 }
 
 const watchdogApp = combineReducers(
-    userDataReducer,
-    artefactsReducer,
-    statisticsReducer
+    {
+        "Data": dataReducer,
+        "UI": uiReducer,
+        "Statistics": statisticsReducer
+    }
 );
 
 export default watchdogApp;
