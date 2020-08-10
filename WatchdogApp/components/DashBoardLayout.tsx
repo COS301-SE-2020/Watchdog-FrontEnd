@@ -180,11 +180,11 @@ class DashBoardLayout extends Component<propsDashBoardLayout, stateDashBoardLayo
 
 
                     
-                    <Button
+                    {/* <Button
                         
 
                         onPress={() => Auth.signOut()}
-                    >Logout </Button>
+                    >Logout </Button> */}
                 </Layout>
                 {/* <Divider style={{padding:50}}/> */}
                 

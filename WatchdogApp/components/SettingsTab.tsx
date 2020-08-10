@@ -3,6 +3,7 @@ import { Layout, Icon, Menu, MenuItem, Select, SelectItem, Input } from '@ui-kit
 import moment from 'moment'
 import { NavigationContainer, useNavigation } from "@react-navigation/native"
 import { createStackNavigator } from "@react-navigation/stack"
+import  { Auth } from 'aws-amplify'
 
 //Dynamically create dummy data
 const dummyData = Array.from({ length: 10 }, (_, index) => (
@@ -20,8 +21,8 @@ const PasswordIcon = (props) => (
     <Icon {...props} name='alert-triangle-outline' />
 );
 
-const ColorPaletteIcon = (props) => (
-    <Icon {...props} name='color-palette-outline' />
+const LogoutIcon = (props) => (
+    <Icon {...props} name='log-out-outline' />
 );
 
 const NotificationsIcon = (props) => (
@@ -60,6 +61,7 @@ function SettingsTab(props) {
                      <Setting title='Identity Settings' accessoryLeft={IdentityIcon} onPress={() => navigation.navigate({ name: 'Identities', key: 'Identities' })} />
                      <Setting title='Password Settings' accessoryLeft={PasswordIcon} onPress={() => navigation.navigate({ name: 'Password', key: 'Password' })} />
                      <Setting title='Account Information' accessoryLeft={AccountIcon} onPress={() => navigation.navigate({ name: 'Account', key: 'Account' })} />
+                     <Setting title='Logout' accessoryLeft={LogoutIcon} onPress={() => Auth.signOut()} />
                      {/* <Setting title='Historical Content' accessoryLeft={HistoricalIcon}   />
                      <Setting title='Security Level' accessoryLeft={SecurityLevelIcon} /> */}
                  </Menu>
