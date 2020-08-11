@@ -4,7 +4,7 @@ import { Table } from 'rsuite';
 const { Column, HeaderCell, Cell, Pagination } = Table;
 import screenfull from 'screenfull'
 import { findDOMNode } from 'react-dom'
-import {getLiveList} from '../api/api'
+
 import Loading from './Loading'
 import socketIOClient from "socket.io-client";
 import { Auth} from 'aws-amplify'
@@ -46,7 +46,7 @@ class SocketClient extends Component {
     socket.emit("authorize", { "user_id" : this.props.user, "client_type" : "consumer", "client_key" : "string" });
     socket.emit("consume-view", { "camera_list" : [this.props.data.camera_id],"producer_id": this.props.data.site });
     socket.on("consume-frame", (message) => this.setData(message.frame));
-    // this.setData()
+    
    
   }
   componentWillUnmount(){
@@ -59,7 +59,7 @@ render(){
   return(
     <div>
       <div >
-    <img ref={this.myRef} src={"data:image/jpeg;base64," + this.state.data} />
+    <img ref={this.myRef} src={"data:image/jpeg;base64," + this.state.data} alt="This Camera is Offline" />
     </div>
     <div>
     <Row fluid>

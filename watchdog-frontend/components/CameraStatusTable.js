@@ -1,72 +1,139 @@
 import React, {Component} from 'react'
-import {Table, Badge, Panel} from 'rsuite'
+import {Table, Badge, Panel,Icon,Avatar} from 'rsuite'
 const { Column, HeaderCell, Cell, Pagination } = Table;
+import socketIOClient from "socket.io-client";
+import {getLiveList} from '../api/api'
+import Loading from './Loading'
+const ENDPOINT = "ec2-13-245-35-130.af-south-1.compute.amazonaws.com:8080";
+var DbValues=[];
+var SocketValues=[]
+var socket
+let newVals=[];
+// var videos= {"producers":{
+//     "s1ef96c22099020c9467dc16368eb900dfbafc614c2b663bcd4e41051f2b4a514":[
+//         "c91be10abd48462a5a606df692bdcfbd3ab8860802e70328f79b08232ec638cc1"  //Comment in to test  locally
+//     ]
+//     }
+// }
 
-const cameras=[
-    {
-        "cam_id": "1",
-        "cam_url": "https://s3.af-south-1.amazonaws.com/watchdog.uservideocontent/video/Chelsea+2-1+Manchester+City+_+Pulisic+%26+Willian+Seal+Dramatic+Victory+_+Premier+League+Highlights.mp4",
-        "cam_location": "Yard",
-        "status":  <Badge content="online" style={{ background: '#4caf50' }} />
-        },
-        {
-        "cam_id": "2",
-        "cam_url": "https://s3.af-south-1.amazonaws.com/watchdog.uservideocontent/video/Chelsea+2-1+Manchester+City+_+Pulisic+%26+Willian+Seal+Dramatic+Victory+_+Premier+League+Highlights.mp4",
-        "cam_location": "Kitchen",
-        "status":  <Badge content="online" style={{ background: '#4caf50' }} />
-        },
-        {
-        "cam_id": "3",
-        "cam_url": "https://s3.af-south-1.amazonaws.com/watchdog.uservideocontent/video/Chelsea+2-1+Manchester+City+_+Pulisic+%26+Willian+Seal+Dramatic+Victory+_+Premier+League+Highlights.mp4",
-        "cam_location": "Kitchen",
-        "status": <Badge content="online" style={{ background: '#4caf50' }} />
-        },
-        {
-        "cam_id": "4",
-        "cam_url": "https://s3.af-south-1.amazonaws.com/watchdog.uservideocontent/video/Chelsea+2-1+Manchester+City+_+Pulisic+%26+Willian+Seal+Dramatic+Victory+_+Premier+League+Highlights.mp4",
-        "cam_location": "Kitchen",
-        "status": <Badge content="online" style={{ background: '#4caf50' }} />
-        }
-        ,
-        {
-        "cam_id": "4",
-        "cam_url": "https://s3.af-south-1.amazonaws.com/watchdog.uservideocontent/video/Chelsea+2-1+Manchester+City+_+Pulisic+%26+Willian+Seal+Dramatic+Victory+_+Premier+League+Highlights.mp4",
-        "cam_location": "Kitchen",
-        "status": <Badge content="online" style={{ background: '#4caf50' }} />
-        },
-        {
-        "cam_id": "4",
-        "cam_url": "https://s3.af-south-1.amazonaws.com/watchdog.uservideocontent/video/Chelsea+2-1+Manchester+City+_+Pulisic+%26+Willian+Seal+Dramatic+Victory+_+Premier+League+Highlights.mp4",
-        "cam_location": "Kitchen",
-        "status": <Badge content="online" style={{ background: '#4caf50' }} />
-        }
-  ]
 
+
+var userId;
 class CameraStatusTable extends Component{
     constructor(){
         super()
+        this.state = {
+            loaded: false,
+            values: [],
+            socketVal: [],
+            user:""
+           
+          };
+       this.Compare=this.Compare.bind(this)
+
+        socket = socketIOClient(ENDPOINT); //Comment out to test locally
+        
     }
+   
+    componentDidMount(){
+        
+    // var userId;
+        
+        getLiveList((status)=>{
+            console.log(status)
+    userId=status.userId
+    console.log(userId)
+    var panel = status.data.data.control_panel
+    console.log(panel)
+    for(let site_id in panel){
+      for(let location in panel[site_id]){
+        if(location=="metadata")
+          continue;
+
+        else{
+          for(let camera_id in panel[site_id][location])
+        DbValues.push({
+          "camera_id": camera_id,
+          "site": site_id,
+          "location": location,
+          "status": <Avatar circle style={{ background: '#820124' }} size="sm"><Icon icon="video-camera" /></Avatar>
+        })
+       
+      }
+
+  }
+}
+  
+  DbValues.userId=userId
+  
+  this.setState({values: DbValues})
+  
+  
+  socket.emit("authorize", { "user_id" : userId, "client_type" : "consumer", "client_key" : "string" }); //Comment out to test locally
+  socket.on("available-views", (message) => this.setState({socketVal:message}) ); //Comment out to test locally
+//   this.setState({socketVal:videos}) //comment in to test locally
+  this.Compare(this.state.socketVal)
+        
+    }, (err)=>console.log(err))
+
+}
+
+Compare(message){
+    console.log(this.state.values)
+    let producers= message
+    console.log(producers)
+        for(let site_id in producers){
+            for(let camera_id in producers[site_id]){
+                newVals.push({
+                    "site": site_id,
+                    "camera": producers[site_id][camera_id]
+                })
+                
+        }
+    }
+    this.setState({loaded: true, socketVal: newVals})
+    
+    let valuesCopy = this.state.values
+    for(var x=0;x<this.state.values.length;x++){
+        for(var y=0;y<this.state.socketVal.length;y++){
+            if(this.state.values[x].camera_id==this.state.socketVal[y].camera){
+                
+                valuesCopy[x].status= <Avatar circle style={{ background: '#4caf50' }} size="sm"><Icon icon="video-camera" /></Avatar>
+            }
+        }
+    }
+    this.setState({values:valuesCopy})
+    
+}
+    componentWillUnmount(){
+        DbValues=[]
+        newVals=[]
+        this.setState({
+            values:[],
+            newVals:[]
+        })
+        socket.disconnect() //Comment out to test locally
+    }
+    
 
     render(){
+        
         return(
             <Panel header="Camera Status" bordered bodyFill align='center'>
                 <Table
                 virtualized
                 height={340}
-                data={cameras}
+                data={this.state.values}
                 fluid
                 onRowClick={data => {
                 console.log(data);
                 }}
             >
-                <Column flexGrow={0.5} align="center" fixed>
-                <HeaderCell>Id</HeaderCell>
-                <Cell dataKey="cam_id" />
-                </Column>
+                
     
                 <Column flexGrow={1}>
                 <HeaderCell>Location</HeaderCell>
-                <Cell dataKey="cam_location" />
+                <Cell dataKey="location" />
                 </Column>
 
                 <Column flexGrow={0.5}>
@@ -77,6 +144,7 @@ class CameraStatusTable extends Component{
             </Table>
           </Panel>
         )
+        
     }
 
 }

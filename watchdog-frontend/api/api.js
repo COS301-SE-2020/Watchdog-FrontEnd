@@ -27,7 +27,7 @@ async function getVideos( callback, errorcallback){
 
 }
 
-async function getLiveList( callback, errorcallback){
+async function getLiveList(set_func){
   let url = await "https://b534kvo5c6.execute-api.af-south-1.amazonaws.com/testing/controlpanel"
   let {idToken} = await Auth.currentSession()
   let userId = idToken.payload.sub
@@ -41,15 +41,11 @@ async function getLiveList( callback, errorcallback){
   .then(res => {
     //do something
     res.userId=userId
-    if(callback != null){
-       callback(res);
-    }
+    set_func(res)
   })
   .catch(err => {
     // catch error
-    if(errorcallback != null){
-       errorcallback(err);
-    }
+    
   })
 
 }

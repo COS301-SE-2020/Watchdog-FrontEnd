@@ -162,7 +162,7 @@ class HistoricalVideo extends Component{
           let locations = []
           console.log(res)
           let result = videos.map((item, index)=>{
-          let location = item.metadata.room||"Unknown"
+          let location = item.location||"Unknown"
           locations.push(location.charAt(0).toUpperCase() + location.slice(1))
           let type = item.tag
           let date = new Date(item.metadata.timestamp * 1000)

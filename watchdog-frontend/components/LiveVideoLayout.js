@@ -73,6 +73,9 @@ var userId;
       }, (err)=>console.log(err))
       
   }
+  componentWillUnmount(){
+    values=[]
+  }
   setRow(rowVal){
     this.setState({rowData : rowVal})
   }
