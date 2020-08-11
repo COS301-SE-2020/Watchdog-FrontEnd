@@ -1,32 +1,35 @@
 {
     "UserData": {
         "control_panel": {},
-        "email": "",
         "identities": {
             "intruder": [],
             "whitelist": []
         },
         "logs": [],
         "name": "",
-        "phone": "",
         "preferences": {
             "historical": {
                 "clip_interval": 10,
                 "clip_length": 20
             },
             "notifications": {
+                "email": "",
+                "phone": "",
                 "security_company": "",
-                "type": "",
-                "value": ""
+                "type": ""
             },
-            "security_level": 1
+            "security_level": "1"
         },
-        "user_id": ""
-    },
-    "Statistics": {},
-    "Artefacts": {
-        "frames": [],
         "user_id": "",
-        "videos": []
-    }
+        "frames": [],
+        "videos": [],
+        "locations": {}
+    },
+    "UI": {
+        "Recordings": {
+            "loading": false,
+            "message": ""
+        }
+    },
+    "Statistics": {}
 }
