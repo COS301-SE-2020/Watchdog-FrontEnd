@@ -5,46 +5,56 @@ import * as actions from './actionTypes';
 var defaultState = require('./defaultState.json');
 
 //README: Please see actionTypes.js for explinations of what the actions do 'rr
-function userDataReducer(state = defaultState.UserData, action) {
+function dataReducer(state = defaultState.UserData, action) {
+    // console.log(action);
     switch (action.type) {
-        case actions.STARTED_LOADING:
+        case actions.SUCCESS_GET_RECORDINGS:
+            // console.log(action.payload.data)
+            // return state
             return produce(state, draftState => {
-                draftState[action.payload.component]['is_loading'] = true;
-            });
-        case actions.COMPLETED_LOADING:
-            return produce(state, draftState => {
-                draftState[action.payload.component]['is_loading'] = false;
-                draftState[action.payload.component]['success'] = action.payload.success;
-                draftState[action.payload.component]['message'] = action.payload.message;
-            });
-        case actions.LOADED_DATA:
-            return produce(state, draftState => {
-                draftState = {...state, ...action.payload.data};
-            });
-    
+                draftState.videos = action.payload.data.data.videos
+                draftState.locations = action.payload.data.data.locations
+            })
         default:
             return state;
     }
 }
 
-function artefactsReducer(state = defaultState.Artefacts, action) {
+function uiReducer(state=defaultState.UI, action) {
+    // console.log(action);
+    // console.log(state);
     switch (action.type) {
+        case actions.SUCCESS_GET_RECORDINGS:
+            return produce(state, (draftState) => {
+                draftState.Recordings.loading = false
+            })
+        case "GET_RECORDINGS":
+            return produce(state, draftState => {
+                draftState.Recordings.loading = true
+            })
+        case "DONE_GET_RECORDINGS":
+            return produce(state, (draftState) => {
+                draftState.Recordings.loading = false
+            })
         default:
-            return state;
+            return state; 
     }
 }
 
-function statisticsReducer(state = defaultState.Statistics, action) {
+function statisticsReducer(state = {}, action) {
+    // console.log(action);
     switch (action.type) {
         default:
-            return state;
+            return state
     }
 }
 
 const watchdogApp = combineReducers(
-    userDataReducer,
-    artefactsReducer,
-    statisticsReducer
+    {
+        "Data": dataReducer,
+        "UI": uiReducer,
+        "Statistics": statisticsReducer
+    }
 );
 
 export default watchdogApp;
