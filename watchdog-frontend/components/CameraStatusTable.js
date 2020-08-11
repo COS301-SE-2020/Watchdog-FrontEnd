@@ -4,7 +4,7 @@ const { Column, HeaderCell, Cell, Pagination } = Table;
 import socketIOClient from "socket.io-client";
 import {getLiveList} from '../api/api'
 import Loading from './Loading'
-const ENDPOINT = "ec2-13-245-35-130.af-south-1.compute.amazonaws.com:8080";
+const ENDPOINT = "http://ec2-13-245-35-130.af-south-1.compute.amazonaws.com:8080";
 var DbValues=[];
 var SocketValues=[]
 var socket
@@ -31,7 +31,7 @@ class CameraStatusTable extends Component{
           };
        this.Compare=this.Compare.bind(this)
 
-        socket = socketIOClient(ENDPOINT); //Comment out to test locally
+        socket = socketIOClient(ENDPOINT,{secure: false}); //Comment out to test locally
         
     }
    

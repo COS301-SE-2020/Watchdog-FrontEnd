@@ -8,7 +8,7 @@ import { findDOMNode } from 'react-dom'
 import Loading from './Loading'
 import socketIOClient from "socket.io-client";
 import { Auth} from 'aws-amplify'
-const ENDPOINT = "ec2-13-245-35-130.af-south-1.compute.amazonaws.com:8080";
+const ENDPOINT = "http://ec2-13-245-35-130.af-south-1.compute.amazonaws.com:8080";
 var base64
 var socket;
 
@@ -31,7 +31,7 @@ class SocketClient extends Component {
        
       };
      this.setData=this.setData.bind(this) 
-     socket = socketIOClient(ENDPOINT);
+     socket = socketIOClient(ENDPOINT,{secure: false});
   }
   
  
