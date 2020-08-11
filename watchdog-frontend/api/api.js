@@ -299,19 +299,18 @@ async function updateNotification(body, set_func){
 
   if(body.type==="Email"){
     not_type = "email"
-    not_value = body.email
+    
   }
   if(body.type==="SMS"){
     not_type = "sms"
-    not_value = body.number
+    
     
   }
   let url = "https://b534kvo5c6.execute-api.af-south-1.amazonaws.com/testing/preferences/notifications"
   await axios.post(url,{
     
       security_company: body.security,
-      type: not_type,
-      value: not_value
+      type: not_type
     
   }, 
   {
@@ -325,8 +324,6 @@ async function updateNotification(body, set_func){
         //console.log(res)
         let set ={
           type : body.type,
-          email : body.email,
-          number : body.number,
           security : body.security
         }
         Alert.success("Notification settings updated", 3000)

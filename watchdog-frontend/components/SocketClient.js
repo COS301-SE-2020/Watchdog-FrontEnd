@@ -59,7 +59,7 @@ render(){
   return(
     <div>
       <div >
-    <img ref={this.myRef} src={"data:image/jpeg;base64," + this.state.data} alt="This Camera is Offline" />
+    <img ref={this.myRef} src={"data:image/jpeg;base64," + this.state.data} alt="This Camera is Offline" style={{fontSize:"22px",fontWeight:"bold",textAlign: 'center'}} />
     </div>
     <div>
     <Row fluid>

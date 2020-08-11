@@ -34,8 +34,6 @@ class NotificationView extends Component{
         // }
         
         this.setState({type: settings.type,
-        email: settings.email || "",
-        number: settings.number||"",
         security_company : settings.security})
 
     }
@@ -48,12 +46,11 @@ class NotificationView extends Component{
                 <Panel  shaded header={<h4>Current Notification Settings</h4>}>
                     
                     <h5>Notification type: {this.state.type}</h5>
-                    {this.state.type==="Email"&&<h5>Email: {this.state.email}</h5>}
-                    {this.state.type==="SMS"&&<h5>Number: {this.state.number}</h5>}
                     {this.state.security_company !==""&&<h5>Security Company: {this.state.security_company}</h5>}
+                    {this.state.security_company ==""&&<h5>Security Company Number not set</h5>}
                 </Panel>
                 <Divider />
-                <UpdateNotifications update_settings = {this.setSettings}/>
+                <UpdateNotifications update_settings = {this.setSettings} current_security={this.state.security_company}/>
             </Panel>
         )
     }
