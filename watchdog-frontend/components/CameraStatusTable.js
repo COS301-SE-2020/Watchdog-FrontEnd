@@ -4,7 +4,7 @@ const { Column, HeaderCell, Cell, Pagination } = Table;
 import socketIOClient from "socket.io-client";
 import {getLiveList} from '../api/api'
 import Loading from './Loading'
-const ENDPOINT = "http://ec2-13-245-35-130.af-south-1.compute.amazonaws.com:8080";
+const ENDPOINT = "ec2-13-245-14-169.af-south-1.compute.amazonaws.com:8080";
 var DbValues=[];
 var SocketValues=[]
 var socket
@@ -30,6 +30,7 @@ class CameraStatusTable extends Component{
            
           };
        this.Compare=this.Compare.bind(this)
+       this.setData=this.setData.bind(this)
 
         socket = socketIOClient(ENDPOINT,{secure: false}); //Comment out to test locally
         
@@ -70,12 +71,18 @@ class CameraStatusTable extends Component{
   
   
   socket.emit("authorize", { "user_id" : userId, "client_type" : "consumer", "client_key" : "string" }); //Comment out to test locally
-  socket.on("available-views", (message) => this.setState({socketVal:message}) ); //Comment out to test locally
+  socket.on("available-views", (message) => this.setData(message) ); //Comment out to test locally
 //   this.setState({socketVal:videos}) //comment in to test locally
-  this.Compare(this.state.socketVal)
+console.log(this.state.socketVal)
+  
         
     }, (err)=>console.log(err))
 
+}
+setData(message){
+    this.setState({socketVal:message})
+    console.log(this.state.socketVal)
+    this.Compare(this.state.socketVal)
 }
 
 Compare(message){
