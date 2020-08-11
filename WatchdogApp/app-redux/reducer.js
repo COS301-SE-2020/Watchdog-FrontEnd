@@ -13,6 +13,7 @@ function dataReducer(state = defaultState.UserData, action) {
             // return state
             return produce(state, draftState => {
                 draftState.videos = action.payload.data.data.videos
+                draftState.locations = action.payload.data.data.locations
             })
         default:
             return state;

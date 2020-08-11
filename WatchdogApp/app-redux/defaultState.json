@@ -22,7 +22,8 @@
         },
         "user_id": "",
         "frames": [],
-        "videos": []
+        "videos": [],
+        "locations": {}
     },
     "UI": {
         "Recordings": {
