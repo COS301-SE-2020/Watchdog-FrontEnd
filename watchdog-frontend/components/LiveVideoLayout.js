@@ -87,7 +87,7 @@ var userId;
             
             <div >
               <Grid fluid style={{paddingTop:10}}>
-              <Panel  header="Camera Status" bordered bodyFill align='center'>
+              <Panel  header={<h4>Live Streaming</h4>} bordered bodyFill align='center'>
                 <Table
                   autoHeight
                   height={700}
