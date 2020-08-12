@@ -64,7 +64,7 @@ function uiReducer(state = defaultState.UI, action) {
                 draftState.Logs.loading = true
             })
 
-        case actions.SUCCESS_GET_RECORDINGS:
+        case actions.SUCCESS_GET_USER_DATA:
             return produce(state, (draftState) => {
                 draftState.Identities.loading = false
                 draftState.Logs.loading = false
