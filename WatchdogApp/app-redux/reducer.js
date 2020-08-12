@@ -4,9 +4,14 @@ import * as actions from './actionTypes';
 
 var defaultState = require('./defaultState.json');
 
+/**
+ * Data Reducer to perform Data updates only
+ * @param {*} state UserData update to give/update data in store
+ * @param {*} action Redux Action
+ */
 function dataReducer(state = defaultState.UserData, action) {
     switch (action.type) {
-        case actions.SUCCESS_GET_USER_DATA:
+        case actions.GET_USER_DATA_SUCCESS:
             return produce(state, draft => {
                 draft.control_panel = action.payload.data.data.control_panel
                 draft.logs = action.payload.data.data.logs
@@ -14,38 +19,33 @@ function dataReducer(state = defaultState.UserData, action) {
                 draft.preferences = action.payload.data.data.preferences
                 draft.security_level = action.payload.data.data.security_level
                 draft.identities = action.payload.data.data.identities
-                console.log("GOT_USER_DATA");
-                console.log(draft)
             })
-        case actions.SUCCESS_GET_RECORDINGS:
+        case actions.GET_RECORDINGS_SUCCESS:
             return produce(state, draftState => {
                 draftState.videos = action.payload.data.data.videos
                 draftState.locations = action.payload.data.data.locations
             })
-        case actions.SUCCESS_GET_IDENTITIES:
+        case actions.GET_IDENTITIES_SUCCESS:
             return produce(state, draft => {
                 draft.identities.whitelist = action.payload.data.data.identities.whitelist
             })
-        case actions.SUCCESS_GET_LOGS:
+        case actions.GET_LOGS_SUCCESS:
             return produce(state, draft => {
                 draft.logs = action.payload.data.data.logs
             })
-
-        case actions.ERROR_GET_USER_DATA:
-            return state
-        case actions.ERROR_GET_RECORDINGS:
-            return state
-        case actions.ERROR_GET_IDENTITIES:
-            return state
-        case actions.ERROR_GET_LOGS:
-            return state
-        default:
-            return state;
     }
 }
 
+/**
+ * UI Reducer to Map progress of API and other such related business logic
+ * @param {*} state UI component states to indicate progression of API calls
+ * @param {*} action Redux Action
+ */
 function uiReducer(state = defaultState.UI, action) {
     switch (action.type) {
+        /**
+         * Loading Notifiers
+         */
         case actions.GET_USER_DATA:
             return produce(state, draft => {
                 draft.Identities.loading = true
@@ -64,31 +64,47 @@ function uiReducer(state = defaultState.UI, action) {
                 draftState.Logs.loading = true
             })
 
-        case actions.SUCCESS_GET_USER_DATA:
+        /**
+         * Success Notifiers
+         */
+        case actions.GET_USER_DATA_SUCCESS:
             return produce(state, (draftState) => {
                 draftState.Identities.loading = false
                 draftState.Logs.loading = false
             })
-        case actions.SUCCESS_GET_RECORDINGS:
+        case actions.GET_RECORDINGS_SUCCESS:
             return produce(state, (draftState) => {
                 draftState.Recordings.loading = false
             })
-        case actions.SUCCESS_GET_IDENTITIES:
+        case actions.GET_IDENTITIES_SUCCESS:
             return produce(state, (draftState) => {
                 draftState.Identities.loading = false
             })
-        case actions.SUCCESS_GET_LOGS:
+        case actions.GET_LOGS_SUCCESS:
             return produce(state, (draftState) => {
                 draftState.Logs.loading = false
             })
-
+        
+        /**
+         * Fail notifiers
+         */
+        //FIXME: Implement better error handling
+        case actions.GET_USER_DATA_FAIL:
+            return state
+        case actions.GET_RECORDINGS_FAIL:
+            return state
+        case actions.GET_IDENTITIES_FAIL:
+            return state
+        case actions.GET_LOGS_FAIL:
+            return state
+        default:
+            return state;
         default:
             return state;
     }
 }
 
 function statisticsReducer(state = {}, action) {
-    // console.log(action);
     switch (action.type) {
         default:
             return state

@@ -36,7 +36,9 @@
         },
         "Identities": {
             "loading": false,
-            "message": ""
+            "message": "",
+            "uploading": false,
+            "url": ""
         },
         "Logs": {
             "loading": false,

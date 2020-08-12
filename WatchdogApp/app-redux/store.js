@@ -1,5 +1,5 @@
 import thunkMiddleware from 'redux-thunk';
-import { createLogger } from 'redux-logger';
+import { createCLILogger } from 'redux-cli-logger';
 import { createStore, applyMiddleware } from 'redux';
 import watchdogApp from './reducer';
 import axios from 'axios';
@@ -10,22 +10,14 @@ const client = axios.create({ //all axios can be used, shown in axios documentat
     responseType: 'json'
 });
 
-const onSuccess = (obj) => {
-    console.log({"axios_success": obj});
-}
-const onError = (obj) => {
-    console.log({"axios_error": obj});
-}
-
-
-const logger = createLogger();
+const logger = createCLILogger()
 const store = createStore(
     watchdogApp,
     applyMiddleware(
         thunkMiddleware,
-        logger,
-        axiosMiddleware(client)
+        axiosMiddleware(client),
+        logger
     )
-);
+)
 
 export default store;

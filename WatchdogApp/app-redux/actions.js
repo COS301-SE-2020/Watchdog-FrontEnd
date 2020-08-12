@@ -8,7 +8,7 @@ export function getUserData() {
                 let jwt = idToken.getIdToken().getJwtToken()
                 dispatch(
                     {
-                        types: [actionTypes.GET_USER_DATA, actionTypes.SUCCESS_GET_USER_DATA, actionTypes.ERROR_GET_USER_DATA],
+                        types: [actionTypes.GET_USER_DATA, actionTypes.GET_USER_DATA_SUCCESS, actionTypes.GET_USER_DATA_FAIL],
                         payload: {
                             request: {
                                 url: '/user',
@@ -22,7 +22,29 @@ export function getUserData() {
             }
         )
     }
+}
 
+export function getSecurityLevel() {
+    return (dispatch) => {
+        Auth.currentSession().then(
+            idToken => {
+                let jwt = idToken.getIdToken().getJwtToken()
+                dispatch(
+                    {
+                        types: [actionTypes.GET_SECURITYLEVEL, actionTypes.GET_SECURITYLEVEL_SUCCESS, actionTypes.GET_SECURITYLEVEL_FAIL],
+                        payload: {
+                            request: {
+                                url: '/preferences/securitylevel',
+                                headers: {
+                                    Authorization: `${jwt}`
+                                }
+                            }
+                        }
+                    }
+                )
+            }
+        )
+    }
 }
 
 export function getRecordings() {
@@ -46,7 +68,6 @@ export function getRecordings() {
             }
         )
     }
-
 }
 
 export function getIdentities() {
@@ -67,6 +88,60 @@ export function getIdentities() {
                         }
                     }
                 )
+            }
+        )
+    }
+}
+
+export function getIdentityUploadLink(name, filename) {
+    return (dispatch) => {
+        Auth.currentSession().then(
+            idToken => {
+                let jwt = idToken.getIdToken().getJwtToken()
+                dispatch(
+                    {
+                        types: [actionTypes.GET_IDENTITIES_UPLOAD, actionTypes.GET_IDENTITIES_UPLOAD_SUCCESS, actionTypes.GET_IDENTITIES_UPLOAD_FAIL],
+                        payload: {
+                            request: {
+                                method: 'post',
+                                url: '/detectintruder',
+                                headers: {
+                                    Authorization: `${jwt}`
+                                },
+                                data: {
+                                    name,
+                                    filename,
+                                    tag: 'whitelist'
+                                }
+                            }
+                        }
+                    }
+                )
+            }
+        )
+    }
+}
+
+export function uploadToS3(url, file, fields) {
+    const formData = new FormData()
+
+    for ( let key in fields ) {
+        formData.append(key, fields[key])
+    }
+    
+    formData.append('file', file.blobFile)
+    
+    return (dispatch) => {
+        dispatch(
+            {
+                types: [actionTypes.UPLOAD_TO_S3, actionTypes.UPLOAD_TO_S3_SUCCESS, actionTypes.UPLOAD_TO_S3_FAIL],
+                payload: {
+                    request: {
+                        method: 'post',
+                        url,
+                        formData
+                    }
+                }
             }
         )
     }
