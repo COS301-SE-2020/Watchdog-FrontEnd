@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {IconButton,Icon,Modal,Button, Grid,Row,Col}  from 'rsuite'
+import {IconButton,Icon,Modal,Button, Grid,Row,Col, Panel, ActionCell}  from 'rsuite'
 import { Table } from 'rsuite';
 const { Column, HeaderCell, Cell, Pagination } = Table;
 import screenfull from 'screenfull'
@@ -86,49 +86,59 @@ var userId;
           return(
             
             <div >
-        <Table
-          height={400}
-          data={this.state.data}
-          
-        >
-          <Column flexGrow={1} align="center" fixed >
-            <HeaderCell>Location</HeaderCell>
-             <Cell dataKey="location" />
-          </Column>
+              <Grid fluid style={{paddingTop:10}}>
+              <Panel  header="Camera Status" bordered bodyFill align='center'>
+                <Table
+                  autoHeight
+                  height={700}
+                  data={this.state.data}
+                  wordWrap
+                  
+                >
+                  <Column flexGrow={1} align="center" fixed >
+                    <HeaderCell><h5>Location</h5></HeaderCell>
+                    <Cell dataKey="location" />
+                  </Column>
+                  
+                  {/* <Column flexGrow={0.5}>
+                        <HeaderCell>Status</HeaderCell>
+                        <Cell dataKey="status" />
+                  </Column> */}
+                  
+                  <Column flexGrow={1} align="center" fixed >
+                    <HeaderCell><h5>Play</h5></HeaderCell>
 
-          
-          <Column flexGrow={1} align="center" fixed >
-            <HeaderCell>Play</HeaderCell>
-
-            <Cell>
-              {row =>{
-                return (
-                  <IconButton onClick={()=>{this.open(),this.setRow(row)}} icon={<Icon icon="play" />} />
-                );
-              }}
-            </Cell>
-          </Column>
-        </Table>
-        <div className="modal-container">
-        <Modal overflow={false} show={this.state.show} onHide={this.close} size='lg' backdrop="static">
-          <Modal.Body>
-          <Grid fluid>
-          <Row fluid>
-          <Col fluid xs={24}>
-            <SocketClient user={userId} data={this.state.rowData}/>
-            </Col>
-            </Row>
-            
-            </Grid>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button onClick={this.close} appearance="primary">
-              Close
-            </Button>
-            
-          </Modal.Footer>
-        </Modal>
-      </div>
+                    <Cell>
+                      {row =>{
+                        return (
+                          <IconButton  onClick={()=>{this.open(),this.setRow(row)}} icon={<Icon icon="play" />}  circle size="md" />
+                        );
+                      }}
+                   </Cell>
+                  </Column>
+                </Table>
+              </Panel>
+              </Grid>
+              <div className="modal-container">
+              <Modal overflow={false} show={this.state.show} onHide={this.close} size='lg' backdrop="static">
+                <Modal.Body>
+                <Grid fluid>
+                <Row fluid>
+                <Col fluid xs={24}>
+                  <SocketClient user={userId} data={this.state.rowData}/>
+                  </Col>
+                  </Row>
+                  
+                  </Grid>
+                </Modal.Body>
+                <Modal.Footer>
+                  <Button onClick={this.close} appearance="primary">
+                    Close
+                  </Button>
+                  
+                </Modal.Footer>
+              </Modal>
+            </div>
       </div>
     
           )
