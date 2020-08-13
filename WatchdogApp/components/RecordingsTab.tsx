@@ -1,9 +1,9 @@
-import React, { Component, Dispatch, useEffect } from "react"
+import React, { Component, Dispatch, useEffect, useState } from "react"
 import { produce } from 'immer'
-import { StyleSheet } from "react-native"
+import { StyleSheet, View } from "react-native"
 import { Video } from 'expo-av'
 import moment from 'moment'
-import { Card, List, Layout, Avatar, Text, Drawer, DrawerGroup, Input, Datepicker, CheckBox, Select, SelectItem, IndexPath } from "@ui-kitten/components"
+import { Card, List, Layout, Avatar, Text, Drawer, DrawerGroup, Input, Datepicker, CheckBox, Select, SelectItem, IndexPath, Spinner } from "@ui-kitten/components"
 import { connect } from 'react-redux'
 
 import CustomTab from "./CustomTab"
@@ -50,17 +50,22 @@ class RecordingsTab extends Component<RecordingsTabProps, RecordingsTabState> {
                 intruder: true,
                 periodic: true,
                 movement: true,
-                location: this.props.locations.map((value, index) => new IndexPath(index)),
+                location: [],
                 fromDate: null,
                 toDate: null
             }
         }
-
     }
 
     componentDidMount = () => {
         this.props.load()
-        // console.log(this.props.locations);
+
+        setTimeout(() => {
+            this.setState(produce(draft => {
+                draft.showVideos = [...this.props.videos]
+                draft.filters.location = this.props.locations.map((value, index) => new IndexPath(index))
+            }))
+        }, 5000)
     }
 
     render() {
@@ -86,8 +91,8 @@ class RecordingsTab extends Component<RecordingsTabProps, RecordingsTabState> {
         const renderVideoFooter = (footerProps, info) => (
             <Text category="label" style={{ padding: 20 }}>{info.item.location.toUpperCase()}</Text>
         )
-        const renderVideo = (info) => (
-            <React.Fragment>
+        const renderVideo = (info) => {
+            return <React.Fragment>
                 <Card
                     style={styles.item}
                     status={(info.item.tag == 'periodic') ? 'basic' : (info.item.tag == 'intruder') ? 'danger' : 'warning'}
@@ -98,13 +103,22 @@ class RecordingsTab extends Component<RecordingsTabProps, RecordingsTabState> {
                         source={{ uri: info.item.path_in_s3 }}
                         isMuted={false}
                         resizeMode="contain"
+                        usePoster={true}
+                        posterSource={
+                            (info.item.tag == 'periodic') ?
+                                require('../assets/clock.png')
+                                : (info.item.tag == 'intruder') ?
+                                    require('../assets/thief.png')
+                                    : require('../assets/travel.png')
+                            //     // require('../assets/videoLoader.svg')
+                        }
                         useNativeControls
                         style={{ width: 300, height: 300 }}
                     />
                 </Card>
             </React.Fragment>
 
-        )
+        }
 
 
 
@@ -139,9 +153,14 @@ class RecordingsTab extends Component<RecordingsTabProps, RecordingsTabState> {
                 )
             }
 
-            const groupDisplayValues = this.state.filters.location.map(index => {
-                return this.props.locations[index.row]
-            })
+            const groupDisplayValues = () => {
+                return this.state.filters.location.map(index => {
+                    // this.setState(produce(draft => {
+                    //     draft.filters.location = this.props.locations.map((value, index) => new IndexPath(index))
+                    // }))
+                    return this.props.locations[index.row]
+                })
+            }
 
             const filterVideoByLocation = (obj = this.state.filters.location) => {
                 // console.log(obj);
@@ -158,9 +177,9 @@ class RecordingsTab extends Component<RecordingsTabProps, RecordingsTabState> {
                         }
                     )
                 }))
-                filterVideoByTag('intruder', this.state.filters.intruder)
-                filterVideoByTag('periodic', this.state.filters.periodic)
-                filterVideoByTag('movement', this.state.filters.movement)
+                // filterVideoByTag('intruder', this.state.filters.intruder)
+                // filterVideoByTag('periodic', this.state.filters.periodic)
+                // filterVideoByTag('movement', this.state.filters.movement)
             }
 
             const changeDateRange = (fromDate, toDate) => {
@@ -178,7 +197,7 @@ class RecordingsTab extends Component<RecordingsTabProps, RecordingsTabState> {
                                 let cond2 = true
                                 if (toDate != null)
                                     cond2 = (date <= toDate)
-                                console.log({"dates": {fromDate, toDate, date, str: value.metadata.timestamp},"cond1": cond1, "cond2": cond2});
+                                console.log({ "dates": { fromDate, toDate, date, str: value.metadata.timestamp }, "cond1": cond1, "cond2": cond2 });
                                 return cond1 && cond2
                             }
                         )
@@ -204,13 +223,13 @@ class RecordingsTab extends Component<RecordingsTabProps, RecordingsTabState> {
                         <Select
                             style={styles.input}
                             label='Select Location to Filter'
-                            onSelect={filterVideoByLocation}
-                            value={groupDisplayValues.join(',')}
+                            onSelect={(obj) => filterVideoByLocation(obj)}
+                            value={groupDisplayValues().join(',')}
                             selectedIndex={this.state.filters.location}
                             multiSelect={true}
                         >
                             {
-                                this.props.locations.map((key, index) => (<SelectItem title={key} />))
+                                this.props.locations.map((key, index) => (<SelectItem key={index} title={key} />))
                             }
                         </Select>
                     </Layout>
@@ -276,16 +295,18 @@ const styles = StyleSheet.create({
     }
 });
 
-const mapStateToProps = (store, ownProps) => ({
-    videos: store.Data.videos,
-    locations: Array.from(new Set(Object.values(store.Data.locations))),
-    loading: store.UI.Recordings.loading,
-    message: store.UI.Recordings.message
-})
+const mapStateToProps = (store, ownProps) => {
+    return {
+        videos: store.Data.videos,
+        locations: Array.from(new Set(Object.values(store.Data.locations))),
+        loading: store.UI.Recordings.loading,
+        message: store.UI.Recordings.message
+    }
+}
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        load: message => dispatch(getRecordings())
+        load: () => dispatch(getRecordings())
     }
 }
 
