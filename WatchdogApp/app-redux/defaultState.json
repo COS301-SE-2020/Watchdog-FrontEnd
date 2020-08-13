@@ -43,6 +43,11 @@
         "Logs": {
             "loading": false,
             "message": ""
+        },
+        "SecurityLevel": {
+            "loading": true,
+            "updating": false,
+            "message": ""
         }
     },
     "Statistics": {}

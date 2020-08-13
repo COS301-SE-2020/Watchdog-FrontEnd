@@ -47,6 +47,33 @@ export function getSecurityLevel() {
     }
 }
 
+export function updateSecurityLevel(security_level) {
+    return (dispatch) => {
+        Auth.currentSession().then(
+            idToken => {
+                let jwt = idToken.getIdToken().getJwtToken()
+                dispatch(
+                    {
+                        types: [actionTypes.UPDATE_SECURITYLEVEL, actionTypes.UPDATE_SECURITYLEVEL_SUCCESS, actionTypes.UPDATE_SECURITYLEVEL_FAIL],
+                        payload: {
+                            request: {
+                                method: 'post',
+                                url: '/preferences/securitylevel',
+                                headers: {
+                                    Authorization: `${jwt}`
+                                },
+                                data: {
+                                    security_level
+                                }
+                            }
+                        }
+                    }
+                )
+            }
+        )
+    }
+}
+
 export function getRecordings() {
     return (dispatch) => {
         Auth.currentSession().then(
@@ -54,7 +81,7 @@ export function getRecordings() {
                 let jwt = idToken.getIdToken().getJwtToken()
                 dispatch(
                     {
-                        types: [actionTypes.GET_RECORDINGS, actionTypes.SUCCESS_GET_RECORDINGS, actionTypes.ERROR_GET_RECORDINGS],
+                        types: [actionTypes.GET_RECORDINGS, actionTypes.GET_RECORDINGS_SUCCESS, actionTypes.GET_RECORDINGS_FAIL],
                         payload: {
                             request: {
                                 url: '/ui/recordings',
@@ -77,7 +104,7 @@ export function getIdentities() {
                 let jwt = idToken.getIdToken().getJwtToken()
                 dispatch(
                     {
-                        types: [actionTypes.GET_IDENTITIES, actionTypes.SUCCESS_GET_IDENTITIES, actionTypes.ERROR_GET_IDENTITIES],
+                        types: [actionTypes.GET_IDENTITIES, actionTypes.GET_IDENTITIES_SUCCESS, actionTypes.GET_IDENTITIES_FAIL],
                         payload: {
                             request: {
                                 url: '/detectintruder',
@@ -154,7 +181,7 @@ export function getLogs() {
                 let jwt = idToken.getIdToken().getJwtToken()
                 dispatch(
                     {
-                        types: [actionTypes.GET_LOGS, actionTypes.SUCCESS_GET_LOGS, actionTypes.ERROR_GET_LOGS],
+                        types: [actionTypes.GET_LOGS, actionTypes.GET_LOGS_SUCCESS, actionTypes.GET_LOGS_FAIL],
                         payload: {
                             request: {
                                 url: '/logs',

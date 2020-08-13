@@ -30,9 +30,21 @@ function dataReducer(state = defaultState.UserData, action) {
                 draft.identities.whitelist = action.payload.data.data.identities.whitelist
             })
         case actions.GET_LOGS_SUCCESS:
+            console.log("HERE");
+            console.log(action);
             return produce(state, draft => {
                 draft.logs = action.payload.data.data.logs
             })
+        case actions.GET_SECURITYLEVEL_SUCCESS:
+            return produce(state, draft => {
+                draft.preferences.security_level = action.payload.data.data.preferences.security_level
+            })
+        case actions.UPDATE_SECURITYLEVEL_SUCCESS:
+            return produce(state, draft => {
+                draft.preferences.security_level = action.payload.data.data.Attributes.preferences.security_level
+            })
+        default:
+            return state
     }
 }
 
@@ -59,9 +71,17 @@ function uiReducer(state = defaultState.UI, action) {
             return produce(state, draftState => {
                 draftState.Recordings.loading = true
             })
-        case actions.GET_RECORDINGS:
+        case actions.GET_LOGS:
             return produce(state, draftState => {
                 draftState.Logs.loading = true
+            })
+        case actions.GET_SECURITYLEVEL:
+            return produce(state, draft => {
+                draft.SecurityLevel.loading = true
+            })
+        case actions.UPDATE_SECURITYLEVEL:
+            return produce(state, draft => {
+                draft.SecurityLevel.updating = true
             })
 
         /**
@@ -84,7 +104,15 @@ function uiReducer(state = defaultState.UI, action) {
             return produce(state, (draftState) => {
                 draftState.Logs.loading = false
             })
-        
+        case actions.GET_SECURITYLEVEL_SUCCESS:
+            return produce(state, draft => {
+                draft.SecurityLevel.loading = false
+            })
+        case actions.UPDATE_SECURITYLEVEL_SUCCESS:
+            return produce(state, draft => {
+                draft.SecurityLevel.updating = false
+            })
+
         /**
          * Fail notifiers
          */
@@ -96,9 +124,12 @@ function uiReducer(state = defaultState.UI, action) {
         case actions.GET_IDENTITIES_FAIL:
             return state
         case actions.GET_LOGS_FAIL:
+            console.log("ERROR HERE");
             return state
-        default:
-            return state;
+        case actions.GET_SECURITYLEVEL_FAIL:
+            return state
+        case actions.UPDATE_SECURITYLEVEL_FAIL:
+            return state
         default:
             return state;
     }
