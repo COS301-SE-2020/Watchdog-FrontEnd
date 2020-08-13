@@ -97,11 +97,12 @@ class App extends Component<appProps, appState>{
         <IconRegistry icons={EvaIconsPack} />
         <ApplicationProvider {...eva} theme={theme}>
           <AppearanceProvider>
-            {
-              this.state.loggedIn ?
-                <Provider store={store}><TabNavigation/></Provider> :
-                <Login />
-            }
+            <Provider store={store}>
+              {
+                this.state.loggedIn ?
+                  <TabNavigation /> : <Login />
+              }
+            </Provider>
           </AppearanceProvider>
         </ApplicationProvider>
       </>
