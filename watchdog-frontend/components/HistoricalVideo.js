@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {Panel, PanelGroup, Grid, Row, Col, DateRangePicker, DatePicker, CheckPicker, InputGroup} from 'rsuite'
+import {Panel, PanelGroup, Grid, Row, Col, DateRangePicker, DatePicker, CheckPicker, InputGroup, Button} from 'rsuite'
 import VideoFrameViewer from './VideoFrameViewer'
 import Loading from './Loading'
 import {getVideos} from '../api/api'
@@ -41,7 +41,7 @@ class HistoricalVideo extends Component{
         this.handleClearEndTime = this.handleClearEndTime.bind(this)
         this.handleChangeVideoType = this.handleChangeVideoType.bind(this)
         this.handleChangeCameraLocation = this.handleChangeCameraLocation.bind(this)
-
+        this.handleRefresh = this.handleRefresh.bind(this)
         this.applyFilter = this.applyFilter.bind(this)
     }
 
@@ -148,6 +148,49 @@ class HistoricalVideo extends Component{
         this.setState({cameraLocation : value}, this.applyFilter)
 
     }
+
+    handleRefresh(){
+
+
+        this.setState({loaded : false})
+        getVideos( (res)=>{
+            const videos = res.data.data.videos || []
+            let locations = []
+            let result = videos.map((item, index)=>{
+            let location = item.location||"Unknown"
+            locations.push(location.charAt(0).toUpperCase() + location.slice(1))
+            let type = item.tag
+            let date = new Date(item.metadata.timestamp * 1000)
+            let  utcString = date.toUTCString()
+            let  time = date.toTimeString()
+            time = time.split(' ')[0]
+            let new_element =  {
+              id : index+1,
+              "date": date.toISOString().slice(0,10),
+              "time": time.substr(0,8), //(date.getHours()+2) +":"+date.getMinutes(),
+              "type": type.charAt(0).toUpperCase() + type.slice(1),
+              "location": location.charAt(0).toUpperCase() + location.slice(1),
+              "url": item.path_in_s3
+              }
+              return new_element
+            })
+            console.log(result)
+            let unique = [...new Set(locations)];
+            let filter = unique.map((item)=>{
+              let option ={
+                "label": item,
+                "value": item
+              }
+              return option
+            })
+            this.setState({loaded : true, displayData : result, data : result, rooms: filter})
+            
+          }, (err)=>console.log(err))
+
+          this.applyFilter()
+          
+
+    }
     componentDidMount() {
         
         // fetch('https://b534kvo5c6.execute-api.af-south-1.amazonaws.com/beta/storage/video?user_id=demo1', {
@@ -160,7 +203,6 @@ class HistoricalVideo extends Component{
         getVideos( (res)=>{
           const videos = res.data.data.videos || []
           let locations = []
-          console.log(res)
           let result = videos.map((item, index)=>{
           let location = item.location||"Unknown"
           locations.push(location.charAt(0).toUpperCase() + location.slice(1))
@@ -203,6 +245,9 @@ class HistoricalVideo extends Component{
                     <Grid fluid>
                         <Row fluid className="show-grid" gutter={10}>
                             <Col xs={8} >
+                                <Panel >
+                                    <Button appearance='primary' block onClick={this.handleRefresh}> Refresh</Button>
+                                </Panel>
                                 <PanelGroup accordion bordered>
                                     <Panel header="Video Type Filter">
                                         <CheckPicker
