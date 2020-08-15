@@ -57,7 +57,7 @@ class CameraStatusTable extends Component{
           "camera_id": camera_id,
           "site": site_id,
           "location": location,
-          "status": <Avatar circle style={{ background: '#820124' }} size="sm"><Icon icon="video-camera" /></Avatar>
+          "status": <Badge content="offline" style={{ background: '#820124' }} />//<Avatar circle style={{ background: '#820124' }} size="sm"><Icon icon="video-camera" /></Avatar>
         })
        
       }
@@ -105,7 +105,7 @@ Compare(message){
         for(var y=0;y<this.state.socketVal.length;y++){
             if(this.state.values[x].camera_id==this.state.socketVal[y].camera){
                 
-                valuesCopy[x].status= <Avatar circle style={{ background: '#4caf50' }} size="sm"><Icon icon="video-camera" /></Avatar>
+                valuesCopy[x].status=  <Badge content="online" style={{ background: '#4caf50' }} />//<Avatar circle style={{ background: '#4caf50' }} size="sm"><Icon icon="video-camera" /></Avatar>
             }
         }
     }
@@ -117,7 +117,7 @@ Compare(message){
         newVals=[]
         this.setState({
             values:[],
-            newVals:[]
+            socketVal:[]
         })
         socket.disconnect() //Comment out to test locally
     }
