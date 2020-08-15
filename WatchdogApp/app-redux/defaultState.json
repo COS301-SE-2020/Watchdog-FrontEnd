@@ -36,10 +36,17 @@
         },
         "Identities": {
             "loading": false,
-            "message": ""
+            "message": "",
+            "uploading": false,
+            "url": ""
         },
         "Logs": {
             "loading": false,
+            "message": ""
+        },
+        "SecurityLevel": {
+            "loading": true,
+            "updating": false,
             "message": ""
         }
     },
