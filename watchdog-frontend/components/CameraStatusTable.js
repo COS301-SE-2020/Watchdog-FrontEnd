@@ -117,7 +117,7 @@ Compare(message){
         newVals=[]
         this.setState({
             values:[],
-            newVals:[]
+            socketVal:[]
         })
         socket.disconnect() //Comment out to test locally
     }

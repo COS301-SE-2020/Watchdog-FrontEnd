@@ -4,13 +4,13 @@ import { Table } from 'rsuite';
 const { Column, HeaderCell, Cell, Pagination } = Table;
 import screenfull from 'screenfull'
 import { findDOMNode } from 'react-dom'
-
+import {socket} from './LiveVideoLayout'
 import Loading from './Loading'
 import socketIOClient from "socket.io-client";
 import { Auth} from 'aws-amplify'
-const ENDPOINT = "ec2-13-245-14-169.af-south-1.compute.amazonaws.com:8080";
+
 var base64
-var socket;
+
 
 
 // Get child nodes
@@ -31,7 +31,7 @@ class SocketClient extends Component {
        
       };
      this.setData=this.setData.bind(this) 
-     socket = socketIOClient(ENDPOINT,{secure: false});
+     
   }
   
  
@@ -43,7 +43,7 @@ class SocketClient extends Component {
  
   componentDidMount() {
     
-
+    console.log(this.props.user)
     socket.emit("authorize", { "user_id" : this.props.user, "client_type" : "consumer", "client_key" : "string" });
     socket.emit("consume-view", { "camera_list" : [this.props.data.camera_id],"producer_id": this.props.data.site });
     socket.on("consume-frame", (message) => this.setData(message.frame));
