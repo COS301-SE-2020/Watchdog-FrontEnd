@@ -61,7 +61,9 @@ class Log extends Component{
     }
     render(){
         return(
-            <Panel header="Camera Logs" bordered bodyFill align='center'>
+            <Panel header={<div><IconButton onClick={()=>{this.setState({logs: ""}); getLogs(this.setLogs)}} icon={<Icon icon="refresh" />} placement="left">
+            Camera Logs
+          </IconButton> </div>} bordered bodyFill align='center'>
                 <Table
                 wordWrap
                 height={400}
