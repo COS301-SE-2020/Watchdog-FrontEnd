@@ -38,7 +38,11 @@
             "loading": false,
             "message": "",
             "uploading": false,
-            "url": ""
+            "uploadData": {}
+        },
+        "Preferences": {
+            "loading": false,
+            "message": ""
         },
         "Logs": {
             "loading": false,

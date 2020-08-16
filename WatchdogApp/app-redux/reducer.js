@@ -39,10 +39,20 @@ function dataReducer(state = defaultState.UserData, action) {
             return produce(state, draft => {
                 draft.preferences.security_level = action.payload.data.data.preferences.security_level
             })
+
+        //Uploads and Updates
         case actions.UPDATE_SECURITYLEVEL_SUCCESS:
             return produce(state, draft => {
                 draft.preferences.security_level = action.payload.data.data.Attributes.preferences.security_level
             })
+        case actions.GET_IDENTITIES_UPLOAD_SUCCESS:
+            return produce(state, draft => {
+                draft.identities.whitelist_upload_queue = action.payload.data.data
+            })
+        // case actions.UPLOAD_TO_S3_SUCCESS:
+        //     return produce(state, draft => {
+        //         draft.identities.whitelist_upload_queue = {}
+        //     })
         default:
             return state
     }
@@ -83,6 +93,14 @@ function uiReducer(state = defaultState.UI, action) {
             return produce(state, draft => {
                 draft.SecurityLevel.updating = true
             })
+        case actions.GET_IDENTITIES_UPLOAD:
+            return produce(state, draft => {
+                draft.Identities.updating = true
+            })
+        case actions.UPLOAD_TO_S3:
+            return produce(state, draft => {
+                draft.Identities.uploading = true
+            })
 
         /**
          * Success Notifiers
@@ -112,6 +130,14 @@ function uiReducer(state = defaultState.UI, action) {
             return produce(state, draft => {
                 draft.SecurityLevel.updating = false
             })
+        case actions.GET_IDENTITIES_UPLOAD_SUCCESS:
+            return produce(state, draft => {
+                draft.Identities.uploadData = action.payload.data.data
+            })
+        case actions.UPLOAD_TO_S3_SUCCESS:
+            return produce(state, draft => {
+                draft.Identities.uploading = false    
+            })
 
         /**
          * Fail notifiers
@@ -130,6 +156,10 @@ function uiReducer(state = defaultState.UI, action) {
             return state
         case actions.UPDATE_SECURITYLEVEL_FAIL:
             return state
+        case actions.UPLOAD_TO_S3_FAIL:
+            return produce(state, draft => {
+                draft.Identities.uploading = false
+            })
         default:
             return state;
     }

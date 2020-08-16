@@ -4,7 +4,7 @@ import { Alert, ScrollView } from "react-native"
 import Logs from './Logs'
 import { connect } from 'react-redux'
 
-import { getSecurityLevel, updateSecurityLevel, getUserData } from '../app-redux/actions'
+import { getSecurityLevel, updateSecurityLevel } from '../app-redux/actions'
 import CameraStatus from './CameraStatus'
 import CameraStatusButtonViewAll from './cameraStatusButtonViewAll'
 import CameraLogsButtonViewAll from './CameraLogsButtonViewAll'
@@ -47,9 +47,6 @@ class DashBoardLayout extends Component<propsDashBoardLayout, stateDashBoardLayo
                     text: "Ok",
                     onPress: () => {
                         this.setState({
-                            // armed: true,
-                            // recognised_only: false,
-                            // disarmed: false,
                             card: "success"
                         })
                         callback()
@@ -71,9 +68,6 @@ class DashBoardLayout extends Component<propsDashBoardLayout, stateDashBoardLayo
                     text: "Ok",
                     onPress: () => {
                         this.setState({
-                            // armed: false,
-                            // recognised_only: true,
-                            // disarmed: false,
                             card: "warning"
                         })
                         callback()
@@ -95,9 +89,6 @@ class DashBoardLayout extends Component<propsDashBoardLayout, stateDashBoardLayo
                     text: "Ok",
                     onPress: () => {
                         this.setState({
-                            // armed: false,
-                            // recognised_only: false,
-                            // disarmed: true,
                             card: "danger"
                         })
                         callback()
@@ -138,7 +129,6 @@ class DashBoardLayout extends Component<propsDashBoardLayout, stateDashBoardLayo
                             <Radio
                                 style={{ margin: 2 }}
                                 status='success'
-                                // onChange={this.setArmed}
                                 disabled={this.props.updating_security_level}
                             >
                                 {() => <Text status='success' category={"h3"} style={{ fontSize: 15 }}> Armed</Text>}
@@ -146,7 +136,6 @@ class DashBoardLayout extends Component<propsDashBoardLayout, stateDashBoardLayo
                             <Radio
                                 style={{ margin: 2 }}
                                 status='warning'
-                                // onChange={this.setRecognisedOnly}
                                 disabled={this.props.updating_security_level}
                             >
                                 {() => <Text status='warning' category={"h3"} style={{ fontSize: 15 }}> Recognised Only</Text>}
@@ -154,7 +143,6 @@ class DashBoardLayout extends Component<propsDashBoardLayout, stateDashBoardLayo
                             <Radio
                                 style={{ margin: 2 }}
                                 status='danger'
-                                // onChange={this.setDisarmed}
                                 disabled={this.props.updating_security_level}
                             >
                                 {() => <Text status='danger' category={"h3"} style={{ fontSize: 15 }}> Disarmed</Text>}
