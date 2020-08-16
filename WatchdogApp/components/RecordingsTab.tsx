@@ -103,15 +103,15 @@ class RecordingsTab extends Component<RecordingsTabProps, RecordingsTabState> {
                         source={{ uri: info.item.path_in_s3 }}
                         isMuted={false}
                         resizeMode="contain"
-                        usePoster={true}
-                        posterSource={
-                            (info.item.tag == 'periodic') ?
-                                require('../assets/clock.png')
-                                : (info.item.tag == 'intruder') ?
-                                    require('../assets/thief.png')
-                                    : require('../assets/travel.png')
-                            //     // require('../assets/videoLoader.svg')
-                        }
+                        // usePoster={true}
+                        // posterSource={
+                        //     (info.item.tag == 'periodic') ?
+                        //         require('../assets/clock.png')
+                        //         : (info.item.tag == 'intruder') ?
+                        //             require('../assets/thief.png')
+                        //             : require('../assets/travel.png')
+                        //     //     // require('../assets/videoLoader.svg')
+                        // }
                         useNativeControls
                         style={{ width: 300, height: 300 }}
                     />
