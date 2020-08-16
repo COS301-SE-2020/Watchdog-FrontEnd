@@ -2,8 +2,9 @@ import React, { Component, Dispatch, useEffect, useState } from "react"
 import { produce } from 'immer'
 import { StyleSheet, View } from "react-native"
 import { Video } from 'expo-av'
+import VideoPlayer from 'expo-video-player'
 import moment from 'moment'
-import { Card, List, Layout, Avatar, Text, Drawer, DrawerGroup, Input, Datepicker, CheckBox, Select, SelectItem, IndexPath, Spinner } from "@ui-kitten/components"
+import { Card, List, Layout, Avatar, Text, Drawer, DrawerGroup, Divider, Datepicker, CheckBox, Select, SelectItem, IndexPath, Button, Modal } from "@ui-kitten/components"
 import { connect } from 'react-redux'
 
 import CustomTab from "./CustomTab"
@@ -38,7 +39,10 @@ interface RecordingsTabState {
         location: IndexPath[],
         fromDate: Date | null,
         toDate: Date | null
-    }
+        
+    },
+    modal : boolean,
+    toPlay : string 
 }
 
 class RecordingsTab extends Component<RecordingsTabProps, RecordingsTabState> {
@@ -53,7 +57,9 @@ class RecordingsTab extends Component<RecordingsTabProps, RecordingsTabState> {
                 location: [],
                 fromDate: null,
                 toDate: null
-            }
+            },
+            modal : false,
+            toPlay : ''
         }
     }
 
@@ -99,22 +105,23 @@ class RecordingsTab extends Component<RecordingsTabProps, RecordingsTabState> {
                     header={headerProps => renderVideoHeader(headerProps, info)}
                     footer={footerProps => renderVideoFooter(footerProps, info)}
                 >
-                    <Video
-                        source={{ uri: info.item.path_in_s3 }}
-                        isMuted={false}
-                        resizeMode="contain"
-                        usePoster={true}
-                        posterSource={
-                            (info.item.tag == 'periodic') ?
-                                require('../assets/clock.png')
-                                : (info.item.tag == 'intruder') ?
-                                    require('../assets/thief.png')
-                                    : require('../assets/travel.png')
-                            //     // require('../assets/videoLoader.svg')
-                        }
-                        useNativeControls
-                        style={{ width: 300, height: 300 }}
-                    />
+                    <Button style={{margin: 2, height: 30}} appearance='outline' status='success' onPress={()=>this.setState({modal: true, toPlay: info.item.path_in_s3})}>Play</Button>
+                    {/* <VideoPlayer
+                        width={300}
+                        height ={300}
+                        videoProps={{
+                            shouldPlay: false,
+                            resizeMode: Video.RESIZE_MODE_CONTAIN,
+                            source: {
+                            uri: info.item.path_in_s3,
+                            },
+                        }}
+                        inFullscreen={false}
+                        /> */}
+                    <Divider style={{margin: 5, backgroundColor: 'transparent'}}/>
+                    
+                    
+                    
                 </Card>
             </React.Fragment>
 
@@ -264,6 +271,31 @@ class RecordingsTab extends Component<RecordingsTabProps, RecordingsTabState> {
                             data={this.state.showVideos}
                             renderItem={renderVideo}
                         />
+                        <Modal
+                            visible={this.state.modal}
+                            backdropStyle={{backgroundColor: 'rgba(0, 0, 0, 0.5)'}}
+                            >
+                            <Card disabled={true}>
+                            <Video
+                                source={{ uri: this.state.toPlay }}
+                                rate={1.0}
+                                
+                                isMuted={true}
+                                resizeMode="cover"
+                                shouldPlay
+                                style={{ width: 300, height: 300 }}
+                                useNativeControls
+                                />
+
+                                <Divider style={{margin: 5, backgroundColor: 'transparent'}}/>
+                                
+
+                            <Button style={{margin: 2, height: 30}} appearance='outline' status='danger' onPress={() => this.setState({modal : false})}>
+                                DISMISS
+                            </Button>
+                            
+                        </Card>
+                        </Modal>
 
                     </React.Fragment>
                 }
