@@ -51,7 +51,7 @@ class CustomTab extends Component<TabProps> {
                 <Stack.Screen name='Identities' component={IdentitySettingsScreen} options={{ headerTitle: 'Identities ', headerShown: true }} />
                 <Stack.Screen name='Add_Identity' component={AddIdentityScreen} options={{ headerTitle: 'Add Identity ', headerShown: true }} />
                 <Stack.Screen name='Password' component={PasswordSettingsScreen} options={{ headerTitle: 'Password Settings ', headerShown: true }} />
-                <Stack.Screen name='Account' component={AccountInformationScreen} options={{ headerTitle: 'Account Infopmation ', headerShown: true }} />
+                <Stack.Screen name='Account' component={AccountInformationScreen} options={{ headerTitle: 'Account Information ', headerShown: true }} />
             </Stack.Navigator>
 
 
