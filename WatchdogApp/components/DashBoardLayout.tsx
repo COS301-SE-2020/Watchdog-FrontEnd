@@ -128,10 +128,10 @@ class DashBoardLayout extends Component<propsDashBoardLayout, stateDashBoardLayo
                         >
                             <Radio
                                 style={{ margin: 2 }}
-                                status='success'
+                                status='danger'
                                 disabled={this.props.updating_security_level}
                             >
-                                {() => <Text status='success' category={"h3"} style={{ fontSize: 15 }}> Armed</Text>}
+                                {() => <Text status='danger' category={"h3"} style={{ fontSize: 15 }}> Disarmed</Text>}
                             </Radio>
                             <Radio
                                 style={{ margin: 2 }}
@@ -142,11 +142,13 @@ class DashBoardLayout extends Component<propsDashBoardLayout, stateDashBoardLayo
                             </Radio>
                             <Radio
                                 style={{ margin: 2 }}
-                                status='danger'
+                                status='success'
                                 disabled={this.props.updating_security_level}
                             >
-                                {() => <Text status='danger' category={"h3"} style={{ fontSize: 15 }}> Disarmed</Text>}
+                                {() => <Text status='success' category={"h3"} style={{ fontSize: 15 }}> Armed</Text>}
                             </Radio>
+
+
                         </RadioGroup>
                     </Card>
                     <Card status='primary' style={{ marginBottom: 20 }} >
