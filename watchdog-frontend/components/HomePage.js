@@ -118,7 +118,7 @@ class HomePage extends Component{
         return(
           <Grid fluid> 
             <Row fluid>
-              <Col xs={12}>                  
+              <Col xs={24}>                  
                   <SystemState />   
                   <Row>
                     <Col md={12} sm={12}>
@@ -153,7 +153,7 @@ class HomePage extends Component{
                     </Col>
                   </Row>     
               </Col>
-              <Col xs={12}>
+              <Col xs={24}>
                   <CameraStatusTable />
                   
               </Col>

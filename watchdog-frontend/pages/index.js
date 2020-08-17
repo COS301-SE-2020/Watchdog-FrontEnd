@@ -90,7 +90,7 @@ class Index extends Component{
         
         </Head>
         <Container style={{maxWidth: "1700px", margin: 'auto'}}>
-          <Header><div style={{textAlign :'center',fontFamily:"Castellar, fantasy",fontStretch:"ultra-expanded",fontSize: "60px"}}>Watchdog</div></Header>
+          <Header><div style={{textAlign :'center',fontFamily:"corbel, sans-serif",fontStretch:"ultra-expanded",fontSize: "60px"}}>WATCHDOG</div></Header>
           <Container>
             <SideNavBar handleChange = {this.tabHandler} defaultKeyVal={this.state.defaultKey}/>
             <Content>

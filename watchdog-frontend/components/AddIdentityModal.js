@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import {Modal , Button, Input, FormGroup, Col, InputGroup, Icon, Form, Uploader, Alert, Loader} from 'rsuite'
+import * as faceapi from 'face-api.js'
+
 
 import {addIdentity} from '../api/api'
 const styles = {
@@ -25,7 +27,8 @@ class AddIdentityModal extends Component{
             fname : null,
             data: null,
             file_to_upload : null,
-            loading : false
+            loading : false,
+            button_disabled: false 
         }
 
         this.previewFile = this.previewFile.bind(this)
@@ -42,9 +45,13 @@ class AddIdentityModal extends Component{
       }
     
     async addIdentity(){
+        
+        await this.setState({button_disabled : true})
 
         //check if the name field is filled in
         if(this.state.name===null||this.state.name===''){
+            
+            await this.setState({button_disabled : false})
             Alert.error('Please enter a name.',3000)
             return
         }
@@ -53,12 +60,29 @@ class AddIdentityModal extends Component{
             return item.name.toLowerCase()===this.state.name.toLowerCase()})
         //console.log(filter_list.length)
         if(filter_list.length >0){
+            
+            await this.setState({button_disabled : false})
             Alert.error('An identity with the name '+ this.state.name+' already exists',3000)
             return
         }
         if(this.state.fileInfo===null){
+            
+            await this.setState({button_disabled : false})
             Alert.error('Please select a file.',3000)
             return
+        }
+
+        const MODEL_URL = './models/'
+        await faceapi.loadTinyFaceDetectorModel(MODEL_URL)    
+        await faceapi.loadFaceLandmarkModel(MODEL_URL)   
+        
+        let detectionWithLandmarks = await faceapi.detectSingleFace('img_file', new faceapi.TinyFaceDetectorOptions()).withFaceLandmarks()
+        if(detectionWithLandmarks == null){
+
+            await this.setState({button_disabled : false})            
+            Alert.error('No face detected in image.',3000)
+            return
+
         }
 
         //check if there is a picture 
@@ -69,12 +93,12 @@ class AddIdentityModal extends Component{
                 img: this.state.fileInfo
             }
     
-            this.props.local_list_add(newUser)
+            this.props.updatelist()
             Alert.success('Identity Added')
         }, ()=>{Alert.error("Fail to add to whitelist", 3000)} )
         //await this.uploader.start()
         
-        this.setState({fileInfo: null, name : null, file_to_upload: null, loading: false},()=>{ this.props.toClose()})
+        this.setState({fileInfo: null, name : null, file_to_upload: null, loading: false, button_disabled: false},()=>{ this.props.toClose()})
 
     }
 
@@ -113,12 +137,14 @@ class AddIdentityModal extends Component{
                                 this.uploader = ref;
                               }}
                             onChange={(file) => {
-                                //console.log(file[0])
                                 
-                                this.setState({setUploading : true, file_to_upload: file[0]})
-                                this.previewFile(file[0].blobFile, value => {
+                                let index = file.length-1
+                                console.log(index)
+                                
+                                this.setState({setUploading : true, file_to_upload: file[index]})
+                                this.previewFile(file[index].blobFile, value => {
                                   //console.log(value)
-                                  this.setState({fileInfo : value, fname: file[0].name})
+                                  this.setState({fileInfo : value, fname: file[index].name})
                             
                                   //setFileInfo(value);
                                 });
@@ -140,7 +166,7 @@ class AddIdentityModal extends Component{
                         <button style={styles}>
                             {this.state.uploading && <Loader backdrop center />}
                             {this.state.fileInfo ? (
-                            <img src={this.state.fileInfo} width="100%" height="100%" />
+                            <img id='img_file' src={this.state.fileInfo} width="100%" height="100%" />
                             ) : (
                             <Icon icon="avatar" size="5x" />
                             )}
@@ -159,10 +185,10 @@ class AddIdentityModal extends Component{
                     )}
                 </Modal.Body>
                 <Modal.Footer>
-                <Button onClick={this.addIdentity} appearance="primary">
+                <Button disabled={this.state.button_disabled} onClick={this.addIdentity} appearance="primary">
                     Add
                 </Button>
-                <Button onClick={()=>{
+                <Button disabled={this.state.button_disabled} onClick={()=>{
                             this.setState({fileInfo: null, name : null})
                             this.props.toClose()}} appearance="subtle">
                     Cancel

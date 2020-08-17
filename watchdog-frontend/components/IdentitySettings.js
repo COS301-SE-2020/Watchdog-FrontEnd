@@ -56,7 +56,7 @@ class IdentitySettings extends Component{
        this.setState({loading: true, showRemoveModal : !this.state.showRemoveModal})
         deleteIdentity(this.state.toRemove.id,
             ()=>{
-                this.removeFromList(this.state.toRemove.name)
+                this.updateList()
                 this.setState({ loading : false})
             },
             ()=>{
@@ -70,16 +70,22 @@ class IdentitySettings extends Component{
 
     }
     
-    setUser(user_list){
-        this.setState({users : user_list, loaded: true})
+    async setUser(user_list){
+        this.setState({users : user_list})
     }
 
 
     async updateList(){
-        this.setState({loaded:false}, this.componentDidMount)
-        
-    
-        //getIdentities(this.setUser)
+        //this.setState({loaded:false}, this.componentDidMount)
+        //console.log("hello from this func")
+        this.setState({loading: true})
+        const date = Date.now()
+        let currentDate = null
+        do {
+            currentDate = Date.now()
+        } while (currentDate - date < 5000)
+        await getIdentities(this.setUser)
+        this.setState({loading: false})
     }
 
     removeFromList(name){
@@ -105,8 +111,10 @@ class IdentitySettings extends Component{
         this.setState({users: users})
     }
 
-    componentDidMount(){
-        getIdentities(this.setUser)
+    async componentDidMount(){
+        this.setState({loading : true})
+        await getIdentities(this.setUser)
+        this.setState({loading : false})
         
         
 
@@ -115,9 +123,9 @@ class IdentitySettings extends Component{
     render(){
         let users_array = this.state.users.map((item)=>{
             //console.log(item)
-            if(this.state.loaded===false){
-                return(<Loading />)
-            }
+            // if(this.state.loaded===false){
+            //     return(<Loading />)
+            // }
 
             if(this.state.loading===true){
                 return(<Loading />)
