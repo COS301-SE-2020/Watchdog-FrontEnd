@@ -2,7 +2,6 @@ import React, { Component, Dispatch, useEffect, useState } from "react"
 import { produce } from 'immer'
 import { StyleSheet, View } from "react-native"
 import { Video } from 'expo-av'
-import VideoPlayer from 'expo-video-player'
 import moment from 'moment'
 import { Card, List, Layout, Avatar, Text, Drawer, DrawerGroup, Divider, Datepicker, CheckBox, Select, SelectItem, IndexPath, Button, Modal } from "@ui-kitten/components"
 import { connect } from 'react-redux'
@@ -317,7 +316,6 @@ const styles = StyleSheet.create({
     },
     input: {
         marginRight: 20,
-        // marginLeft: 10
     },
     filterLayout: {
         flex: 1,

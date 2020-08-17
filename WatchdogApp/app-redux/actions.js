@@ -231,3 +231,54 @@ export function getControlPanel() {
         )
     }
 }
+
+export function getPreferences() {
+    return (dispatch) => {
+        Auth.currentSession().then(
+            idToken => {
+                let jwt = idToken.getIdToken().getJwtToken()
+                dispatch(
+                    {
+                        types: [actionTypes.GET_PREFERENCES, actionTypes.GET_PREFERENCES_SUCCESS, actionTypes.GET_PREFERENCES_FAIL],
+                        payload: {
+                            request: {
+                                url: '/preferences',
+                                headers: {
+                                    Authorization: `${jwt}`
+                                }
+                            }
+                        }
+                    }
+                )
+            }
+        )
+    }
+}
+
+export function updateNotificationPreferences(security_company, type) {
+    return (dispatch) => {
+        Auth.currentSession().then(
+            idToken => {
+                let jwt = idToken.getIdToken().getJwtToken()
+                dispatch(
+                    {
+                        types: [actionTypes.UPDATE_NOTIFICATION_PREFERENCES, actionTypes.UPDATE_NOTIFICATION_PREFERENCES_SUCCESS, actionTypes.UPDATE_NOTIFICATION_PREFERENCES_FAIL],
+                        payload: {
+                            request: {
+                                method: 'post',
+                                url: '/preferences/notifications',
+                                headers: {
+                                    Authorization: `${jwt}`
+                                },
+                                params: {
+                                    security_company,
+                                    type
+                                }
+                            }
+                        }
+                    }
+                )
+            }
+        )
+    }
+}

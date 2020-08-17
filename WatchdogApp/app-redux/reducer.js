@@ -53,6 +53,20 @@ function dataReducer(state = defaultState.UserData, action) {
             return produce(state, draft => {
                 draft.control_panel = action.payload.data.data.control_panel
             })
+        case actions.GET_PREFERENCES_SUCCESS:
+            return produce(state, draft => {
+                draft.preferences = action.payload.data.data.preferences
+            })
+        case actions.UPDATE_NOTIFICATION_PREFERENCES_SUCCESS:
+            return produce(state, draft => {
+                // draft.preferences.notifications = action.payload.data.data.preferences.notifications
+                console.log(action.payload.data);
+            })
+        case "EDIT_NOTIFICATIONS":
+            return produce(state, draft => {
+                draft.preferences.notifications.security_company = action.data.security_company
+                draft.preferences.notifications.type = action.data.type
+            })
         default:
             return state
     }
@@ -101,6 +115,14 @@ function uiReducer(state = defaultState.UI, action) {
             return produce(state, draft => {
                 draft.Identities.uploading = true
             })
+        case actions.GET_PREFERENCES:
+            return produce(state, draft => {
+                draft.Preferences.loading = true
+            })
+        case actions.UPDATE_NOTIFICATION_PREFERENCES:
+            return produce(state, draft => {
+                draft.Notifications.uploading = true
+            })
 
         /**
          * Success Notifiers
@@ -136,7 +158,15 @@ function uiReducer(state = defaultState.UI, action) {
             })
         case actions.UPLOAD_TO_S3_SUCCESS:
             return produce(state, draft => {
-                draft.Identities.uploading = false    
+                draft.Identities.uploading = false
+            })
+        case actions.GET_PREFERENCES_SUCCESS:
+            return produce(state, draft => {
+                draft.Preferences.loading = false
+            })
+        case actions.UPDATE_NOTIFICATION_PREFERENCES_SUCCESS:
+            return produce(state, draft => {
+                draft.Notifications.uploading = false
             })
 
         /**
@@ -172,15 +202,15 @@ function statisticsReducer(state = {}, action) {
     }
 }
 
-function liveReducer(state=defaultState.Live, action) {
+function liveReducer(state = defaultState.Live, action) {
     switch (action.type) {
         case "LIVE_CONNECTED":
             return produce(state, draft => {
-                    draft.status = "Connected"
+                draft.status = "Connected"
             })
         case "LIVE_DISCONNECTED":
             return produce(state, draft => {
-                    draft.status = "Disconnected"
+                draft.status = "Disconnected"
             })
         case "START_STREAM":
             return produce(state, draft => {

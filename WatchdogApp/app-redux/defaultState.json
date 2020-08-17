@@ -48,6 +48,9 @@
             "loading": false,
             "message": ""
         },
+        "Notifications": {
+            "updating": false
+        },
         "Logs": {
             "loading": false,
             "message": ""
