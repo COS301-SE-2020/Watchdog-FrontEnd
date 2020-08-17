@@ -55,6 +55,7 @@ function dataReducer(state = defaultState.UserData, action) {
             })
         case actions.GET_PREFERENCES_SUCCESS:
             return produce(state, draft => {
+                console.log(action.payload.data);
                 draft.preferences = action.payload.data.data.preferences
             })
         case actions.UPDATE_NOTIFICATION_PREFERENCES_SUCCESS:

@@ -7,7 +7,7 @@ import { getPreferences, updateNotificationPreferences } from '../app-redux/acti
 const data = [
     'SMS',
     'Email'.toUpperCase(),
-    'Push'.toUpperCase,
+    'Push'.toUpperCase(),
 ]
 
 const index = [
@@ -80,7 +80,7 @@ class NotificationSettingsScreen extends Component<propsNotificationSettingsScre
                     keyboardType='phone-pad'
                     maxLength={10}
                     value={this.props.preferences.security_company}
-                    onChange={editSecurityCompany}
+                    onChangeText={editSecurityCompany}
                     style={{ marginVertical: 10 }}
                     label='Security Company Contact Details'
                     caption="Enter your security company's phone number."
