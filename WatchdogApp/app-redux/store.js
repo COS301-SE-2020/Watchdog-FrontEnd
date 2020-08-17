@@ -3,19 +3,20 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import axios from 'axios';
 import { createLogger } from 'redux-logger'
 import { multiClientMiddleware } from 'redux-axios-middleware';
-import watchdogApp from './reducer';
 
-const apiClient = axios.create({ //all axios can be used, shown in axios documentation
+import watchdogApp from './reducer';
+import SocketManager from './socketManager';
+
+//Axios Client for API
+const apiClient = axios.create({
     baseURL: 'https://b534kvo5c6.execute-api.af-south-1.amazonaws.com/testing/',
     responseType: 'json'
 });
-
 const genericClient = axios.create();
 
+const logger = createLogger({})
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
-
-const logger = createLogger({})
 const store = createStore(
     watchdogApp,
     composeEnhancers(
@@ -23,8 +24,8 @@ const store = createStore(
             thunkMiddleware,
             multiClientMiddleware(
                 {
-                    default: {client: apiClient},
-                    generic: {client: genericClient}
+                    default: { client: apiClient },
+                    generic: { client: genericClient }
                 }
             ),
             logger
@@ -32,5 +33,7 @@ const store = createStore(
     )
 
 )
+
+SocketManager.init(store.dispatch)
 
 export default store;

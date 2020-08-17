@@ -23,7 +23,11 @@
         "user_id": "",
         "frames": [],
         "videos": [],
-        "locations": {}
+        "locations": {},
+        "live": {
+            "producers": {},
+            "data": {}
+        }
     },
     "UI": {
         "UserData": {
@@ -54,5 +58,14 @@
             "message": ""
         }
     },
-    "Statistics": {}
+    "Statistics": {},
+    "Live": {
+        "status": "Disconnected",
+        "producers": {},
+        "consume": {
+            "site_id": null,
+            "camera_list": [],
+            "frame": null
+        }
+    }
 }

@@ -11,6 +11,7 @@ import { Provider } from 'react-redux'
 import Login from './components/Login'
 import TabNavigation from './components/TabNavigation'
 import store from './app-redux/store'
+import SocketManager from './app-redux/socketManager'
 
 
 Amplify.configure({
@@ -30,7 +31,7 @@ Amplify.configure({
     userPoolId: 'eu-west-1_mQ0D78123',
 
     // OPTIONAL - Amazon Cognito Web Client ID (26-char alphanumeric string)
-    userPoolWebClientId: 'lcrgnjetqoieui4dmg7m5h8t4',
+    userPoolWebClientId: '55r6vgong2qktouu0eb27d3lpl',
 
 
 
@@ -88,6 +89,14 @@ class App extends Component<appProps, appState>{
     Auth.currentAuthenticatedUser()
       .then(data => this.setState({ loggedIn: true }))
       .catch(error => { })
+  }
+
+  componentDidMount = () => {
+    SocketManager.connect()
+  }
+
+  componentWillUnmount = () => { 
+    SocketManager.disconnect()
   }
 
   render() {

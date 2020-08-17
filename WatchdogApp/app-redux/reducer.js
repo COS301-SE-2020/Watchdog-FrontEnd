@@ -49,10 +49,10 @@ function dataReducer(state = defaultState.UserData, action) {
             return produce(state, draft => {
                 draft.identities.whitelist_upload_queue = action.payload.data.data
             })
-        // case actions.UPLOAD_TO_S3_SUCCESS:
-        //     return produce(state, draft => {
-        //         draft.identities.whitelist_upload_queue = {}
-        //     })
+        case actions.GET_CONTROLPANEL_SUCCESS:
+            return produce(state, draft => {
+                draft.control_panel = action.payload.data.data.control_panel
+            })
         default:
             return state
     }
@@ -172,11 +172,36 @@ function statisticsReducer(state = {}, action) {
     }
 }
 
+function liveReducer(state=defaultState.Live, action) {
+    switch (action.type) {
+        case "LIVE_CONNECTED":
+            return produce(state, draft => {
+                    draft.status = "Connected"
+            })
+        case "LIVE_DISCONNECTED":
+            return produce(state, draft => {
+                    draft.status = "Disconnected"
+            })
+        case "START_STREAM":
+            return produce(state, draft => {
+                draft.consume.site_id = action.view.site_id
+                draft.consume.camera_list = action.view.camera_list
+            })
+        case "CONSUME_FRAME":
+            return produce(state, draft => {
+                draft.consume.frame = action.frame
+            })
+        default:
+            return state
+    }
+}
+
 const watchdogApp = combineReducers(
     {
         "Data": dataReducer,
         "UI": uiReducer,
-        "Statistics": statisticsReducer
+        "Statistics": statisticsReducer,
+        "Live": liveReducer
     }
 );
 

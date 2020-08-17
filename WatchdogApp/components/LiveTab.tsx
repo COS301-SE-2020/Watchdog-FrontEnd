@@ -1,58 +1,113 @@
 import React, { Component } from "react";
-import { View, Text, Appearance } from "react-native";
-import { SafeAreaView } from 'react-native-safe-area-context'
-import HeaderBar from "./HeaderBar"
-import { DarkModeContext } from 'react-native-dynamic'
-import { AppearanceProvider, useColorScheme } from 'react-native-appearance';
+import { Text, Image, StyleSheet } from "react-native";
 import CustomTab from "./CustomTab";
-import { Layout } from "@ui-kitten/components";
+import { Layout, List, Card, ViewPager } from "@ui-kitten/components";
+import { connect } from 'react-redux'
+
+import { connectToLiveServer, getControlPanel, disconnectFromLiveServer, getOnlineCameras } from '../app-redux/actions'
+import SocketManager from '../app-redux/socketManager'
 
 interface LiveTabProps {
-
+    connectToFeedServer: Function
+    getCameras: Function
+    disconnectToFeedServer: Function
+    getOnline: Function
+    control_panel: Array<object>
 }
+
 interface LiveTabState {
-    theme: any
+    selectedIndex: number
 }
 
 
 class LiveTab extends Component<LiveTabProps, LiveTabState> {
 
-    static contextType = DarkModeContext
     constructor(props: any) {
         super(props)
 
-        let colorScheme = Appearance.getColorScheme();
-        console.log(colorScheme)
         this.state = {
-            theme: colorScheme
+            selectedIndex: 0
         }
-        Appearance.addChangeListener((color) => {
-            this.setState({ theme: color.colorScheme })
-        })
+    }
 
+    componentDidMount = () => {
+        this.props.getCameras()
+    }
 
-
+    componentWillUnmount = () => {
     }
 
 
     render() {
-        //console.log(this.context)
-        const isDarkMode = this.state.theme === 'dark'
+
+
+        const renderSite = (item) => {
+
+            const renderLocation = (info) => {
+                return <Card
+                    style={styles.item}
+                    status='basic'
+                >
+                    <Text>{info.item.location}</Text>
+                </Card>
+            }
+
+            console.log(item);
+            let index = 0
+            return <React.Fragment>
+
+                <Layout>
+                    <Text>Site {this.state.selectedIndex}</Text>
+                    <List
+                        data={Object.keys(item).filter((value) => value != 'metadata').map((key) => ({ ...item[key], location: key }))}
+                        renderItem={renderLocation}
+                    />
+                </Layout>
+            </React.Fragment>
+        }
+
+        const changeSelect = (index) => {
+            this.setState({
+                selectedIndex: index
+            })
+        }
+
         return (
             <CustomTab
                 title="Live"
                 tabContent={
-                    <Layout style={{ backgroundColor: isDarkMode ? 'black' : 'white', flex: 1 }}>
-                        <Text>This is the LIVE Page</Text>
-
+                    <Layout>
+                        <Image style={{ maxHeight: 250 }} source={require('../assets/streaming.png')} />
+                        <ViewPager
+                            selectedIndex={this.state.selectedIndex}
+                            onSelect={changeSelect}
+                        >
+                            {this.props.control_panel.map(renderSite)}
+                        </ViewPager>
                     </Layout>
                 }
             />
-
-
-
         );
     }
 }
 
-export default LiveTab;
+const styles = StyleSheet.create({
+    item: {
+        padding: 0,
+        margin: 10
+    }
+});
+
+const mapStoreToProps = (store, ownProps) => {
+    return {
+        control_panel: Object.keys(store.Data.control_panel).map((key) => ({ ...store.Data.control_panel[key], site: key }))
+    }
+}
+const mapDispatchToProps = (dispatch) => ({
+    connectToFeedServer: () => dispatch(connectToLiveServer()),
+    disconnectToFeedServer: () => dispatch(disconnectFromLiveServer()),
+    getCameras: () => dispatch(getControlPanel()),
+    getOnline: () => dispatch(getOnlineCameras()),
+})
+
+export default connect(mapStoreToProps, mapDispatchToProps)(LiveTab)
