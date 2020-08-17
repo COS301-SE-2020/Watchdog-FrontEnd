@@ -11,6 +11,36 @@ const test_data = [
     {
         id : 1,
         
+        img : "test.png"
+    },
+    {
+        id : 2,
+        
+        img : "https://avatars2.githubusercontent.com/u/12592949?s=460&v=4"
+    },
+    {
+        id : 3,
+        
+        img : "https://avatars2.githubusercontent.com/u/12592949?s=460&v=4"
+    },
+    {
+        id : 1,
+        
+        img : "https://avatars2.githubusercontent.com/u/12592949?s=460&v=4"
+    },
+    {
+        id : 2,
+        
+        img : "https://avatars2.githubusercontent.com/u/12592949?s=460&v=4"
+    },
+    {
+        id : 3,
+        
+        img : "https://avatars2.githubusercontent.com/u/12592949?s=460&v=4"
+    },
+    {
+        id : 1,
+        
         img : "https://avatars2.githubusercontent.com/u/12592949?s=460&v=4"
     },
     {
@@ -36,13 +66,40 @@ class DetectedImages extends Component {
         }
 
         this.close = this.close.bind(this)
+        this.handleAdd = this.handleAdd.bind(this)
+        this.refreshList = this.refreshList.bind(this)
     }
     close() {
         this.setState({
-          show: false
+          show: false,
+          name : ''
         })
-      }
+    }
 
+    async handleAdd(){
+        if(this.state.name.length<1){
+            Alert.error("Please enter a name for the new identity.")
+        }
+
+        //
+
+        await this.refreshList()
+        this.close()
+
+    }
+
+    async refreshList(){
+        this.setState({loading : true})
+        const date = Date.now()
+        let currentDate = null
+        do {
+            currentDate = Date.now()
+        } while (currentDate - date < 5000)
+
+        
+        this.setState({loading : false})
+
+    }
     async componentDidMount(){
         this.setState({loading : true})
         
@@ -54,7 +111,12 @@ class DetectedImages extends Component {
             return(
               
                     <Col key={item.id} xs={6}>
-                        <img style={{width: '100%'}} src={item.img} />
+                        <Panel style={{height:'300px', justifyContent : 'center', alignItems: 'center', display: 'flex'}}>
+                            <img style={{width: '100%'}} src={item.img} />
+                        </Panel>
+                        
+                        
+                        <Button appearance='primary' onClick={()=>this.setState({show:true})} block>Add To Identities</Button>
 
                     </Col>
                     
@@ -76,7 +138,8 @@ class DetectedImages extends Component {
                             <Row  fluid>
                                 {img_data}
                              </Row>
-                                <Button onClick={()=>this.setState({show:true})}>Test</Button>
+                                
+                                
                             </Grid>  
                         </Panel>
 
@@ -98,10 +161,10 @@ class DetectedImages extends Component {
                         
                     </Modal.Body>
                     <Modal.Footer>
-                        <Button onClick={this.close} appearance="primary">
-                        Ok
+                        <Button disabled={this.loading} onClick={this.handleAdd} appearance="primary">
+                        ADD
                         </Button>
-                        <Button onClick={this.close} appearance="subtle">
+                        <Button disabled={this.loading} onClick={this.close} appearance="subtle">
                         Cancel
                         </Button>
                     </Modal.Footer>
