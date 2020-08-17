@@ -5,7 +5,7 @@ import {Radio, RadioGroup, Panel, Alert} from 'rsuite'
 async function getVideos( callback, errorcallback){
     let url = await "https://b534kvo5c6.execute-api.af-south-1.amazonaws.com/testing/ui/recordings"
     let {idToken} = await Auth.currentSession()
-    console.log(idToken)
+    //console.log(idToken)
      await axios.get(url, { 
       headers: {
       Authorization: `${idToken.jwtToken}`
@@ -80,7 +80,7 @@ async function addIdentity(identity_name,fileName,file,success_callback,error_ca
 
 async function AddToBucket(url, file, formFields, success_callback, error_callback){
   const formData = new FormData()
-  console.log(file)
+  //console.log(file)
   for ( let key in formFields ) {
       formData.append(key, formFields[key])
   }
@@ -98,7 +98,7 @@ async function getIdentities(setUser){
   let url = "https://b534kvo5c6.execute-api.af-south-1.amazonaws.com/testing/detectintruder"
 
   let {idToken} = await Auth.currentSession()
-    console.log(idToken)
+    //console.log(idToken)
      await axios.get(url, { 
       headers: {
       Authorization: `${idToken.jwtToken}`
@@ -119,7 +119,7 @@ async function getIdentities(setUser){
         return el
       })
       setUser(format)
-      console.log(users)
+      //console.log(users)
       
     })
     .catch(err => {

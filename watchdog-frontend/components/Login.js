@@ -59,12 +59,6 @@ class Login extends Component{
                             placeholder: "Phone Number",
                             required: false,
                         },
-                        {
-                            type: "address",
-                            label: "Address",
-                            placeholder: "Enter your address",
-                            required: false,
-                        },
                         ]} 
                     />
                     <AmplifySignIn 

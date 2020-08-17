@@ -190,6 +190,7 @@ class CameraStatusTable extends Component {
                     height={340}
                     data={this.state.values}
                     fluid
+                    autoHeight
                     onRowClick={data => {
                         console.log(data);
                     }}

@@ -93,7 +93,7 @@ class AddIdentityModal extends Component{
                 img: this.state.fileInfo
             }
     
-            this.props.local_list_add(newUser)
+            this.props.updatelist()
             Alert.success('Identity Added')
         }, ()=>{Alert.error("Fail to add to whitelist", 3000)} )
         //await this.uploader.start()

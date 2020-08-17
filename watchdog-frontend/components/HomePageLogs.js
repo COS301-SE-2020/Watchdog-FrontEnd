@@ -67,8 +67,9 @@ class Log extends Component{
                 <Table
                 wordWrap
                 height={400}
+  
                 data={this.state.logs}
-                fluid
+                
                 onRowClick={data => {
                 console.log(data);
                 }}

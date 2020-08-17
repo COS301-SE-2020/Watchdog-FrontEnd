@@ -5,7 +5,7 @@ import Notify from './NotificationComponent'
 import Pass from './ResetPasswordComponent'
 import Download from './DownloadComponent'
 import NotificationView from './NotificationSettings'
-
+import DetectedImages from './DetectedImages'
 class SettingsScreen extends Component{
     constructor(){
         super()
@@ -25,6 +25,9 @@ class SettingsScreen extends Component{
                                 <Nav.Item eventKey="1" onClick={() =>this.setState({activeKey : '1'})} icon={<Icon icon="group" />}>
                                     Identity Settings
                                 </Nav.Item>
+                                <Nav.Item eventKey="5" onClick={() =>this.setState({activeKey : '5'})} icon={<Icon icon="id-mapping" />}>
+                                   Detected Images
+                                </Nav.Item>
                                 <Nav.Item eventKey="2" onClick={() =>this.setState({activeKey : '2'})} icon={<Icon icon="bell" />}>
                                     Notification Settings
                                 </Nav.Item>
@@ -34,6 +37,7 @@ class SettingsScreen extends Component{
                                 <Nav.Item eventKey="4" onClick={() =>this.setState({activeKey : '4'})} icon={<Icon icon="download" />}>
                                    Downloads
                                 </Nav.Item>
+                                
                                 
                             </Nav>
                         </Sidenav.Body>
@@ -48,6 +52,7 @@ class SettingsScreen extends Component{
                         {this.state.activeKey==='2'&&<NotificationView/>}
                         {this.state.activeKey==='3'&&<Pass/>}
                         {this.state.activeKey==='4'&&<Download/>}
+                        {this.state.activeKey==='5'&&<DetectedImages/>}
 
                     </Content>
             
