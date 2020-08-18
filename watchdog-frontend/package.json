@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build && next export",
     "start": "next start",
-    "test": "jest"
+    "test": "jest -u"
   },
   "dependencies": {
     "@aws-amplify/ui-react": "^0.2.9",
@@ -35,8 +35,10 @@
   "devDependencies": {
     "@babel/preset-env": "^7.10.4",
     "@babel/preset-react": "^7.10.4",
-    "babel-jest": "^26.1.0",
+    "babel-jest": "^26.3.0",
     "css-loader": "^3.6.0",
+    "jest": "^26.4.0",
+    "react-test-renderer": "^16.13.1",
     "style-loader": "^1.2.1"
   }
 }

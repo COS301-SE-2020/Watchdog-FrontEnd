@@ -12,6 +12,7 @@ module.exports = withLess({
     }
 
     return config
-  }
+  },
+  presets: ['@babel/preset-env', '@babel/preset-react']
 });
 

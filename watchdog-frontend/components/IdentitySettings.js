@@ -4,6 +4,7 @@ import RemoveIdentityModal from './RemoveIdentityModal'
 import AddIdentityModal from './AddIdentityModal'
 import { getIdentities, deleteIdentity } from '../api/api'
 import Loading from './Loading'
+import IdentityNotification from './IdentityNotification'
 const test_users = [
     {
         id: 1,
@@ -26,7 +27,8 @@ class IdentitySettings extends Component {
             removeId: 0,
             toRemove: {},
             users: [],
-            loading: false
+            loading: false,
+            settingsModal : false
         }
 
         this.toggleRemoveModal = this.toggleRemoveModal.bind(this)
@@ -36,6 +38,7 @@ class IdentitySettings extends Component {
         this.addToList = this.addToList.bind(this)
         this.updateList = this.updateList.bind(this)
         this.removeFromList = this.removeFromList.bind(this)
+        this.toggleSettingsModal = this.toggleSettingsModal.bind(this)
 
     }
 
@@ -47,6 +50,11 @@ class IdentitySettings extends Component {
         this.setState({ showAddModal: !this.state.showAddModal }, () => {
 
         })
+    }
+
+    toggleSettingsModal(){
+        this.setState({settingsModal : !this.state.settingsModal})
+
     }
 
     handleRemove() {
@@ -141,10 +149,14 @@ class IdentitySettings extends Component {
                             <h3>{item.name}</h3>
                         </Col>
                         <Col xs={3} xsOffset={3}>
-                            <Whisper placement="top" trigger="hover" speaker={<Tooltip>Remove Identity.</Tooltip>}>
+                            <Whisper  placement="top" trigger="hover" speaker={<Tooltip>Remove Identity.</Tooltip>}>
                                 <IconButton icon={<Icon icon="minus-circle" />} circle size="lg" onClick={() => {
                                     this.setState({ toRemove: item, showRemoveModal: !this.state.showRemoveModal })
                                 }} />
+                            </Whisper>
+
+                            <Whisper placement="top" trigger="hover" speaker={<Tooltip>Notification Settings.</Tooltip>}>
+                                <IconButton onClick={this.toggleSettingsModal} style={{marginLeft: '3px'}} icon={<Icon icon="setting" />} circle size="lg"  />
                             </Whisper>
 
 
@@ -185,6 +197,7 @@ class IdentitySettings extends Component {
 
                     </Panel>
                 </FlexboxGrid.Item>
+                <IdentityNotification show={this.state.settingsModal} toggle={this.toggleSettingsModal}/>
             </FlexboxGrid>
 
         )
