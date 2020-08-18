@@ -43,7 +43,7 @@ class IdentityNotification extends Component {
                     </InputGroup>
 
                     <RadioGroup style={{width: '350px'}} name="radioList" inline appearance="picker" defaultValue="B">
-                        <span style={styles.radioGroupLabel}>Notifications: </span>
+                        <span style={styles.radioGroupLabel}>Notifications Settings: </span>
                         <Radio style={styles.radioBtn} value="A">Enbaled</Radio>
                         <Radio style={styles.radioBtn} value="B">Disabled</Radio>
                     </RadioGroup>
