@@ -7,7 +7,8 @@
         "camera_locations": [],
         "identities": {
             "intruder": [],
-            "whitelist": []
+            "whitelist": [],
+            "detected": []
         },
         "logs": [],
         "name": "",
@@ -40,13 +41,17 @@
         },
         "Recordings": {
             "loading": false,
-            "message": ""
+            "message": "",
+            "filteredVideos": [] 
         },
         "Identities": {
             "loading": false,
             "message": "",
             "uploading": false,
             "uploadData": {}
+        },
+        "Detected": {
+            "loading": true
         },
         "Preferences": {
             "loading": false,

@@ -63,7 +63,7 @@ class LiveTab extends Component<LiveTabProps, LiveTabState> {
                 <ListItem
                     title={`${item.item.location}`}
                     accessoryLeft={() => <Text style={{ paddingRight: 20 }}>{item.index + 1}</Text>}
-                    accessoryRight={evaProps => <Button status={status === 'Online' ? 'success' : 'danger'} accessoryRight={evaProps => <Icon  {...evaProps} name={item.item.status === 'Online' ? 'video-outline' : 'video-off-outline'} />}>
+                    accessoryRight={evaProps => <Button disabled={true} status={status === 'Online' ? 'success' : 'danger'} accessoryRight={evaProps => <Icon  {...evaProps} name={item.item.status === 'Online' ? 'video-outline' : 'video-off-outline'} />}>
                         {''}
                     </Button>}
                 />

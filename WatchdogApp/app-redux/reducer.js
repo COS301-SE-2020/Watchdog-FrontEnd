@@ -87,13 +87,18 @@ function dataReducer(state = defaultState.UserData, action) {
         case actions.UPDATE_NOTIFICATION_PREFERENCES_SUCCESS:
             return produce(state, draft => {
                 // draft.preferences.notifications = action.payload.data.data.preferences.notifications
-                console.log(action.payload.data);
+                // console.log(action.payload.data);
+            })
+        case actions.GET_DETECTED_SUCCESS:
+            return produce(state, draft => {
+                draft.identities.detected = action.payload.data.data.frames
             })
         case "EDIT_NOTIFICATIONS":
             return produce(state, draft => {
                 draft.preferences.notifications.security_company = action.data.security_company
                 draft.preferences.notifications.type = action.data.type
             })
+
         default:
             return state
     }
@@ -154,6 +159,14 @@ function uiReducer(state = defaultState.UI, action) {
             return produce(state, draft => {
                 draft.ControlPanel.loading = true
             })
+        case actions.GET_DETECTED:
+            return produce(state, draft => {
+                draft.Detected.loading = true
+            })
+        case "FILTER_RECORDINGS":
+            return produce(state, draft => {
+                draft.filteredVideos = action.data
+            })
 
         /**
          * Success Notifiers
@@ -166,6 +179,7 @@ function uiReducer(state = defaultState.UI, action) {
         case actions.GET_RECORDINGS_SUCCESS:
             return produce(state, (draftState) => {
                 draftState.Recordings.loading = false
+                draftState.filteredVideos = action.payload.data.data.videos
             })
         case actions.GET_IDENTITIES_SUCCESS:
             return produce(state, (draftState) => {
@@ -203,6 +217,10 @@ function uiReducer(state = defaultState.UI, action) {
             return produce(state, draft => {
                 draft.ControlPanel.loading = false
             })
+        case actions.GET_DETECTED_SUCCESS:
+            return produce(state, draft => {
+                draft.Detected.loading = false
+            })
 
         /**
          * Fail notifiers
@@ -229,6 +247,11 @@ function uiReducer(state = defaultState.UI, action) {
             return produce(state, draft => {
                 draft.ControlPanel.loading = false
             })
+        case actions.GET_DETECTED_FAIL:
+            return produce(state, draft => {
+                draft.Detected.loading = true
+            })
+
         default:
             return state;
     }

@@ -15,6 +15,8 @@ import IdentitySettingsScreen from './IdentitySettingsScreen'
 import AddIdentityScreen from './AddIdentityScreen'
 import PasswordSettingsScreen from './PasswordSettingsScreen'
 import AccountInformationScreen from './AccountInformationScreen'
+import DetectedScreen from './DetectedScreen'
+
 interface TabProps {
     tabContent: any,
     title: string,
@@ -49,6 +51,7 @@ class CustomTab extends Component<TabProps> {
                 <Stack.Screen name='Notifications' component={NotificationSettingsScreen} options={{ headerTitle: 'Notifications', headerShown: true }} />
                 <Stack.Screen name='Historical' component={HistoricalSettingsScreen} options={{ headerTitle: 'Historical ', headerShown: true }} />
                 <Stack.Screen name='Identities' component={IdentitySettingsScreen} options={{ headerTitle: 'Identities ', headerShown: true }} />
+                <Stack.Screen name='Detected' component={DetectedScreen} options={{ headerTitle: 'Detected Images ', headerShown: true }} />
                 <Stack.Screen name='Add_Identity' component={AddIdentityScreen} options={{ headerTitle: 'Add Identity ', headerShown: true }} />
                 <Stack.Screen name='Password' component={PasswordSettingsScreen} options={{ headerTitle: 'Password Settings ', headerShown: true }} />
                 <Stack.Screen name='Account' component={AccountInformationScreen} options={{ headerTitle: 'Account Information ', headerShown: true }} />

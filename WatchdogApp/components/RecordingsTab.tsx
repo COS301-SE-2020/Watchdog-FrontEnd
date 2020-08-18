@@ -27,6 +27,8 @@ interface RecordingsTabProps {
     videos: [],
     loading: boolean,
     locations: []
+    updateFilters: Function
+    filteredVideos: []
 }
 
 interface RecordingsTabState {
@@ -38,10 +40,10 @@ interface RecordingsTabState {
         location: IndexPath[],
         fromDate: Date | null,
         toDate: Date | null
-        
+
     },
-    modal : boolean,
-    toPlay : string 
+    modal: boolean,
+    toPlay: string
 }
 
 class RecordingsTab extends Component<RecordingsTabProps, RecordingsTabState> {
@@ -57,8 +59,8 @@ class RecordingsTab extends Component<RecordingsTabProps, RecordingsTabState> {
                 fromDate: null,
                 toDate: null
             },
-            modal : false,
-            toPlay : ''
+            modal: false,
+            toPlay: ''
         }
     }
 
@@ -104,7 +106,7 @@ class RecordingsTab extends Component<RecordingsTabProps, RecordingsTabState> {
                     header={headerProps => renderVideoHeader(headerProps, info)}
                     footer={footerProps => renderVideoFooter(footerProps, info)}
                 >
-                    <Button style={{margin: 2, height: 30}} appearance='outline' status='success' onPress={()=>this.setState({modal: true, toPlay: info.item.path_in_s3})}>Play</Button>
+                    <Button style={{ margin: 2, height: 30 }} appearance='outline' status='success' onPress={() => this.setState({ modal: true, toPlay: info.item.path_in_s3 })}>Play</Button>
                     {/* <VideoPlayer
                         width={300}
                         height ={300}
@@ -117,10 +119,10 @@ class RecordingsTab extends Component<RecordingsTabProps, RecordingsTabState> {
                         }}
                         inFullscreen={false}
                         /> */}
-                    <Divider style={{margin: 5, backgroundColor: 'transparent'}}/>
-                    
-                    
-                    
+                    <Divider style={{ margin: 5, backgroundColor: 'transparent' }} />
+
+
+
                 </Card>
             </React.Fragment>
 
@@ -154,9 +156,11 @@ class RecordingsTab extends Component<RecordingsTabProps, RecordingsTabState> {
                                     (a, b) => b.timestamp - a.timestamp
                                 )
                             }
+                            this.props.updateFilters(draft.showVideos)
                         }
                     )
                 )
+
             }
 
             const groupDisplayValues = () => {
@@ -182,6 +186,7 @@ class RecordingsTab extends Component<RecordingsTabProps, RecordingsTabState> {
                             return locations.includes(value.location)
                         }
                     )
+                    this.props.updateFilters(draft.showVideos)
                 }))
                 // filterVideoByTag('intruder', this.state.filters.intruder)
                 // filterVideoByTag('periodic', this.state.filters.periodic)
@@ -207,6 +212,7 @@ class RecordingsTab extends Component<RecordingsTabProps, RecordingsTabState> {
                                 return cond1 && cond2
                             }
                         )
+                        this.props.updateFilters(draft.showVideos)
                     }
                 ))
             }
@@ -267,33 +273,33 @@ class RecordingsTab extends Component<RecordingsTabProps, RecordingsTabState> {
                             onRefresh={() => this.props.load()}
                             style={styles.container}
                             contentContainerStyle={styles.contentContainer}
-                            data={this.state.showVideos}
+                            data={this.props.filteredVideos}
                             renderItem={renderVideo}
                         />
                         <Modal
                             visible={this.state.modal}
-                            backdropStyle={{backgroundColor: 'rgba(0, 0, 0, 0.5)'}}
-                            >
+                            backdropStyle={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}
+                        >
                             <Card disabled={true}>
-                            <Video
-                                source={{ uri: this.state.toPlay }}
-                                rate={1.0}
-                                
-                                isMuted={true}
-                                resizeMode="cover"
-                                shouldPlay
-                                style={{ width: 300, height: 300 }}
-                                useNativeControls
+                                <Video
+                                    source={{ uri: this.state.toPlay }}
+                                    rate={1.0}
+
+                                    isMuted={true}
+                                    resizeMode="cover"
+                                    shouldPlay
+                                    style={{ width: 300, height: 300 }}
+                                    useNativeControls
                                 />
 
-                                <Divider style={{margin: 5, backgroundColor: 'transparent'}}/>
-                                
+                                <Divider style={{ margin: 5, backgroundColor: 'transparent' }} />
 
-                            <Button style={{margin: 2, height: 30}} appearance='outline' status='danger' onPress={() => this.setState({modal : false})}>
-                                DISMISS
+
+                                <Button style={{ margin: 2, height: 30 }} appearance='outline' status='danger' onPress={() => this.setState({ modal: false })}>
+                                    DISMISS
                             </Button>
-                            
-                        </Card>
+
+                            </Card>
                         </Modal>
 
                     </React.Fragment>
@@ -330,13 +336,18 @@ const mapStateToProps = (store, ownProps) => {
         videos: store.Data.videos,
         locations: Array.from(new Set(Object.values(store.Data.locations))),
         loading: store.UI.Recordings.loading,
-        message: store.UI.Recordings.message
+        message: store.UI.Recordings.message,
+        filteredVideos: store.UI.Recordings.filteredVideos
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        load: () => dispatch(getRecordings())
+        load: () => dispatch(getRecordings()),
+        updateFilters: (data) => dispatch({
+            type: 'FILTER_RECORDINGS',
+            data
+        })
     }
 }
 

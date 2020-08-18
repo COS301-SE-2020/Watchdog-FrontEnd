@@ -255,6 +255,57 @@ export function getPreferences() {
     }
 }
 
+export function getDetected() {
+    return (dispatch) => {
+        Auth.currentSession().then(
+            idToken => {
+                let jwt = idToken.getIdToken().getJwtToken()
+                dispatch(
+                    {
+                        types: [actionTypes.GET_DETECTED, actionTypes.GET_DETECTED_SUCCESS, actionTypes.GET_DETECTED_FAIL],
+                        payload: {
+                            request: {
+                                url: '/identities/tagdetectedimage',
+                                headers: {
+                                    Authorization: `${jwt}`
+                                }
+                            }
+                        }
+                    }
+                )
+            }
+        )
+    }
+}
+
+export function updateDetectedImage(key, name) {
+    return (dispatch) => {
+        Auth.currentSession().then(
+            idToken => {
+                let jwt = idToken.getIdToken().getJwtToken()
+                dispatch(
+                    {
+                        types: [actionTypes.UPDATE_DETECTEDIMAGE, actionTypes.UPDATE_DETECTEDIMAGE_SUCCESS, actionTypes.UPDATE_DETECTEDIMAGE_FAIL],
+                        payload: {
+                            request: {
+                                method: 'post',
+                                url: '/identities/tagdetectedimage',
+                                headers: {
+                                    Authorization: `${jwt}`
+                                },
+                                params: {
+                                    key,
+                                    name
+                                }
+                            }
+                        }
+                    }
+                )
+            }
+        )
+    }
+}
+
 export function updateNotificationPreferences(security_company, type) {
     return (dispatch) => {
         Auth.currentSession().then(

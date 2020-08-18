@@ -59,6 +59,7 @@ function SettingsTab(props) {
                      <Setting title='Notifications' accessoryLeft={NotificationsIcon} onPress={() => navigation.navigate({ name: 'Notifications', key: 'Notifications' })} />
                      <Setting title='Historical Video' accessoryLeft={HistoricalIcon} onPress={() => navigation.navigate({ name: 'Historical', key: 'Historical' })} />
                      <Setting title='Identity Settings' accessoryLeft={IdentityIcon} onPress={() => navigation.navigate({ name: 'Identities', key: 'Identities' })} />
+                     <Setting title='Detected Images' accessoryLeft={IdentityIcon} onPress={() => navigation.navigate({ name: 'Detected', key: 'Detected' })} />
                      <Setting title='Password Settings' accessoryLeft={PasswordIcon} onPress={() => navigation.navigate({ name: 'Password', key: 'Password' })} />
                      <Setting title='Account Information' accessoryLeft={AccountIcon} onPress={() => navigation.navigate({ name: 'Account', key: 'Account' })} />
                      <Setting title='Logout' accessoryLeft={LogoutIcon} onPress={() => Auth.signOut()} />
