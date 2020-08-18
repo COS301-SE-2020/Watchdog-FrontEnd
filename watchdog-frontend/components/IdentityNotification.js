@@ -17,15 +17,37 @@ const styles = {
     }
 }
 class IdentityNotification extends Component {
+    state = {
+        message: this.props.notificationMessage,
+        recieveNotofications : `${this.props.recieveNotification}`,
+        img_key : this.props.imgKey
+    }
     constructor(props) {
         super(props)
-        this.state = {
-            message: ''
-        }
+        
+
+        this.handleUpdate = this.handleUpdate.bind(this)
 
     }
+    
+
+    handleUpdate(){
+        // console.log(this.state.recieveNotofications)
+        // console.log(this.state.message)
+        // console.log(this.state.img_key)
+        this.setState({ message: '' })
+        this.props.toggle()
+        
+    }
+
+    // componentDidMount(){
+    //     this.setState ( {
+    //         img_key : this.props.img_key
+    //     })
+    // }
 
     render() {
+        
         return (
             <Modal size={'xs'} show={this.props.show} onHide={() => {
                 this.setState({ message: '' })
@@ -42,18 +64,18 @@ class IdentityNotification extends Component {
                         <Input value={this.state.message} onChange={(val) => this.setState({ message: val })} placeholder="Notification Message" />
                     </InputGroup>
 
-                    <RadioGroup style={{width: '350px'}} name="radioList" inline appearance="picker" defaultValue="B">
+                    <RadioGroup  onChange={(val)=>this.setState({recieveNotofications : val})} style={{width: '350px'}} name="radioList" inline appearance="picker" defaultValue={this.state.recieveNotofications}>
                         <span style={styles.radioGroupLabel}>Notifications Settings: </span>
-                        <Radio style={styles.radioBtn} value="A">Enbaled</Radio>
-                        <Radio style={styles.radioBtn} value="B">Disabled</Radio>
+                        <Radio style={styles.radioBtn} value="1">Enbaled</Radio>
+                        <Radio style={styles.radioBtn} value="0">Disabled</Radio>
                     </RadioGroup>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button onClick={this.close} appearance="primary">
+                    <Button onClick={this.handleUpdate} appearance="primary">
                         Update
             </Button>
                     <Button onClick={() => {
-                        this.setState({ message: '' })
+                        this.setState({ message: '', img_key: '', recieveNotification : '' })
                         this.props.toggle()
                     }} appearance="subtle">
                         Cancel
