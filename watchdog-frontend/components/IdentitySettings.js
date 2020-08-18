@@ -1,32 +1,34 @@
 import React, { Component } from 'react'
-import {Panel, Avatar, Grid, Row, Col, IconButton, Icon, Whisper, Tooltip, FlexboxGrid, Alert} from 'rsuite'
+import { Panel, Avatar, Grid, Row, Col, IconButton, Icon, Whisper, Tooltip, FlexboxGrid, Alert } from 'rsuite'
 import RemoveIdentityModal from './RemoveIdentityModal'
 import AddIdentityModal from './AddIdentityModal'
-import {getIdentities, deleteIdentity} from '../api/api'
+import { getIdentities, deleteIdentity } from '../api/api'
 import Loading from './Loading'
+import IdentityNotification from './IdentityNotification'
 const test_users = [
     {
-        id : 1,
-        name : "Luqmaan Badat",
-        img : "https://avatars2.githubusercontent.com/u/12592949?s=460&v=4"
+        id: 1,
+        name: "Luqmaan Badat",
+        img: "https://avatars2.githubusercontent.com/u/12592949?s=460&v=4"
     },
     {
-        id : 2,
-        name : "Some Name 2",
-        img : "https://avatars2.githubusercontent.com/u/12592949?s=460&v=4"
+        id: 2,
+        name: "Some Name 2",
+        img: "https://avatars2.githubusercontent.com/u/12592949?s=460&v=4"
     }
 ]
-class IdentitySettings extends Component{
-    constructor(){
+class IdentitySettings extends Component {
+    constructor() {
         super()
         this.state = {
-            loaded : false,
-            showRemoveModal : false,
-            showAddModal : false,
-            removeId : 0,
-            toRemove : {},
-            users : [],
-            loading : false
+            loaded: false,
+            showRemoveModal: false,
+            showAddModal: false,
+            removeId: 0,
+            toRemove: {},
+            users: [],
+            loading: false,
+            settingsModal : false
         }
 
         this.toggleRemoveModal = this.toggleRemoveModal.bind(this)
@@ -36,32 +38,38 @@ class IdentitySettings extends Component{
         this.addToList = this.addToList.bind(this)
         this.updateList = this.updateList.bind(this)
         this.removeFromList = this.removeFromList.bind(this)
-        
+        this.toggleSettingsModal = this.toggleSettingsModal.bind(this)
+
     }
 
-    toggleRemoveModal(){
-        this.setState({showRemoveModal : !this.state.showRemoveModal})
+    toggleRemoveModal() {
+        this.setState({ showRemoveModal: !this.state.showRemoveModal })
     }
 
-    toggleAddModal(){
-        this.setState({showAddModal : !this.state.showAddModal}, ()=>{
-            
+    toggleAddModal() {
+        this.setState({ showAddModal: !this.state.showAddModal }, () => {
+
         })
     }
 
-    handleRemove(){
+    toggleSettingsModal(){
+        this.setState({settingsModal : !this.state.settingsModal})
+
+    }
+
+    handleRemove() {
         //console.log("here")
         //this.setState({users : temp, showRemoveModal : !this.state.showRemoveModal})
-       // console.log(this.state.toRemove.id)
-       this.setState({loading: true, showRemoveModal : !this.state.showRemoveModal})
+        // console.log(this.state.toRemove.id)
+        this.setState({ loading: true, showRemoveModal: !this.state.showRemoveModal })
         deleteIdentity(this.state.toRemove.id,
-            ()=>{
+            () => {
                 this.updateList()
-                this.setState({ loading : false})
+                this.setState({ loading: false })
             },
-            ()=>{
+            () => {
                 Alert.error("Unable to remove identity.", 3000)
-                this.setState({ loading : false})
+                this.setState({ loading: false })
             }
         )
         // this.removeFromList(this.state.toRemove.name)
@@ -69,121 +77,128 @@ class IdentitySettings extends Component{
 
 
     }
-    
-    async setUser(user_list){
-        this.setState({users : user_list})
+
+    async setUser(user_list) {
+        this.setState({ users: user_list })
     }
 
 
-    async updateList(){
+    async updateList() {
         //this.setState({loaded:false}, this.componentDidMount)
         //console.log("hello from this func")
-        this.setState({loading: true})
+        this.setState({ loading: true })
         const date = Date.now()
         let currentDate = null
         do {
             currentDate = Date.now()
         } while (currentDate - date < 5000)
         await getIdentities(this.setUser)
-        this.setState({loading: false})
+        this.setState({ loading: false })
     }
 
-    removeFromList(name){
-        let filter_list = this.state.users.filter((item)=>{
-            return item.name!==name
+    removeFromList(name) {
+        let filter_list = this.state.users.filter((item) => {
+            return item.name !== name
         })
 
-        this.setState({users : filter_list})
+        this.setState({ users: filter_list })
     }
 
-    addToList(user){
-        let users =[
+    addToList(user) {
+        let users = [
             ...this.state.users,
             {
-                id : this.state.users.length,
-                name : user.name,
-                img : user.img  
+                id: this.state.users.length,
+                name: user.name,
+                img: user.img
             }
-            
+
         ]
 
-        
-        this.setState({users: users})
+
+        this.setState({ users: users })
     }
 
-    async componentDidMount(){
-        this.setState({loading : true})
+    async componentDidMount() {
+        this.setState({ loading: true })
         await getIdentities(this.setUser)
-        this.setState({loading : false})
-        
-        
+        this.setState({ loading: false })
+
+
 
     }
-    
-    render(){
-        let users_array = this.state.users.map((item)=>{
+
+    render() {
+        let users_array = this.state.users.map((item) => {
             //console.log(item)
             // if(this.state.loaded===false){
             //     return(<Loading />)
             // }
 
-            if(this.state.loading===true){
-                return(<Loading />)
+            if (this.state.loading === true) {
+                return (<Loading />)
             }
-            return(
-                <Row key={item.id} fluid>
-                    <Col xs={3}>
-                        <Avatar size={'lg'} src={item.img} />
+            return (
+                <Panel shaded>
+                    <Row key={item.id} fluid>
+                        <Col xs={3}>
+                            <Avatar size={'lg'} src={item.img} />
 
-                    </Col>
-                    <Col  xs={15}>
-                        <h3>{item.name}</h3>
-                    </Col>
-                    <Col xs={3} xsOffset={3}>
-                        <Whisper placement="top" trigger="hover" speaker={<Tooltip>Remove Identity.</Tooltip>}>
-                            <IconButton  icon={<Icon icon="minus-circle" />} circle size="lg" onClick={()=>{
-                                this.setState({toRemove : item, showRemoveModal : !this.state.showRemoveModal})
-                            }} />
-                        </Whisper>
-                         
-                        
-                    </Col>
+                        </Col>
+                        <Col xs={15}>
+                            <h3>{item.name}</h3>
+                        </Col>
+                        <Col xs={3} xsOffset={3}>
+                            <Whisper  placement="top" trigger="hover" speaker={<Tooltip>Remove Identity.</Tooltip>}>
+                                <IconButton icon={<Icon icon="minus-circle" />} circle size="lg" onClick={() => {
+                                    this.setState({ toRemove: item, showRemoveModal: !this.state.showRemoveModal })
+                                }} />
+                            </Whisper>
 
-                 </Row>
+                            <Whisper placement="top" trigger="hover" speaker={<Tooltip>Notification Settings.</Tooltip>}>
+                                <IconButton onClick={this.toggleSettingsModal} style={{marginLeft: '3px'}} icon={<Icon icon="setting" />} circle size="lg"  />
+                            </Whisper>
+
+
+                        </Col>
+
+                    </Row>
+                </Panel>
 
             )
-        }) 
-        return(
-        <FlexboxGrid style={{"marginTop":"10"}} justify="center">
-          <FlexboxGrid.Item colspan={22}>
-            <Panel  header={<h3>Identity Settings</h3>} >
-                <Panel shaded>
-                    <Grid fluid>
-                        {users_array}
-                    </Grid>  
-                </Panel>
-                <br></br>
-                <Whisper placement="top" trigger="hover" speaker={<Tooltip>Add Identity.</Tooltip>}>
-                    <IconButton onClick={this.toggleAddModal} icon={<Icon icon="plus-square" />} circle size="lg" />
-                </Whisper>
-                <RemoveIdentityModal 
+        })
+        return (
+            <FlexboxGrid style={{ "marginTop": "10" }} justify="center">
+                <FlexboxGrid.Item colspan={22}>
+                    <Panel header={<h3>Identity Settings</h3>} >
+                        <Panel shaded>
+                            <Grid fluid>
+                                {users_array}
+                            </Grid>
+                        </Panel>
+                        <br></br>
+                        <Whisper placement="top" trigger="hover" speaker={<Tooltip>Add Identity.</Tooltip>}>
+                            <IconButton onClick={this.toggleAddModal} icon={<Icon icon="plus-square" />} circle size="lg" />
+                        </Whisper>
+                        <RemoveIdentityModal
                             user_id={this.state.toRemove.id}
-                            local_list_remove = {this.removeFromList}
-                            name={this.state.toRemove.name} 
-                            toDisplay={this.state.showRemoveModal} 
-                            toClose={this.toggleRemoveModal} 
-                            remove={this.handleRemove}/>
-                <AddIdentityModal
-                 current_list = {this.state.users}
-                 local_list_add = {this.addToList}
-                 toDisplay={this.state.showAddModal} 
-                 toClose={this.toggleAddModal}
-                 updatelist ={this.updateList}
-                />
+                            local_list_remove={this.removeFromList}
+                            name={this.state.toRemove.name}
+                            toDisplay={this.state.showRemoveModal}
+                            toClose={this.toggleRemoveModal}
+                            remove={this.handleRemove} />
+                        <AddIdentityModal
+                            current_list={this.state.users}
+                            local_list_add={this.addToList}
+                            toDisplay={this.state.showAddModal}
+                            toClose={this.toggleAddModal}
+                            updatelist={this.updateList}
+                        />
 
-            </Panel>
-            </FlexboxGrid.Item>
-    </FlexboxGrid>
+                    </Panel>
+                </FlexboxGrid.Item>
+                <IdentityNotification show={this.state.settingsModal} toggle={this.toggleSettingsModal}/>
+            </FlexboxGrid>
 
         )
     }

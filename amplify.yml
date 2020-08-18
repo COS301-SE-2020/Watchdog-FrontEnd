@@ -9,6 +9,9 @@ applications:
         build:
           commands:
             - npm run build
+        test:
+          commands:
+            - npm test
       artifacts:
         baseDirectory:  /out/
         files:
