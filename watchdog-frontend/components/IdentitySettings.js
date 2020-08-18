@@ -245,7 +245,7 @@ class IdentitySettings extends Component {
 
                 <Modal size={'xs'} show={this.state.settingsModal} onHide={this.toggleSettingsModal}>
                     <Modal.Header>
-                        <Modal.Title>Modal Title</Modal.Title>
+                        <Modal.Title>Notification Settings</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
                         <InputGroup style={styles_input} >
