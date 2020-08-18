@@ -1,22 +1,36 @@
 import React, { Component } from "react";
 import { Text, Image, StyleSheet } from "react-native";
-import CustomTab from "./CustomTab";
-import { Layout, List, Card, ViewPager } from "@ui-kitten/components";
+import { Layout, List, Divider, ListItem, Button, Icon } from "@ui-kitten/components";
 import { connect } from 'react-redux'
 
-import { connectToLiveServer, getControlPanel, disconnectFromLiveServer, getOnlineCameras } from '../app-redux/actions'
-import SocketManager from '../app-redux/socketManager'
+import CustomTab from "./CustomTab";
+import { getControlPanel } from '../app-redux/actions'
 
 interface LiveTabProps {
     connectToFeedServer: Function
     getCameras: Function
     disconnectToFeedServer: Function
     getOnline: Function
-    control_panel: Array<object>
+    control_panel: Array<object>,
+    cameras: CameraObject[]
+    sites: string[]
+    loading: boolean
+    load: Function
+    online: object
+    feed: string
+}
+
+interface CameraObject {
+    address: string
+    path: string
+    port: string
+    protocol: string
+    site: string
+    location: string
+    id: string
 }
 
 interface LiveTabState {
-    selectedIndex: number
 }
 
 
@@ -24,14 +38,10 @@ class LiveTab extends Component<LiveTabProps, LiveTabState> {
 
     constructor(props: any) {
         super(props)
-
-        this.state = {
-            selectedIndex: 0
-        }
     }
 
     componentDidMount = () => {
-        this.props.getCameras()
+        this.props.load()
     }
 
     componentWillUnmount = () => {
@@ -40,50 +50,41 @@ class LiveTab extends Component<LiveTabProps, LiveTabState> {
 
     render() {
 
+        const renderItem = (item) => {
+            let status = ""
 
-        const renderSite = (item) => {
-
-            const renderLocation = (info) => {
-                return <Card
-                    style={styles.item}
-                    status='basic'
-                >
-                    <Text>{info.item.location}</Text>
-                </Card>
+            if (item.item.site in Object.keys(this.props.online)) {
+                if (item.item.id in this.props.online[item.item.site]) {
+                    status = "Online"
+                }
             }
 
-            console.log(item);
-            let index = 0
-            return <React.Fragment>
-
-                <Layout>
-                    <Text>Site {this.state.selectedIndex}</Text>
-                    <List
-                        data={Object.keys(item).filter((value) => value != 'metadata').map((key) => ({ ...item[key], location: key }))}
-                        renderItem={renderLocation}
-                    />
-                </Layout>
-            </React.Fragment>
-        }
-
-        const changeSelect = (index) => {
-            this.setState({
-                selectedIndex: index
-            })
+            return (
+                <ListItem
+                    title={`${item.item.location}`}
+                    accessoryLeft={() => <Text style={{ paddingRight: 20 }}>{item.index + 1}</Text>}
+                    accessoryRight={evaProps => <Button status={status === 'Online' ? 'success' : 'danger'} accessoryRight={evaProps => <Icon  {...evaProps} name={item.item.status === 'Online' ? 'video-outline' : 'video-off-outline'} />}>
+                        {''}
+                    </Button>}
+                />
+            )
         }
 
         return (
             <CustomTab
                 title="Live"
                 tabContent={
-                    <Layout>
-                        <Image style={{ maxHeight: 250 }} source={require('../assets/streaming.png')} />
-                        <ViewPager
-                            selectedIndex={this.state.selectedIndex}
-                            onSelect={changeSelect}
-                        >
-                            {this.props.control_panel.map(renderSite)}
-                        </ViewPager>
+                    <Layout
+                        style={{ flex: '1' }}
+                    >
+                        <Image style={{ maxHeight: 250 }} source={(this.props.feed)? this.props.feed:require('../assets/streaming.png')} />
+                        <List
+                            refreshing={this.props.loading}
+                            onRefresh={() => this.props.load()}
+                            ItemSeparatorComponent={Divider}
+                            data={this.props.cameras}
+                            renderItem={renderItem}
+                        />
                     </Layout>
                 }
             />
@@ -91,23 +92,15 @@ class LiveTab extends Component<LiveTabProps, LiveTabState> {
     }
 }
 
-const styles = StyleSheet.create({
-    item: {
-        padding: 0,
-        margin: 10
-    }
-});
-
-const mapStoreToProps = (store, ownProps) => {
-    return {
-        control_panel: Object.keys(store.Data.control_panel).map((key) => ({ ...store.Data.control_panel[key], site: key }))
-    }
-}
-const mapDispatchToProps = (dispatch) => ({
-    connectToFeedServer: () => dispatch(connectToLiveServer()),
-    disconnectToFeedServer: () => dispatch(disconnectFromLiveServer()),
-    getCameras: () => dispatch(getControlPanel()),
-    getOnline: () => dispatch(getOnlineCameras()),
-})
-
-export default connect(mapStoreToProps, mapDispatchToProps)(LiveTab)
+export default connect(
+    (store) => ({
+        cameras: store.Data.camera_objects,
+        sites: store.Data.sites,
+        loading: store.UI.ControlPanel.loading,
+        online: store.Live.producers,
+        feed: store.Live.consume.frame
+    }),
+    (dispatch) => ({
+        load: () => dispatch(getControlPanel())
+    })
+)(LiveTab)

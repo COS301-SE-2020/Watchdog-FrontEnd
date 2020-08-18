@@ -50,8 +50,34 @@ function dataReducer(state = defaultState.UserData, action) {
                 draft.identities.whitelist_upload_queue = action.payload.data.data
             })
         case actions.GET_CONTROLPANEL_SUCCESS:
+            let control_panel = action.payload.data.data.control_panel
+            let cameras = []
+            let locations = []
+            let sites = Array.from(Object.keys(control_panel))
+            let camera_objects = []
+
+            sites.forEach((site) => {
+                let loc = Array.from(Object.keys(control_panel[site]))
+                locations = [...locations, ...loc]
+                loc.forEach((location) => {
+                    let cams = Array.from(Object.keys(control_panel[site][location]))
+                    cameras = [...cameras, ...cams]
+                    cams.forEach((camera) => {
+                        control_panel[site][location][camera]['site'] = site
+                        control_panel[site][location][camera]['location'] = location
+                        control_panel[site][location][camera]['id'] = camera
+                        camera_objects.push(control_panel[site][location][camera])
+                    })
+                })
+
+            })
+
             return produce(state, draft => {
                 draft.control_panel = action.payload.data.data.control_panel
+                draft.camera_objects = camera_objects
+                draft.cameras = cameras,
+                    draft.camera_locations = locations
+                draft.sites = sites
             })
         case actions.GET_PREFERENCES_SUCCESS:
             return produce(state, draft => {
@@ -124,6 +150,10 @@ function uiReducer(state = defaultState.UI, action) {
             return produce(state, draft => {
                 draft.Notifications.uploading = true
             })
+        case actions.GET_CONTROLPANEL:
+            return produce(state, draft => {
+                draft.ControlPanel.loading = true
+            })
 
         /**
          * Success Notifiers
@@ -169,6 +199,10 @@ function uiReducer(state = defaultState.UI, action) {
             return produce(state, draft => {
                 draft.Notifications.uploading = false
             })
+        case actions.GET_CONTROLPANEL_SUCCESS:
+            return produce(state, draft => {
+                draft.ControlPanel.loading = false
+            })
 
         /**
          * Fail notifiers
@@ -190,6 +224,10 @@ function uiReducer(state = defaultState.UI, action) {
         case actions.UPLOAD_TO_S3_FAIL:
             return produce(state, draft => {
                 draft.Identities.uploading = false
+            })
+        case actions.GET_CONTROLPANEL_FAIL:
+            return produce(state, draft => {
+                draft.ControlPanel.loading = false
             })
         default:
             return state;

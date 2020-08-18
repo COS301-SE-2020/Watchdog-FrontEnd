@@ -1,6 +1,10 @@
 {
     "UserData": {
         "control_panel": {},
+        "camera_objects": {},
+        "cameras": [],
+        "sites": [],
+        "camera_locations": [],
         "identities": {
             "intruder": [],
             "whitelist": []
@@ -59,6 +63,9 @@
             "loading": true,
             "updating": false,
             "message": ""
+        },
+        "ControlPanel": {
+            "loading": true
         }
     },
     "Statistics": {},
