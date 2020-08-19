@@ -226,6 +226,7 @@ class LiveVideo extends Component {
                 <Column flexGrow={1} align="center" fixed >
                   <HeaderCell><h5>Play</h5></HeaderCell>
 
+
                   <Cell>
                     {row => {
                       return (
