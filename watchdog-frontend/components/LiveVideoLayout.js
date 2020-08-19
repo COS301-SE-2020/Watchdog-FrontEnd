@@ -219,7 +219,7 @@ class LiveVideo extends Component {
                 </Column>
 
                 <Column flexGrow={0.5}>
-                  <HeaderCell>Status</HeaderCell>
+                  <HeaderCell><h5>Status</h5></HeaderCell>
                   <Cell dataKey="status" />
                 </Column>
 
