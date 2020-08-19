@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import { Panel, Avatar, Grid, Row, Col, IconButton, Icon, Whisper, Tooltip, FlexboxGrid, Alert } from 'rsuite'
+import { Panel, Avatar, Grid, Row, Col, IconButton, Icon, Whisper, Tooltip, FlexboxGrid, Alert, Modal, Input, RadioGroup, InputGroup, Radio, Button } from 'rsuite'
 import RemoveIdentityModal from './RemoveIdentityModal'
 import AddIdentityModal from './AddIdentityModal'
-import { getIdentities, deleteIdentity } from '../api/api'
+import { getIdentities, deleteIdentity, updateIdentityNotification } from '../api/api'
 import Loading from './Loading'
 import IdentityNotification from './IdentityNotification'
 const test_users = [
@@ -17,6 +17,23 @@ const test_users = [
         img: "https://avatars2.githubusercontent.com/u/12592949?s=460&v=4"
     }
 ]
+
+const styles_input = {
+    width: 350,
+    marginBottom: 10
+}
+const styles = {
+    radioGroupLabel: {
+        padding: '8px 8px 8px 10px',
+        display: 'inline-block',
+        verticalAlign: 'middle'
+    },
+
+    radioBtn: {
+        paddingRight : '8px',
+        verticalAlign: 'middle'
+    }
+}
 class IdentitySettings extends Component {
     constructor() {
         super()
@@ -28,7 +45,11 @@ class IdentitySettings extends Component {
             toRemove: {},
             users: [],
             loading: false,
-            settingsModal : false
+            settingsModal: false,
+            recieveNotification: '0',
+            notificationMessage: '',
+            img_key: null,
+            updating : false
         }
 
         this.toggleRemoveModal = this.toggleRemoveModal.bind(this)
@@ -39,6 +60,22 @@ class IdentitySettings extends Component {
         this.updateList = this.updateList.bind(this)
         this.removeFromList = this.removeFromList.bind(this)
         this.toggleSettingsModal = this.toggleSettingsModal.bind(this)
+        this.handleUpdate = this.handleUpdate.bind(this)
+
+    }
+
+    async handleUpdate(){
+        this.setState({updating : true})
+
+        
+        console.log(this.state.recieveNotification)
+        
+
+        await updateIdentityNotification(this.state.img_key, this.state.notificationMessage, this.state.recieveNotification, ()=>Alert.success("Successfully updated", 3000), ()=>Alert.error("Fail to update", 3000))
+
+        await this.setState({updating : false})
+        this.toggleSettingsModal()
+        this.updateList()
 
     }
 
@@ -52,8 +89,8 @@ class IdentitySettings extends Component {
         })
     }
 
-    toggleSettingsModal(){
-        this.setState({settingsModal : !this.state.settingsModal})
+    toggleSettingsModal() {
+        this.setState({ settingsModal: !this.state.settingsModal })
 
     }
 
@@ -130,10 +167,12 @@ class IdentitySettings extends Component {
 
     render() {
         let users_array = this.state.users.map((item) => {
-            //console.log(item)
+
             // if(this.state.loaded===false){
             //     return(<Loading />)
             // }
+
+
 
             if (this.state.loading === true) {
                 return (<Loading />)
@@ -149,14 +188,18 @@ class IdentitySettings extends Component {
                             <h3>{item.name}</h3>
                         </Col>
                         <Col xs={3} xsOffset={3}>
-                            <Whisper  placement="top" trigger="hover" speaker={<Tooltip>Remove Identity.</Tooltip>}>
+                            <Whisper placement="top" trigger="hover" speaker={<Tooltip>Remove Identity.</Tooltip>}>
                                 <IconButton icon={<Icon icon="minus-circle" />} circle size="lg" onClick={() => {
                                     this.setState({ toRemove: item, showRemoveModal: !this.state.showRemoveModal })
                                 }} />
                             </Whisper>
 
                             <Whisper placement="top" trigger="hover" speaker={<Tooltip>Notification Settings.</Tooltip>}>
-                                <IconButton onClick={this.toggleSettingsModal} style={{marginLeft: '3px'}} icon={<Icon icon="setting" />} circle size="lg"  />
+                                <IconButton onClick={async () => {
+                                    await this.setState({ recieveNotification: item.monitor.watch, notificationMessage: item.monitor.custom_message, img_key: item.img_key })
+                                    console.log(this.state.notificationMessage)
+                                    this.toggleSettingsModal()
+                                }} style={{ marginLeft: '3px' }} icon={<Icon icon="setting" />} circle size="lg" />
                             </Whisper>
 
 
@@ -197,7 +240,39 @@ class IdentitySettings extends Component {
 
                     </Panel>
                 </FlexboxGrid.Item>
-                <IdentityNotification show={this.state.settingsModal} toggle={this.toggleSettingsModal}/>
+                {/* <IdentityNotification imgKey = {this.state.img_key} notificationMessage = {this.state.notificationMessage} recieveNotification={this.state.recieveNotification} show={this.state.settingsModal} toggle={this.toggleSettingsModal} /> */}
+
+
+                <Modal size={'xs'} show={this.state.settingsModal} onHide={this.toggleSettingsModal}>
+                    <Modal.Header>
+                        <Modal.Title>Notification Settings</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <InputGroup style={styles_input} >
+                            <InputGroup.Addon>
+                                <Icon icon="avatar" />
+                            </InputGroup.Addon>
+                            <Input value={this.state.notificationMessage} onChange={(val) => this.setState({ notificationMessage: val })} placeholder="Notification Message" />
+                        </InputGroup>
+
+                        <RadioGroup onChange={(val) => this.setState({ recieveNotification: val })} style={{ width: '350px' }} name="radioList" inline appearance="picker" defaultValue={`${this.state.recieveNotification}`}>
+                            <span style={styles.radioGroupLabel}>Notifications Settings: </span>
+                            <Radio style={styles.radioBtn} value="1">Enbaled</Radio>
+                            <Radio style={styles.radioBtn} value="0">Disabled</Radio>
+                        </RadioGroup>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button disabled={this.state.updating} onClick={this.handleUpdate} appearance="primary">
+                            Update
+                        </Button>
+                        <Button disabled={this.state.updating} onClick={this.toggleSettingsModal} appearance="subtle">
+                            Cancel
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
+
+
+
             </FlexboxGrid>
 
         )

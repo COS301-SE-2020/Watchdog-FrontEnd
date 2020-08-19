@@ -1,0 +1,19 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - cd watchdog-frontend
+      - npm install
+      - npm ci
+  build:
+    commands:
+      - npm run build
+      - npm test
+cache:
+  paths:
+    - 'node_modules/**/*'
+artifacts:
+  files:
+    - '**/*'
+appRoot: watchdog-frontend/
