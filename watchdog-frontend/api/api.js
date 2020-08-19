@@ -314,12 +314,7 @@ async function updateNotification(body, set_func) {
 	body.security = ""
 	
   let url = "https://b534kvo5c6.execute-api.af-south-1.amazonaws.com/testing/preferences/notifications?type="+not_type+"&security_company="+body.security
-  await axios.post(url, {
-
-    security_company: body.security,
-    type: not_type
-
-  },
+  await axios.post(url, {},
     {
 
       headers: {
