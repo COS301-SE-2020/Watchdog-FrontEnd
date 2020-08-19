@@ -12,6 +12,7 @@ import Login from './components/Login'
 import TabNavigation from './components/TabNavigation'
 import store from './app-redux/store'
 import SocketManager from './app-redux/socketManager'
+import { myTheme } from './custom-theme'
 
 
 Amplify.configure({
@@ -95,7 +96,7 @@ class App extends Component<appProps, appState>{
     SocketManager.connect()
   }
 
-  componentWillUnmount = () => { 
+  componentWillUnmount = () => {
     SocketManager.disconnect()
   }
 

@@ -3,7 +3,7 @@ import { useNavigation } from "@react-navigation/native"
 import { Layout, Text, Radio, Card, Divider, Button } from '@ui-kitten/components'
 const CameraStatusButtonViewAll = () => {
     const navigation = useNavigation()
-    return <Button appearance='outline' status='info' onPress={() => {
+    return <Button appearance='ghost' status='info' onPress={() => {
                                                                         console.log("help")
                                                                         navigation.navigate({ name: 'Camera', key: 'Camera' })}} 
             >View All</Button>

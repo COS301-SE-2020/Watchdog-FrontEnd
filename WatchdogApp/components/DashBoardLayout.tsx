@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Layout, Text, Radio, Card, Divider, RadioGroup } from '@ui-kitten/components'
-import { Alert, ScrollView } from "react-native"
+import { Alert, ScrollView, View } from "react-native"
 import Logs from './Logs'
 import { connect } from 'react-redux'
 
@@ -119,51 +119,108 @@ class DashBoardLayout extends Component<propsDashBoardLayout, stateDashBoardLayo
         return (
             <ScrollView style={{ flex: 1 }}>
                 <Divider />
-                <Layout level={'2'} style={{ padding: 10 }}>
-                    <Card status={this.state.card} style={{ marginBottom: 20 }}>
-                        <Text status={this.state.card} category="h3" style={{ textAlign: "center", fontStyle: 'normal' }}>System State</Text>
+                <Layout
+                    level={'2'}
+                    // style={{ padding: 10 }}
+                >
+                    <Card
+                        status={this.state.card}
+                        style={styles.Cards}
+                        header={
+                            (props) => (
+                                <View {...props}>
+                                    <Text style={styles.CardHeading} category='h5'>System Status</Text>
+                                </View>
+                            )
+                        }
+                    >
+                        {/* <Text category="h3" style={{ textAlign: "center", fontStyle: 'normal' }}>System State</Text> */}
                         <RadioGroup
                             selectedIndex={this.props.security_level}
                             onChange={updateLevel}
                         >
                             <Radio
-                                style={{ margin: 2 }}
+                                style={styles.Radio}
                                 status='danger'
                                 disabled={this.props.updating_security_level}
                             >
-                                {() => <Text status='danger' category={"h3"} style={{ fontSize: 15 }}> Disarmed</Text>}
+                                {() => <Text status='danger' category='label' style={styles.RadioText}>Disarmed</Text>}
                             </Radio>
                             <Radio
-                                style={{ margin: 2 }}
+                                style={styles.Radio}
                                 status='warning'
                                 disabled={this.props.updating_security_level}
                             >
-                                {() => <Text status='warning' category={"h3"} style={{ fontSize: 15 }}> Recognised Only</Text>}
+                                {() => <Text status='warning' category='label' style={styles.RadioText}>Recognised Only</Text>}
                             </Radio>
                             <Radio
-                                style={{ margin: 2 }}
+                                style={styles.Radio}
                                 status='success'
                                 disabled={this.props.updating_security_level}
                             >
-                                {() => <Text status='success' category={"h3"} style={{ fontSize: 15 }}> Armed</Text>}
+                                {() => <Text status='success' category='label' style={styles.RadioText}>Armed</Text>}
                             </Radio>
-
-
                         </RadioGroup>
                     </Card>
-                    <Card status='primary' style={{ marginBottom: 20 }} >
-                        <Text status='primary' category="h3" style={{ textAlign: "center", fontStyle: 'normal' }}>Camera Status</Text>
+                    <Card
+                        style={styles.Cards}
+                        header={
+                            (props) => (
+                                <View {...props}>
+                                    <Text style={styles.CardHeading} category='h5'>Camera Status</Text>
+                                </View>
+                            )
+                        }
+                        footer = {
+                            () => <CameraStatusButtonViewAll />
+                        }
+                    >
                         <CameraStatus />
-                        <CameraStatusButtonViewAll />
                     </Card>
-                    <Card status='info'>
-                        <Text status='info' category="h3" style={{ textAlign: "center", fontStyle: 'normal' }}>Camera Logs</Text>
+                    <Card
+                        style={styles.Cards}
+                        header={
+                            (props) => (
+                                <View {...props}>
+                                    <Text style={styles.CardHeading} category='h5'>Camera Logs</Text>
+                                </View>
+                            )
+                        }
+                        footer={
+                            (props) => <CameraLogsButtonViewAll />
+                        }
+                    >
                         <Logs />
-                        <CameraLogsButtonViewAll />
                     </Card>
                 </Layout>
             </ScrollView>
         )
+    }
+}
+
+const styles = {
+    Cards: {
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 12,
+        },
+        shadowOpacity: 0.58,
+        shadowRadius: 16.00,
+
+        borderRadius: 0,
+
+        elevation: 24,
+        margin: 20,
+    },
+    CardHeading: {
+        textAlign: "center",
+    },
+    Radio: {
+        // margin: 2
+    },
+    RadioText: {
+        marginLeft: 20
     }
 }
 

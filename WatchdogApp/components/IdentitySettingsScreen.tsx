@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Layout, Button, Card, Divider, Text, List } from '@ui-kitten/components'
-import { ScrollView, Image } from 'react-native'
+import { Layout, Button, Card, Divider, Text, List, Icon } from '@ui-kitten/components'
+import { ScrollView, Image, View } from 'react-native'
 import { connect } from 'react-redux'
 
 import { getIdentities } from '../app-redux/actions'
@@ -50,42 +50,55 @@ class IdentitySettingsScreen extends Component<propsIdentitySettingsScreen, stat
     }
 
     render() {
-        let renderIdentity = (info) => (
-            <Layout>
-                <Card status='basic' >
-                    <Text category='h5'>{info.item.name}</Text>
-                    <Divider style={{ margin: 5, backgroundColor: 'transparent' }} />
-                    <Layout style={{
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                    }}>
-                        <Image
-                            // style={styles.tinyLogo}
-                            style={{
-                                width: 300,
-                                height: 300,
-                                resizeMode: 'stretch'
-                            }}
-                            source={{
-                                uri: info.item.path_in_s3,
-                            }}
-                        />
-                    </Layout>
 
-                    <Divider style={{ margin: 5, backgroundColor: 'transparent' }} />
-                    <Button appearance='outline' status='danger'>
-                        Remove
+        const RemoveIcon = (props) => (
+            <Icon {...props} name='plus-circle' />
+        )
+
+        let renderIdentity = (info) => (
+            // <Layout>
+            <Card
+                // status='basic'
+                style={styles.Cards}
+                header={
+                    (props) => (
+                        <View {...props}>
+                            <Text style={styles.CardHeading} category='h5'>{info.item.name}</Text>
+                        </View>
+                    )
+                }
+                footer={
+                    (props) => (
+                        <Button
+                            appearance='ghost'
+                            status='danger'
+                            accessoryLeft={RemoveIcon}
+                        >
+                            Remove
                         </Button>
-                </Card>
-                <Divider style={{ margin: 5, backgroundColor: 'transparent' }} />
-            </Layout>
+                    )
+                }
+            >
+                <Image
+                    style={{
+                        width: '100%',
+                        height: 300,
+                        resizeMode: 'contain'
+                    }}
+                    source={{
+                        uri: info.item.path_in_s3,
+                    }}
+                />
+            </Card >
         )
 
         return (
             <React.Fragment>
-                <Layout style={{ flex: 1, padding: 10 }}>
+                <Layout
+                    style={{ flex: 1, padding: 10 }}
+                    level='2'
+                >
                     <AddNewIdentityButton />
-                    <Divider style={{ margin: 5, backgroundColor: 'transparent' }} />
                     <List
                         refreshing={this.props.loading}
                         keyExtractor={(item) => item.index}
@@ -96,6 +109,26 @@ class IdentitySettingsScreen extends Component<propsIdentitySettingsScreen, stat
                 </Layout>
             </React.Fragment>
         );
+    }
+}
+
+const styles = {
+    Cards: {
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 12,
+        },
+        shadowOpacity: 0.58,
+        shadowRadius: 16.00,
+
+        borderRadius: 0,
+
+        elevation: 24,
+        margin: 20,
+    },
+    CardHeading: {
+        textAlign: "center",
     }
 }
 

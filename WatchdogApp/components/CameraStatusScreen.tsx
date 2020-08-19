@@ -60,10 +60,27 @@ class CameraStatusScreen extends Component<propsCameraStatusScreen, stateCameraS
             return (
                 <ListItem
                     title={`${item.item.location}`}
+                    //accessoryRight={item.item.status==='Online'?renderItemIconOnline : renderItemIconOfline}
                     accessoryLeft={() => <Text style={{ paddingRight: 20 }}>{item.index + 1}</Text>}
-                    accessoryRight={evaProps => <Button status={status === 'Online' ? 'success' : 'danger'} accessoryRight={evaProps => <Icon  {...evaProps} name={item.item.status === 'Online' ? 'video-outline' : 'video-off-outline'} />}>
-                        {''}
-                    </Button>}
+                    //accessoryRight={evaProps => <Icon  {...evaProps} name={item.item.status==='Online'?'video-outline' : 'video-off-outline'}/>}
+                    accessoryRight={
+                        evaProps => (
+                            <Button
+                                status={status === 'Online' ? 'success' : 'danger'}
+                                appearance='ghost'
+                                accessoryRight={
+                                    evaProps => (
+                                        <Icon  {...evaProps}
+                                            appearence='ghost'
+                                            name={item.item.status === 'Online' ? 'video' : 'video-off'}
+                                        />
+                                    )
+                                }
+                            >
+                                {''}
+                            </Button>
+                        )
+                    }
                 />
             )
         }

@@ -1,7 +1,7 @@
 import socketIO from 'socket.io-client'
 import LIVE_SERVER_URL from './constants'
 
-const socket = socketIO('http://192.168.0.192:8080', {
+const socket = socketIO(LIVE_SERVER_URL, {
     transports: ['websocket'], jsonp: false
 })
 
@@ -42,6 +42,7 @@ var SocketManager = (function () {
             dispatch = dispatcher
         },
         connect: function () {
+            console.log("CONNECTING TO LIVE SERVER");
             socket.connect()
         },
         disconnect: function () {
