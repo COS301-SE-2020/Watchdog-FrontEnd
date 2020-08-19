@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 import { produce } from 'immer';
+import moment from 'moment'
 import * as actions from './actionTypes';
 
 var defaultState = require('./defaultState.json');
@@ -164,8 +165,38 @@ function uiReducer(state = defaultState.UI, action) {
                 draft.Detected.loading = true
             })
         case "FILTER_RECORDINGS":
+            let videos = action.videos
+            let filters = action.data
+
+            const reverseConvertDate = (timestampString) => moment.unix(timestampString).toDate()
+
+            videos = videos.filter((video) => {
+                let cond = true
+                if (!filters.intruder)
+                    cond = cond && (video.tag != 'intruder')
+                if (!filters.periodic)
+                    cond = cond && (video.tag != 'periodic')
+                if (!filters.periodic)
+                    cond = cond && (video.tag != 'movement')
+                return cond
+            }).filter((video) => {
+                let date = reverseConvertDate(video.metadata.timestamp)
+                let cond1 = true
+
+                if (filters.fromDate != null)
+                    cond1 = (fromDate <= date)
+
+                let cond2 = true
+                if (filters.toDate != null)
+                    cond2 = (date <= toDate)
+
+                return cond1 && cond2
+            }).filter((video) => {
+                return video.location in filters.location
+            })
+
             return produce(state, draft => {
-                draft.filteredVideos = action.data
+                draft.Recordings.filteredVideos = videos
             })
 
         /**
@@ -179,7 +210,7 @@ function uiReducer(state = defaultState.UI, action) {
         case actions.GET_RECORDINGS_SUCCESS:
             return produce(state, (draftState) => {
                 draftState.Recordings.loading = false
-                draftState.filteredVideos = action.payload.data.data.videos
+                draftState.Recordings.filteredVideos = action.payload.data.data.videos
             })
         case actions.GET_IDENTITIES_SUCCESS:
             return produce(state, (draftState) => {

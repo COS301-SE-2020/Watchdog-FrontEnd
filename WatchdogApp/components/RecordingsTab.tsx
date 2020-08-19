@@ -22,17 +22,27 @@ const dummyData = Array.from({ length: 3 }, (_, index) => (
 const convertTime = (timestamp) => moment.unix(timestamp).format("ddd, MM/DD/YY, hh:mm a")
 const reverseConvertDate = (timestampString) => moment.unix(timestampString).toDate()
 
+interface VideoObject {
+    aid: number
+    metadata: {
+        camera_id: string
+        timestamp: number
+    }
+    path_in_s3: string
+    tag: string
+    location: string
+}
+
 interface RecordingsTabProps {
-    load: Function,
-    videos: [],
-    loading: boolean,
+    load: Function
+    videos: Array<VideoObject>
+    loading: boolean
     locations: []
     updateFilters: Function
-    filteredVideos: []
+    filteredVideos: Array<VideoObject>
 }
 
 interface RecordingsTabState {
-    showVideos: [],
     filters: {
         intruder: boolean,
         periodic: boolean,
@@ -50,7 +60,6 @@ class RecordingsTab extends Component<RecordingsTabProps, RecordingsTabState> {
     constructor(props: any) {
         super(props);
         this.state = {
-            showVideos: [...this.props.videos],
             filters: {
                 intruder: true,
                 periodic: true,
@@ -95,9 +104,11 @@ class RecordingsTab extends Component<RecordingsTabProps, RecordingsTabState> {
                 </Layout>
             </Layout>
         )
+
         const renderVideoFooter = (footerProps, info) => (
             <Text category="label" style={{ padding: 20 }}>{info.item.location.toUpperCase()}</Text>
         )
+
         const renderVideo = (info) => {
             return <React.Fragment>
                 <Card
@@ -120,12 +131,8 @@ class RecordingsTab extends Component<RecordingsTabProps, RecordingsTabState> {
                         inFullscreen={false}
                         /> */}
                     <Divider style={{ margin: 5, backgroundColor: 'transparent' }} />
-
-
-
                 </Card>
             </React.Fragment>
-
         }
 
 
@@ -136,85 +143,40 @@ class RecordingsTab extends Component<RecordingsTabProps, RecordingsTabState> {
                     produce(
                         draft => {
                             draft.filters[checkBox] = obj
-                            if (!obj) {
-                                draft.showVideos = draft.showVideos.filter(
-                                    (value) => {
-                                        return ((value.tag != checkBox) && (draft.filters[checkBox] == obj))
-                                    }
-                                )
-                            }
-                            else {
-                                draft.showVideos = [
-                                    ...this.props.videos.filter(
-                                        (value) => {
-                                            return (value.tag == checkBox)
-                                        }
-                                    ),
-                                    ...draft.showVideos
-                                ]
-                                draft.showVideos.sort(
-                                    (a, b) => b.timestamp - a.timestamp
-                                )
-                            }
-                            this.props.updateFilters(draft.showVideos)
                         }
-                    )
+                    ),
+                    () => this.props.updateFilters(this.state.filters, this.props.videos)
                 )
-
             }
 
             const groupDisplayValues = () => {
                 return this.state.filters.location.map(index => {
-                    // this.setState(produce(draft => {
-                    //     draft.filters.location = this.props.locations.map((value, index) => new IndexPath(index))
-                    // }))
                     return this.props.locations[index.row]
                 })
             }
 
-            const filterVideoByLocation = (obj = this.state.filters.location) => {
-                // console.log(obj);
-                this.setState(produce(draft => {
-                    draft.filters.location = obj
-
-                    const locations = obj.map(index => {
-                        return this.props.locations[index.row]
-                    })
-
-                    draft.showVideos = this.props.videos.filter(
-                        (value) => {
-                            return locations.includes(value.location)
-                        }
-                    )
-                    this.props.updateFilters(draft.showVideos)
-                }))
-                // filterVideoByTag('intruder', this.state.filters.intruder)
-                // filterVideoByTag('periodic', this.state.filters.periodic)
-                // filterVideoByTag('movement', this.state.filters.movement)
+            const filterVideoByLocation = (obj) => {
+                this.setState(
+                    produce(draft => {
+                        draft.filters.location = obj
+                    }),
+                    () => this.props.updateFilters({
+                        ...this.state.filters,
+                        location: obj.map((index) => this.props.locations[index.row])
+                    }, this.props.videos)
+                )
             }
 
             const changeDateRange = (fromDate, toDate) => {
-                this.setState(produce(
-                    draft => {
-                        draft.filters.fromDate = fromDate
-                        draft.filters.toDate = toDate
-                        draft.showVideos = this.props.videos.filter(
-                            value => {
-                                let date = reverseConvertDate(value.metadata.timestamp)
-                                let cond1 = true
-                                if (fromDate != null)
-                                    cond1 = (fromDate <= date)
-
-                                let cond2 = true
-                                if (toDate != null)
-                                    cond2 = (date <= toDate)
-                                console.log({ "dates": { fromDate, toDate, date, str: value.metadata.timestamp }, "cond1": cond1, "cond2": cond2 });
-                                return cond1 && cond2
-                            }
-                        )
-                        this.props.updateFilters(draft.showVideos)
-                    }
-                ))
+                this.setState(
+                    produce(
+                        draft => {
+                            draft.filters.fromDate = fromDate
+                            draft.filters.toDate = toDate
+                        }
+                    ),
+                    () => this.props.updateFilters(this.state.filters, this.props.videos)
+                )
             }
 
             const SelectRange = () => (
@@ -250,7 +212,6 @@ class RecordingsTab extends Component<RecordingsTabProps, RecordingsTabState> {
 
             return <React.Fragment>
                 <Layout>
-                    {/* <Input style={{ borderRadius: 0 }} placeholder='Search Videos...' /> */}
                     <Drawer>
                         <DrawerGroup title='Filters'>
                             <SelectRange />
@@ -284,24 +245,16 @@ class RecordingsTab extends Component<RecordingsTabProps, RecordingsTabState> {
                                 <Video
                                     source={{ uri: this.state.toPlay }}
                                     rate={1.0}
-
                                     isMuted={true}
                                     resizeMode="cover"
                                     shouldPlay
                                     style={{ width: 300, height: 300 }}
                                     useNativeControls
                                 />
-
                                 <Divider style={{ margin: 5, backgroundColor: 'transparent' }} />
-
-
-                                <Button style={{ margin: 2, height: 30 }} appearance='outline' status='danger' onPress={() => this.setState({ modal: false })}>
-                                    DISMISS
-                            </Button>
-
+                                <Button style={{ margin: 2, height: 30 }} appearance='outline' status='danger' onPress={() => this.setState({ modal: false })}>DISMISS</Button>
                             </Card>
                         </Modal>
-
                     </React.Fragment>
                 }
             />
@@ -334,7 +287,7 @@ const styles = StyleSheet.create({
 const mapStateToProps = (store, ownProps) => {
     return {
         videos: store.Data.videos,
-        locations: Array.from(new Set(Object.values(store.Data.locations))),
+        locations: store.Data.camera_locations,
         loading: store.UI.Recordings.loading,
         message: store.UI.Recordings.message,
         filteredVideos: store.UI.Recordings.filteredVideos
@@ -344,9 +297,10 @@ const mapStateToProps = (store, ownProps) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         load: () => dispatch(getRecordings()),
-        updateFilters: (data) => dispatch({
+        updateFilters: (data, videos) => dispatch({
             type: 'FILTER_RECORDINGS',
-            data
+            data,
+            videos
         })
     }
 }
