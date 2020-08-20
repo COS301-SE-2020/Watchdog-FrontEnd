@@ -14,6 +14,7 @@ import SettingsScreen from '../components/SettingsScreen'
 import TopNavBar from '../components/TopNavBar'
 import LogsModal from '../components/LogsModal'
 import DownloadsModal from '../components/DownloadsModal'
+import IdentitySettingsModal from '../components/IdentitySettingsModal'
 
 const styling = {
   "backgroundColor": "black"
@@ -28,7 +29,8 @@ class Index extends Component{
       activeKey : 1,
       defaultKey : "1",
       logsModal : false,
-      downloadModal : false
+      downloadModal : false,
+      identitySettingsModal : false
 
     }
 
@@ -54,6 +56,7 @@ class Index extends Component{
     this.quickAccess = this.quickAccess.bind(this)
     this.toggleLogsModal = this.toggleLogsModal.bind(this)
     this.toggleDownloadsModal = this.toggleDownloadsModal.bind(this)
+    this.toggleIdentitySettingsModal = this.toggleIdentitySettingsModal.bind(this)
           
   }
 
@@ -68,7 +71,15 @@ class Index extends Component{
       return
     }
 
+    if(val==7){
+      this.toggleIdentitySettingsModal()
+      return
+    }
+
     this.setState({activeKey : val, defaultKey : `${val}`})
+  }
+  toggleIdentitySettingsModal(){
+    this.setState({identitySettingsModal : !this.state.identitySettingsModal})
   }
 
   toggleDownloadsModal(){
@@ -122,6 +133,7 @@ class Index extends Component{
             {/* <SideNavBar handleChange = {this.tabHandler} defaultKeyVal={this.state.defaultKey}/> */}
             < LogsModal toggle={this.toggleLogsModal} show ={this.state.logsModal} />
             < DownloadsModal toggle={this.toggleDownloadsModal} show ={this.state.downloadModal} />
+            < IdentitySettingsModal toggle={this.toggleIdentitySettingsModal} show ={this.state.identitySettingsModal} />
             <Content>
               {this.state.activeKey===1&&<HomePage handleChange={this.quickAccess}/>}
               {this.state.activeKey===2&&<LiveVideo/>}
