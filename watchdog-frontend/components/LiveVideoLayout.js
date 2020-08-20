@@ -207,8 +207,8 @@ class LiveVideo extends Component {
               Live Streaming
           </IconButton> </div>} bordered bodyFill align='center'>
               <Table
-                autoHeight
-                height={700}
+                
+                height={500}
                 data={this.state.data}
                 wordWrap
 
