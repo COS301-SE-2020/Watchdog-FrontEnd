@@ -69,25 +69,26 @@ class Log extends Component{
                 wordWrap
                 height={400}
                 autoHeight
+                affixHeader
                 data={this.state.logs}
                 
                 onRowClick={data => {
                 console.log(data);
                 }}
             >
-                <Column flexGrow={0.5} align="center" fixed>
-                <HeaderCell>Log Message</HeaderCell>
+                <Column flexGrow={1} align="center" fixed>
+                <HeaderCell><h5>Log Message</h5></HeaderCell>
                 <Cell dataKey="message" />
                 </Column>
     
                 <Column flexGrow={0.5}>
-                <HeaderCell>Date</HeaderCell>
-                <Cell dataKey="date" />
+                <HeaderCell><h5>Date</h5></HeaderCell>
+                <Cell style={{textAlign : 'center'}} dataKey="date" />
                 </Column>
                 
                 <Column flexGrow={0.5}>
-                <HeaderCell>Time</HeaderCell>
-                <Cell dataKey="time" />
+                <HeaderCell><h5>Time</h5></HeaderCell>
+                <Cell style={{textAlign : 'center'}} dataKey="time" />
                 </Column>
 
                 {/* <Column flexGrow={0.5}>

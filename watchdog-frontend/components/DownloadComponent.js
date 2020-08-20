@@ -15,14 +15,14 @@ class Download extends Component{
                     <Panel style={{alignContent:'center'}} header={<h3>Home Control Panel Downloads</h3>} >
                         <Form style={{textAlign: 'center'}} layout="inline">
                             <FormGroup >
-                                <IconButton style={{width: '60px', height: '60px',right:'0'}}  icon={<Icon style={{fontSize: '36px'}} icon="windows" />} circle size="lg" ></IconButton>
+                                <IconButton style={{width: '60px', height: '60px',right:'0'}}  icon={<Icon style={{fontSize: '36px',paddingLeft:'15px'}} icon="windows" />} circle size="lg" ></IconButton>
                                 
                             </FormGroup>
                             <FormGroup>
-                                <IconButton style={{width: '60px', height: '60px',right:'0'}}  icon={<Icon style={{fontSize: '36px'}} icon="linux" />} circle size="lg" ></IconButton>
+                                <IconButton style={{width: '60px', height: '60px',right:'0'}}  icon={<Icon style={{fontSize: '36px',paddingLeft:'15px'}} icon="linux" />} circle size="lg" ></IconButton>
                             </FormGroup>
                             <FormGroup>
-                                <IconButton style={{width: '60px', height: '60px',right:'0'}}  icon={<Icon style={{fontSize: '36px'}} icon="apple" />} circle size="lg" ></IconButton>
+                                <IconButton style={{width: '60px', height: '60px',right:'0'}}  icon={<Icon style={{fontSize: '36px',paddingLeft:'15px'}} icon="apple" />} circle size="lg" ></IconButton>
                             </FormGroup>
                         </Form>
                         
@@ -30,11 +30,11 @@ class Download extends Component{
                     <Panel  header={<h3>App Downloads</h3>} >
                         <Form style={{textAlign: 'center'}} layout="inline">
                             <FormGroup>
-                                <IconButton style={{width: '60px', height: '60px',right:'0'}}  icon={<Icon style={{fontSize: '36px'}} icon="android" />} circle  ></IconButton>
+                                <IconButton style={{width: '60px', height: '60px',right:'0'}}  icon={<Icon style={{fontSize: '36px',paddingLeft:'15px'}} icon="android" />} circle  ></IconButton>
                             </FormGroup>
                             <FormGroup>
                                 
-                                <IconButton style={{width: '60px', height: '60px',right:'0'}} icon={<Icon icon="ios"  style={{fontSize: '36px'}}/>} circle  ></IconButton>
+                                <IconButton style={{width: '60px', height: '60px',right:'0'}} icon={<Icon icon="ios"  style={{fontSize: '36px',paddingLeft:'15px'}}/>} circle  ></IconButton>
                             </FormGroup>
                         </Form>
                     </Panel>

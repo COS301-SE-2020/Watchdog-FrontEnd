@@ -56,8 +56,9 @@ class SystemState extends Component{
 
     render(){
         return(
-            <Panel header="System State" shaded align='center'>
+        <Panel header={<h3>System State</h3>} shaded align='center'>
                     <RadioGroup 
+                        style={{fontSize : '22px'}}
                         name="radioList" 
                         inline appearance="picker" 
                         value= {this.state.system_state}

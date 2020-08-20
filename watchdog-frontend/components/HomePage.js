@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import {FlexboxGrid,SelectPicker,Button,Alert,Panel, IconButton,Table,Icon, Grid, Row,Avatar,Col,Modal,Popover,Whisper} from 'rsuite'
 // import Col from 'rsuite/lib/Carousel';
-import CameraStatusTable from './CameraStatusTable'
+import LiveVideo from './LiveVideoLayout'
 import SystemState from './SystemState'
 import Log from './HomePageLogs'
 import  { Auth } from 'aws-amplify'
@@ -118,9 +118,11 @@ class HomePage extends Component{
         return(
           <Grid fluid> 
             <Row fluid>
-              <Col xs={24}>                  
+              <Col xs={24}>   
+                <h1 style={{textAlign: 'center', fontStretch:'ultra-expanded', fontSize: '70px'}}> <img style={{height: '70px'}} src = 'logo1.png'/>WELCOME TO WATCHDOG<img style={{height: '70px'}} src = 'logo1.png'/></h1>   
+                <br></br>            
                   <SystemState />   
-                  <Row>
+                  {/* <Row>
                     <Col md={12} sm={12}>
                       <Panel header={<div style={{textAlign: 'center'}} >Live Stream</div>} shaded>
                         <div style={{textAlign: 'center'}} >
@@ -151,10 +153,10 @@ class HomePage extends Component{
                         </div>
                       </Panel>
                     </Col>
-                  </Row>     
+                  </Row>      */}
               </Col>
               <Col xs={24}>
-                  <CameraStatusTable />
+                  <LiveVideo />
                   
               </Col>
             </Row>

@@ -11,7 +11,7 @@ class LogsModal extends Component {
                 <Modal.Body>
                     <HomePageLogs />
                 </Modal.Body>
-                <Modal.Footer>
+                <Modal.Footer style={{marginTop: '20px'}}>
                     <Button onClick={this.props.toggle} appearance="primary">
                         Close
                     </Button>
