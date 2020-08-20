@@ -7,7 +7,7 @@ class IdentitySettingsModal extends Component {
         return (
             <Modal size={'lg'} show={this.props.show} onHide={this.props.toggle}>
                 <Modal.Header>
-                    <Modal.Title><h5>Identity Settings</h5></Modal.Title>
+                    <Modal.Title><h3>Identity Settings</h3></Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <IdentitySettings />

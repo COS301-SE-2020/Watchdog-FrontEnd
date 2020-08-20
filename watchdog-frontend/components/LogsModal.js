@@ -4,9 +4,9 @@ import {Modal , Button, Grid, Row, Col, IconButton, Icon, Whisper, Tooltip} from
 class LogsModal extends Component {
     render() {
         return (
-            <Modal overflow size={'lg'} show={this.props.show} onHide={this.props.toggle}>
+            <Modal overflow={true} size={'lg'} show={this.props.show} onHide={this.props.toggle}>
                 <Modal.Header>
-                    <Modal.Title><h5>Camera Logs</h5></Modal.Title>
+                    <Modal.Title><h3>Camera Logs</h3></Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <HomePageLogs />

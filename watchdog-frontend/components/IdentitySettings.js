@@ -213,7 +213,7 @@ class IdentitySettings extends Component {
         return (
             <FlexboxGrid style={{ "marginTop": "10" }} justify="center">
                 <FlexboxGrid.Item colspan={22}>
-                    <Panel header={<h3>Identity Settings</h3>} >
+                    <Panel  >
                         <Panel shaded>
                             <Grid fluid>
                                 {users_array}

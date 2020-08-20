@@ -1,6 +1,6 @@
 import React, {Component, useEffect} from 'react';
 import { render } from 'react-dom';
-import {InputPicker,Input,FormGroup, Form, Button, Panel, FlexboxGrid} from 'rsuite'
+import {SelectPicker,Input,FormGroup, Form, Button, Panel, FlexboxGrid} from 'rsuite'
 import {updateNotification} from '../api/api'
 const notifications=
     {
@@ -58,10 +58,10 @@ class UpdateNotifications extends Component{
     }
     render(){
         return(
-            <Panel  shaded header={<h4>Update Notification Settings</h4>}>
+            <Panel style={{textAlign : 'center'}}  shaded header={<h4>Update Notification Settings</h4>}>
                 <Form>
                     <FormGroup>
-                        <InputPicker onChange={this.handleOptionChange}  data={options_data} style={{ width: 224 }} />
+                        <SelectPicker searchable={false} onChange={this.handleOptionChange}  data={options_data} style={{ width: 224 }} />
                         
                     </FormGroup>
                     {this.state.select==="Email"
@@ -70,7 +70,7 @@ class UpdateNotifications extends Component{
                         
                     }
                     <FormGroup>
-                    <Input defaultValue={this.props.current_security} value = {this.state.security_company} onChange ={(val)=>this.setState({security_company : val})} style={{ width: 300 }} placeholder="Security Company Phone Number" />
+                    <Input defaultValue={this.props.current_security} value = {this.state.security_company} onChange ={(val)=>this.setState({security_company : val})} style={{ width: 224 }} placeholder="Security Company Phone Number" />
                         
                     </FormGroup>
                     <Button onClick={this.submitSettings} appearance="primary">Submit</Button>

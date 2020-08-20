@@ -7,7 +7,7 @@ class DetectedImagesModal extends Component {
         return (
             <Modal overflow size={'lg'} show={this.props.show} onHide={this.props.toggle} >
                 <Modal.Header>
-                    <Modal.Title><h5>Detected Images</h5></Modal.Title>
+                    <Modal.Title><h3>Detected Images</h3></Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <DetectedImages />

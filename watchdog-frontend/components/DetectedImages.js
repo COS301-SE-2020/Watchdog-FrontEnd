@@ -127,7 +127,7 @@ class DetectedImages extends Component {
         return (
             <FlexboxGrid style={{ "marginTop": "10" }} justify="center">
                 <FlexboxGrid.Item colspan={22}>
-                    <Panel header={<h3>Detected Images</h3>} >
+                    <Panel  >
                         <Panel shaded>
                             <Grid fluid>
                                 <Row fluid>
