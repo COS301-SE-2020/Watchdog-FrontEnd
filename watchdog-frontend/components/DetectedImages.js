@@ -105,8 +105,8 @@ class DetectedImages extends Component {
         let img_data = this.state.data.map((item, index) => {
             return (
 
-                <Col key={item.index+1} xs={6}>
-                    <Panel style={{ height: '300px', justifyContent: 'center', alignItems: 'center', display: 'flex' }}>
+                <Col key={item.index+1} xs={8}>
+                    <Panel style={{ height: '200px', justifyContent: 'center', alignItems: 'center', display: 'flex' }}>
                         <img style={{ width: '100%' }} src={item.img} />
                     </Panel>
 

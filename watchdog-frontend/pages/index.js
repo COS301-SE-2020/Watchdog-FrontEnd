@@ -15,6 +15,7 @@ import TopNavBar from '../components/TopNavBar'
 import LogsModal from '../components/LogsModal'
 import DownloadsModal from '../components/DownloadsModal'
 import IdentitySettingsModal from '../components/IdentitySettingsModal'
+import DetectedImagesModal from '../components/DetectedImagesModal'
 
 const styling = {
   "backgroundColor": "black"
@@ -30,7 +31,8 @@ class Index extends Component{
       defaultKey : "1",
       logsModal : false,
       downloadModal : false,
-      identitySettingsModal : false
+      identitySettingsModal : false,
+      detectedImagesModal : false
 
     }
 
@@ -57,6 +59,7 @@ class Index extends Component{
     this.toggleLogsModal = this.toggleLogsModal.bind(this)
     this.toggleDownloadsModal = this.toggleDownloadsModal.bind(this)
     this.toggleIdentitySettingsModal = this.toggleIdentitySettingsModal.bind(this)
+    this.toggleDetectedImagesModal = this.toggleDetectedImagesModal.bind(this)
           
   }
 
@@ -76,8 +79,17 @@ class Index extends Component{
       return
     }
 
+    if(val==8){
+      this.toggleDetectedImagesModal()
+      return
+    }
+
     this.setState({activeKey : val, defaultKey : `${val}`})
   }
+  toggleDetectedImagesModal(){
+    this.setState({detectedImagesModal : !this.state.detectedImagesModal})
+  }
+
   toggleIdentitySettingsModal(){
     this.setState({identitySettingsModal : !this.state.identitySettingsModal})
   }
@@ -134,6 +146,7 @@ class Index extends Component{
             < LogsModal toggle={this.toggleLogsModal} show ={this.state.logsModal} />
             < DownloadsModal toggle={this.toggleDownloadsModal} show ={this.state.downloadModal} />
             < IdentitySettingsModal toggle={this.toggleIdentitySettingsModal} show ={this.state.identitySettingsModal} />
+            < DetectedImagesModal toggle={this.toggleDetectedImagesModal} show ={this.state.detectedImagesModal} />
             <Content>
               {this.state.activeKey===1&&<HomePage handleChange={this.quickAccess}/>}
               {this.state.activeKey===2&&<LiveVideo/>}

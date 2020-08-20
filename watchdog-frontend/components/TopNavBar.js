@@ -16,7 +16,7 @@ class TopNavBar extends Component {
                         <Nav.Item onClick={()=>this.props.handleChange(6)}><h6>Downloads</h6></Nav.Item>
                         <Dropdown trigger={['click', 'hover']} title={<h6>Settings</h6>}>
                             <Dropdown.Item onClick={()=>this.props.handleChange(7)}>Identity Settings</Dropdown.Item>
-                            <Dropdown.Item>Detected Images</Dropdown.Item>
+                            <Dropdown.Item onClick={()=>this.props.handleChange(8)}>Detected Images</Dropdown.Item>
                             <Dropdown.Item>Notification Settings</Dropdown.Item>
                             
                         </Dropdown>
