@@ -43,7 +43,6 @@ redundant video storage our product utilizes machine learning and a modern cloud
 
 **Intructions**:
 1. Clone this repo
-2. ...
 
 
 ### Usage Instructions
@@ -63,13 +62,14 @@ First of all begin by changing your directory to watchdog-frontend or WatchdogAp
 #### Run the built app in production mode. 
 - npm start
 
-# FIX THIS LAYOUT AND ADD this stuff---RUN app
 
-- cd WatchdogApp
+### For the Mobile Application 
 - npm start # you can open iOS, Android, or web from here, or run them directly with the commands below.
 - npm run android
 - npm run ios # requires an iOS device or macOS for access to an iOS simulator
 - npm run web
+
+
 ### Members
 
 |Member|Student #|Page|LinkedIn|
