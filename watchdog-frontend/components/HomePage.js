@@ -158,14 +158,7 @@ class HomePage extends Component{
                   
               </Col>
             </Row>
-            <Row fluid>
-              
-              
-              <Col  xs={24}>
-                 
-                  <Log />
-              </Col>
-            </Row>
+            
           </Grid>
           
         //     <div>
