@@ -16,6 +16,7 @@ import LogsModal from '../components/LogsModal'
 import DownloadsModal from '../components/DownloadsModal'
 import IdentitySettingsModal from '../components/IdentitySettingsModal'
 import DetectedImagesModal from '../components/DetectedImagesModal'
+import NotificationSettingsModal from '../components/NotificationSettingsModal'
 
 const styling = {
   "backgroundColor": "black"
@@ -32,7 +33,8 @@ class Index extends Component{
       logsModal : false,
       downloadModal : false,
       identitySettingsModal : false,
-      detectedImagesModal : false
+      detectedImagesModal : false,
+      notificationModal : false
 
     }
 
@@ -60,6 +62,7 @@ class Index extends Component{
     this.toggleDownloadsModal = this.toggleDownloadsModal.bind(this)
     this.toggleIdentitySettingsModal = this.toggleIdentitySettingsModal.bind(this)
     this.toggleDetectedImagesModal = this.toggleDetectedImagesModal.bind(this)
+    this.toggleNotificationsModal = this.toggleNotificationsModal.bind(this)
           
   }
 
@@ -84,8 +87,17 @@ class Index extends Component{
       return
     }
 
+    if(val==9){
+      this.toggleNotificationsModal()
+      return
+    }
+
     this.setState({activeKey : val, defaultKey : `${val}`})
   }
+  toggleNotificationsModal(){
+    this.setState({notificationModal : !this.state.notificationModal})
+  }
+
   toggleDetectedImagesModal(){
     this.setState({detectedImagesModal : !this.state.detectedImagesModal})
   }
@@ -147,6 +159,7 @@ class Index extends Component{
             < DownloadsModal toggle={this.toggleDownloadsModal} show ={this.state.downloadModal} />
             < IdentitySettingsModal toggle={this.toggleIdentitySettingsModal} show ={this.state.identitySettingsModal} />
             < DetectedImagesModal toggle={this.toggleDetectedImagesModal} show ={this.state.detectedImagesModal} />
+            < NotificationSettingsModal toggle={this.toggleNotificationsModal} show ={this.state.notificationModal} />
             <Content>
               {this.state.activeKey===1&&<HomePage handleChange={this.quickAccess}/>}
               {this.state.activeKey===2&&<LiveVideo/>}
