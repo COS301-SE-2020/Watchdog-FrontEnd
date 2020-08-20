@@ -11,6 +11,9 @@ import HistoricalVideo from '../components/HistoricalVideo'
 import LiveVideo from '../components/LiveVideoLayout'
 import HomePage from '../components/HomePage'
 import SettingsScreen from '../components/SettingsScreen'
+import TopNavBar from '../components/TopNavBar'
+import LogsModal from '../components/LogsModal'
+import DownloadsModal from '../components/DownloadsModal'
 
 const styling = {
   "backgroundColor": "black"
@@ -23,7 +26,9 @@ class Index extends Component{
     this.state ={
       loggedIn : false,
       activeKey : 1,
-      defaultKey : "1"
+      defaultKey : "1",
+      logsModal : false,
+      downloadModal : false
 
     }
 
@@ -47,16 +52,38 @@ class Index extends Component{
       
     this.tabHandler = this.tabHandler.bind(this)
     this.quickAccess = this.quickAccess.bind(this)
+    this.toggleLogsModal = this.toggleLogsModal.bind(this)
+    this.toggleDownloadsModal = this.toggleDownloadsModal.bind(this)
           
   }
 
   tabHandler(val){
+    if(val==5){
+      this.toggleLogsModal()
+      return
+    }
+
+    if(val==6){
+      this.toggleDownloadsModal()
+      return
+    }
+
     this.setState({activeKey : val, defaultKey : `${val}`})
   }
+
+  toggleDownloadsModal(){
+    this.setState({downloadModal : !this.state.downloadModal})
+  }
+
+
 
   quickAccess(val){
     this.setState({activeKey : val, defaultKey : `${val}`},()=>console.log(this.state))
 
+  }
+
+  toggleLogsModal(){
+    this.setState({logsModal : !this.state.logsModal})
   }
 
   render(){
@@ -90,9 +117,11 @@ class Index extends Component{
         
         </Head>
         <Container style={{maxWidth: "1700px", margin: 'auto'}}>
-          <Header><div style={{textAlign :'center',fontFamily:"corbel, sans-serif",fontStretch:"ultra-expanded",fontSize: "60px"}}>WATCHDOG</div></Header>
+          <Header> <TopNavBar  handleChange = {this.tabHandler} /> </Header>
           <Container>
-            <SideNavBar handleChange = {this.tabHandler} defaultKeyVal={this.state.defaultKey}/>
+            {/* <SideNavBar handleChange = {this.tabHandler} defaultKeyVal={this.state.defaultKey}/> */}
+            < LogsModal toggle={this.toggleLogsModal} show ={this.state.logsModal} />
+            < DownloadsModal toggle={this.toggleDownloadsModal} show ={this.state.downloadModal} />
             <Content>
               {this.state.activeKey===1&&<HomePage handleChange={this.quickAccess}/>}
               {this.state.activeKey===2&&<LiveVideo/>}

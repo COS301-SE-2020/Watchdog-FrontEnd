@@ -33,7 +33,8 @@ class Download extends Component{
                                 <IconButton  icon={<Icon icon="android" />} circle size="lg" ></IconButton>
                             </FormGroup>
                             <FormGroup>
-                                <IconButton  icon={<Icon icon="ios" />} circle size="lg" ></IconButton>
+                                <Icon icon="ios"  style={{fontSize : '100'}}/>
+                                {/* <IconButton  icon={} circle  ></IconButton> */}
                             </FormGroup>
                         </Form>
                     </Panel>

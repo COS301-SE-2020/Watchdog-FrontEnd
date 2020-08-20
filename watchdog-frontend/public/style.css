@@ -69,18 +69,18 @@
   background-size: 100%;
 
 }
-.HomeDiv{
+/* .HomeDiv{
   background: url("/background2.jpg") no-repeat;
   background-position: center;
   background-size: 100%;
   height: 200px;
   font-size: large;
-}
-.rs-header{
+} */
+/* .rs-header{
   background: url("/background.jpg") no-repeat;
   background-position: center;
   background-size: 100%;
-}
+} */
 .rs-row{
   margin-top: 10px;
 }
