@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Panel, Avatar, Grid, Row, Col, IconButton, Icon, Whisper, Tooltip, FlexboxGrid, Alert, Modal, Input, RadioGroup, InputGroup, Radio, Button } from 'rsuite'
+import { Panel, Loader, Grid, Row, Col, IconButton, Icon, Whisper, Tooltip, FlexboxGrid, Alert, Modal, Input, RadioGroup, InputGroup, Radio, Button } from 'rsuite'
 import RemoveIdentityModal from './RemoveIdentityModal'
 import AddIdentityModal from './AddIdentityModal'
 import { getIdentities, deleteIdentity, updateIdentityNotification } from '../api/api'
@@ -30,7 +30,7 @@ const styles = {
     },
 
     radioBtn: {
-        paddingRight : '8px',
+        paddingRight: '8px',
         verticalAlign: 'middle'
     }
 }
@@ -49,7 +49,7 @@ class IdentitySettings extends Component {
             recieveNotification: '0',
             notificationMessage: '',
             img_key: null,
-            updating : false
+            updating: false
         }
 
         this.toggleRemoveModal = this.toggleRemoveModal.bind(this)
@@ -64,16 +64,16 @@ class IdentitySettings extends Component {
 
     }
 
-    async handleUpdate(){
-        this.setState({updating : true})
+    async handleUpdate() {
+        this.setState({ updating: true })
 
-        
+
         console.log(this.state.recieveNotification)
-        
 
-        await updateIdentityNotification(this.state.img_key, this.state.notificationMessage, this.state.recieveNotification, ()=>Alert.success("Successfully updated", 3000), ()=>Alert.error("Fail to update", 3000))
 
-        await this.setState({updating : false})
+        await updateIdentityNotification(this.state.img_key, this.state.notificationMessage, this.state.recieveNotification, () => Alert.success("Successfully updated", 3000), () => Alert.error("Fail to update", 3000))
+
+        await this.setState({ updating: false })
         this.toggleSettingsModal()
         this.updateList()
 
@@ -98,9 +98,11 @@ class IdentitySettings extends Component {
         //console.log("here")
         //this.setState({users : temp, showRemoveModal : !this.state.showRemoveModal})
         // console.log(this.state.toRemove.id)
-        this.setState({ loading: true, showRemoveModal: !this.state.showRemoveModal })
+        this.setState({  showRemoveModal: !this.state.showRemoveModal, users : []  })
         deleteIdentity(this.state.toRemove.id,
             () => {
+                this.setState({ loading: true })
+                Alert.success("Identity removed.", 3000)
                 this.updateList()
                 this.setState({ loading: false })
             },
@@ -116,6 +118,7 @@ class IdentitySettings extends Component {
     }
 
     async setUser(user_list) {
+        this.setState({users : []})
         this.setState({ users: user_list })
     }
 
@@ -123,7 +126,7 @@ class IdentitySettings extends Component {
     async updateList() {
         //this.setState({loaded:false}, this.componentDidMount)
         //console.log("hello from this func")
-        this.setState({ loading: true })
+        this.setState({ loading: true, users : [] })
         const date = Date.now()
         let currentDate = null
         do {
@@ -178,35 +181,53 @@ class IdentitySettings extends Component {
                 return (<Loading />)
             }
             return (
-                <Panel shaded>
-                    <Row key={item.id} fluid>
-                        <Col xs={3}>
-                            <Avatar size={'lg'} src={item.img} />
+                <Col style={{paddingBottom : '10px'}} key={item.index + 1} xs={8}>
+                    <Panel style={{ height: '200px', justifyContent: 'center', alignItems: 'center', display: 'flex', marginBottom: '10px' }}>
+                        <img style={{ width: '100%' }} src={item.img} />
+                    </Panel>
 
-                        </Col>
-                        <Col xs={15}>
-                            <h3>{item.name}</h3>
-                        </Col>
-                        <Col xs={3} xsOffset={3}>
-                            <Whisper placement="top" trigger="hover" speaker={<Tooltip>Remove Identity.</Tooltip>}>
-                                <IconButton icon={<Icon icon="minus-circle" />} circle size="lg" onClick={() => {
-                                    this.setState({ toRemove: item, showRemoveModal: !this.state.showRemoveModal })
-                                }} />
-                            </Whisper>
+                    <Button appearance='primary' color='yellow' onClick={async () => {
+                        await this.setState({ recieveNotification: item.monitor.watch, notificationMessage: item.monitor.custom_message, img_key: item.img_key })
+                        console.log(this.state.notificationMessage)
+                        this.toggleSettingsModal()
+                    }} block>Identity Notifications</Button>
 
-                            <Whisper placement="top" trigger="hover" speaker={<Tooltip>Notification Settings.</Tooltip>}>
-                                <IconButton onClick={async () => {
-                                    await this.setState({ recieveNotification: item.monitor.watch, notificationMessage: item.monitor.custom_message, img_key: item.img_key })
-                                    console.log(this.state.notificationMessage)
-                                    this.toggleSettingsModal()
-                                }} style={{ marginLeft: '3px' }} icon={<Icon icon="setting" />} circle size="lg" />
-                            </Whisper>
+                    <Button appearance='primary' color='red' onClick={() => {
+                        this.setState({ toRemove: item, showRemoveModal: !this.state.showRemoveModal })
+                    }} block>Remove Identity</Button>
 
 
-                        </Col>
 
-                    </Row>
-                </Panel>
+                </Col>
+                // <Panel shaded>
+                //     <Row key={item.id} fluid>
+                //         <Col xs={3}>
+                //             <Avatar size={'lg'} src={item.img} />
+
+                //         </Col>
+                //         <Col xs={15}>
+                //             <h3>{item.name}</h3>
+                //         </Col>
+                //         <Col xs={3} xsOffset={3}>
+                //             <Whisper placement="top" trigger="hover" speaker={<Tooltip>Remove Identity.</Tooltip>}>
+                //                 <IconButton icon={<Icon icon="minus-circle" />} circle size="lg" onClick={() => {
+                //                     this.setState({ toRemove: item, showRemoveModal: !this.state.showRemoveModal })
+                //                 }} />
+                //             </Whisper>
+
+                //             <Whisper placement="top" trigger="hover" speaker={<Tooltip>Notification Settings.</Tooltip>}>
+                //                 <IconButton onClick={async () => {
+                //                     await this.setState({ recieveNotification: item.monitor.watch, notificationMessage: item.monitor.custom_message, img_key: item.img_key })
+                //                     console.log(this.state.notificationMessage)
+                //                     this.toggleSettingsModal()
+                //                 }} style={{ marginLeft: '3px' }} icon={<Icon icon="setting" />} circle size="lg" />
+                //             </Whisper>
+
+
+                //         </Col>
+
+                //     </Row>
+                // </Panel>
 
             )
         })
@@ -214,15 +235,21 @@ class IdentitySettings extends Component {
             <FlexboxGrid style={{ "marginTop": "10" }} justify="center">
                 <FlexboxGrid.Item colspan={22}>
                     <Panel  >
+                        {this.state.loading?<Loader backdrop content="loading..." vertical />:null}
                         <Panel shaded>
                             <Grid fluid>
-                                {users_array}
+                                <Row fluid>
+                                    {users_array}
+                                    <Col xs={8}>
+                                        <Panel style={{ height: '200px', justifyContent: 'center', alignItems: 'center', display: 'flex', marginBottom: '10px' }}>
+                                        <IconButton  style={{height: '72px', width: '72px'}} onClick={this.toggleAddModal} icon={<Icon style={{fontSize: '36px', paddingLeft : '19px'}} icon="plus-square" />} circle size="lg" />
+                                        </Panel>
+                                    </Col>
+                                </Row>
                             </Grid>
                         </Panel>
                         <br></br>
-                        <Whisper placement="top" trigger="hover" speaker={<Tooltip>Add Identity.</Tooltip>}>
-                            <IconButton onClick={this.toggleAddModal} icon={<Icon icon="plus-square" />} circle size="lg" />
-                        </Whisper>
+                        
                         <RemoveIdentityModal
                             user_id={this.state.toRemove.id}
                             local_list_remove={this.removeFromList}

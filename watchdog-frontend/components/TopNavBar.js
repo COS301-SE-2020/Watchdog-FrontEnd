@@ -1,9 +1,23 @@
 import React, { Component } from 'react'
 import { Navbar, Sidenav, Nav, Icon, Dropdown, IconButton, Button    } from 'rsuite'
+import LogoutModal from './LogoutModal'
 class TopNavBar extends Component {
+    constructor(){
+        super()
+        this.state = {
+            logout : false
+        }
+
+        this.handleClose = this.handleClose.bind(this)
+    }
+
+    handleClose(){
+        this.setState({logout : true})
+    }
     render() {
         return (
-            <Navbar>
+            <Navbar >
+                <LogoutModal show ={ this.state.logout} close={this.handleClose} />
                 <Navbar.Header>
                     {/* <a href="#" className="navbar-brand logo">RSUITE</a> */}
                     <img style={{height: '50px'}} src = 'logo1.png'/>
@@ -27,7 +41,7 @@ class TopNavBar extends Component {
                         <Dropdown   trigger={['click', 'hover']} title={<div >< Icon icon="user" /><h6 style={{float: "right", paddingLeft: '6px'}}>Account</h6></div>} placement="bottomEnd">
                             <Dropdown.Item>Account Information</Dropdown.Item>
                             <Dropdown.Item onClick={()=>this.props.handleChange(10)} >Password Settings</Dropdown.Item>
-                            <Dropdown.Item>Logout</Dropdown.Item>
+                            <Dropdown.Item onClick={()=>this.setState({logout:true})}>Logout</Dropdown.Item>
                             
                         </Dropdown>
                     </Nav>

@@ -73,7 +73,7 @@ class UpdateNotifications extends Component{
                     <Input defaultValue={this.props.current_security} value = {this.state.security_company} onChange ={(val)=>this.setState({security_company : val})} style={{ width: 224 }} placeholder="Security Company Phone Number" />
                         
                     </FormGroup>
-                    <Button onClick={this.submitSettings} appearance="primary">Submit</Button>
+                    <Button onClick={this.submitSettings} color='green' appearance="primary">Submit</Button>
                     
                 </Form>
             

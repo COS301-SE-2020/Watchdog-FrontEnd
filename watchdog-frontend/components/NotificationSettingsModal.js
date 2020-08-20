@@ -5,7 +5,7 @@ import NotificationView from './NotificationSettings'
 class NotificationSettingsModal extends Component {
     render() {
         return (
-            <Modal overflow size={'md'} show={this.props.show} onHide={this.props.toggle} >
+            <Modal overflow size={'sm'} show={this.props.show} onHide={this.props.toggle} >
                 <Modal.Header>
                     <Modal.Title><h3>Notification Settings</h3></Modal.Title>
                 </Modal.Header>
