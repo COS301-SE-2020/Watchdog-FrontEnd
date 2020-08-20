@@ -119,7 +119,8 @@ class HomePage extends Component{
           <Grid fluid> 
             <Row fluid>
               <Col xs={24}>   
-                <h1 style={{textAlign: 'center', fontStretch:'ultra-expanded', fontSize: '70px'}}> <img style={{height: '70px'}} src = 'logo1.png'/>WELCOME TO WATCHDOG<img style={{height: '70px'}} src = 'logo1.png'/></h1>   
+                <h5>Welcome to:</h5>
+                <h1 style={{textAlign: 'center', fontStretch:'ultra-expanded', fontSize: '70px'}}> <img style={{height: '70px'}} src = 'logo1.png'/>Watchdog Security <img style={{height: '70px'}} src = 'logo1.png'/></h1>   
                 <br></br>            
                   <SystemState />   
                   {/* <Row>
