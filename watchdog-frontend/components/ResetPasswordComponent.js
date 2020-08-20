@@ -84,8 +84,7 @@ class Pass extends Component{
     render(){
         return(
           <FlexboxGrid style={{"marginTop":"50px"}} justify="center">
-          <FlexboxGrid.Item colspan={12}>
-            <Panel header={<h3>Change Password</h3>} bordered>
+          <FlexboxGrid.Item colspan={20}>
               <Form fluid   ref={ref => (this.form = ref)} >
                 <FormGroup>
                   <ControlLabel>Current Password</ControlLabel>
@@ -111,12 +110,11 @@ class Pass extends Component{
                 </FormGroup>
                 <FormGroup>
                   <ButtonToolbar>
-                    <Button onClick={this.passwordChange} appearance="primary">Change Password</Button>
+                    <Button onClick={this.passwordChange} color="green" appearance="primary">Change Password</Button>
                   
                   </ButtonToolbar>
                 </FormGroup>
               </Form>
-            </Panel>
           </FlexboxGrid.Item>
         </FlexboxGrid>
             // <Form layout='horizontal'>

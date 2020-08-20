@@ -26,7 +26,7 @@ class TopNavBar extends Component {
                         {/* <Nav.Item icon={<Icon icon="cog" />} >Account Infomations</Nav.Item> */}
                         <Dropdown trigger={['click', 'hover']} title={<h6>Account</h6>} placement="bottomEnd">
                             <Dropdown.Item>Account Information</Dropdown.Item>
-                            <Dropdown.Item>Password Settings</Dropdown.Item>
+                            <Dropdown.Item onClick={()=>this.props.handleChange(10)} >Password Settings</Dropdown.Item>
                             <Dropdown.Item>Logout</Dropdown.Item>
                             
                         </Dropdown>

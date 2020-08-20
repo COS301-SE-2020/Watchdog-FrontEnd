@@ -17,6 +17,7 @@ import DownloadsModal from '../components/DownloadsModal'
 import IdentitySettingsModal from '../components/IdentitySettingsModal'
 import DetectedImagesModal from '../components/DetectedImagesModal'
 import NotificationSettingsModal from '../components/NotificationSettingsModal'
+import PasswordSettingsModal from '../components/PasswordSettingsModal'
 
 const styling = {
   "backgroundColor": "black"
@@ -34,7 +35,8 @@ class Index extends Component{
       downloadModal : false,
       identitySettingsModal : false,
       detectedImagesModal : false,
-      notificationModal : false
+      notificationModal : false,
+      passwordSettingsModal : false
 
     }
 
@@ -63,6 +65,7 @@ class Index extends Component{
     this.toggleIdentitySettingsModal = this.toggleIdentitySettingsModal.bind(this)
     this.toggleDetectedImagesModal = this.toggleDetectedImagesModal.bind(this)
     this.toggleNotificationsModal = this.toggleNotificationsModal.bind(this)
+    this.togglePasswordSettingsModal = this.togglePasswordSettingsModal.bind(this)
           
   }
 
@@ -92,7 +95,16 @@ class Index extends Component{
       return
     }
 
+    if(val==10){
+      this.togglePasswordSettingsModal()
+      return
+    }
+
     this.setState({activeKey : val, defaultKey : `${val}`})
+  }
+  togglePasswordSettingsModal(){
+    this.setState({passwordSettingsModal : !this.state.passwordSettingsModal})
+
   }
   toggleNotificationsModal(){
     this.setState({notificationModal : !this.state.notificationModal})
@@ -160,6 +172,7 @@ class Index extends Component{
             < IdentitySettingsModal toggle={this.toggleIdentitySettingsModal} show ={this.state.identitySettingsModal} />
             < DetectedImagesModal toggle={this.toggleDetectedImagesModal} show ={this.state.detectedImagesModal} />
             < NotificationSettingsModal toggle={this.toggleNotificationsModal} show ={this.state.notificationModal} />
+            < PasswordSettingsModal toggle={this.togglePasswordSettingsModal} show ={this.state.passwordSettingsModal} />
             <Content>
               {this.state.activeKey===1&&<HomePage handleChange={this.quickAccess}/>}
               {this.state.activeKey===2&&<LiveVideo/>}

@@ -1,16 +1,16 @@
 import React, { Component } from 'react'
 import {Modal , Button, Grid, Row, Col, IconButton, Icon, Whisper, Tooltip} from 'rsuite'
-import NotificationView from './NotificationSettings'
+import Pass from './ResetPasswordComponent'
 
-class NotificationSettingsModal extends Component {
+class PasswordSettingsModal extends Component {
     render() {
         return (
-            <Modal overflow size={'md'} show={this.props.show} onHide={this.props.toggle} >
+            <Modal overflow size={'sm'} show={this.props.show} onHide={this.props.toggle} >
                 <Modal.Header>
-                    <Modal.Title><h5>Notification Settings</h5></Modal.Title>
+                    <Modal.Title><h5>Change Password</h5></Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <NotificationView />
+                    <Pass />
                 </Modal.Body>
                 <Modal.Footer>
                     <Button onClick={this.props.toggle} appearance="primary">
@@ -19,8 +19,8 @@ class NotificationSettingsModal extends Component {
     
                 </Modal.Footer>
             </Modal>
-        )
+        );
     }
 }
 
-export default NotificationSettingsModal;
+export default PasswordSettingsModal;

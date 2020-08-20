@@ -42,8 +42,8 @@ class NotificationView extends Component{
     }
     render(){
         return(
-            <Panel header={<h3>Notification Settings</h3>} shaded bodyFill>
-                <Panel  shaded header={<h4>Current Notification Settings</h4>}>
+            <Panel  shaded bodyFill>
+                <Panel  shaded>
                     
                     <h5>Notification type: {this.state.type}</h5>
                     {this.state.security_company !==""&&<h5>Security Company: {this.state.security_company}</h5>}
