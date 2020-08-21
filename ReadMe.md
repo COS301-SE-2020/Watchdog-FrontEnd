@@ -14,8 +14,8 @@ redundant video storage our product utilizes machine learning and a modern cloud
 
 
 ### Demo Videos
-- [LynkSolutions-Demo1]()
-- [LynkSolutions-Demo2]()
+- [LynkSolutions-Demo1](https://drive.google.com/file/d/1mdyx54MLTo0vTAEx2nm5wwFgWU_ULEks/view?usp=sharing)
+- [LynkSolutions-Demo2](https://drive.google.com/file/d/1JfVWYLl65t5PzllO-vNKPR-YlOt7DRnX/view?usp=sharing)
 - [LynkSolutions-Demo3](https://drive.google.com/file/d/1bSRqRJBJ-5sPx4G1vCkq2Al8BcTPFYOs/view?usp=sharing)
 
 
