@@ -1,39 +1,35 @@
 # Watchdog - Frontend
 
-This repository contains all the frontend code needed for the watchdog security system. It is comprised of the Web Application and Mobile Application
+This repository contains all the frontend code needed for the watchdog security system. It is comprised of the [Web Application](https://github.com/COS301-SE-2020/Watchdog-FrontEnd/tree/master/watchdog-frontend) and [Mobile Application](https://github.com/COS301-SE-2020/Watchdog-FrontEnd/tree/master/WatchdogApp)
 
-###Watchdog Repositories
-
-- [API](https://github.com/COS301-SE-2020/Watchdog)
-- [Home Control Panel](https://github.com/COS301-SE-2020/Watchdog-API)
-- [Web Apllication](https://github.com/COS301-SE-2020/Watchdog-FrontEnd/tree/master/watchdog-frontend)
-- [Mobile Application](https://github.com/COS301-SE-2020/Watchdog-FrontEnd/tree/master/WatchdogApp)
-- [Stream Server](https://github.com/COS301-SE-2020/Watchdog-Stream-Server)
-
-
-### Demo
-- [LynkSolutions-Demo3](https://drive.google.com/file/d/1bSRqRJBJ-5sPx4G1vCkq2Al8BcTPFYOs/view?usp=sharing)
-
-
-### Documentation
-- [SRS Document]()
-- [Technical Installation Manual]()
-- [Watchdog User Manual](https://drive.google.com/file/d/1gu36_44IbnKeGjC61VaDXLu3mLKEqTvr/view?usp=sharing)
-- [Coding Standards Document](https://drive.google.com/file/d/1X4IsmHWHwBjvmg1aaUua1HiC6rs6w5pO/view?usp=sharing)
-- [Architectural Designs Document]()
-- [Project Management Tool (Clubhouse)](https://app.clubhouse.io/lynksolutions/) (If you 
-require access please email a team member and we will add you to our workspace, since clubhouse does not allow external viewing)
-
-
-### Deployed Website Link:
-- [Watchdog System](https://master.dtul6cza66juk.amplifyapp.com/)
-
+### Watchdog Repositories
+|[Home Control Panel](https://github.com/COS301-SE-2020/Watchdog)|[API](https://github.com/COS301-SE-2020/Watchdog-API)|[Web Application](https://github.com/COS301-SE-2020/Watchdog-FrontEnd/tree/master/watchdog-frontend)|[Mobile Application](https://github.com/COS301-SE-2020/Watchdog-FrontEnd/tree/master/WatchdogApp)|[Stream Server](hhttps://github.com/COS301-SE-2020/Watchdog-Stream-Server)|
+|---|---|---|---|---|
 
 ### Project Description:
 
 For the South African household who need an efficient way to ensure their safety and security the Watchdog system is a home security system that utilizes machine 
 learning to identify an intruder and alert users and security companies on the potential breach. Unlike traditional surveillance systems that keep a backlog of 
 redundant video storage our product utilizes machine learning and a modern cloud architecture to deliver a real-time security system.
+
+
+### Demo Videos
+- [LynkSolutions-Demo1]()
+- [LynkSolutions-Demo2]()
+- [LynkSolutions-Demo3](https://drive.google.com/file/d/1bSRqRJBJ-5sPx4G1vCkq2Al8BcTPFYOs/view?usp=sharing)
+
+
+### Documentation
+- [SRS Document - version 3](https://drive.google.com/file/d/1dWVx8BrT0Nt8GKdyHLqmjKYzg1aGlRWS/view?usp=sharing)
+- [Technical Installation Manual](https://drive.google.com/file/d/1ouZquOIizf8omvOCnzMCG-wwS2qJyhzi/view?usp=sharing)
+- [Watchdog User Manual](https://drive.google.com/file/d/1gu36_44IbnKeGjC61VaDXLu3mLKEqTvr/view?usp=sharing)
+- [Coding Standards Document](https://drive.google.com/file/d/1X4IsmHWHwBjvmg1aaUua1HiC6rs6w5pO/view?usp=sharing)
+- [Project Management Tool (Clubhouse)](https://app.clubhouse.io/lynksolutions/stories) (If you require access please email a team member and we will add you to our workspace, since clubhouse does not allow external viewing)
+
+
+### Deployed Website Link:
+- [Watchdog System](https://master.dtul6cza66juk.amplifyapp.com/)
+
 
 ### Build Instructions:
 
@@ -42,33 +38,24 @@ redundant video storage our product utilizes machine learning and a modern cloud
 
 
 **Intructions**:
+
 1. Clone this repo
+2. ```cd watchdog-frontend``` for Web App or ```cd WatchdogApp``` for Mobile app
+3. ```npm run dev``` for Web App or ```npm start``` for Mobile App
 
-
-### Usage Instructions
-
-
-First of all begin by changing your directory to watchdog-frontend or WatchdogApp.
-
-    
-#### Start the development server
-- npm run dev
-
-
-#### Build the app for production.
+**Build the app for production**
 - npm run build 
 
 
-#### Run the built app in production mode. 
+**Run the built app in production mode**
 - npm start
 
 
-### For the Mobile Application 
+**For the Mobile Application**
 - npm start # you can open iOS, Android, or web from here, or run them directly with the commands below.
 - npm run android
 - npm run ios # requires an iOS device or macOS for access to an iOS simulator
 - npm run web
-
 
 ### Members
 
@@ -81,7 +68,10 @@ First of all begin by changing your directory to watchdog-frontend or WatchdogAp
 |Jonathan Sundy|u18079581|<https://jsundy.github.io>|<https://www.linkedin.com/in/jonathen-sundy-79b33b168/>|
 |Armin van Wyk|u18008632|<https://github.com/BigMacDaddy007>|<https://www.linkedin.com/in/armin-van-wyk-b714931a9/>|
 
-#### Profiles
+<details>
+<summary>
+<h1>Profiles</h1>
+</summary>
 
 ##### Luqmaan Badat
 
@@ -107,4 +97,4 @@ I have been exposed to an event-driven system that adopted modern cloud architec
 
 I have been involved in a multitude of projects inside and outside of the EBIT faculty. I have particular interest in front-end multimedia design to back-end REST API and hosting tasks. I have familiarity in databases both with and without SQ. I can use these skills in the request handling and data handling of our projects and ensure validated, clean and lightweight data.
 
-
+</details>
