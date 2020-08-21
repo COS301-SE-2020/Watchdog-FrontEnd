@@ -7,7 +7,10 @@ class Loading extends Component{
     }
     render(){
         return(
-            <Loader size="lg" backdrop content="loading..." vertical />
+            <div style={{width: '100%', height : '100%', display: 'flex', justifyContent : 'center', alignItems : 'center'}}>
+                <Loader size="lg"  content="loading..." vertical />
+            </div>
+            
         )
 
     }

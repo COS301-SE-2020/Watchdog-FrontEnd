@@ -5,7 +5,7 @@ import Download from './DownloadComponent'
 class DownloadsModal extends Component {
     render() {
         return (
-            <Modal size={'lg'} show={this.props.show} onHide={this.props.toggle}>
+            <Modal size={'sm'} show={this.props.show} onHide={this.props.toggle}>
                 <Modal.Header>
                     <Modal.Title><h5>Downloads</h5></Modal.Title>
                 </Modal.Header>

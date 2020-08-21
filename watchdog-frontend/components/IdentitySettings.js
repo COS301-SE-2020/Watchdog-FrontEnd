@@ -98,6 +98,7 @@ class IdentitySettings extends Component {
         //console.log("here")
         //this.setState({users : temp, showRemoveModal : !this.state.showRemoveModal})
         // console.log(this.state.toRemove.id)
+        this.setState({ loading: true })
         this.setState({  showRemoveModal: !this.state.showRemoveModal, users : []  })
         deleteIdentity(this.state.toRemove.id,
             () => {
@@ -231,11 +232,12 @@ class IdentitySettings extends Component {
 
             )
         })
+       
         return (
             <FlexboxGrid style={{ "marginTop": "10" }} justify="center">
                 <FlexboxGrid.Item colspan={22}>
                     <Panel  >
-                        {this.state.loading?<Loader backdrop content="loading..." vertical />:null}
+                        {this.state.loading?<Loading/>:null}
                         <Panel shaded>
                             <Grid fluid>
                                 <Row fluid>
