@@ -8,6 +8,7 @@
     "type-check": "tsc"
   },
   "dependencies": {
+    "aws-amplify": "^3.0.24",
     "next": "latest",
     "primeicons": "^4.0.0",
     "primereact": "^5.0.0-rc.1",
