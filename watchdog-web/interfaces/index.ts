@@ -4,7 +4,17 @@
 //
 // import User from 'path/to/interfaces';
 
+import { type } from "os"
+
 export type User = {
   id: number
   name: string
+}
+
+export type indexProps ={
+
+}
+
+export type indexState = {
+  
 }
