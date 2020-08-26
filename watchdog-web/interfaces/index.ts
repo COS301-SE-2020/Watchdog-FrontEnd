@@ -8,3 +8,23 @@ export type User = {
   id: number
   name: string
 }
+
+export type stateIndex ={
+  loggedIn : boolean,
+  darkMode : boolean
+}
+
+export type propsIndex ={
+  
+}
+
+export type appProps = {
+  toggleDark : Function
+
+}
+
+export type appState ={
+  currentScreen : 1 | 2,
+  darkMode : boolean
+}
+

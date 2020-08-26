@@ -1,15 +1,56 @@
 import Link from 'next/link'
-import Layout from '../components/Layout'
+import '../config/AmplifyConfig'
+import App from '../components/App'
+import  { stateIndex, propsIndex } from '../interfaces/index'
+import React, { Component } from 'react';
+import { Auth, Hub } from 'aws-amplify'
+import UserAuthentication from '../components/UserAuthentication'
 
-const IndexPage = () => (
-  <Layout title="Home | Next.js + TypeScript Example">
-    <h1>Hello Next.js 👋</h1>
-    <p>
-      <Link href="/about">
-        <a>About</a>
-      </Link>
-    </p>
-  </Layout>
-)
 
-export default IndexPage
+class index extends Component<propsIndex, stateIndex> {
+  constructor(props: propsIndex){
+    super(props)
+    this.state = {
+      loggedIn : false,
+      darkMode : true
+    }
+    Hub.listen('auth', (data) => {
+      const { payload } = data
+      //console.log('A new auth event has happened: ', data)
+       if (payload.event === 'signIn') {
+         console.log('a user has signed in!')
+         this.setState({loggedIn : true})
+         //Router.push("/Home")
+       }
+       if (payload.event === 'signOut') {
+         this.setState({loggedIn : false})
+         //console.log('a user has signed out!')
+       }
+    })
+  
+    Auth.currentAuthenticatedUser()
+    .then(data => this.setState({loggedIn : true}))
+    .catch(error => {})
+
+    this.toggleDark = this.toggleDark.bind(this)
+
+  }
+  toggleDark(){
+    this.setState({darkMode : !this.state.darkMode})
+  }
+  render() {
+    if(this.state.loggedIn){
+       return( <div className ={this.state.darkMode?'bp3-dark':''}><App toggleDark={this.toggleDark}/></div>)
+    }
+   
+    return (
+      <UserAuthentication />
+    )
+
+  }
+}
+
+export default index
+
+
+
