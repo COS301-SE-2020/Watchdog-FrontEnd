@@ -26,16 +26,19 @@ class TopNav extends Component<propsTopNav, stateTopNav> {
                     {
                         label: 'Identity Settings',
                         icon: 'pi pi-fw pi-users',
+                        command : ()=>this.props.toggle_identites(true)
 
                     },
                     {
                         label: 'Detected Images',
                         icon: 'pi pi-fw pi-exclamation-triangle',
+                        command : ()=>this.props.toggle_detected_images(true)
 
                     },
                     {
                         label: 'Notification Settings',
                         icon: 'pi pi-fw pi-bell',
+                        command : ()=> this.props.toggle_notifications_modal(true)
 
                     },
                     {
@@ -63,13 +66,15 @@ class TopNav extends Component<propsTopNav, stateTopNav> {
 
                     },
                     {
-                        label: 'Password Settings',
+                        label: 'Change Password',
                         icon: 'pi pi-fw pi-key',
+                        command : () => this.props.toggle_password_modal(true)
 
                     },
                     {
                         label: 'Logout',
                         icon: 'pi pi-fw pi-sign-out',
+                        command : ()=> this.props.toggle_logout_modal(true)
 
                     }
                 ]
