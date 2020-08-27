@@ -16,5 +16,26 @@ export type indexProps ={
 }
 
 export type indexState = {
+  loggedIn : boolean
+  
+}
+
+export type propsTopNav = {
+  changeScreen : Function
+
+
+}
+
+export type stateTopNav = {
+  
+}
+
+export type propsApp = {
+
+
+}
+
+export type stateApp = {
+  selectedScreen : 1 | 2
   
 }
