@@ -10,7 +10,7 @@ export async function getDetected(succ: Function, err : Function) {
 
 
         }
-    }).then(res => succ(res.data.data.frames)).catch(err)
+    }).then(res => succ(res.data.data.frames)).catch(()=>err())
 
 
 

@@ -4,9 +4,6 @@
 //
 // import User from 'path/to/interfaces';
 
-import { type } from "os"
-import DetectedImages from "../components/DetectedImages"
-
 export type User = {
   id: number
   name: string
@@ -127,7 +124,6 @@ export type stateDetectedImages = {
 }
 
 
-}
 export type propsAddDetected = {
   show_modal: boolean
   hide_modal : Function
