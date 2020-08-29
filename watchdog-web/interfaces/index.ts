@@ -120,6 +120,8 @@ type DetectedImages = {
 export type stateDetectedImages = {
   data  : DetectedImages[] 
   addDetectedModal : boolean
+  loading : boolean
+  toAddKey : string
   
 }
 
@@ -127,6 +129,7 @@ export type stateDetectedImages = {
 export type propsAddDetected = {
   show_modal: boolean
   hide_modal : Function
+  update_key : string
   
   
 }
@@ -136,4 +139,13 @@ export type stateAddDetected = {
   loading : boolean
   
   
+}
+
+export type propsIdentities = {
+
+}
+
+export type stateIdentities = {
+  
+
 }

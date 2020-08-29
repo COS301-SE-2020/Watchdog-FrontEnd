@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { propsDetectedImages, stateDetectedImages } from '../interfaces'
 import { Button } from 'primereact/button'
-import { IdealImage } from 'react-ideal-image'
-import { useImage } from 'react-image'
+import { ProgressBar } from 'primereact/progressbar'
 import { Img } from 'react-image'
 import AddDetected from './AddDetected'
 import {getDetected} from '../api'
@@ -27,18 +26,24 @@ class DetectedImages extends Component<propsDetectedImages, stateDetectedImages>
 
         this.state = {
             data: [],
-            addDetectedModal : false
+            addDetectedModal : false,
+            loading : true,
+            toAddKey : ''
         }
 
         this.toggleAddModal = this.toggleAddModal.bind(this)
+        this.getData = this.getData.bind(this)
     }
 
-    toggleAddModal(val : boolean){
+    toggleAddModal(val : boolean, reload : boolean|null){
         this.setState({addDetectedModal : val})
+        if(reload){
+            this.getData()
+        }
     }
-
-    async componentDidMount(){
-        getDetected((array_identities)=>{
+    async getData(){
+        this.setState({loading : true})
+        await getDetected((array_identities)=>{
             let new_data = array_identities.map((item, index)=>{
                 return {
                     id : index +1,
@@ -51,6 +56,14 @@ class DetectedImages extends Component<propsDetectedImages, stateDetectedImages>
         },()=>{
             this.toast.show({severity:'error', summary: 'Error', detail:'Unable to load identities', life: 3000});
         })
+        this.setState({loading : false})
+
+    }
+
+    async componentDidMount(){
+        
+        this.getData()
+        
     }
 
     render() {
@@ -77,7 +90,9 @@ class DetectedImages extends Component<propsDetectedImages, stateDetectedImages>
                             </div>
                         </div>
                         <div className=' p-col-12 ' style={{textAlign : 'center'}}>
-                            <Button onClick={()=>this.toggleAddModal(true)}  label="Add To Identities" className="p-button-info" />
+                            <Button onClick={()=>{
+                                this.setState({toAddKey : item.key})
+                                this.toggleAddModal(true, null)}}  label="Add To Identities" className="p-button-info" />
 
                         </div>
                     </div>
@@ -91,9 +106,10 @@ class DetectedImages extends Component<propsDetectedImages, stateDetectedImages>
         })
         return (
             <div className="p-grid">
+                <div style={{display : this.state.loading?'block':'none'}} className="p-field p-col-12 p-md-12"> <ProgressBar mode="indeterminate" style={{ height: '6px' }}></ProgressBar></div>
                 <Toast ref={(el) => this.toast = el} />
                 {detected_images}
-                <AddDetected show_modal={this.state.addDetectedModal} hide_modal={this.toggleAddModal} />
+                <AddDetected update_key={this.state.toAddKey} show_modal={this.state.addDetectedModal} hide_modal={this.toggleAddModal} />
             </div>
 
         );
