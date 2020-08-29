@@ -6,6 +6,10 @@ import { Menubar } from 'primereact/menubar'
 class TopNav extends Component<propsTopNav, stateTopNav> {
     constructor(props: propsTopNav) {
         super(props)
+
+        this.state = {
+            opacity: 1
+        }
     }
     render() {
         const items = [
@@ -82,9 +86,8 @@ class TopNav extends Component<propsTopNav, stateTopNav> {
         ]
         const logo = <img alt="logo" src="logo1.png" height="40" className="p-mr-2"></img>
         return (
-
-            <div>
-                <Menubar model={items} start={logo}>
+            <div style={{padding: 0}}>
+                <Menubar style={{borderRadius: 0, border: 0, margin: 0}} className="p-shadow-4" model={items} start={logo}>
                     
                 </Menubar>
             </div>
