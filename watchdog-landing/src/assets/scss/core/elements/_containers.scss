@@ -1,6 +1,7 @@
 .container,
 .container-sm,
-.container-xs {
+.container-xs,
+.container-md {
 	width: 100%;
 	margin: 0 auto;
 	padding-left: $container--padding__mobile;
@@ -23,7 +24,9 @@
 .container-xs {
 	max-width: $container--width-xs + ( $container--padding__desktop * 2 );
 }
-
+.container-md {
+	max-width: $container--width-md + ( $container--padding__desktop * 2 );
+}
 [class*=container] {
 
 	[class*=container] {
@@ -37,5 +40,8 @@
 
 	.container-xs {
 		max-width: $container--width-xs;
+	}
+	.container-md {
+		max-width: $container--width-md;
 	}
 }

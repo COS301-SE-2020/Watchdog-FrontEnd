@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import classNames from 'classnames';
 import { SectionProps } from '../../utils/SectionProps';
-import ButtonGroup from '../elements/ButtonGroup';
-import Button from '../elements/Button';
 import Image from '../elements/Image';
 import Modal from '../elements/Modal';
+import Wave from 'react-wavify'
 
 const propTypes = {
   ...SectionProps.types
@@ -26,11 +25,6 @@ const Hero = ({
 }) => {
 
   const [videoModalActive, setVideomodalactive] = useState(false);
-
-  const openModal = (e) => {
-    e.preventDefault();
-    setVideomodalactive(true);
-  }
 
   const closeModal = (e) => {
     e.preventDefault();
@@ -57,9 +51,12 @@ const Hero = ({
       {...props}
       className={outerClasses}
     >
-      <div className="container-sm">
+      <div className="container-md">
+      <div className="wave"><Wave fill="#169de0"  options={{ points: 20, speed: 0.2, amplitude: 40 }}></Wave> </div>
         <div className={innerClasses}>
+        
           <div className="hero-content">
+            
             <h1 className="mt-0 mb-16 reveal-from-bottom" data-reveal-delay="200">
               <span className="text-color-primary">Watchdog Security</span>
             </h1>
@@ -70,7 +67,7 @@ const Hero = ({
             </div>
           </div>
           <div className="hero-figure reveal-from-bottom illustration-element-01" data-reveal-value="50px" data-reveal-delay="800">
-            
+         
               <Image
                 className="has-shadow"
                 src={require('./../../assets/images/Watchdog.png')}

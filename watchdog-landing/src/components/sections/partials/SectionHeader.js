@@ -13,7 +13,7 @@ const propTypes = {
 
 const defaultProps = {
   children: null,
-  tag: 'h2'
+  tag: 'h3'
 }
 
 const SectionHeader = ({

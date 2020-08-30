@@ -63,17 +63,17 @@ const MemberPage = ({
                 <div className="features-tiles-item-header">
                   <div className="features-tiles-item-image mb-16">
                     <Image
-                      src={require('./../../assets/images/feature-tile-icon-01.svg')}
+                      src={require('./../../assets/images/jono.png')}
                       alt="Features tile icon 01"
-                      width={64}
-                      height={64} />
+                      width={128}
+                      height={128} />
                   </div>
                 </div>
                 <div className="features-tiles-item-content">
                   <h4 className="mt-0 mb-8">
                     Jonathen Sundy
                     </h4>
-                  <p className="m-0 text-md">                   
+                  <p className="m-0 text-sm">                   
 I have been exposed to an event-driven system that adopted modern cloud architecture that 
 was hosted on Heroku and used a subset of AWS. I will use this knowledge gained to pioneer 
 the system to be loosely coupled that promotes independent events triggering different parts 
@@ -90,10 +90,10 @@ expand my knowledge!
                 <div className="features-tiles-item-header">
                   <div className="features-tiles-item-image mb-16">
                     <Image
-                      src={require('./../../assets/images/feature-tile-icon-02.svg')}
+                      src={require('./../../assets/images/Rishi.png')}
                       alt="Features tile icon 02"
-                      width={64}
-                      height={64} />
+                      width={128}
+                      height={128} />
                   </div>
                 </div>
                 <div className="features-tiles-item-content">
@@ -112,10 +112,10 @@ expand my knowledge!
                 <div className="features-tiles-item-header">
                   <div className="features-tiles-item-image mb-16">
                     <Image
-                      src={require('./../../assets/images/feature-tile-icon-03.svg')}
+                      src={require('./../../assets/images/jordan.png')}
                       alt="Features tile icon 03"
-                      width={64}
-                      height={64} />
+                      width={128}
+                      height={128} />
                   </div>
                 </div>
                 <div className="features-tiles-item-content">
@@ -134,10 +134,10 @@ expand my knowledge!
                 <div className="features-tiles-item-header">
                   <div className="features-tiles-item-image mb-16">
                     <Image
-                      src={require('./../../assets/images/feature-tile-icon-04.svg')}
+                      src={require('./../../assets/images/luqi.png')}
                       alt="Features tile icon 04"
-                      width={64}
-                      height={64} />
+                      width={128}
+                      height={128} />
                   </div>
                 </div>
                 <div className="features-tiles-item-content">
@@ -156,15 +156,15 @@ expand my knowledge!
                 <div className="features-tiles-item-header">
                   <div className="features-tiles-item-image mb-16">
                     <Image
-                      src={require('./../../assets/images/feature-tile-icon-05.svg')}
+                      src={require('./../../assets/images/abu.png')}
                       alt="Features tile icon 05"
-                      width={64}
-                      height={64} />
+                      width={128}
+                      height={128} />
                   </div>
                 </div>
                 <div className="features-tiles-item-content">
                   <h4 className="mt-0 mb-8">
-                    Abubakr Kharbai
+                    Aboobacker Kharbai
                     </h4>
                   <p className="m-0 text-sm">
                   My exposure ranges between desktop applications and web-based technologies. I am very reliable as well as trustworthy. I have a broad range of experience in backend development which includes database management systems, as well as experience in java development. I am one who is always steadfast in deadlines set out and will do anything in my capacity to ensure the work done is before the deadline and also of an industry standard. 
@@ -178,10 +178,10 @@ expand my knowledge!
                 <div className="features-tiles-item-header">
                   <div className="features-tiles-item-image mb-16">
                     <Image
-                      src={require('./../../assets/images/feature-tile-icon-06.svg')}
+                      src={require('./../../assets/images/armin.png')}
                       alt="Features tile icon 06"
-                      width={64}
-                      height={64} />
+                      width={128}
+                      height={128} />
                   </div>
                 </div>
                 <div className="features-tiles-item-content">

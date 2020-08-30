@@ -51,7 +51,7 @@ const FeaturesSplit = ({
 
   const sectionHeader = {
     title: 'How it all works',
-    paragraph: 'Discover the ins and outs of our security system and how it keeps you and your home safe and secure.'
+    paragraph: 'Discover the inner workings of our system and how it keeps you and your home safe and secure.'
   };
 
   return (
@@ -141,7 +141,31 @@ const FeaturesSplit = ({
                   height={396} />
               </div>
             </div>
-
+            <div className="split-item">
+              <div className="split-item-content center-content-mobile reveal-from-right" data-reveal-container=".split-item">
+                <div className="text-xxs text-color-primary fw-600 tt-u mb-8">
+                  Understanding the system
+                  </div>
+                <h3 className="mt-0 mb-12">
+                  Customisation 
+                  </h3>
+                <p className="m-0">
+                  Our system can be customised to allow every face that is detected to be allowed or only allow recognised faces. We also keep a detailed record of all the events that occur on the system so it is very easy for you to find waht you want.
+                  </p>
+              </div>
+              <div className={
+                classNames(
+                  'split-item-image center-content-mobile reveal-from-bottom',
+                  imageFill && 'split-item-image-fill'
+                )}
+                data-reveal-container=".split-item">
+                <Image
+                  src={require('./../../assets/images/features-split-image-02.png')}
+                  alt="Features split 02"
+                  width={528}
+                  height={396} />
+              </div>
+            </div>
           </div>
         </div>
       </div>

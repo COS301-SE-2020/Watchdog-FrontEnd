@@ -11,6 +11,7 @@ $breakpoints: (
 $container--width-boxed: 		1440px;		// boxed container width
 $container--width: 				1080px;		// container width
 $container--width-sm:			896px;		// container sm width
+$container--width-md:			1000px;		// container sm width
 $container--width-xs: 			620px;		// container xs width
 $container--padding__mobile:	16px;		// container, left and right padding (mobile)
 $container--padding__desktop:	24px;		// container, left and right padding (desktop)
@@ -36,7 +37,7 @@ $spacing--code-v: 		2px;
 $spacing--code-h: 		4px;
 
 // Sections spacing
-$section--padding__mobile: 			48px;		// section, top and bottom padding (mobile)
-$section--padding__desktop: 		80px;		// section, top and bottom padding (desktop)
+$section--padding__mobile: 			20px;		// section, top and bottom padding (mobile)
+$section--padding__desktop: 		30px;		// section, top and bottom padding (desktop)
 $section-header--padding__mobile:	48px;		// section header, bottom padding (mobile)
 $section-header--padding__desktop: 	80px;		// section header, bottom padding (desktop)

@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import Logo from './partials/Logo';
 import FooterNav from './partials/FooterNav';
 import FooterSocial from './partials/FooterSocial';
+import Wave from 'react-wavify'
 
 const propTypes = {
   topOuterDivider: PropTypes.bool,
@@ -43,6 +44,9 @@ const Footer = ({
             <Logo />
             <FooterSocial />
           </div>
+          <div ><Wave style={{ transform: 'rotate(180)'}} fill="#169de0" mask="url(./../../assets/images/Watchdog2.png)" options={{ points: 20, speed: 0.2, amplitude: 40 }}></Wave> </div>
+          
+
           <div className="footer-bottom space-between text-xxs invert-order-desktop">
             <FooterNav />
             <div className="footer-copyright">Made by Lynk Solutions. All right reserved</div>

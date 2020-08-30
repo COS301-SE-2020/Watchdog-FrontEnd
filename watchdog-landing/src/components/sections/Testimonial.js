@@ -44,7 +44,7 @@ const Testimonial = ({
   );
 
   const sectionHeader = {
-    title: 'A little introduction',
+    title: 'Introduction to Watchdog',
     paragraph: 'Everything you need to know about Watchdog concisely and easily explained.'
   };
 
