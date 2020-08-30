@@ -65,12 +65,9 @@ const Testimonial = ({
                     — Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum cillum dolore eu fugiat.
                       </p>
                 </div>
-                <div className="testimonial-item-footer text-xs mt-32 mb-0 has-top-divider">
-                  <span className="testimonial-item-name text-color-high">Roman Level</span>
-                  <span className="text-color-low"> / </span>
-                  <span className="testimonial-item-link">
-                    <a href="#0">AppName</a>
-                  </span>
+                <div className="testimonial-item-footer center-content text-xs mt-32 mb-0 has-top-divider">
+                  <span className="testimonial-item-name text-color-high">Why choose us</span>
+                  
                 </div>
               </div>
             </div>

@@ -98,6 +98,9 @@ const Header = ({
                   <span className="hamburger-inner"></span>
                 </span>
               </button>
+               <Link to={"/"} className="button button-primary button-wide-mobile button-sm" onClick={closeMenu}>Home</Link>
+
+                
               <nav
                 ref={nav}
                 className={
@@ -111,16 +114,15 @@ const Header = ({
                       'list-reset text-xs',
                       navPosition && `header-nav-${navPosition}`
                     )}>
-                    <li>
-                      <Link to="#0" onClick={closeMenu}>Documentation</Link>
-                    </li>
+                      
+
                   </ul>
                   {!hideSignin &&
                     <ul
                       className="list-reset header-nav-right"
                     >
                       <li>
-                        <Link to="#0" className="button button-primary button-wide-mobile button-sm" onClick={closeMenu}>Sign up</Link>
+                      Sign up or Login now<a href={"https://master.dtul6cza66juk.amplifyapp.com/"} className="button button-primary button-wide-mobile button-sm" onClick={closeMenu}>Click here</a>
                       </li>
                     </ul>}
                 </div>
