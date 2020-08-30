@@ -29,7 +29,7 @@ class AddDetected extends Component<propsAddDetected, stateAddDetected> {
         //
         //console.log(this.state.key_to_update)
         await addToWhitelist(() => {
-            this.toast.show({ severity: 'success', summary: 'Success', detail: 'Added to Identities', life: 3000 })
+            
             this.setState({
                 name: '',
                 loading: false

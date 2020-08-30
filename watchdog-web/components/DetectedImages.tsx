@@ -38,11 +38,12 @@ class DetectedImages extends Component<propsDetectedImages, stateDetectedImages>
     toggleAddModal(val : boolean, reload : boolean|null){
         this.setState({addDetectedModal : val})
         if(reload){
+            this.toast.show({ severity: 'success', summary: 'Success', detail: 'Added to Identities', life: 3000 })
             this.getData()
         }
     }
     async getData(){
-        this.setState({loading : true})
+        this.setState({loading : true, data : []})
         await getDetected((array_identities)=>{
             let new_data = array_identities.map((item, index)=>{
                 return {

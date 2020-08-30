@@ -12,7 +12,7 @@ class LogoutModal extends Component<propsLogoutModal, stateLogoutModal> {
                 style={{ width: '350px' }} footer={<div>
                     <Button label="NO" icon="pi pi-times" onClick={() => this.props.hide_modal(false)} className="p-button-text" />
                     <Button label="YES" icon="pi pi-check" onClick={() => {
-                        this.props.hide_modal(false)
+                        this.props.hide_modal(false, true)
                         Auth.signOut()}} autoFocus />
                 </div>} 
                 onHide={()=>{this.props.hide_modal(false)}}>

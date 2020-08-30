@@ -156,6 +156,9 @@ type identity ={
 export type stateIdentities = {
   data : identity []
   loading : boolean
+  remove_modal : boolean
+  remove_name : string
+  remove_index : number | null
   
 
 }
@@ -163,9 +166,12 @@ export type stateIdentities = {
 export type propsRemoveIdentityModal ={
   name : string
   index : number
+  show_modal : boolean
+  hide_modal : Function
 
 }
 
 export type stateRemoveIdentityModal ={
+  loading : boolean
   
 }
