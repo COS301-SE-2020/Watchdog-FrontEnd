@@ -57,9 +57,10 @@ export default class CameraView extends Component {
 
     renderListItem(data) {
         return (
-            <div className="p-col-12">
+            <div className="p-col-12 p-dataview-content">
                 <div className="product-list-item">
-                    <img src={`logo.png`} alt={data.name} />
+                    {/* <img src={`logo.png`} alt={data.name} /> */}
+                    <i className="pi pi-video" style={{fontSize: '2em', color: 'green'}}></i>
                     <div className="product-list-detail">
                         {/* <div className="product-name">{data.name}</div> */}
                         <div className="product-description">{data.description}</div>
@@ -78,8 +79,8 @@ export default class CameraView extends Component {
 
     renderGridItem(data) {
         return (
-            <div className="p-col-6 p-md-6">
-                <div className="product-grid-item card">
+            <div className="p-col-6 p-md-6 p-dataview-content">
+                <div className="product-grid-item" >
                     <div className="product-grid-item-top">
                         {/* <div>
                             <i className="pi pi-tag product-category-icon"></i>
@@ -87,8 +88,9 @@ export default class CameraView extends Component {
                         </div> */}
                         {/* <span className={`product-badge status-${data.inventoryStatus.toLowerCase()}`}>{data.inventoryStatus}</span> */}
                     </div>
-                    <div className="product-grid-item-content">
-                        <img src={`logo.png`} alt={data.name} />
+                    <div className="product-grid-item-content" >
+                        {/* <img src={`logo.png`} alt={data.name} /> */}
+                        <i className="pi pi-video" style={{fontSize: '2em', color: 'green'}}></i>
                         {/* <div className="product-name">{data.name}</div> */}
                         <div className="product-description">{data.description}</div>
                         {/* <Rating value={data.rating} readonly cancel={false}></Rating> */}
@@ -104,7 +106,7 @@ export default class CameraView extends Component {
 
     itemTemplate(product, layout) {
         if (!product) {
-            return;
+            return null;
         }
 
         if (layout === 'list')
@@ -117,6 +119,7 @@ export default class CameraView extends Component {
         return (
             <div className="p-grid p-nogutter">
                 <div className="p-col-6" style={{textAlign: 'left'}}>
+                    <h2>Cameras</h2>
                     <Dropdown options={this.sortOptions} value={this.state.sortKey} optionLabel="label" placeholder="Sort By Location" onChange={this.onSortChange}/>
                 </div>
                 <div className="p-col-6" style={{textAlign: 'right'}}>
@@ -132,8 +135,9 @@ export default class CameraView extends Component {
         return (
             <div className="dataview-demo">
                 <div className="card">
-                    <DataView value={this.state.products} layout={this.state.layout} header={header}
-                            itemTemplate={this.itemTemplate} paginator rows={6}
+                    <DataView className="dataview" value={this.state.products} layout={this.state.layout} header={header}
+                            itemTemplate={this.itemTemplate} paginator 
+                            rows={6}
                             sortOrder={this.state.sortOrder} sortField={this.state.sortField} alwaysShowPaginator={false}/>
                 </div>
             </div>

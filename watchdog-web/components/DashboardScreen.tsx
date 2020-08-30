@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Card } from 'primereact/card';
 import CameraView from './CameraView';
-// import { Panel } from 'primereact/panel';
+import { ScrollPanel } from 'primereact/ScrollPanel';
 
 class DashboardScreen extends Component {
     render() {
@@ -9,7 +9,7 @@ class DashboardScreen extends Component {
             // <div className=''>
             <div
                 // style={{ height: '100vh' }}
-                className="flexgrid"
+                className="flexgrid dashboard"
             >
                 <div className="p-grid p-align-stretch">
                     <div className="p-col-12 p-md-6 p-lg-6">
@@ -24,10 +24,10 @@ class DashboardScreen extends Component {
                             </div>
                         </div>
                     </div>
-                    <div className="p-col-12 p-md-6 p-lg-6" style={{ maxHeight: '82vh' }}>
-                        {/* <Card style={{}} className="p-shadow-8"> */}
+                    <div className="p-col-12 p-md-6 p-lg-6" style={{ minHeight: '82vh' }}>
+                        <ScrollPanel style={{ minHeight: '82vh' }} className="panel p-shadow-8">
                             <CameraView/>
-                        {/* </Card> */}
+                        </ScrollPanel>
                     </div>
                 </div>
             </div>
