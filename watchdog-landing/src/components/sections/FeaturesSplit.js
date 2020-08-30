@@ -50,8 +50,8 @@ const FeaturesSplit = ({
   );
 
   const sectionHeader = {
-    title: 'Workflow that just works',
-    paragraph: 'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum — semper quis lectus nulla at volutpat diam ut venenatis.'
+    title: 'How it all works',
+    paragraph: 'Discover the ins and outs of our security system and how it keeps you and your home safe and secure.'
   };
 
   return (
@@ -67,13 +67,13 @@ const FeaturesSplit = ({
             <div className="split-item">
               <div className="split-item-content center-content-mobile reveal-from-left" data-reveal-container=".split-item">
                 <div className="text-xxs text-color-primary fw-600 tt-u mb-8">
-                  Lightning fast workflow
+                  Understanding the system
                   </div>
                 <h3 className="mt-0 mb-12">
-                  Data-driven insights
+                  Intruder Detection
                   </h3>
                 <p className="m-0">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua — Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                  Our cameras constantly sweep the environment for any movement or stimuli. Once any has been detected on our finely calibrated hardware, we use artificial intelligence to scope in on the movement and attempt to detect any visual of a face present. Once a face is detected, an image is captured and loaded into an appropriate storage site for further analysis. 
                   </p>
               </div>
               <div className={
@@ -93,13 +93,13 @@ const FeaturesSplit = ({
             <div className="split-item">
               <div className="split-item-content center-content-mobile reveal-from-right" data-reveal-container=".split-item">
                 <div className="text-xxs text-color-primary fw-600 tt-u mb-8">
-                  Lightning fast workflow
+                  Understanding the system
                   </div>
                 <h3 className="mt-0 mb-12">
-                  Data-driven insights
+                  Viewing your historical footage
                   </h3>
                 <p className="m-0">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua — Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                  From time to time, footage from the cameras in your home will be stored in secure storage. They can be selected and accessed freely by you, the owner, from the comfort of our website or our mobile application by simply selecting the camera by its location and the timeframe to be viewed.
                   </p>
               </div>
               <div className={
@@ -119,13 +119,13 @@ const FeaturesSplit = ({
             <div className="split-item">
               <div className="split-item-content center-content-mobile reveal-from-left" data-reveal-container=".split-item">
                 <div className="text-xxs text-color-primary fw-600 tt-u mb-8">
-                  Lightning fast workflow
+                  Understanding the system
                   </div>
                 <h3 className="mt-0 mb-12">
-                  Data-driven insights
+                  Notifications and alerts
                   </h3>
                 <p className="m-0">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua — Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                  When an unknown or unregistered face is detected on your property based on movement picked up by the cameras, a notification service will alert you in real time of the possible intruder's presence. The method and delivery of this notification is entirely up to the user's discretion with available options of email, an SMS to your cellphone or a push notification to the application all designed to keep you alert and notified about who is at your home. 
                   </p>
               </div>
               <div className={

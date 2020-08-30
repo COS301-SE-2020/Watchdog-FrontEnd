@@ -44,8 +44,8 @@ const Testimonial = ({
   );
 
   const sectionHeader = {
-    title: 'Customer testimonials',
-    paragraph: 'Vitae aliquet nec ullamcorper sit amet risus nullam eget felis semper quis lectus nulla at volutpat diam ut venenatis tellus—in ornare.'
+    title: 'A little introduction',
+    paragraph: 'Everything you need to know about Watchdog concisely and easily explained.'
   };
 
   return (
@@ -60,49 +60,45 @@ const Testimonial = ({
 
             <div className="tiles-item reveal-from-right" data-reveal-delay="200">
               <div className="tiles-item-inner">
-                <div className="testimonial-item-content">
-                  <p className="text-sm mb-0">
-                    — Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum cillum dolore eu fugiat.
-                      </p>
-                </div>
-                <div className="testimonial-item-footer center-content text-xs mt-32 mb-0 has-top-divider">
-                  <span className="testimonial-item-name text-color-high">Why choose us</span>
+              <div className="testimonial-item-footer center-content text-md mt-32 mb-0 has-top-divider">
+                  <span className="testimonial-item-name text-color-high">What is Watchdog?</span>
                   
                 </div>
+                <div className="testimonial-item-content">
+                  <p className="text-sm mb-0">
+                    — Watchdog is a fully integrated, state-of-the-art security system designed to protect your home and its residents any time, anywhere. 
+                      </p>
+                </div>
+                
               </div>
             </div>
 
             <div className="tiles-item reveal-from-bottom">
               <div className="tiles-item-inner">
+              <div className="testimonial-item-footer center-content text-md mt-32 mb-0 has-top-divider">
+                  <span className="testimonial-item-name text-color-high">Our mission</span>
+                  
+                </div>
                 <div className="testimonial-item-content">
                   <p className="text-sm mb-0">
-                    — Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum cillum dolore eu fugiat.
+                    — We aim to serve our clients to the best of our abilities, instill a reinforced sense of security and enforce a zero tolerance policy for crimes against our clients and their property. 
                       </p>
-                </div>
-                <div className="testimonial-item-footer text-xs mt-32 mb-0 has-top-divider">
-                  <span className="testimonial-item-name text-color-high">Diana Rynzhuk</span>
-                  <span className="text-color-low"> / </span>
-                  <span className="testimonial-item-link">
-                    <a href="#0">AppName</a>
-                  </span>
                 </div>
               </div>
             </div>
 
             <div className="tiles-item reveal-from-left" data-reveal-delay="200">
               <div className="tiles-item-inner">
+              <div className="testimonial-item-footer center-content text-md mt-32 mb-0 has-top-divider">
+                  <span className="testimonial-item-name text-color-high">Why choose us?</span>
+                  
+                </div>
                 <div className="testimonial-item-content">
                   <p className="text-sm mb-0">
-                    — Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum cillum dolore eu fugiat.
+                    — We use a simple-to-use but effective home control panel camera management system, intelligent intruder detection software, fully personalised and customisable notifications, alerts and settings to put your security back in your own hands. 
                       </p>
                 </div>
-                <div className="testimonial-item-footer text-xs mt-32 mb-0 has-top-divider">
-                  <span className="testimonial-item-name text-color-high">Ben Stafford</span>
-                  <span className="text-color-low"> / </span>
-                  <span className="testimonial-item-link">
-                    <a href="#0">AppName</a>
-                  </span>
-                </div>
+        
               </div>
             </div>
 

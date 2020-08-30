@@ -71,10 +71,15 @@ const MemberPage = ({
                 </div>
                 <div className="features-tiles-item-content">
                   <h4 className="mt-0 mb-8">
-                    Robust Workflow
+                    Jonathen Sundy
                     </h4>
-                  <p className="m-0 text-md">
-                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat.
+                  <p className="m-0 text-md">                   
+I have been exposed to an event-driven system that adopted modern cloud architecture that 
+was hosted on Heroku and used a subset of AWS. I will use this knowledge gained to pioneer 
+the system to be loosely coupled that promotes independent events triggering different parts 
+of the system. Hence, I am certain that I will be of great value to the development of the 
+serverless architecture. I am not too coherent with AWS but am motivated and inspired to 
+expand my knowledge! 
                     </p>
                 </div>
               </div>
@@ -93,10 +98,10 @@ const MemberPage = ({
                 </div>
                 <div className="features-tiles-item-content">
                   <h4 className="mt-0 mb-8">
-                    Robust Workflow
+                    Ushir Raval
                     </h4>
                   <p className="m-0 text-sm">
-                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat.
+                  My exposure varies greatly from desktop applications to web based technologies, all in mostly a corporate “fintech” focused development environment. My skillset ranges from python development to web-based desktop applications using full stack technologies and my personal motto is “measure twice, cut once”. I prize scalable, robust and portable code above all else and intend to primarily contribute to the integration of various technologies such as the front-end to back-end communication etcetera
                     </p>
                 </div>
               </div>
@@ -115,10 +120,10 @@ const MemberPage = ({
                 </div>
                 <div className="features-tiles-item-content">
                   <h4 className="mt-0 mb-8">
-                    Robust Workflow
+                    Jordan Manas
                     </h4>
                   <p className="m-0 text-sm">
-                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat.
+                  An avid student of the numerous fields found within Computer Science, with a concentration in the field of Artificial Intelligence. Also being well-versed in Web Development, I recognize that I am capable of fulfilling important roles in the given project. I have experience in developing projects that use almost all of the proposed technologies and am very confident that our final product will be one of quality.
                     </p>
                 </div>
               </div>
@@ -137,10 +142,10 @@ const MemberPage = ({
                 </div>
                 <div className="features-tiles-item-content">
                   <h4 className="mt-0 mb-8">
-                    Robust Workflow
+                    Luqmaan Badat
                     </h4>
                   <p className="m-0 text-sm">
-                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat.
+                  I am a final year computer science student. I am adaptable, reliable and keen to learn new programming technologies. My interests are software engineering, artificial intelligence and web development. My skills range include web development, full stack development, Java development and using full stack development technologies like docker and circleci. I’ve been exposed to and worked on cloud-based solutions in the medical field. 
                     </p>
                 </div>
               </div>
@@ -159,10 +164,10 @@ const MemberPage = ({
                 </div>
                 <div className="features-tiles-item-content">
                   <h4 className="mt-0 mb-8">
-                    Robust Workflow
+                    Abubakr Kharbai
                     </h4>
                   <p className="m-0 text-sm">
-                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat.
+                  My exposure ranges between desktop applications and web-based technologies. I am very reliable as well as trustworthy. I have a broad range of experience in backend development which includes database management systems, as well as experience in java development. I am one who is always steadfast in deadlines set out and will do anything in my capacity to ensure the work done is before the deadline and also of an industry standard. 
                     </p>
                 </div>
               </div>
@@ -181,10 +186,11 @@ const MemberPage = ({
                 </div>
                 <div className="features-tiles-item-content">
                   <h4 className="mt-0 mb-8">
-                    Robust Workflow
+                    Armin van Wyk
                     </h4>
                   <p className="m-0 text-sm">
-                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat.
+                  I have been involved in a multitude of projects inside and outside of the EBIT faculty. I have particular interest in front-end multimedia design to back-end REST API and hosting tasks. I have familiarity in databases both with and without SQ. I can use these skills in the request handling and data handling of our three projects and ensure validated, 
+clean and lightweight data. I have little experience in Python or neural networks and it may take time to adjust to and grasp new concepts that will be necessary in the development of the projects, but I am more than capable and willing to learn. 
                     </p>
                 </div>
               </div>
