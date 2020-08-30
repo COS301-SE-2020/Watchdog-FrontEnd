@@ -4,6 +4,8 @@
 //
 // import User from 'path/to/interfaces';
 
+import { type } from "os"
+
 export type User = {
   id: number
   name: string
@@ -144,8 +146,26 @@ export type stateAddDetected = {
 export type propsIdentities = {
 
 }
-
+type identity ={
+  id : number
+  name : string
+  img : string
+  monitor : string
+  img_key : string
+}
 export type stateIdentities = {
+  data : identity []
+  loading : boolean
   
 
+}
+
+export type propsRemoveIdentityModal ={
+  name : string
+  index : number
+
+}
+
+export type stateRemoveIdentityModal ={
+  
 }
