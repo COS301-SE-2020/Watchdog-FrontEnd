@@ -71,30 +71,6 @@
 			"quantity": 0,
 			"inventoryStatus": "OUTOFSTOCK",
 			"rating": 4
-		},
-		{
-			"id": "1006",
-			"code": "bib36pfvm",
-			"name": "Chakra Bracelet",
-			"description": "Product Description",
-			"image": "chakra-bracelet.jpg",
-			"price": 32,
-			"category": "Accessories",
-			"quantity": 5,
-			"inventoryStatus": "LOWSTOCK",
-			"rating": 3
-		},
-		{
-			"id": "1007",
-			"code": "mbvjkgip5",
-			"name": "Galaxy Earrings",
-			"description": "Product Description",
-			"image": "galaxy-earrings.jpg",
-			"price": 34,
-			"category": "Accessories",
-			"quantity": 23,
-			"inventoryStatus": "INSTOCK",
-			"rating": 5
 		}
 
 

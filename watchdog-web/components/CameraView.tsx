@@ -20,8 +20,8 @@ export default class CameraView extends Component {
         };
 
         this.sortOptions = [
-            {label: 'Price High to Low', value: '!price'},
-            {label: 'Price Low to High', value: 'price'},
+            { label: 'Price High to Low', value: '!price' },
+            { label: 'Price Low to High', value: 'price' },
         ];
 
         // this.productService = new ProductService();
@@ -32,7 +32,7 @@ export default class CameraView extends Component {
     componentDidMount() {
         // this.productService.getProducts().then(data => this.setState({ products: data }));
         // this.setState({
-            // products: data
+        // products: data
         // })
     }
 
@@ -57,20 +57,21 @@ export default class CameraView extends Component {
 
     renderListItem(data) {
         return (
-            <div className="p-col-12 p-dataview-content">
+            <div className="p-col-6 p-md-12 p-lg-12 p-dataview-content">
                 <div className="product-list-item">
                     {/* <img src={`logo.png`} alt={data.name} /> */}
-                    <i className="pi pi-video" style={{fontSize: '2em', color: 'green'}}></i>
+                    <i className="pi pi-video" style={{ fontSize: '2em', color: 'green' }}></i>
                     <div className="product-list-detail">
                         {/* <div className="product-name">{data.name}</div> */}
-                        <div className="product-description">{data.description}</div>
+                        <div className="product-description">Camera X</div>
                         {/* <Rating value={data.rating} readonly cancel={false}></Rating> */}
                         {/* <i className="pi pi-tag product-category-icon"></i><span className="product-category">{data.category}</span> */}
+                        <small className="p-text-light">Location</small>
                     </div>
                     {/* <div className="product-list-action"> */}
-                        {/* <span className="product-price">${data.price}</span> */}
-                        {/* <Button icon="pi pi-shopping-cart" label="Add to Cart" disabled={data.inventoryStatus === 'OUTOFSTOCK'}></Button> */}
-                        {/* <span className={`product-badge status-${data.inventoryStatus.toLowerCase()}`}>{data.inventoryStatus}</span> */}
+                    {/* <span className="product-price">${data.price}</span> */}
+                    {/* <Button icon="pi pi-shopping-cart" label="Add to Cart" disabled={data.inventoryStatus === 'OUTOFSTOCK'}></Button> */}
+                    {/* <span className={`product-badge status-${data.inventoryStatus.toLowerCase()}`}>{data.inventoryStatus}</span> */}
                     {/* </div> */}
                 </div>
             </div>
@@ -79,20 +80,16 @@ export default class CameraView extends Component {
 
     renderGridItem(data) {
         return (
-            <div className="p-col-6 p-md-6 p-dataview-content">
+            <div className="p-col-4 p-md-4 p-dataview-content">
                 <div className="product-grid-item" >
                     <div className="product-grid-item-top">
-                        {/* <div>
-                            <i className="pi pi-tag product-category-icon"></i>
-                            <span className="product-category">{data.category}</span>
-                        </div> */}
-                        {/* <span className={`product-badge status-${data.inventoryStatus.toLowerCase()}`}>{data.inventoryStatus}</span> */}
+                        <small className="p-text-light">Location</small>
                     </div>
                     <div className="product-grid-item-content" >
                         {/* <img src={`logo.png`} alt={data.name} /> */}
-                        <i className="pi pi-video" style={{fontSize: '2em', color: 'green'}}></i>
+                        <i className="pi pi-video" style={{ fontSize: '2em', color: 'red' }}></i>
                         {/* <div className="product-name">{data.name}</div> */}
-                        <div className="product-description">{data.description}</div>
+                        <div className="product-description">Camera X</div>
                         {/* <Rating value={data.rating} readonly cancel={false}></Rating> */}
                     </div>
                     {/* <div className="product-grid-item-bottom">
@@ -118,11 +115,11 @@ export default class CameraView extends Component {
     renderHeader() {
         return (
             <div className="p-grid p-nogutter">
-                <div className="p-col-6" style={{textAlign: 'left'}}>
+                <div className="p-col-6" style={{ textAlign: 'left' }}>
                     <h2>Cameras</h2>
-                    <Dropdown options={this.sortOptions} value={this.state.sortKey} optionLabel="label" placeholder="Sort By Location" onChange={this.onSortChange}/>
+                    <Dropdown options={this.sortOptions} value={this.state.sortKey} optionLabel="label" placeholder="Sort By Location" onChange={this.onSortChange} />
                 </div>
-                <div className="p-col-6" style={{textAlign: 'right'}}>
+                <div className="p-col-6" style={{ textAlign: 'right' }}>
                     <DataViewLayoutOptions layout={this.state.layout} onChange={(e) => this.setState({ layout: e.value })} />
                 </div>
             </div>
@@ -135,10 +132,18 @@ export default class CameraView extends Component {
         return (
             <div className="dataview-demo">
                 <div className="card">
-                    <DataView className="dataview" value={this.state.products} layout={this.state.layout} header={header}
-                            itemTemplate={this.itemTemplate} paginator 
-                            rows={6}
-                            sortOrder={this.state.sortOrder} sortField={this.state.sortField} alwaysShowPaginator={false}/>
+                    <DataView
+                        className="dataview"
+                        value={this.state.products}
+                        layout={this.state.layout}
+                        header={header}
+                        itemTemplate={this.itemTemplate}
+                        paginator
+                        rows={6}
+                        sortOrder={this.state.sortOrder}
+                        sortField={this.state.sortField}
+                        alwaysShowPaginator={false}
+                    />
                 </div>
             </div>
         );
