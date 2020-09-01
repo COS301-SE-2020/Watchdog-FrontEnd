@@ -6,6 +6,7 @@ import { getIdentities } from '../api'
 import { ProgressBar } from 'primereact/progressbar'
 import RemoveIdentityModal from './RemoveIdentityModal'
 import { Toast } from 'primereact/toast'
+import IdentityNotificationModal from './IdentityNotificationModal'
 
 const test_users = [
     {
@@ -32,11 +33,23 @@ class Identities extends Component<propsIdentities, stateIdentities> {
             loading: true,
             remove_modal: false,
             remove_name: '',
-            remove_index: null
+            remove_index: -1,
+            notifications_modal: false,
+            notifications_name : '',
+            notifications_monitor : {custom_message : '', watch : 0}
         }
 
         this.getData = this.getData.bind(this)
         this.toggleRemoveModal = this.toggleRemoveModal.bind(this)
+        this.toggleNotificationModal = this.toggleNotificationModal.bind(this)
+    }
+
+    toggleNotificationModal(val: boolean, reload: boolean | null) {
+        this.setState({ notifications_modal: val })
+        if (reload) {
+            this.getData()
+            this.toast.show({severity:'success', summary: 'Removed', detail:'Identity removed.', life: 3000})
+        }
     }
 
     toggleRemoveModal(val: boolean, reload: boolean | null) {
@@ -51,6 +64,7 @@ class Identities extends Component<propsIdentities, stateIdentities> {
         this.setState({ loading: true, data: [] })
 
         await getIdentities((res) => {
+            console.log(res)
             let users = res.data.data.identities.whitelist
             let format = users.map((item, index) => {
                 let el = {
@@ -98,7 +112,10 @@ class Identities extends Component<propsIdentities, stateIdentities> {
                         <div className=' p-col-12 ' style={{ textAlign: 'center' }}>
                             <div className="p-grid p-shadow-6">
                                 <div className=' p-col-12 p-md-12 p-lg-12  '>
-                                    <Button style={{ width: '100%' }} label="Notifications Settings" className="p-button-raised p-button-warning" />
+                                    <Button onClick ={ ()=>{
+                                        this.setState({notifications_name : item.name, notifications_monitor : item.monitor})
+                                        this.toggleNotificationModal(true, null)
+                                    }} style={{ width: '100%' }} label="Notifications Settings" className="p-button-raised p-button-warning" />
                                 </div>
 
                                 <div className=' p-col-12 p-md-12 p-lg-12 '>
@@ -122,6 +139,7 @@ class Identities extends Component<propsIdentities, stateIdentities> {
         return (
             <div className="p-grid">
                 <Toast ref={(el) => this.toast = el} />
+                <IdentityNotificationModal monitor = { this.state.notifications_monitor} name={this.state.notifications_name} show_modal={this.state.notifications_modal} hide_modal={this.toggleNotificationModal}/>
                 <RemoveIdentityModal name={this.state.remove_name} index={this.state.remove_index} show_modal={this.state.remove_modal} hide_modal={this.toggleRemoveModal} />
                 <div style={{ display: this.state.loading ? 'block' : 'none' }} className="p-field p-col-12 p-md-12"> <ProgressBar mode="indeterminate" style={{ height: '6px' }}></ProgressBar></div>
                 {identities}

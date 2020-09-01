@@ -150,7 +150,7 @@ type identity ={
   id : number
   name : string
   img : string
-  monitor : string
+  monitor : Monitor
   img_key : string
 }
 export type stateIdentities = {
@@ -158,7 +158,10 @@ export type stateIdentities = {
   loading : boolean
   remove_modal : boolean
   remove_name : string
-  remove_index : number | null
+  remove_index : number 
+  notifications_modal : boolean
+  notifications_name : string
+  notifications_monitor : Monitor
   
 
 }
@@ -173,5 +176,24 @@ export type propsRemoveIdentityModal ={
 
 export type stateRemoveIdentityModal ={
   loading : boolean
+  
+}
+
+type Monitor = {
+  custom_message : string
+  watch : number
+}
+export type propsIdentityNotificationModal ={
+  show_modal : boolean
+  hide_modal : Function
+  name : string
+  monitor : Monitor
+
+}
+
+export type stateIdentityNotificationModal ={
+  loading : boolean
+  message : string
+  watch : number
   
 }
