@@ -1,41 +1,20 @@
 import React, { Component } from 'react';
 import { Card } from 'primereact/card';
-import { RadioButton } from 'primereact/radiobutton';
-import CameraView from './CameraView';
 import { ScrollPanel } from 'primereact/scrollpanel';
 import { Panel } from 'primereact/panel';
 import { Chart } from 'primereact/chart';
+
+import { connect } from 'react-redux';
+
+import SecurityLevelPanel from './SecurityLevelPanel';
+import CameraView from './CameraView';
 
 
 class DashboardScreen extends Component {
     constructor(props) {
         super(props);
 
-        this.categories = [
-            {
-                name: 'Disabled',
-                key: '0',
-                // color: 'rgb(184, 103, 103)'
-                color: 'red',
-                description: "Notifications will be sent for all movement"
-            },
-            {
-                name: 'Recognised Only',
-                key: '1',
-                // color: 'rgb(184, 172, 103)'
-                color: 'lightyellow',
-                description: "Intruders will be detected. Add recognised personel in the profile page"
-            },
-            {
-                name: 'Armed',
-                key: '2',
-                color: 'green',
-                description: "Notifications will be switched off for all movement"
-            }
-        ];
-
         this.state = {
-            selectedCategory: this.categories[1],
             pieData: {
                 labels: ['A', 'B', 'C'],
                 datasets: [
@@ -82,24 +61,7 @@ class DashboardScreen extends Component {
                     <div className="p-col-12 p-md-6 p-lg-6">
                         <div className="p-grid">
                             <div className="p-col-4 systemState" style={{ minHeight: '40vh', width: '50%' }}>
-                                <Panel className="p-shadow-8" header="System State" style={{ minHeight: '40vh' }}>
-                                    <div style={{ marginTop: '1rem' }}></div>
-                                    {
-                                        this.categories.map((category) => {
-                                            return (
-                                                <div key={category.key} className="p-field-radiobutton">
-                                                    <RadioButton style={{}} inputId={category.key} name="category" value={category} onChange={(e) => this.setState({ selectedCategory: e.value })} checked={this.state.selectedCategory.key === category.key} />
-                                                    <label htmlFor={category.key} style={{ color: category.color }}>{category.name}</label>
-                                                </div>
-                                            )
-                                        })
-                                    }
-                                    <Card style={{ color: 'grey', backgroundColor: 'rgba(0, 0, 0, 0.15)', marginTop: '2rem' }}>
-                                        {
-                                            this.state.selectedCategory.description
-                                        }
-                                    </Card>
-                                </Panel>
+                                <SecurityLevelPanel/>
                             </div>
                             <div className="p-col-4" style={{ minHeight: '40vh', width: '50%' }}>
                                 <Panel header="Recent Events" className="p-shadow-8" style={{ minHeight: '40vh'}}>
@@ -150,4 +112,10 @@ class DashboardScreen extends Component {
     }
 }
 
-export default DashboardScreen;
+const mapStoreToProps = (store) => ({})
+const mapDispatchToProps = (dispatch) => ({})
+
+export default connect(
+    mapStoreToProps,
+    mapDispatchToProps
+)(DashboardScreen);
