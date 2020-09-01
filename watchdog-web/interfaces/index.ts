@@ -109,3 +109,69 @@ export type propsChangePasswordModal = {
 
 }
 
+export type propsDetectedImages = {
+
+}
+
+type DetectedImages = {
+  id : number
+  img : string
+  key : string
+
+}
+export type stateDetectedImages = {
+  data  : DetectedImages[] 
+  addDetectedModal : boolean
+  loading : boolean
+  toAddKey : string
+  
+}
+
+
+export type propsAddDetected = {
+  show_modal: boolean
+  hide_modal : Function
+  update_key : string
+  
+  
+}
+
+export type stateAddDetected = {
+  name : string
+  loading : boolean
+  
+  
+}
+
+export type propsIdentities = {
+
+}
+type identity ={
+  id : number
+  name : string
+  img : string
+  monitor : string
+  img_key : string
+}
+export type stateIdentities = {
+  data : identity []
+  loading : boolean
+  remove_modal : boolean
+  remove_name : string
+  remove_index : number | null
+  
+
+}
+
+export type propsRemoveIdentityModal ={
+  name : string
+  index : number
+  show_modal : boolean
+  hide_modal : Function
+
+}
+
+export type stateRemoveIdentityModal ={
+  loading : boolean
+  
+}

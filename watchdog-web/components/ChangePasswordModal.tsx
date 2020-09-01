@@ -8,6 +8,7 @@ import  { Auth } from 'aws-amplify'
 import { Toast } from 'primereact/toast'
 
 class ChangePasswordModal extends Component<propsChangePasswordModal, stateChangePasswordModal> {
+   
     constructor(props: propsChangePasswordModal) {
         super(props)
         this.state = {
@@ -15,6 +16,8 @@ class ChangePasswordModal extends Component<propsChangePasswordModal, stateChang
             new_password: "",
             confirm_password: ""
         }
+        
+        
 
         this.passwordChange = this.passwordChange.bind(this)
     }
