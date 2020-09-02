@@ -59,6 +59,10 @@ class SecurityLevelPanel extends Component<SecurityLevelProps, SecurityLevelStat
     render() {
         return <Panel className="p-shadow-8" header="System State" style={{ minHeight: '40vh' }}>
 
+            <div style={{ display: (this.props.updating || this.props.loading) ? "block" : "none", padding: 0, margin: 0 }}>
+                <ProgressBar style={{ height: '6px', padding: 0, margin: 0, borderRadius: 0 }} mode="indeterminate" />
+            </div>
+
             <div style={{ marginTop: '1rem' }}> </div>
 
             {
@@ -92,9 +96,6 @@ class SecurityLevelPanel extends Component<SecurityLevelProps, SecurityLevelStat
                 }
             </Card>
 
-            <div style={{ display: (this.props.updating || this.props.loading) ? "block" : "none", padding: 0, margin: 0 }}>
-                <ProgressBar style={{ height: '6px', padding: 0, margin: 0, borderRadius: 0 }} mode="indeterminate" />
-            </div>
         </Panel>
     }
 }

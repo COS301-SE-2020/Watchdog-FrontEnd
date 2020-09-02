@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 
 import SecurityLevelPanel from './SecurityLevelPanel';
 import CameraView from './CameraView';
+import Events from './Events';
 
 
 class DashboardScreen extends Component {
@@ -61,17 +62,10 @@ class DashboardScreen extends Component {
                     <div className="p-col-12 p-md-6 p-lg-6">
                         <div className="p-grid">
                             <div className="p-col-4 systemState" style={{ minHeight: '40vh', width: '50%' }}>
-                                <SecurityLevelPanel/>
+                                <SecurityLevelPanel />
                             </div>
                             <div className="p-col-4" style={{ minHeight: '40vh', width: '50%' }}>
-                                <Panel header="Recent Events" className="p-shadow-8" style={{ minHeight: '40vh'}}>
-                                    <div style={{ maxHeight: '30vh', overflow: 'scroll' }}>
-                                        <Card style={{ borderRadius: 0, marginBottom: '1rem', backgroundColor: 'rgba(0, 0, 0, 0.15)' }} header={<p style={{padding: 5, margin: 0, color: 'grey'}}>Timestamp</p>} className="p-shadow-4 recent-event"> This is a notification alert/event/whatever </Card>
-                                        <Card style={{ borderRadius: 0, marginBottom: '1rem', backgroundColor: 'rgba(0, 0, 0, 0.15)' }} header={<p style={{padding: 5, margin: 0, color: 'grey'}}>Timestamp</p>} className="p-shadow-4 recent-event"> This is a notification alert/event/whatever </Card>
-                                        <Card style={{ borderRadius: 0, marginBottom: '1rem', backgroundColor: 'rgba(0, 0, 0, 0.15)' }} header={<p style={{padding: 5, margin: 0, color: 'grey'}}>Timestamp</p>} className="p-shadow-4 recent-event"> This is a notification alert/event/whatever </Card>
-                                        <Card style={{ borderRadius: 0, marginBottom: '1rem', backgroundColor: 'rgba(0, 0, 0, 0.15)' }} header={<p style={{padding: 5, margin: 0, color: 'grey'}}>Timestamp</p>} className="p-shadow-4 recent-event"> This is a notification alert/event/whatever </Card>
-                                    </div>
-                                </Panel>
+                                <Events/>
                             </div>
                             <div className="p-col-12" style={{ height: '40vh' }}>
                                 <Panel header="Analytics" style={{ height: '100%' }} className="p-shadow-8">
@@ -96,15 +90,14 @@ class DashboardScreen extends Component {
                                         }}
                                         height="100%"
                                     />
-
                                 </Panel>
                             </div>
                         </div>
                     </div>
                     <div className="p-col-12 p-md-6 p-lg-6" style={{ minHeight: '82vh' }}>
-                        <ScrollPanel style={{ minHeight: '82vh' }} className="panel p-shadow-8">
+                        <div style={{ minHeight: '82vh' }} className="panel p-shadow-8">
                             <CameraView />
-                        </ScrollPanel>
+                        </div>
                     </div>
                 </div>
             </div>
