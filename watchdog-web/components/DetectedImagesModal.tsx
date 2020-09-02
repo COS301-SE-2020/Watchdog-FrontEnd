@@ -9,7 +9,7 @@ class DetectedImagesModal extends Component<propsDetectedImagesModal, stateDetec
     render() {
         return (
             
-                <Dialog header="Identity Settings" visible={this.props.show_modal} 
+                <Dialog header="Detected Images" visible={this.props.show_modal} 
                 maximizable modal style={{ width: '80%' , maxWidth : '1700px'}} footer={<div>
                     <Button label="Close" icon="pi pi-times" onClick={()=>this.props.hide_modal(false)} className="p-button-text" />
                 </div>} 
