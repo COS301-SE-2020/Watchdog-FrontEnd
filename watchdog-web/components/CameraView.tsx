@@ -2,12 +2,32 @@ import React, { Component } from 'react';
 import { DataView, DataViewLayoutOptions } from 'primereact/dataview';
 import { Button } from 'primereact/button';
 import { Dropdown } from 'primereact/dropdown';
-// import ProductService from '../service/ProductService';
-import { Rating } from 'primereact/rating';
+import { Dialog } from 'primereact/dialog';
+
+import { connect } from 'react-redux';
+import { getControlPanel } from '../app-redux/actions'
 
 const data = require('../public/products.json').data;
 
-export default class CameraView extends Component {
+interface CameraViewProps {
+    fetch: Function
+    camera_objects: any[]
+    cameras: any[]
+    camera_locations: any[]
+    sites: any[]
+    loading: boolean
+}
+interface CameraViewState {
+    products: any[]
+    layout: string
+    sortKey: any
+    sortOrder: any
+    sortField: any
+    displayModel: boolean
+    video: any
+}
+
+class CameraView extends Component<CameraViewProps, CameraViewState> {
 
     constructor(props) {
         super(props);
@@ -16,7 +36,9 @@ export default class CameraView extends Component {
             layout: 'grid',
             sortKey: null,
             sortOrder: null,
-            sortField: null
+            sortField: null,
+            displayModel: false,
+            video: null
         };
 
         this.sortOptions = [
@@ -27,13 +49,9 @@ export default class CameraView extends Component {
         // this.productService = new ProductService();
         this.itemTemplate = this.itemTemplate.bind(this);
         this.onSortChange = this.onSortChange.bind(this);
-    }
-
-    componentDidMount() {
-        // this.productService.getProducts().then(data => this.setState({ products: data }));
-        // this.setState({
-        // products: data
-        // })
+        this.openModel = this.openModel.bind(this);
+        this.closeModel = this.closeModel.bind(this);
+        this.renderFooter = this.renderFooter.bind(this);
     }
 
     onSortChange(event) {
@@ -55,10 +73,33 @@ export default class CameraView extends Component {
         }
     }
 
+    openModel(videoObject) {
+        this.setState({
+            displayModel: true,
+            video: videoObject
+        })
+    }
+
+    closeModel() {
+        this.setState({
+            displayModel: false,
+            video: null
+        })
+    }
+
+    renderFooter(name) {
+        return (
+            <div>
+                <Button label="Cancel" icon="pi pi-times" onClick={this.closeModel} className="p-button-text" />
+                {/* <Button label="Yes" icon="pi pi-check" onClick={() => this.onHide(name)} autoFocus /> */}
+            </div>
+        );
+    }
+
     renderListItem(data) {
         return (
-            <div className="p-col-6 p-md-12 p-lg-12 p-dataview-content">
-                <div className="product-list-item">
+            <div className="p-col-6 p-md-12 p-lg-12 p-dataview-content" >
+                <div className="product-list-item" onClick={() => this.openModel(data)}>
                     {/* <img src={`logo.png`} alt={data.name} /> */}
                     <i className="pi pi-video" style={{ fontSize: '2em', color: 'green' }}></i>
                     <div className="product-list-detail">
@@ -80,8 +121,8 @@ export default class CameraView extends Component {
 
     renderGridItem(data) {
         return (
-            <div className="p-col-4 p-md-4 p-dataview-content">
-                <div className="product-grid-item" >
+            <div className="p-col-4 p-md-4 p-dataview-content" >
+                <div className="product-grid-item" onClick={() => this.openModel(data)}>
                     <div className="product-grid-item-top">
                         <small className="p-text-light">Location</small>
                     </div>
@@ -126,26 +167,76 @@ export default class CameraView extends Component {
         );
     }
 
+    componentDidMount = () => {
+        this.props.fetch()
+    }
+
     render() {
         const header = this.renderHeader();
 
         return (
             <div className="dataview-demo">
-                <div className="card">
-                    <DataView
-                        className="dataview"
-                        value={this.state.products}
-                        layout={this.state.layout}
-                        header={header}
-                        itemTemplate={this.itemTemplate}
-                        paginator
-                        rows={6}
-                        sortOrder={this.state.sortOrder}
-                        sortField={this.state.sortField}
-                        alwaysShowPaginator={false}
-                    />
-                </div>
+                {/* <div className="card"> */}
+                <DataView
+                    className="dataview"
+                    value={this.state.products}
+                    layout={this.state.layout}
+                    header={header}
+                    itemTemplate={this.itemTemplate}
+                    paginator
+                    rows={6}
+                    sortOrder={this.state.sortOrder}
+                    sortField={this.state.sortField}
+                    alwaysShowPaginator={false}
+                />
+                {/* </div> */}
+
+                <Dialog header="Header" visible={this.state.displayModel} maximizable modal style={{ width: '50vw' }} footer={this.renderFooter('displayMaximizable')} onHide={this.closeModel}>
+                    {(this.state.video == null) ? "Video Not Available" : this.state.video.name}
+                    {/* <ReactPlayer
+                        ref={this.ref}
+                        className='react-player'
+                        width='100%'
+                        height='100%'
+                        url={url}
+                        pip={pip}
+                        playing={playing}
+                        controls={controls}
+                        light={light}
+                        loop={loop}
+                        playbackRate={playbackRate}
+                        volume={0.0}
+                        muted={muted}
+                        onReady={() => console.log('onReady')}
+                        onStart={() => console.log('onStart')}
+                        onPlay={this.handlePlay}
+                        onPause={this.handlePause}
+                        onBuffer={() => console.log('onBuffer')}
+                        onSeek={e => console.log('onSeek', e)}
+                        onEnded={this.handleEnded}
+                        onError={e => console.log('onError', e)}
+                        onProgress={this.handleProgress}
+                        onDuration={this.handleDuration}
+
+                    /> */}
+                </Dialog>
+
             </div>
         );
     }
 }
+
+const mapStoreToProps = (store) => ({
+    camera_objects: store.Data.camera_objects,
+    cameras: store.Data.cameras,
+    camera_locations: store.Data.camera_locations,
+    sites: store.Data.sites,
+    loading: store.UI.ControlPanel.loading
+})
+const mapDispatchToProps = (dispatch) => ({
+    fetch: () => dispatch(getControlPanel())
+})
+
+export default connect(
+    mapStoreToProps, mapDispatchToProps
+)(CameraView);
