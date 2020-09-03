@@ -9,12 +9,6 @@ class IdentityNotificationModal extends Component<propsIdentityNotificationModal
     
     constructor(props: propsIdentityNotificationModal) {
         super(props)
-        this.state = {
-            loading: false,
-            message: '',
-            watch: 0
-        }
-
         this.handleClose = this.handleClose.bind(this)
 
     }
@@ -23,26 +17,23 @@ class IdentityNotificationModal extends Component<propsIdentityNotificationModal
 
         this.props.hide_modal(false)
     }
-    static getDerivedStateFromProps(props, state){
+    static getDerivedStateFromProps(props, state) : stateIdentityNotificationModal{
         if(props.monitor!==null){
            return({message : props.monitor.custom_message, 
-            watch : props.monitor.watch}) 
+            watch : props.monitor.watch, 
+            loading : false}) 
         }
 
-        return null
+        return {
+            loading: false,
+            message: '',
+            watch: 0
+        }
         
         
 
     }
 
-    // componentWillReceiveProps(nextProps : propsIdentityNotificationModal){
-
-    //     this.setState({
-    //         message : nextProps.monitor.custom_message, 
-    //         watch : nextProps.monitor.watch
-    //     })
-
-    // }
 
     render() {
         
@@ -53,15 +44,6 @@ class IdentityNotificationModal extends Component<propsIdentityNotificationModal
                     <Button disabled={this.state.loading} label="Update" icon="pi pi-check" onClick={() => this.handleClose()} autoFocus />
                 </div>} onHide={() => { this.handleClose() }}>
                 <div className="p-fluid p-formgrid p-grid">
-                    {/* <div className="p-field p-col-12 p-md-12">
-                        <label htmlFor="phone">Notification Message:</label>
-                        <span className="p-input-icon-left">
-                            <i className="pi pi-heart" />
-                            <InputText value={this.state.message} onChange={(e) => this.setState({ message: e.target.value })} />
-                        </span>
-
-
-                    </div> */}
                     <div className="p-field p-col-12 p-md-12">
                         <div className="p-inputgroup">
                             <span className="p-inputgroup-addon">
@@ -69,18 +51,7 @@ class IdentityNotificationModal extends Component<propsIdentityNotificationModal
                             </span>
                             <InputText placeholder='Custom Notification Message' tooltip={'Custom Notification Message'} value={this.state.message} onChange={(e) => this.setState({ message: e.target.value })} />
                         </div>
-
-
-                        
-
-
-
                     </div>
-
-
-
-
-
                 </div>
             </Dialog>
         );

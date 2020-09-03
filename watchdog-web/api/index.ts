@@ -59,3 +59,48 @@ export async function deleteIdentity(id: number, succ: Function, err: Function) 
   }).then(succ).catch(err);
 
 }
+
+export async function addIdentity(identity_name: string, fileName: string, file: any, success_callback : Function, error_callback: Function) {
+  let url =  "https://b534kvo5c6.execute-api.af-south-1.amazonaws.com/testing/identities/upload?name=" + identity_name + "&filename=" + fileName + "&tag=whitelist"
+  let { idToken } = await Auth.currentSession()
+
+  await axios.post(url, {
+
+    name: identity_name,
+    filename: fileName,
+    tag: "whitelist"
+
+  },
+    {
+
+      headers: {
+        Authorization: `${idToken.jwtToken}`
+
+      }
+    }).then(
+      async (res) => {
+        //console.log(res)
+        await AddToBucket(res.data.data.url, file, res.data.data.fields, success_callback, error_callback)
+
+        //updatelist()
+        //setUrl(res.data.data.url, res.data.data.fields)
+      }).catch(error_callback)
+
+}
+
+async function AddToBucket(url, file, formFields, success_callback, error_callback) {
+  const formData = new FormData()
+  for (let key in formFields) {
+    formData.append(key, formFields[key])
+  }
+
+
+  formData.append('file', file)
+  console.log(file)
+
+  await axios.post(url, formData).then(success_callback).catch(error_callback)
+}
+
+
+
+

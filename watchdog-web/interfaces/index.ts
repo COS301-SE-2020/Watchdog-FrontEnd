@@ -162,6 +162,7 @@ export type stateIdentities = {
   notifications_modal : boolean
   notifications_name : string
   notifications_monitor : Monitor
+  add_identities_modal : boolean
   
 
 }
@@ -196,4 +197,20 @@ export type stateIdentityNotificationModal ={
   message : string
   watch : number
   
+}
+
+export type propsAddIdentityModal ={
+  show_modal : boolean
+  hide_modal : Function
+
+
+}
+
+export type stateAddIdentityModal = {
+  loading : boolean
+  active_page : 0|1
+  name : string
+  fileInfo : any
+  fileName : string
+
 }

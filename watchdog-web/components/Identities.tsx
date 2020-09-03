@@ -7,6 +7,7 @@ import { ProgressBar } from 'primereact/progressbar'
 import RemoveIdentityModal from './RemoveIdentityModal'
 import { Toast } from 'primereact/toast'
 import IdentityNotificationModal from './IdentityNotificationModal'
+import  AddIdentityModal  from "./AddIdentityModal";
 
 const test_users = [
     {
@@ -35,20 +36,32 @@ class Identities extends Component<propsIdentities, stateIdentities> {
             remove_name: '',
             remove_index: -1,
             notifications_modal: false,
-            notifications_name : '',
-            notifications_monitor : {custom_message : '', watch : 0}
+            notifications_name: '',
+            notifications_monitor: { custom_message: '', watch: 0 },
+            add_identities_modal : false
         }
 
         this.getData = this.getData.bind(this)
         this.toggleRemoveModal = this.toggleRemoveModal.bind(this)
         this.toggleNotificationModal = this.toggleNotificationModal.bind(this)
+        this.toggleAddIdentitiesModal = this.toggleAddIdentitiesModal.bind(this)
+    }
+
+    toggleAddIdentitiesModal(val : boolean, reload : boolean |null){
+        this.setState({add_identities_modal : val})
+        if(reload){
+            this.getData()
+            this.toast.show({ severity: 'success', summary: 'Identity Added', detail: 'Identity added to whitelist.', life: 3000 })
+
+        }
+
     }
 
     toggleNotificationModal(val: boolean, reload: boolean | null) {
         this.setState({ notifications_modal: val })
         if (reload) {
             this.getData()
-            this.toast.show({severity:'success', summary: 'Removed', detail:'Identity removed.', life: 3000})
+            this.toast.show({ severity: 'success', summary: 'Updated', detail: 'Identity notification settings updated.', life: 3000 })
         }
     }
 
@@ -56,7 +69,7 @@ class Identities extends Component<propsIdentities, stateIdentities> {
         this.setState({ remove_modal: val })
         if (reload) {
             this.getData()
-            this.toast.show({severity:'success', summary: 'Removed', detail:'Identity removed.', life: 3000})
+            this.toast.show({ severity: 'success', summary: 'Removed', detail: 'Identity removed.', life: 3000 })
         }
     }
 
@@ -80,6 +93,7 @@ class Identities extends Component<propsIdentities, stateIdentities> {
             this.setState({ data: format })
 
         }, () => {
+            this.toast.show({ severity: 'error', summary: 'Error', detail: 'Unable to get identities. Please check your internet and refresh your browser', life: 3000 })
 
         })
 
@@ -105,22 +119,22 @@ class Identities extends Component<propsIdentities, stateIdentities> {
 
                         </div>
                         <div className=' p-col-12 ' >
-                                <div className="p-text-center p-text-bold">{item.name||'No Name'}</div>
+                            <div className="p-text-center p-text-bold">{item.name || 'No Name'}</div>
                         </div>
 
 
                         <div className=' p-col-12 ' style={{ textAlign: 'center' }}>
                             <div className="p-grid p-shadow-6">
                                 <div className=' p-col-12 p-md-12 p-lg-12  '>
-                                    <Button onClick ={ ()=>{
-                                        this.setState({notifications_name : item.name, notifications_monitor : item.monitor})
+                                    <Button onClick={() => {
+                                        this.setState({ notifications_name: item.name, notifications_monitor: item.monitor })
                                         this.toggleNotificationModal(true, null)
                                     }} style={{ width: '100%' }} label="Notifications Settings" className="p-button-raised p-button-warning" />
                                 </div>
 
                                 <div className=' p-col-12 p-md-12 p-lg-12 '>
                                     <Button onClick={() => {
-                                        this.setState({ remove_name: item.name ||'No Name', remove_index: item.id })
+                                        this.setState({ remove_name: item.name || 'No Name', remove_index: item.id })
                                         this.toggleRemoveModal(true, null)
                                     }} style={{ width: '100%' }} label="Remove Identity" className="p-button-raised p-button-danger" />
                                 </div>
@@ -138,11 +152,20 @@ class Identities extends Component<propsIdentities, stateIdentities> {
         })
         return (
             <div className="p-grid">
-                <Toast ref={(el) => this.toast = el} />
-                <IdentityNotificationModal monitor = { this.state.notifications_monitor} name={this.state.notifications_name} show_modal={this.state.notifications_modal} hide_modal={this.toggleNotificationModal}/>
-                <RemoveIdentityModal name={this.state.remove_name} index={this.state.remove_index} show_modal={this.state.remove_modal} hide_modal={this.toggleRemoveModal} />
                 <div style={{ display: this.state.loading ? 'block' : 'none' }} className="p-field p-col-12 p-md-12"> <ProgressBar mode="indeterminate" style={{ height: '6px' }}></ProgressBar></div>
+
+                <div className='p-col-12 p-md-6 p-lg-3'>
+                    <div style={{ height: '100%', alignItems: 'center', justifyContent: 'center', display: !this.state.loading ? 'flex' : 'none' }} className='p-jc-center'>
+                        <Button onClick={()=>this.toggleAddIdentitiesModal(true, null)} label="New Identity" icon="pi pi-plus" className="p-button-info p-button-raised p-button-text p-button-lg" />
+                    </div>
+
+                </div>
                 {identities}
+                <Toast  ref={(el) => this.toast = el} />
+                < AddIdentityModal hide_modal = {this.toggleAddIdentitiesModal} show_modal = {this.state.add_identities_modal}/>
+                <IdentityNotificationModal monitor={this.state.notifications_monitor} name={this.state.notifications_name} show_modal={this.state.notifications_modal} hide_modal={this.toggleNotificationModal} />
+                <RemoveIdentityModal name={this.state.remove_name} index={this.state.remove_index} show_modal={this.state.remove_modal} hide_modal={this.toggleRemoveModal} />
+
 
             </div>
         );
