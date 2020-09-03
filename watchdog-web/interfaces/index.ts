@@ -6,6 +6,20 @@
 
 import { type } from "os"
 
+export type Login={
+  username: string
+  password: string
+  hasAccount: boolean
+}
+export type Signup={
+  username: string
+  fullname: string
+  email: string
+  password: string
+  address: string
+  hasSignedup: boolean
+  Verified: boolean
+}
 export type User = {
   id: number
   name: string
