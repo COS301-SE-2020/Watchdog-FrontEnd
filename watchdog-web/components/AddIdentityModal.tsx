@@ -135,7 +135,7 @@ class AddIdentityModal extends Component<propsAddIdentityModal, stateAddIdentity
                         <div className="p-field p-col-12 p-md-12">
                             <div className="p-fluid p-formgrid p-grid">
                                 <div className="p-field p-col-12 p-md-12">
-                                    <Button label="Select Image" onClick={() => this.inputFile.click()} />
+                                    <Button disabled={this.state.loading} label="Select Image" onClick={() => this.inputFile.click()} />
                                     <input
                                         type="file"
                                         ref={(el) => this.inputFile = el}
