@@ -4,6 +4,7 @@ import 'primeicons/primeicons.css'
 import 'primeflex/primeflex.css'
 import '../scss/DashboardScreen.scss'
 import '../scss/CameraView.scss';
+import '../scss/RecordingsScreen.scss';
 
 import { Provider } from 'react-redux';
 import store from '../app-redux/store';

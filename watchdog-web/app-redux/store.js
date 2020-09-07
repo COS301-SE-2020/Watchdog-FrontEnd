@@ -16,10 +16,19 @@ const genericClient = axios.create();
 
 const logger = createLogger({})
 
-// const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+// const composeEnhancers = compose
+
+// if (global.window != null) {
+    // composeEnhancers = global.window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+// }
+let composeEnhancers = compose;
+if (typeof window !== "undefined") {
+    composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
+}
+
 const store = createStore(
     watchdogApp,
-    // composeEnhancers(
+    composeEnhancers(
         applyMiddleware(
             thunkMiddleware,
             multiClientMiddleware(
@@ -30,7 +39,7 @@ const store = createStore(
             ),
             logger
         )
-    // )
+    )
 
 )
 
