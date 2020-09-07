@@ -15,6 +15,7 @@ import { Auth } from 'aws-amplify'
 
 
 import Signup from './SignupForm'
+import ForgotPassword from './ForgotPassword'
 class UserManagement extends Component<{}, Login> {
     constructor(props: {}) {
         super(props)
@@ -22,9 +23,11 @@ class UserManagement extends Component<{}, Login> {
             hasAccount: true,
             username: '',
             password: '',
-            loading : false
+            loading : false,
+            stage: 0
         }
         this.handleSignup = this.handleSignup.bind(this)
+        this.handleforgot=this.handleforgot.bind(this)
     }
     handleSignup() {
         this.setState({loading: true})
@@ -37,12 +40,18 @@ class UserManagement extends Component<{}, Login> {
 
 
     }
+    handleforgot(){
+        console.log("here")
+        return(
+            <ForgotPassword/>
+        )
+    }
 
     componentDidMount(){
         this.setState({loading : false})
     }
     render() {
-        if (this.state.hasAccount === true) {
+        if (this.state.stage===0) {
             return (
                 <div style={{ maxWidth: "1700px", height: '90vh', margin: 'auto', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     <Toast ref={(el) => this.toast = el} />
@@ -68,7 +77,10 @@ class UserManagement extends Component<{}, Login> {
                                             <i className="pi pi-key"></i>
                                         </span>
                                         <Password disabled={this.state.loading} feedback={false} placeholder='Password' value={this.state.password} onChange={(e) => this.setState({ password: e.target.value })} />
+                                        <span><Button disabled={this.state.loading} label="Forgot Password?" style={{ textAlign: 'center', maxWidth: '100px' }} className="p-button-link" onClick={() => this.setState({ stage: 2 })} /></span>
+
                                     </div>
+
 
                                 </div>
                                 <div className="p-field p-grid">
@@ -76,7 +88,7 @@ class UserManagement extends Component<{}, Login> {
                                         <Button disabled={this.state.loading} style={{ margin: '0px auto' }} type="button" label="Login" onClick={this.handleSignup} />
                                     </div>
                                 </div>
-                                <span>Don't have an account? Create one now <Button disabled={this.state.loading} label="here!" style={{ textAlign: 'center', maxWidth: '100px' }} className="p-button-link" onClick={() => this.setState({ hasAccount: false })} /></span>
+                                <span>Don't have an account? Create one now <Button disabled={this.state.loading} label="here!" style={{ textAlign: 'center', maxWidth: '100px' }} className="p-button-link" onClick={() => this.setState({ stage: 1 })} /></span>
                             </Card>
                             
 
@@ -87,13 +99,19 @@ class UserManagement extends Component<{}, Login> {
                 </div>
 
             )
-        } else {
-            return (
-                <Signup />
-            )
+        } else if(this.state.stage===1) {
+           
+            return(
+                <Signup/>
+            );
         }
-
-
+            else{
+                console.log(" here")
+                return(
+                    
+                    <ForgotPassword/>
+                )
+            } 
     }
 }
 

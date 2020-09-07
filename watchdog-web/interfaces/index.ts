@@ -11,6 +11,7 @@ export type Login={
   password: string
   hasAccount: boolean
   loading : boolean
+  stage: number
 }
 export type Signup={
   username: string
@@ -21,7 +22,17 @@ export type Signup={
   hasSignedup: boolean
   Verified: boolean
   phone: string
+  
 }
+export type ForgotPasswordState={
+stage: number
+email: string
+code: string
+loading:boolean
+password: string
+confirmPassword:string
+}
+
 export type User = {
   id: number
   name: string
