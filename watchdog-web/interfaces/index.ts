@@ -10,6 +10,7 @@ export type Login={
   username: string
   password: string
   hasAccount: boolean
+  loading : boolean
 }
 export type Signup={
   username: string
