@@ -19,6 +19,7 @@ export type Signup={
   address: string
   hasSignedup: boolean
   Verified: boolean
+  phone: string
 }
 export type User = {
   id: number

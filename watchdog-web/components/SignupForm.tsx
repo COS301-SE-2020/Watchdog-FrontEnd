@@ -18,6 +18,7 @@ class SignupForm extends Component<{},Signup> {
                 fullname: '',
                 email: '',
                 password: '',
+                phone:'',
                 address: '',
                 hasSignedup: false,
                 Verified: false
@@ -29,75 +30,91 @@ class SignupForm extends Component<{},Signup> {
         if(!this.state.hasSignedup){
         return (
             
-                <div>
-        
-                <div className="usermanagement"  style={{ textAlign: 'center', width: '350px', marginLeft: '40%', marginTop: '10%' }}>
-                    <Card title="Sign Up" subTitle="Create Your Watchdog account">
-                    <div className="p-grid p-fluid">
-                        <div style={{margin:'0px auto'}} className="p-col-12 p-md-8">
-                        <div className="p-inputgroup">
-                            <span className="p-inputgroup-addon">
-                                <i className="pi pi-user"></i>
-                            </span>
-                            <InputText placeholder="Username" />
+            <div style={{ maxWidth: "1700px", height: '90vh', margin: 'auto', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+
+
+            <div className="p-grid">
+                <div className="p-col-12 p-md-12" style={{ display: 'flex', alignContent: 'center', textAlign: 'center' }} >
+                    <Card style={{ maxWidth: '350px' }} title="Sign Up" subTitle="Create Your Watchdog Account">
+                        <div className="p-field p-grid">
+
+                            <div className="p-inputgroup">
+                                <span className="p-inputgroup-addon">
+                                    <i className="pi pi-user"></i>
+                                </span>
+                                <InputText value={this.state.username} placeholder="Username" onChange={(e) => { this.setState({ username: e.target.value }) }} />
+                            </div>
+
+
                         </div>
-                        </div>
-                        <div style={{margin:'0px auto'}} className="p-col-12 p-md-8">
-                        <div className="p-inputgroup">
-                            <span className="p-inputgroup-addon">
-                                <i className="pi pi-user"></i>
-                            </span>
-                            <InputText placeholder="Full Name" />
-                        </div>
-                        </div>
-                        <div style={{margin:'0px auto'}} className="p-col-12 p-md-8">
-                        <div className="p-inputgroup">
-                            <span className="p-inputgroup-addon">
-                                <i className="pi pi-bookmark"></i>
-                            </span>
-                            <InputText placeholder="Email Address" />
-                        </div>
-                        </div>
-                        
-                        <div style={{margin:'0px auto'}} className="p-col-12 p-md-8">
-                        <div className="p-inputgroup">
-                        <span className="p-inputgroup-addon">
-                            <i className="pi pi-key"></i>
-                        </span>
-                        <Password placeholder='Password'  value={this.state.password} onChange={(e) => this.setState({password: e.target.value})} />
-                        </div>
-                        </div>
-                        <div style={{margin:'0px auto'}} className="p-col-12 p-md-8">
-                        <div className="p-inputgroup">
-                            <span className="p-inputgroup-addon">
-                                <i className="pi pi-sort-numeric-down-alt"></i>
-                            </span>
-                            <InputMask mask="999-999 9999" placeholder="Phone Number" />
-                        </div>
-                        </div>
-                        <div style={{margin:'0px auto'}} className="p-col-12 p-md-8">
-                        <div className="p-inputgroup">
-                            <span className="p-inputgroup-addon">
-                                <i className="pi pi-home"></i>
-                            </span>
-                            <InputText placeholder="Physical Address" />
-                        </div>
+                        <div className="p-field p-grid">
+
+                            <div className="p-inputgroup">
+                                <span className="p-inputgroup-addon">
+                                    <i className="pi pi-user"></i>
+                                </span>
+                                <InputText value={this.state.fullname} placeholder="Full Name" onChange={(e) => { this.setState({ fullname: e.target.value }) }} />
+                            </div>
+
+
                         </div>
                         
                         
-                        <div style={{margin:'0px auto'}} className="p-col-12 p-md-`8`">
-                        <div className="p-inputgroup">
-                        
-                        <Button style={{margin:'0px auto'}} type="button" label="Submit" onClick={()=>this.setState({hasSignedup: true})}/>
+                        <div className="p-field p-grid">
+
+                            <div className="p-inputgroup">
+                                <span className="p-inputgroup-addon">
+                                    <i className="pi pi-bookmark"></i>
+                                </span>
+                                <InputText value={this.state.email} placeholder="Email Address" onChange={(e) => { this.setState({ email: e.target.value }) }} />
+                            </div>
+
+
+                        </div>
+                        <div className="p-field p-grid">
+                            <div className="p-inputgroup">
+                                <span className="p-inputgroup-addon">
+                                    <i className="pi pi-key"></i>
+                                </span>
+                                <Password feedback={false} placeholder='Password' value={this.state.password} onChange={(e) => this.setState({ password: e.target.value })} />
+                            </div>
+                            
+                        </div>
+                        <div className="p-field p-grid">
+
+                            <div className="p-inputgroup">
+                                <span className="p-inputgroup-addon">
+                                    <i className="pi pi-sort-numeric-up"></i>
+                                </span>
+                                <InputMask mask="999-999 9999" value={this.state.phone} placeholder="Phone Number" onChange={(e) => { this.setState({ phone: e.target.value }) }} />
+                            </div>
+
+
+                        </div>
+                        <div className="p-field p-grid">
+
+                            <div className="p-inputgroup">
+                                <span className="p-inputgroup-addon">
+                                    <i className="pi pi-home"></i>
+                                </span>
+                                <InputText value={this.state.address} placeholder="Physical Address" onChange={(e) => { this.setState({ address: e.target.value }) }} />
+                            </div>
+
+
                         </div>
                         
+                        <div className="p-field p-grid">
+                            <div className="p-inputgroup">
+                                <Button style={{ margin: '0px auto' }} type="button" label="Sign Up" onClick={()=>this.setState({ hasSignedup: true })} />
+                            </div>
                         </div>
-                        
-                    </div>
+                        <span><Button label="Back" style={{ textAlign: 'center', maxWidth: '100px' }} className="p-button-link" onClick={() => <UserManagement/>} /></span>
                     </Card>
+
                 </div>
-          
-        </div>   
+
+            </div>
+        </div>
             
             
         );
@@ -105,32 +122,24 @@ class SignupForm extends Component<{},Signup> {
         if(!this.state.Verified){
         return(
             
-            <Card>
-           
-            
-            
-            <div style={{margin:'0px auto'}} className="p-col-12 p-md-`8`">
-            <div className="p-inputgroup">
-            <h2 style={{margin:'0px auto'}}>Verifcation Email Sent!</h2>
-            
+            <div style={{ maxWidth: "1700px", height: '90vh', margin: 'auto', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+
+
+            <div className="p-grid">
+                <div className="p-col-12 p-md-12" style={{ display: 'flex', alignContent: 'center', textAlign: 'center' }} >
+                    <Card style={{ maxWidth: '350px' }} title="Verify" subTitle="An email has been sent you to you to verify your account.">
+                        
+                        <div className="p-field p-grid">
+                            <div className="p-inputgroup">
+                                <Button style={{ margin: '0px auto' }} type="button" label="Login" onClick={()=>this.setState({Verified:true})} />
+                            </div>
+                        </div>
+                    </Card>
+
+                </div>
+
             </div>
-            
-            </div>
-            <div style={{margin:'0px auto'}} className="p-col-12 p-md-`8`">
-            <div className="p-inputgroup">
-            <h4 style={{margin:'0px auto'}}>Please Verify your email and  </h4>
-            
-            </div>
-            
-            </div>
-            <div style={{margin:'0px auto'}} className="p-col-12 p-md-`8`">
-            <div className="p-inputgroup">
-            <Button style={{margin:'0px auto',textAlign: 'center'}} label="Login"  className="p-button-link" onClick={()=>this.setState({Verified:true})} />
-            
-            </div>
-            
-            </div>
-        </Card>
+        </div>
         )
         }else{
             return(
