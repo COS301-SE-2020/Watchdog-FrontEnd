@@ -103,7 +103,8 @@ type notificationOption = {
 }
 export type stateNotificationModal = {
   security_company : string,
-  notification_type : notificationOption
+  notification_type : notificationOption,
+  loading : boolean
   
 }
 
