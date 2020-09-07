@@ -41,18 +41,22 @@ const Footer = ({
             topDivider && 'has-top-divider'
           )}>
           <div className="footer-top space-between text-xxs">
-            <Logo />
-            <FooterSocial />
+          <div className="footer-copyright">Made by Lynk Solutions. All right reserved</div>
+          <FooterNav />
           </div>
-          <div ><Wave style={{ transform: 'rotate(180)'}} fill="#169de0" mask="url(./../../assets/images/Watchdog2.png)" options={{ points: 20, speed: 0.2, amplitude: 40 }}></Wave> </div>
           
 
           <div className="footer-bottom space-between text-xxs invert-order-desktop">
-            <FooterNav />
-            <div className="footer-copyright">Made by Lynk Solutions. All right reserved</div>
+            
+            
+            <FooterSocial />
+            <Logo />
+            
           </div>
         </div>
       </div>
+      <div ><Wave style={{ transform: 'rotate(180)'}} fill="#169de0" options={{ points: 40, speed: 0.2, amplitude: 40 }}></Wave> </div>
+
     </footer>
   );
 }

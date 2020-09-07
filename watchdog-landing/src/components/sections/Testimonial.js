@@ -2,6 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import { SectionTilesProps } from '../../utils/SectionProps';
 import SectionHeader from './partials/SectionHeader';
+import Wave from 'react-wavify'
 
 const propTypes = {
   ...SectionTilesProps.types
@@ -29,7 +30,8 @@ const Testimonial = ({
     bottomOuterDivider && 'has-bottom-divider',
     hasBgColor && 'has-bg-color',
     invertColor && 'invert-color',
-    className
+    className,
+    'illustration-section-02'
   );
 
   const innerClasses = classNames(
@@ -44,8 +46,8 @@ const Testimonial = ({
   );
 
   const sectionHeader = {
-    title: 'Introduction to Watchdog',
-    paragraph: 'Everything you need to know about Watchdog concisely and easily explained.'
+    title: 'Watchdog Security System',
+    paragraph: 'The Security System that will protect you and your family from intruders, Always!'
   };
 
   return (
@@ -53,7 +55,9 @@ const Testimonial = ({
       {...props}
       className={outerClasses}
     >
-      <div className="container">
+      <div className="wave"><Wave fill="#169de0"  options={{ points: 40, speed: 0.2, amplitude: 40 }}></Wave> </div>
+
+      <div className="container ">
         <div className={innerClasses}>
           <SectionHeader data={sectionHeader} className="center-content" />
           <div className={tilesClasses}>
