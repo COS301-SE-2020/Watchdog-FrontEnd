@@ -9,7 +9,7 @@ import { InputText } from 'primereact/inputtext';
 import { Password } from 'primereact/password';
 
 
-import { AmplifyAuthenticator, AmplifySignUp, AmplifySignIn, withAuthenticator, AmplifySignOut, AmplifyConfirmSignIn } from '@aws-amplify/ui-react'
+import { Auth } from 'aws-amplify'
 
 
 import Signup from './SignupForm'
@@ -24,6 +24,8 @@ class UserManagement extends Component<{}, Login> {
         this.handleSignup = this.handleSignup.bind(this)
     }
     handleSignup() {
+        Auth.signIn(this.state.username, this.state.password).then((e)=>console.log('signed in')).catch((err)=>console.log(err))
+
 
 
     }
