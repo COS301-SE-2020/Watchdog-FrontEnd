@@ -240,5 +240,6 @@ export type stateAddIdentityModal = {
   name : string
   fileInfo : any
   fileName : string
+  file : any
 
 }

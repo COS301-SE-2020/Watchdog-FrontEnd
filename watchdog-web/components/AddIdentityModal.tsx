@@ -29,7 +29,8 @@ class AddIdentityModal extends Component<propsAddIdentityModal, stateAddIdentity
             active_page: 0,
             name: '',
             fileInfo: null,
-            fileName : ''
+            fileName : '',
+            file : null
         }
         this.previewFile = this.previewFile.bind(this)
         this.handleClose = this.handleClose.bind(this)
@@ -61,7 +62,7 @@ class AddIdentityModal extends Component<propsAddIdentityModal, stateAddIdentity
 
         }
 
-        await addIdentity(this.state.name, this.state.fileName, this.state.fileInfo, ()=>{
+        await addIdentity(this.state.name, this.state.fileName, this.state.file, ()=>{
             this.setState({
                 loading: false,
                 active_page: 0,
@@ -140,7 +141,7 @@ class AddIdentityModal extends Component<propsAddIdentityModal, stateAddIdentity
                                         type="file"
                                         ref={(el) => this.inputFile = el}
                                         onChange={(el) => {
-                                            this.setState({fileName : el.target.files[0].name})
+                                            this.setState({fileName : el.target.files[0].name, file: el.target.files[0]})
                                             this.previewFile(el.target.files[0], value => {
                                                 
                                                 this.setState({ fileInfo: value })

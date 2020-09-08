@@ -45,7 +45,12 @@ export async function getIdentities(succ: Function, err: Function) {
 
 
     }
-  }).then(succ).catch(err)
+  }).then((res)=>{
+    console.log(res)
+    succ(res)
+  }).catch((error)=>{
+    console.log(error)
+    err()})
 
 }
 
