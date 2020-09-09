@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import { Card } from 'primereact/card';
-import { ScrollPanel } from 'primereact/scrollpanel';
 import { Panel } from 'primereact/panel';
 import { Chart } from 'primereact/chart';
 
@@ -10,8 +8,14 @@ import SecurityLevelPanel from './SecurityLevelPanel';
 import CameraView from './CameraView';
 import Events from './Events';
 
+interface DashboardScreenProps {}
 
-class DashboardScreen extends Component {
+interface DashboardScreenState {
+    pieData: object
+    lineData: object
+}
+
+class DashboardScreen extends Component<DashboardScreenProps, DashboardScreenState> {
     constructor(props) {
         super(props);
 

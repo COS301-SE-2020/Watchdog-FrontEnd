@@ -1,4 +1,4 @@
-.dataview-demo {
+.dataview-camera-view {
 
     z-index: 0;
 
@@ -77,6 +77,8 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
+            padding-left: 1rem;
+            padding-right: 1rem;
         }
 
         i {
@@ -95,7 +97,7 @@
         }
 
         .product-description {
-            margin: 0 0 1rem 0;
+            margin: 1rem 0 1rem 0;
         }
     }
 

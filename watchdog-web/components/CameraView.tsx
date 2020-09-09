@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { DataView, DataViewLayoutOptions } from 'primereact/dataview';
+import {DataView} from 'primereact/dataview';
+import { Tooltip } from 'primereact/tooltip';
 import { Button } from 'primereact/button';
 import { Dropdown } from 'primereact/dropdown';
 import { Dialog } from 'primereact/dialog';
@@ -24,10 +25,11 @@ interface CameraViewState {
     sortOrder: any
     sortField: any
     displayModel: boolean
-    video: any
+    stream: any
 }
 
 class CameraView extends Component<CameraViewProps, CameraViewState> {
+    sortOptions: any[] | undefined;
 
     constructor(props) {
         super(props);
@@ -38,7 +40,7 @@ class CameraView extends Component<CameraViewProps, CameraViewState> {
             sortOrder: null,
             sortField: null,
             displayModel: false,
-            video: null
+            stream: null
         };
 
         this.sortOptions = [
@@ -49,9 +51,14 @@ class CameraView extends Component<CameraViewProps, CameraViewState> {
         // this.productService = new ProductService();
         this.itemTemplate = this.itemTemplate.bind(this);
         this.onSortChange = this.onSortChange.bind(this);
-        this.openModel = this.openModel.bind(this);
         this.closeModel = this.closeModel.bind(this);
-        this.renderFooter = this.renderFooter.bind(this);
+    }
+
+    componentDidMount() {
+        // this.productService.getProducts().then(data => this.setState({ products: data }));
+        // this.setState({
+        // products: data
+        // })
     }
 
     onSortChange(event) {
@@ -76,45 +83,22 @@ class CameraView extends Component<CameraViewProps, CameraViewState> {
     openModel(videoObject) {
         this.setState({
             displayModel: true,
-            video: videoObject
+            stream: videoObject
         })
     }
 
     closeModel() {
         this.setState({
             displayModel: false,
-            video: null
+            stream: null
         })
     }
 
     renderFooter(name) {
         return (
             <div>
+                {/* <img className='' style={{ height: '100%', width: '100%' }} src={'static.gif'}></img> */}
                 <Button label="Cancel" icon="pi pi-times" onClick={this.closeModel} className="p-button-text" />
-                {/* <Button label="Yes" icon="pi pi-check" onClick={() => this.onHide(name)} autoFocus /> */}
-            </div>
-        );
-    }
-
-    renderListItem(data) {
-        return (
-            <div className="p-col-6 p-md-12 p-lg-12 p-dataview-content" >
-                <div className="product-list-item" onClick={() => this.openModel(data)}>
-                    {/* <img src={`logo.png`} alt={data.name} /> */}
-                    <i className="pi pi-video" style={{ fontSize: '2em', color: 'green' }}></i>
-                    <div className="product-list-detail">
-                        {/* <div className="product-name">{data.name}</div> */}
-                        <div className="product-description">Camera X</div>
-                        {/* <Rating value={data.rating} readonly cancel={false}></Rating> */}
-                        {/* <i className="pi pi-tag product-category-icon"></i><span className="product-category">{data.category}</span> */}
-                        <small className="p-text-light">Location</small>
-                    </div>
-                    {/* <div className="product-list-action"> */}
-                    {/* <span className="product-price">${data.price}</span> */}
-                    {/* <Button icon="pi pi-shopping-cart" label="Add to Cart" disabled={data.inventoryStatus === 'OUTOFSTOCK'}></Button> */}
-                    {/* <span className={`product-badge status-${data.inventoryStatus.toLowerCase()}`}>{data.inventoryStatus}</span> */}
-                    {/* </div> */}
-                </div>
             </div>
         );
     }
@@ -122,21 +106,21 @@ class CameraView extends Component<CameraViewProps, CameraViewState> {
     renderGridItem(data) {
         return (
             <div className="p-col-4 p-md-4 p-dataview-content" >
-                <div className="product-grid-item" onClick={() => this.openModel(data)}>
+                <div className="product-grid-item">
                     <div className="product-grid-item-top">
                         <small className="p-text-light">Location</small>
+                        <Tooltip target={`.camera-status-${data.id}`} mouseTrack mouseTrackLeft={10} />
+                        <i className={`pi pi-video camera-status-${data.id}`} style={{ fontSize: '1em', color: 'red' }} data-pr-tooltip="Camera Offline"></i>
                     </div>
-                    <div className="product-grid-item-content" >
-                        {/* <img src={`logo.png`} alt={data.name} /> */}
-                        <i className="pi pi-video" style={{ fontSize: '2em', color: 'red' }}></i>
-                        {/* <div className="product-name">{data.name}</div> */}
-                        <div className="product-description">Camera X</div>
-                        {/* <Rating value={data.rating} readonly cancel={false}></Rating> */}
+                    <div className="product-grid-item-content">
+                        <img className={`live-view-${data.id}`} style={{ height: '100%', width: '100%' }} src={'static.gif'} onClick={() => this.openModel(data)}></img>
+                        <div style={{}} className="p-grid p-nogutter p-align-center">
+                            <div style={{marginRight: '1rem'}} className="p-col-1">
+                                <Button style={{ color: 'grey' }} icon="pi pi-eye-slash" className="p-button-rounded p-button-text" tooltip="Disable Viewing of Camera" tooltipOptions={{hideDelay: 0, position: 'bottom'}}/>
+                            </div>
+                            <div className="p-col-6">Camera X</div>
+                        </div>
                     </div>
-                    {/* <div className="product-grid-item-bottom">
-                        <span className="product-price">${data.price}</span>
-                        <Button icon="pi pi-shopping-cart" label="Add to Cart" disabled={data.inventoryStatus === 'OUTOFSTOCK'}></Button>
-                    </div> */}
                 </div>
             </div>
         );
@@ -147,36 +131,29 @@ class CameraView extends Component<CameraViewProps, CameraViewState> {
             return null;
         }
 
-        if (layout === 'list')
-            return this.renderListItem(product);
-        else if (layout === 'grid')
-            return this.renderGridItem(product);
+        return this.renderGridItem(product);
     }
 
     renderHeader() {
         return (
-            <div className="p-grid p-nogutter">
+            <div
+                className="p-grid p-nogutter p-align-center"
+            >
                 <div className="p-col-6" style={{ textAlign: 'left' }}>
                     <h2>Cameras</h2>
-                    <Dropdown options={this.sortOptions} value={this.state.sortKey} optionLabel="label" placeholder="Sort By Location" onChange={this.onSortChange} />
                 </div>
                 <div className="p-col-6" style={{ textAlign: 'right' }}>
-                    <DataViewLayoutOptions layout={this.state.layout} onChange={(e) => this.setState({ layout: e.value })} />
+                    <Dropdown style={{ testAlign: 'left' }} options={this.sortOptions} value={this.state.sortKey} optionLabel="label" placeholder="Sort By Location" onChange={this.onSortChange} />
                 </div>
             </div>
         );
-    }
-
-    componentDidMount = () => {
-        this.props.fetch()
     }
 
     render() {
         const header = this.renderHeader();
 
         return (
-            <div className="dataview-demo">
-                {/* <div className="card"> */}
+            <div className="dataview-camera-view">
                 <DataView
                     className="dataview"
                     value={this.state.products}
@@ -189,36 +166,9 @@ class CameraView extends Component<CameraViewProps, CameraViewState> {
                     sortField={this.state.sortField}
                     alwaysShowPaginator={false}
                 />
-                {/* </div> */}
 
-                <Dialog header="Header" visible={this.state.displayModel} maximizable modal style={{ width: '50vw' }} footer={this.renderFooter('displayMaximizable')} onHide={this.closeModel}>
-                    {(this.state.video == null) ? "Video Not Available" : this.state.video.name}
-                    {/* <ReactPlayer
-                        ref={this.ref}
-                        className='react-player'
-                        width='100%'
-                        height='100%'
-                        url={url}
-                        pip={pip}
-                        playing={playing}
-                        controls={controls}
-                        light={light}
-                        loop={loop}
-                        playbackRate={playbackRate}
-                        volume={0.0}
-                        muted={muted}
-                        onReady={() => console.log('onReady')}
-                        onStart={() => console.log('onStart')}
-                        onPlay={this.handlePlay}
-                        onPause={this.handlePause}
-                        onBuffer={() => console.log('onBuffer')}
-                        onSeek={e => console.log('onSeek', e)}
-                        onEnded={this.handleEnded}
-                        onError={e => console.log('onError', e)}
-                        onProgress={this.handleProgress}
-                        onDuration={this.handleDuration}
-
-                    /> */}
+                <Dialog header={(this.state.stream == null) ? "Stream Not Available" : this.state.stream.name} visible={this.state.displayModel} maximizable modal style={{ width: '50vw' }} footer={this.renderFooter('displayMaximizable')} onHide={this.closeModel}>
+                    <img className='' style={{ height: '100%', width: '100%' }} src={'static.gif'}></img>
                 </Dialog>
 
             </div>
