@@ -7,7 +7,7 @@ import { ProgressBar } from 'primereact/progressbar'
 import RemoveIdentityModal from './RemoveIdentityModal'
 import { Toast } from 'primereact/toast'
 import IdentityNotificationModal from './IdentityNotificationModal'
-import  AddIdentityModal  from "./AddIdentityModal";
+import AddIdentityModal from "./AddIdentityModal";
 
 const test_users = [
     {
@@ -38,7 +38,7 @@ class Identities extends Component<propsIdentities, stateIdentities> {
             notifications_modal: false,
             notifications_name: '',
             notifications_monitor: { custom_message: '', watch: 0 },
-            add_identities_modal : false
+            add_identities_modal: false
         }
 
         this.getData = this.getData.bind(this)
@@ -47,11 +47,19 @@ class Identities extends Component<propsIdentities, stateIdentities> {
         this.toggleAddIdentitiesModal = this.toggleAddIdentitiesModal.bind(this)
     }
 
-    toggleAddIdentitiesModal(val : boolean, reload : boolean |null){
-        this.setState({add_identities_modal : val})
-        if(reload){
-            this.getData()
+    toggleAddIdentitiesModal(val: boolean, reload: boolean | null) {
+        this.setState({ add_identities_modal: val })
+        if (reload) {
+
             this.toast.show({ severity: 'success', summary: 'Identity Added', detail: 'Identity added to whitelist.', life: 3000 })
+            this.setState({ loading: true})
+
+            let currentDate
+            const date = Date.now()
+            do {
+                currentDate = Date.now()
+            } while (currentDate - date < 5000)
+            this.getData()
 
         }
 
@@ -78,7 +86,7 @@ class Identities extends Component<propsIdentities, stateIdentities> {
 
         await getIdentities((res) => {
             console.log(res)
-            let users = res.data.data.identities.whitelist
+            let users = res.data.data.profiles
             let format = users.map((item, index) => {
                 let el = {
                     id: item.index,
@@ -156,13 +164,13 @@ class Identities extends Component<propsIdentities, stateIdentities> {
 
                 <div className='p-col-12 p-md-6 p-lg-3'>
                     <div style={{ height: '100%', alignItems: 'center', justifyContent: 'center', display: !this.state.loading ? 'flex' : 'none' }} className='p-jc-center'>
-                        <Button onClick={()=>this.toggleAddIdentitiesModal(true, null)} label="New Identity" icon="pi pi-plus" className="p-button-info p-button-raised p-button-text p-button-lg" />
+                        <Button onClick={() => this.toggleAddIdentitiesModal(true, null)} label="New Identity" icon="pi pi-plus" className="p-button-info p-button-raised p-button-text p-button-lg" />
                     </div>
 
                 </div>
                 {identities}
-                <Toast  ref={(el) => this.toast = el} />
-                < AddIdentityModal hide_modal = {this.toggleAddIdentitiesModal} show_modal = {this.state.add_identities_modal}/>
+                <Toast ref={(el) => this.toast = el} />
+                < AddIdentityModal hide_modal={this.toggleAddIdentitiesModal} show_modal={this.state.add_identities_modal} />
                 <IdentityNotificationModal monitor={this.state.notifications_monitor} name={this.state.notifications_name} show_modal={this.state.notifications_modal} hide_modal={this.toggleNotificationModal} />
                 <RemoveIdentityModal name={this.state.remove_name} index={this.state.remove_index} show_modal={this.state.remove_modal} hide_modal={this.toggleRemoveModal} />
 

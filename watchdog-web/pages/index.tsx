@@ -34,14 +34,22 @@ class index extends Component<indexProps, indexState> {
     return (
       this.state.loggedIn ? <div className="App" >
         <Head>
-          <meta charSet="UTF-8"/>
+          <meta charSet="UTF-8" />
           <title>Watchdog</title>
-          <link rel = "stylesheet"
-                type = "text/css"
-                href = "/style.css"/>
-        
+          <link rel="stylesheet"
+            type="text/css"
+            href="/style.css" />
+
         </Head>
-        <App /></div> : <UserManagement />
+        <App /></div> : <div className="App" >
+          <Head>
+            <meta charSet="UTF-8" />
+            <title>Watchdog</title>
+            <link rel="stylesheet"
+              type="text/css"
+              href="/style.css" />
+
+          </Head> <UserManagement /> </div>
     )
   }
 }

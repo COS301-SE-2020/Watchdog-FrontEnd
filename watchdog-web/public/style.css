@@ -63,11 +63,6 @@
   border-radius: 50%;
   background: #25b3f5;
   cursor: pointer;
-}.loginBody {
-  background: url("/background.jpg") no-repeat;
-  background-position: center;
-  background-size: 100%;
-
 }
 /* .HomeDiv{
   background: url("/background2.jpg") no-repeat;
