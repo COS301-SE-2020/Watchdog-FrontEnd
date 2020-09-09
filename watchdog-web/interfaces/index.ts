@@ -11,6 +11,7 @@ export type Login={
   password: string
   hasAccount: boolean
   loading : boolean
+  stage: number
 }
 export type Signup={
   username: string
@@ -20,7 +21,18 @@ export type Signup={
   address: string
   hasSignedup: boolean
   Verified: boolean
+  phone: string
+  
 }
+export type ForgotPasswordState={
+stage: number
+email: string
+code: string
+loading:boolean
+password: string
+confirmPassword:string
+}
+
 export type User = {
   id: number
   name: string
@@ -91,7 +103,8 @@ type notificationOption = {
 }
 export type stateNotificationModal = {
   security_company : string,
-  notification_type : notificationOption
+  notification_type : notificationOption,
+  loading : boolean
   
 }
 
@@ -227,5 +240,6 @@ export type stateAddIdentityModal = {
   name : string
   fileInfo : any
   fileName : string
+  file : any
 
 }

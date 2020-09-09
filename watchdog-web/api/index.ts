@@ -45,7 +45,12 @@ export async function getIdentities(succ: Function, err: Function) {
 
 
     }
-  }).then(succ).catch(err)
+  }).then((res)=>{
+    console.log(res)
+    succ(res)
+  }).catch((error)=>{
+    console.log(error)
+    err()})
 
 }
 
@@ -99,6 +104,40 @@ async function AddToBucket(url, file, formFields, success_callback, error_callba
   console.log(file)
 
   await axios.post(url, formData).then(success_callback).catch(error_callback)
+}
+
+
+export async function getNotificationSettings(succ : Function, err: Function){
+  let url = "https://b534kvo5c6.execute-api.af-south-1.amazonaws.com/testing/preferences"
+
+  let { idToken } = await Auth.currentSession()
+  //console.log(idToken)
+  await axios.get(url, {
+    headers: {
+      Authorization: `${idToken.jwtToken}`
+
+
+    }
+  }).then(res=>succ(res.data.data.preferences.notifications)).catch(res=>console.log(res))
+
+} 
+
+export async function updateNotification(security_company: string, not_type: string , succ : Function, err : Function) {
+  let { idToken } = await Auth.currentSession()
+  
+	
+  let url = "https://b534kvo5c6.execute-api.af-south-1.amazonaws.com/testing/preferences/notifications?type="+not_type+"&security_company="+security_company
+  await axios.post(url, {},
+    {
+
+      headers: {
+        Authorization: `${idToken.jwtToken}`
+
+      }
+    }).then(succ).catch(err)
+
+
+
 }
 
 
