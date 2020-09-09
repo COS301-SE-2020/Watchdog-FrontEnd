@@ -10,7 +10,9 @@ import { InputText } from 'primereact/inputtext';
 import {Password} from 'primereact/password';
 import { Signup} from './../interfaces/index'
 import UserManagement from './UserManagement';
-class SignupForm extends Component<{},Signup> {
+import { Auth } from 'aws-amplify'
+
+class SignupForm extends Component<{returnSignIn : Function},Signup> {
     constructor(props:{}) {
         super(props);
         this.state = { 
@@ -23,8 +25,33 @@ class SignupForm extends Component<{},Signup> {
                 hasSignedup: false,
                 Verified: false
          };
+
+         this.handleSignUp = this.handleSignUp.bind(this)
     
     }
+
+    handleSignUp(){
+        
+        Auth.signUp({
+            username: this.state.username,
+            password : this.state.password,
+            attributes : {
+                name : this.state.fullname,
+                email : this.state.email,
+                phone_number : this.state.phone,
+                address : this.state.address
+            }
+
+          }).then(()=>{
+            this.setState({ hasSignedup: true })
+
+          }).catch((e)=>{
+              console.log(e)
+          })
+
+    }
+
+
    
     render() {
         if(!this.state.hasSignedup){
@@ -35,7 +62,7 @@ class SignupForm extends Component<{},Signup> {
 
             <div className="p-grid">
                 <div className="p-col-12 p-md-12" style={{ display: 'flex', alignContent: 'center', textAlign: 'center' }} >
-                    <Card style={{ maxWidth: '350px' }} title="Sign Up" subTitle="Create Your Watchdog Account">
+                    <Card style={{ width: '350px', maxWidth: '100vw' }} title="Sign Up" subTitle="Create Your Watchdog Account">
                         <div className="p-field p-grid">
 
                             <div className="p-inputgroup">
@@ -76,7 +103,7 @@ class SignupForm extends Component<{},Signup> {
                                 <span className="p-inputgroup-addon">
                                     <i className="pi pi-key"></i>
                                 </span>
-                                <Password feedback={false} placeholder='Password' value={this.state.password} onChange={(e) => this.setState({ password: e.target.value })} />
+                                <Password  feedback={true} placeholder='Password' value={this.state.password} onChange={(e) => this.setState({ password: e.target.value })} />
                             </div>
                             
                         </div>
@@ -86,7 +113,7 @@ class SignupForm extends Component<{},Signup> {
                                 <span className="p-inputgroup-addon">
                                     <i className="pi pi-sort-numeric-up"></i>
                                 </span>
-                                <InputMask mask="999-999 9999" value={this.state.phone} placeholder="Phone Number" onChange={(e) => { this.setState({ phone: e.target.value }) }} />
+                                <InputMask mask="+99999999999" value={this.state.phone} placeholder="Phone Number" onChange={(e) => { this.setState({ phone: e.target.value }) }} />
                             </div>
 
 
@@ -105,10 +132,10 @@ class SignupForm extends Component<{},Signup> {
                         
                         <div className="p-field p-grid">
                             <div className="p-inputgroup">
-                                <Button style={{ margin: '0px auto' }} type="button" label="Sign Up" onClick={()=>this.setState({ hasSignedup: true })} />
+                                <Button style={{ margin: '0px auto' }} type="button" label="Sign Up" onClick={()=>this.handleSignUp()} />
                             </div>
                         </div>
-                        <span><Button label="Back" style={{ textAlign: 'center', maxWidth: '100px' }} className="p-button-link" onClick={() => <UserManagement/>} /></span>
+                        <span><Button label="Back To Sign In"  style={{ textAlign: 'center', maxWidth: '100px' }} className="p-button-link" onClick={() => this.props.returnSignIn()} /></span>
                     </Card>
 
                 </div>
