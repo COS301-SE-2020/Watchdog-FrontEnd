@@ -8,6 +8,7 @@ import { Card } from 'primereact/card'
 import { ProgressBar } from 'primereact/progressbar'
 import { Password } from 'primereact/password';
 import UserManagement from './UserManagement';
+import { Auth } from 'aws-amplify'
 
 class ForgotPassword extends Component<{}, ForgotPasswordState> {
     
@@ -21,6 +22,18 @@ class ForgotPassword extends Component<{}, ForgotPasswordState> {
             password:'',
             confirmPassword:''
         }
+
+        this.handleUsernameSubmit = this.handleUsernameSubmit.bind(this)
+        this.handleNewPassword = this.handleNewPassword.bind(this)
+    }
+    handleUsernameSubmit(){
+        Auth.forgotPassword(this.state.email).then(()=>this.setState({stage: 1})).catch((err=>console.log(err)))
+
+    }
+
+    handleNewPassword(){
+        Auth.forgotPasswordSubmit(this.state.email, this.state.code, this.state.password).then(()=>{this.setState({stage : 3})}).catch(err=>{console.log(err)})
+
     }
     render() {
         if(this.state.stage===0){
@@ -45,7 +58,7 @@ class ForgotPassword extends Component<{}, ForgotPasswordState> {
 
                             <div className="p-inputgroup">
                                 
-                                <Button disabled={this.state.loading} style={{ margin: '0px auto' }} type="button" label="Submit" onClick={()=>{this.setState({stage:1})}} />
+                                <Button disabled={this.state.loading} style={{ margin: '0px auto' }} type="button" label="Submit" onClick={()=>{this.handleUsernameSubmit()}} />
                             </div>
 
 
@@ -74,7 +87,7 @@ class ForgotPassword extends Component<{}, ForgotPasswordState> {
 
                             <div className="p-inputgroup">
                                 
-                                <InputText disabled={this.state.loading} value={this.state.email} placeholder="Verification Code" onChange={(e) => { this.setState({ code: e.target.value}) }} />
+                                <InputText disabled={this.state.loading} value={this.state.code} placeholder="Verification Code" onChange={(e) => { this.setState({ code: e.target.value}) }} />
                             </div>
 
 
@@ -113,7 +126,7 @@ class ForgotPassword extends Component<{}, ForgotPasswordState> {
 
                             <div className="p-inputgroup">
                                 
-                                <Password disabled={this.state.loading} value={this.state.password} placeholder="New Password" onChange={(e) => { this.setState({ code: e.target.value}) }} />
+                                <Password disabled={this.state.loading} value={this.state.password} placeholder="New Password" onChange={(e) => { this.setState({ password: e.target.value}) }} />
                             </div>
 
 
@@ -122,7 +135,7 @@ class ForgotPassword extends Component<{}, ForgotPasswordState> {
 
                             <div className="p-inputgroup">
                                 
-                                <Password disabled={this.state.loading} value={this.state.confirmPassword} placeholder="Confirm Password" onChange={(e) => { this.setState({ code: e.target.value, stage:2 }) }} />
+                                <Password disabled={this.state.loading} value={this.state.confirmPassword} placeholder="Confirm Password" onChange={(e) => { this.setState({ confirmPassword: e.target.value}) }} />
                             </div>
 
 
@@ -131,7 +144,7 @@ class ForgotPassword extends Component<{}, ForgotPasswordState> {
 
                             <div className="p-inputgroup">
                                 
-                                <Button disabled={this.state.loading} style={{ margin: '0px auto' }} type="button" label="Submit" onClick={()=>{this.setState({stage:3})}} />
+                                <Button disabled={this.state.loading} style={{ margin: '0px auto' }} type="button" label="Submit" onClick={()=>{this.handleNewPassword()}} />
                             </div>
 
 
