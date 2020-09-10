@@ -76,7 +76,7 @@ class VideoList extends Component<VideoListProps, VideoListState> {
                     />
                     <div className="product-list-detail">
                         <div className="product-name">{moment.unix(data.metadata.timestamp).format("DD-MM-YYYY hh:mm:ss")}</div>
-                        <div className="product-description">{(this.props.locations[data.metadata.camera_id])? this.props.locations[data.metadata.camera_id]:"Unknown Location"}</div>
+                        <div className="product-description">{(this.props.locations[data.metadata.camera_id]) ? this.props.locations[data.metadata.camera_id] : "Unknown Location"}</div>
                         <i className="pi pi-tag product-category-icon"></i><span className="product-category">{data.tag}</span>
                     </div>
                 </div>
@@ -95,15 +95,20 @@ class VideoList extends Component<VideoListProps, VideoListState> {
                         </div>
                     </div>
                     <div className="product-grid-item-content">
-                        <ReactPlayer
-                            url={data.path_in_s3}
-                            playing={false}
-                            className="thumbnail"
-                            width={'200px'}
-                            height={'100%'}
-                        />
-                        <div className="product-name">{moment.unix(data.metadata.timestamp).format("DD-MM-YYYY hh:mm:ss")}</div>
-                        <div className="product-description">{(this.props.locations[data.metadata.camera_id])? this.props.locations[data.metadata.camera_id]:"Unknown Location"}</div>
+                        <div className="p-grid">
+                            <div style={{ margin: 'auto', display: 'flex', alignItems: 'center', justifyContent: 'center' }} className='p-col-12 p-md-12 p-lg-12'>
+                                <ReactPlayer
+
+                                    url={data.path_in_s3}
+                                    playing={false}
+                                    className="thumbnail"
+                                    width={'200px'}
+                                    height={'100%'}
+                                />
+                            </div>
+                        </div>
+                        <div className="p-col-12 p-md-12 p-lg-12 product-name">{moment.unix(data.metadata.timestamp).format("DD-MM-YYYY hh:mm:ss")}</div>
+                        <div className="p-col-12 p-md-12 p-lg-12 product-description">{(this.props.locations[data.metadata.camera_id]) ? this.props.locations[data.metadata.camera_id] : "Unknown Location"}</div>
                     </div>
                 </div>
             </div>
@@ -127,7 +132,7 @@ class VideoList extends Component<VideoListProps, VideoListState> {
                 <div className="p-col-6" style={{ textAlign: 'left' }}>
                     {/* <Dropdown options={this.sortOptions} value={this.state.sortKey} optionLabel="label" placeholder="Sort By Price" onChange={this.onSortChange}/> */}
                     {/* <p style={{marginTop: '0.5rem'}}>Recordings</p> */}
-                    <Button icon="pi pi-refresh" className="p-button-rounded p-button-text" onClick={this.props.fetch}/>
+                    <Button icon="pi pi-refresh" className="p-button-rounded p-button-text" onClick={this.props.fetch} />
                 </div>
                 <div className="p-col-6" style={{ textAlign: 'right' }}>
                     <DataViewLayoutOptions layout={this.state.layout} onChange={(e) => this.setState({ layout: e.value })} />
