@@ -140,6 +140,25 @@ export async function updateNotification(security_company: string, not_type: str
 
 }
 
+export async function updateIdentityNotification(key, message, watch, succ, err){
+  let url = 'https://b534kvo5c6.execute-api.af-south-1.amazonaws.com/testing/identities/watchlist?message='+message+"&key=" + key + "&watch="+watch
+  let { idToken } = await Auth.currentSession()
+
+  await axios.post(url, 
+    {
+      message, 
+      key,
+      watch
+    },
+    {
+
+      headers: {
+        Authorization: `${idToken.jwtToken}`
+
+      }
+    }).then(succ).catch(err)
+
+}
 
 
 

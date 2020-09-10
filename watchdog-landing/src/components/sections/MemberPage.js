@@ -1,8 +1,11 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import classNames from 'classnames';
 import { SectionTilesProps } from '../../utils/SectionProps';
 import SectionHeader from './partials/SectionHeader';
 import Image from '../elements/Image';
+import { Link } from 'react-router-dom';
+import Wave from 'react-wavify'
+
 
 const propTypes = {
   ...SectionTilesProps.types
@@ -47,13 +50,19 @@ const MemberPage = ({
     title: 'Our Team',
     paragraph: 'Our team has a very diverse skill set which when combined with the fact that we have all worked together extensively in the past makes for a robust, well-rounded and efficient team that produces results. We work as a cross-functional group that has the ability to be self-organizing. Since the beginning we have approached each problem at hand with a positive attitude to achieve at our best ability. All members are motivated to ensure that the client’s needs are fulfilled end to end. We take pride in being able to apply ourselves to problem solving in a clear and in-depth way. It can be noted that we do not have much experience integrating with AWS, however, through our persistence and motivation, we are determined to learn and expand our knowledge thereof We understand the potential that Watchdog has and the impact that it can have on our fellow South Africans. Security in South Africa is a constant concern that is never promised. Hence, by providing  a surveillance system that has the ability to identify intruders and notify security companies in real-time, will improve the rate of response by security companies. This has the ability to revolutionize the way that security is carried out and it is only the beginning.'
   };
+  useEffect(() => {
+    window.scrollTo(0, 0)
+});
 
   return (
     <section
       {...props}
       className={outerClasses}
     >
+            <div className="wave"><Wave fill="#169de0"  options={{ points: 40, speed: 0.2, amplitude: 40 }}></Wave> </div>
+
       <div className="container">
+      {/* <Link to={"/"} className="button button-primary button-wide-mobile button-sm" >Home</Link> */}
         <div className={innerClasses}>
           <SectionHeader data={sectionHeader} className="center-content container-md" />
           <div className={tilesClasses}>

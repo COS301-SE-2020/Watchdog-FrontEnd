@@ -7,7 +7,7 @@ const Home = () => {
 
   return (
     <>
-      <MemberPage/>
+      <MemberPage className='illustration-section-01'/>
     </>
   );
 }
