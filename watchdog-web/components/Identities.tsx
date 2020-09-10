@@ -134,13 +134,13 @@ class Identities extends Component<propsIdentities, stateIdentities> {
                                             
                                             this.setState({ notifications_name: identity.name, notifications_monitor: identity.monitor, natification_key : identity.img_key })
                                             this.toggleNotificationModal(true, null)
-                                        }} tooltip ='Notification Settings' icon="pi pi-bell" className="p-button p-button-rounded p-mr-2" />
+                                        }} tooltipOptions={{position : 'bottom'}} tooltip ='Notification Settings' icon="pi pi-bell" className="p-button p-button-rounded p-mr-2" />
 
                                         <Button onClick={() => {
                                             
                                             this.setState({ remove_name: identity.name || 'No Name', remove_index: identity.id })
                                             this.toggleRemoveModal(true, null)
-                                        }} tooltip ='Remove Identity' icon="pi pi-times" className="p-button-danger p-button-rounded"  />
+                                        }} tooltipOptions={{position : 'bottom'}} tooltip ='Remove Identity' icon="pi pi-times" className="p-button-danger p-button-rounded"  />
                                     </div>
                                 </div>
                             </div>
@@ -206,7 +206,7 @@ class Identities extends Component<propsIdentities, stateIdentities> {
                 <div style={{ display: this.state.loading ? 'block' : 'none' }} className="p-field p-col-12 p-md-12"> <ProgressBar mode="indeterminate" style={{ height: '6px' }}></ProgressBar></div>
                 <div className='p-col-12 p-md-12 p-lg-12'>
                     <div className="card">
-                        <Carousel  value={this.state.data} numVisible={1} numScroll={1} responsiveOptions={responsiveOptions}
+                        <Carousel circular={true} value={this.state.data} numVisible={1} numScroll={1} responsiveOptions={responsiveOptions}
                             itemTemplate={this.identityTemplate} />
                     </div>
 

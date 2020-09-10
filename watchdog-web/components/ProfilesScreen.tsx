@@ -9,8 +9,10 @@ import { Dialog } from 'primereact/dialog';
 import { Button } from 'primereact/button'
 import { Toast } from 'primereact/toast'
 import AddIdentityModal from "./AddIdentityModal"
+import { Dropdown } from 'primereact/dropdown'
+
 // import { getUserData } from '../app-redux/actions'
-import {getProfileAnalytics} from '../api'
+import { getProfileAnalytics } from '../api'
 
 interface ProfilesScreenProps {
     fetch: Function
@@ -20,8 +22,9 @@ interface ProfilesScreenProps {
 
 interface ProfilesScreenState {
     activeIndex: number,
-    add_identities_modal : boolean
-    
+    add_identities_modal: boolean
+    sort: any
+
 }
 
 class ProfilesScreen extends Component<ProfilesScreenProps, ProfilesScreenState> {
@@ -29,7 +32,8 @@ class ProfilesScreen extends Component<ProfilesScreenProps, ProfilesScreenState>
         super(props)
         this.state = {
             activeIndex: 0,
-            add_identities_modal : false
+            add_identities_modal: false,
+            sort: { name: 'Weekly', code: 'WEEKLY' }
         }
         this.toggleAddIdentitiesModal = this.toggleAddIdentitiesModal.bind(this)
     }
@@ -52,9 +56,9 @@ class ProfilesScreen extends Component<ProfilesScreenProps, ProfilesScreenState>
 
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.props.fetch()
-        getProfileAnalytics((v)=>{console.log(v)},(v)=>{console.log(v)})
+        // getProfileAnalytics((v)=>{console.log(v)},(v)=>{console.log(v)})
     }
 
     render() {
@@ -66,9 +70,21 @@ class ProfilesScreen extends Component<ProfilesScreenProps, ProfilesScreenState>
                     <div className="p-col-12 p-md-12 p-lg-7 ">
 
                         <Panel
-                            header={<h1>Analytics</h1>}
+
+
+                            header={<div
+                                className="p-grid "
+
+                            >
+                                <div className="p-col-12" >
+                                    <h2>Analytics</h2>
+                                    
+                                </div>
+
+                            </div>}
                             className="p-shadow-8"
                         >
+
                             <ProfileAnalyticsChart height='60vh' onClickDatapoint={(e) => console.log("HERE" + e)} />
                         </Panel>
 
@@ -84,7 +100,7 @@ class ProfilesScreen extends Component<ProfilesScreenProps, ProfilesScreenState>
                                     <Identities getData={this.props.fetch} data={this.props.identities} loading={this.props.loading} />
                                 </div>
                                 <div className="p-col-12 p-md-12 p-lg-12 ">
-                                    <Button onClick={() => this.toggleAddIdentitiesModal(true, null)}  style={{ width: '100%' }} label="New Identity" className="p-button-raised p-button-info" />
+                                    <Button onClick={() => this.toggleAddIdentitiesModal(true, null)} style={{ width: '100%' }} label="New Identity" className="p-button-raised p-button-info" />
                                 </div>
                             </div>
                         </Panel>

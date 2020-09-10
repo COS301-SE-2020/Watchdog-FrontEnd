@@ -253,3 +253,15 @@ export type stateAddIdentityModal = {
   file: any
 
 }
+
+export type propsProfileAnalyticModals = {
+  name : string
+  show_modal : boolean
+  hide_modal : Function
+  img_list : any[]
+
+}
+
+export type stateProfileAnalyticModals = {
+  
+}

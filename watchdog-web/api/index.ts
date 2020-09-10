@@ -160,9 +160,10 @@ export async function updateIdentityNotification(key, message, watch, succ, err)
 
 }
 
-export async function getProfileAnalytics(succ, err){
-  let url = 'https://b534kvo5c6.execute-api.af-south-1.amazonaws.com/testing/analytics?end_date=1599762816.481943&time_scale=WEEKLY'
+export async function getProfileAnalytics(scale , succ, err){
+  let url = 'https://b534kvo5c6.execute-api.af-south-1.amazonaws.com/testing/analytics/profile?end_date='+Math.abs(Date.now())/1000+'&time_scale='+scale
   let { idToken } = await Auth.currentSession()
+  console.log(Date.now())
   await axios.get(url,
     {
 

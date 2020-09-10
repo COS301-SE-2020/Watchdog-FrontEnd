@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
 import { ResponsiveLine } from '@nivo/line'
+import { getProfileAnalytics } from '../api'
+import ProfileAnalyticModals from './ProfileAnalyticModals'
+import { Dropdown } from 'primereact/dropdown'
 // make sure parent container have a defined height when using
 // responsive component, otherwise height will be 0 and
 // no chart will be rendered.
@@ -7,11 +10,17 @@ import { ResponsiveLine } from '@nivo/line'
 // you'll often use just a few of them.
 
 
-interface ProfileAnalyticsProps { 
-    height: any 
+interface ProfileAnalyticsProps {
+    height: any
     onClickDatapoint?: Function
 }
-interface ProfileAnalyticsState { data: any[] }
+interface ProfileAnalyticsState {
+    data: any[]
+    modal: boolean
+    name: string
+    img: any[]
+
+}
 
 class ProfileAnalyticsChart extends Component<ProfileAnalyticsProps, ProfileAnalyticsState> {
 
@@ -19,309 +28,54 @@ class ProfileAnalyticsChart extends Component<ProfileAnalyticsProps, ProfileAnal
         super(props)
         this.state = {
             data: [
-                {
-                    "id": "Jordan",
-                    "color": "hsl(87, 70%, 50%)",
-                    "data": [
-                        {
-                            "images": [
-                                {
-                                    "path_in_s3": '',
-                                    "timestamp": "",
-                                    "camera_id": ""
-                                }
-                            ],
-                            "x": "Week 1 (4 Sept)",
-                            "y": 0
-                        },
-                        {
-                            "x": "Week 2 (11 Sept)",
-                            "y": 190
-                        },
-                        {
-                            "x": "Week 3 (18 Sept)",
-                            "y": 105
-                        },
-                        {
-                            "x": "train",
-                            "y": 27
-                        },
-                        {
-                            "x": "subway",
-                            "y": 238
-                        },
-                        {
-                            "x": "bus",
-                            "y": 58
-                        },
-                        {
-                            "x": "car",
-                            "y": 229
-                        },
-                        {
-                            "x": "moto",
-                            "y": 95
-                        },
-                        {
-                            "x": "bicycle",
-                            "y": 251
-                        },
-                        {
-                            "x": "horse",
-                            "y": 94
-                        },
-                        {
-                            "x": "skateboard",
-                            "y": 26
-                        },
-                        {
-                            "x": "others",
-                            "y": 270
-                        }
-                    ]
-                },
-                {
-                    "id": "Churchill",
-                    "color": "hsl(331, 70%, 50%)",
-                    "data": [
-                        {
-                            "x": "Week 1 (4 Sept)",
-                            "y": 240
-                        },
-                        {
-                            "x": "Week 2 (11 Sept)",
-                            "y": 213
-                        },
-                        {
-                            "x": "Week 3 (18 Sept)",
-                            "y": 108
-                        },
-                        {
-                            "x": "train",
-                            "y": 136
-                        },
-                        {
-                            "x": "subway",
-                            "y": 128
-                        },
-                        {
-                            "x": "bus",
-                            "y": 12
-                        },
-                        {
-                            "x": "car",
-                            "y": 221
-                        },
-                        {
-                            "x": "moto",
-                            "y": 287
-                        },
-                        {
-                            "x": "bicycle",
-                            "y": 174
-                        },
-                        {
-                            "x": "horse",
-                            "y": 205
-                        },
-                        {
-                            "x": "skateboard",
-                            "y": 150
-                        },
-                        {
-                            "x": "others",
-                            "y": 215
-                        }
-                    ]
-                },
-                {
-                    "id": "Luqmaan",
-                    "color": "hsl(338, 70%, 50%)",
-                    "data": [
-                        {
-                            "x": "Week 1 (4 Sept)",
-                            "y": 172
-                        },
-                        {
-                            "x": "Week 2 (11 Sept)",
-                            "y": 203
-                        },
-                        {
-                            "x": "Week 3 (18 Sept)",
-                            "y": 228
-                        },
-                        {
-                            "x": "train",
-                            "y": 1
-                        },
-                        {
-                            "x": "subway",
-                            "y": 295
-                        },
-                        {
-                            "x": "bus",
-                            "y": 46
-                        },
-                        {
-                            "x": "car",
-                            "y": 141
-                        },
-                        {
-                            "x": "moto",
-                            "y": 161
-                        },
-                        {
-                            "x": "bicycle",
-                            "y": 100
-                        },
-                        {
-                            "x": "horse",
-                            "y": 265
-                        },
-                        {
-                            "x": "skateboard",
-                            "y": 220
-                        },
-                        {
-                            "x": "others",
-                            "y": 126
-                        }
-                    ]
-                }
-                // {
-                //     "id": "germany",
-                //     "color": "hsl(20, 70%, 50%)",
-                //     "data": [
-                //         {
-                //             "x": "Week 1 (4 Sept)",
-                //             "y": 136
-                //         },
-                //         {
-                //             "x": "Week 2 (11 Sept)",
-                //             "y": 66
-                //         },
-                //         {
-                //             "x": "Week 3 (18 Sept)",
-                //             "y": 45
-                //         },
-                //         {
-                //             "x": "train",
-                //             "y": 109
-                //         },
-                //         {
-                //             "x": "subway",
-                //             "y": 148
-                //         },
-                //         {
-                //             "x": "bus",
-                //             "y": 90
-                //         },
-                //         {
-                //             "x": "car",
-                //             "y": 135
-                //         },
-                //         {
-                //             "x": "moto",
-                //             "y": 93
-                //         },
-                //         {
-                //             "x": "bicycle",
-                //             "y": 160
-                //         },
-                //         {
-                //             "x": "horse",
-                //             "y": 231
-                //         },
-                //         {
-                //             "x": "skateboard",
-                //             "y": 214
-                //         },
-                //         {
-                //             "x": "others",
-                //             "y": 288
-                //         }
-                //     ]
-                // },
-                // {
-                //     "id": "norway",
-                //     "color": "hsl(170, 70%, 50%)",
-                //     "data": [
-                //         {
-                //             "x": "Week 1 (4 Sept)",
-                //             "y": 14
-                //         },
-                //         {
-                //             "x": "Week 2 (11 Sept)",
-                //             "y": 53
-                //         },
-                //         {
-                //             "x": "Week 3 (18 Sept)",
-                //             "y": 232
-                //         },
-                //         {
-                //             "x": "train",
-                //             "y": 15
-                //         },
-                //         {
-                //             "x": "subway",
-                //             "y": 209
-                //         },
-                //         {
-                //             "x": "bus",
-                //             "y": 155
-                //         },
-                //         {
-                //             "x": "car",
-                //             "y": 262
-                //         },
-                //         {
-                //             "x": "moto",
-                //             "y": 211
-                //         },
-                //         {
-                //             "x": "bicycle",
-                //             "y": 264
-                //         },
-                //         {
-                //             "x": "horse",
-                //             "y": 295
-                //         },
-                //         {
-                //             "x": "skateboard",
-                //             "y": 129
-                //         },
-                //         {
-                //             "x": "others",
-                //             "y": 207
-                //         }
-                //     ]
-                // }
-            ]
+
+            ],
+            modal: false,
+            name: '',
+            img: []
+
         }
 
         this.onClickDatapoint = this.onClickDatapoint.bind(this)
+        this.toggleModal = this.toggleModal.bind(this)
+
+    }
+
+    toggleModal(val) {
+        this.setState({ modal: val })
 
     }
 
     onClickDatapoint = (e) => {
-        this.props.onClickDatapoint? this.props.onClickDatapoint(e): console.log(e)
+        //this.props.onClickDatapoint? this.props.onClickDatapoint(e): console.log(e)
+        this.setState({ name: e.serieId, img: e.data.images })
+        this.toggleModal(true)
+        console.log(e)
+
     }
 
 
     componentDidMount = () => {
-        console.log("MOUNTED");
-        console.log(this.props.height);
+        getProfileAnalytics('WEEKLY', (e) => {
+
+            this.setState({ data: e.data.data })
+
+        }, () => {
+
+        })
 
     }
 
     render() {
         return (
             <div style={{ backgroundColor: 'black', height: this.props.height }}>
+
+                <ProfileAnalyticModals name={this.state.name} img_list={this.state.img} show_modal={this.state.modal} hide_modal={this.toggleModal} />
                 <ResponsiveLine
                     onClick={this.onClickDatapoint}
                     data={this.state.data}
                     margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
-                    curve='natural'
+                    curve='linear'
                     xScale={{ type: 'point' }}
                     yScale={{ type: 'linear', min: 'auto', max: 'auto', stacked: true, reverse: false }}
                     axisTop={null}
@@ -379,6 +133,8 @@ class ProfileAnalyticsChart extends Component<ProfileAnalyticsProps, ProfileAnal
                         }
                     ]}
                 />
+
+                
 
             </div>
 
