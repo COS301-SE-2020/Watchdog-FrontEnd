@@ -29,7 +29,7 @@ export function getSecurityLevel() {
         Auth.currentSession().then(
             idToken => {
                 let jwt = idToken.getIdToken().getJwtToken()
-                console.log(jwt)
+                // console.log(jwt)
                 dispatch(
                     {
                         types: [actionTypes.GET_SECURITYLEVEL, actionTypes.GET_SECURITYLEVEL_SUCCESS, actionTypes.GET_SECURITYLEVEL_FAIL],
@@ -327,6 +327,32 @@ export function updateNotificationPreferences(security_company, type) {
                                 }
                             }
                         }
+                    }
+                )
+            }
+        )
+    }
+}
+
+export function connectToFeed(camera_list, site_id) {
+    return (dispatch) => {
+        dispatch({
+            type: "START_STREAM",
+            view: {
+                site_id, camera_list
+            }
+        })
+    }
+}
+
+export function authorizeServerConnection() {
+    return (dispatch) => {
+        Auth.currentSession().then(
+            idToken => {
+                let jwt = idToken.getIdToken().getJwtToken()
+                dispatch(
+                    {
+                        type: 'AUTHENTICATE_STREAM'
                     }
                 )
             }

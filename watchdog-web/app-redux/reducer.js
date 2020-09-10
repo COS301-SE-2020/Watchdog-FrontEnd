@@ -20,6 +20,7 @@ function dataReducer(state = defaultState.UserData, action) {
                 draft.preferences = action.payload.data.data.preferences
                 draft.security_level = action.payload.data.data.security_level
                 draft.identities = action.payload.data.data.identities
+                draft.user_id = action.payload.data.data.user_id
             })
         case actions.GET_RECORDINGS_SUCCESS:
             return produce(state, draftState => {
@@ -295,15 +296,26 @@ function statisticsReducer(state = {}, action) {
     }
 }
 
+
+
 function liveReducer(state = defaultState.Live, action) {
     switch (action.type) {
         case "LIVE_CONNECTED":
+            console.log("LIVE CONNECTED -----------------")
+            const temp = produce(state, draft => {
+                draft.status = true
+            })
+            console.log(state)
+            console.log("LIVE CONNECTED -----------------")
+            return temp;
+        case "UPDATE_PRODUCERS":
+            console.log("UPDATE PRODUCERS -----------------")
             return produce(state, draft => {
-                draft.status = "Connected"
+                draft.producers = action.data.producers
             })
         case "LIVE_DISCONNECTED":
             return produce(state, draft => {
-                draft.status = "Disconnected"
+                draft.status = false
             })
         case "START_STREAM":
             return produce(state, draft => {
