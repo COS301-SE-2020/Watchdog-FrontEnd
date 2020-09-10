@@ -91,6 +91,9 @@ class DashboardScreen extends Component<DashboardScreenProps, DashboardScreenSta
                                                     bottom: 0
                                                 }
                                             },
+                                            tooltip: {
+                                                
+                                            }
                                         }}
                                         height="100%"
                                     />

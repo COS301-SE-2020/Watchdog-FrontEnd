@@ -8,6 +8,7 @@
     "type-check": "tsc"
   },
   "dependencies": {
+    "@nivo/api": "^0.62.0",
     "aws-amplify": "^3.0.24",
     "axios": "^0.20.0",
     "babel-loader": "^8.1.0",
