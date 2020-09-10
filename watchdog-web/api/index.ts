@@ -163,7 +163,22 @@ export async function updateIdentityNotification(key, message, watch, succ, err)
 export async function getProfileAnalytics(scale , succ, err){
   let url = 'https://b534kvo5c6.execute-api.af-south-1.amazonaws.com/testing/analytics/profile?end_date='+Math.abs(Date.now())/1000+'&time_scale='+scale
   let { idToken } = await Auth.currentSession()
-  console.log(Date.now())
+  
+  await axios.get(url,
+    {
+
+      headers: {
+        Authorization: `${idToken.jwtToken}`
+
+      }
+    }).then(succ).catch(err)
+
+}
+
+export async function getDashBoardAnalytics(succ, err){
+  let url = 'https://b534kvo5c6.execute-api.af-south-1.amazonaws.com/testing/analytics/dashboard?end_date='+Math.abs(Date.now())/1000
+  let { idToken } = await Auth.currentSession()
+  
   await axios.get(url,
     {
 

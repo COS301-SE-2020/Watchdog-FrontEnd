@@ -76,16 +76,25 @@ class ProfilesScreen extends Component<ProfilesScreenProps, ProfilesScreenState>
                                 className="p-grid "
 
                             >
-                                <div className="p-col-12" >
+                                <div className="p-col-6" >
                                     <h2>Analytics</h2>
-                                    
-                                </div>
 
+                                </div>
+                                <div className="p-col-6" >
+                                    <h2>
+
+                                        <Dropdown style={{ testAlign: 'left' }} options={[
+                                            { name: 'Weekly', code: 'WEEKLY' },
+                                            { name: 'Monthly', code: 'MONTHLY' },
+                                            { name: 'Daily', code: 'DAILY' }
+                                        ]} value={this.state.sort} optionLabel="name" placeholder="Scale" onChange={(e) => { this.setState({ sort: e.value }) }} />
+                                    </h2>
+                                </div>
                             </div>}
                             className="p-shadow-8"
                         >
 
-                            <ProfileAnalyticsChart height='60vh' onClickDatapoint={(e) => console.log("HERE" + e)} />
+                            <ProfileAnalyticsChart scale={this.state.sort.code} height='60vh' onClickDatapoint={(e) => console.log("HERE" + e)} />
                         </Panel>
 
                     </div>

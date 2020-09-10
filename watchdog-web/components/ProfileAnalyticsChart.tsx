@@ -13,6 +13,7 @@ import { Dropdown } from 'primereact/dropdown'
 interface ProfileAnalyticsProps {
     height: any
     onClickDatapoint?: Function
+    scale : string
 }
 interface ProfileAnalyticsState {
     data: any[]
@@ -54,8 +55,15 @@ class ProfileAnalyticsChart extends Component<ProfileAnalyticsProps, ProfileAnal
 
     }
 
+    UNSAFE_componentWillReceiveProps(propsOld, PropsNew){
+        
+    }
 
-    componentDidMount = () => {
+
+
+
+    componentDidMount()  {
+        
         getProfileAnalytics('WEEKLY', (e) => {
 
             this.setState({ data: e.data.data })
@@ -85,7 +93,7 @@ class ProfileAnalyticsChart extends Component<ProfileAnalyticsProps, ProfileAnal
                         tickSize: 5,
                         tickPadding: 5,
                         tickRotation: 0,
-                        legend: 'transportation',
+                        legend: 'Date',
                         legendOffset: 36,
                         legendPosition: 'middle'
                     }}

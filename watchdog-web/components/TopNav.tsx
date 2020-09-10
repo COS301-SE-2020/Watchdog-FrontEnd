@@ -32,12 +32,12 @@ class TopNav extends Component<propsTopNav, stateTopNav> {
                 label: 'System Settings',
                 icon: 'pi pi-fw pi-cog',
                 items: [
-                    {
-                        label: 'Identity Settings',
-                        icon: 'pi pi-fw pi-users',
-                        command : ()=>this.props.toggle_identites(true)
+                    // {
+                    //     label: 'Identity Settings',
+                    //     icon: 'pi pi-fw pi-users',
+                    //     command : ()=>this.props.toggle_identites(true)
 
-                    },
+                    // },
                     {
                         label: 'Detected Images',
                         icon: 'pi pi-fw pi-exclamation-triangle',

@@ -7,8 +7,9 @@ import { connect } from 'react-redux';
 import SecurityLevelPanel from './SecurityLevelPanel';
 import CameraView from './CameraView';
 import Events from './Events';
+import { getDashBoardAnalytics } from '../api'
 
-interface DashboardScreenProps {}
+interface DashboardScreenProps { }
 
 interface DashboardScreenState {
     pieData: object
@@ -57,6 +58,13 @@ class DashboardScreen extends Component<DashboardScreenProps, DashboardScreenSta
         }
     }
 
+    componentDidMount() {
+        getDashBoardAnalytics((e) => {
+            console.log(e.data.data)
+            this.setState({lineData: e.data.data})
+        }, (e) => { console.log(e) })
+    }
+
     render() {
         return (
             <div
@@ -69,7 +77,7 @@ class DashboardScreen extends Component<DashboardScreenProps, DashboardScreenSta
                                 <SecurityLevelPanel />
                             </div>
                             <div className="p-col-4" style={{ minHeight: '40vh', width: '50%' }}>
-                                <Events/>
+                                <Events />
                             </div>
                             <div className="p-col-12" style={{ height: '40vh' }}>
                                 <Panel header="Analytics" style={{ height: '100%' }} className="p-shadow-8">
@@ -92,7 +100,7 @@ class DashboardScreen extends Component<DashboardScreenProps, DashboardScreenSta
                                                 }
                                             },
                                             tooltip: {
-                                                
+
                                             }
                                         }}
                                         height="100%"
