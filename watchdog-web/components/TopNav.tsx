@@ -24,6 +24,11 @@ class TopNav extends Component<propsTopNav, stateTopNav> {
                 command : ()=>{this.props.changeScreen(2)}
             },
             {
+                label: 'Profiles',
+                icon: 'pi pi-fw pi-users',
+                command : ()=>{this.props.changeScreen(3)}
+            },
+            {
                 label: 'System Settings',
                 icon: 'pi pi-fw pi-cog',
                 items: [

@@ -107,7 +107,13 @@ class Identities extends Component<propsIdentities, stateIdentities> {
 
     componentDidMount() {
         this.getData()
+        
 
+    }
+
+    componentDidUpdate = () => {
+
+        console.log(this.props.data);
     }
 
     identityTemplate(identity: identity) {

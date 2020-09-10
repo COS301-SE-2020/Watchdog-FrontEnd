@@ -18,13 +18,13 @@ const logger = createLogger({})
 
 // let composeEnhancers = compose;
 
-if (global.window != null) {
-    composeEnhancers = global.window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
-}
-let composeEnhancers = compose;
-// if (typeof window !== "undefined") {
-//     composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
+// if (global.window != null) {
+//     composeEnhancers = global.window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
 // }
+let composeEnhancers = compose;
+if (typeof window !== "undefined") {
+    composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
+}
 
 const store = createStore(
     watchdogApp,
@@ -37,7 +37,7 @@ const store = createStore(
                     generic: { client: genericClient }
                 }
             ),
-            logger
+            // logger
         )
     )
 
