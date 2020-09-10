@@ -49,9 +49,11 @@ class ProfileAnalyticsChart extends Component<ProfileAnalyticsProps, ProfileAnal
 
     onClickDatapoint = (e) => {
         //this.props.onClickDatapoint? this.props.onClickDatapoint(e): console.log(e)
+        if(e.data.images.length>0){
         this.setState({ name: e.serieId, img: e.data.images })
         this.toggleModal(true)
-        console.log(e)
+        }
+        console.log(e.data.images.length)
 
     }
 
