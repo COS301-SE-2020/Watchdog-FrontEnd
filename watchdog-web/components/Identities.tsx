@@ -127,8 +127,7 @@ class Identities extends Component<propsIdentities, stateIdentities> {
                             <div style={{ margin: 'auto', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '0.5rem' }} className='p-col-12 p-md-12 p-lg-12 '>
 
 
-                                <Img style={{ height: '350px', width: '350px', objectFit: 'contain' }} src={identity.img} loader={
-                                    <i className="pi pi-spin pi-spinner" style={{ 'fontSize': '5em' }}></i>} />
+                                <Img style={{ height: '350px', width: '350px' }} src={identity.img} loader={<i className="pi pi-spin pi-spinner" style={{ 'fontSize': '5em' }}></i>} />
 
 
                             </div>

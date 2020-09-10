@@ -12,7 +12,7 @@ interface ProfilesScreenProps {
     loading: boolean
 }
 
-interface ProfilesScreenState {}
+interface ProfilesScreenState { }
 
 class ProfilesScreen extends Component<ProfilesScreenProps, ProfilesScreenState> {
     constructor(props) {
@@ -20,14 +20,14 @@ class ProfilesScreen extends Component<ProfilesScreenProps, ProfilesScreenState>
         // this.state = {}
     }
 
-    componentDidMount = () => {}
+    componentDidMount = () => { }
 
     render() {
         return (
 
 
             <div style={{}}>
-                <Identities data={this.props.identities} getData={this.props.fetch} loading={this.props.loading}/>
+                <Identities data={this.props.identities} getData={this.props.fetch} loading={this.props.loading} />
             </div>
 
 
@@ -41,7 +41,16 @@ class ProfilesScreen extends Component<ProfilesScreenProps, ProfilesScreenState>
 }
 
 const mapStoreToProps = (store) => ({
-    identities: store.Data.identities.profiles,
+    identities: store.Data.identities.profiles.map((item, index) => {
+        let el = {
+            id: item.index,
+            name: item.name,
+            img: item.path_in_s3,
+            monitor: item.monitor,
+            img_key: item.key
+        }
+        return el
+    }),
     loading: store.UI.Identities.loading
 })
 
