@@ -160,5 +160,19 @@ export async function updateIdentityNotification(key, message, watch, succ, err)
 
 }
 
+export async function getProfileAnalytics(succ, err){
+  let url = 'https://b534kvo5c6.execute-api.af-south-1.amazonaws.com/testing/analytics?end_date=1599762816.481943&time_scale=WEEKLY'
+  let { idToken } = await Auth.currentSession()
+  await axios.get(url,
+    {
+
+      headers: {
+        Authorization: `${idToken.jwtToken}`
+
+      }
+    }).then(succ).catch(err)
+
+}
+
 
 

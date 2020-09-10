@@ -316,7 +316,7 @@ class ProfileAnalyticsChart extends Component<ProfileAnalyticsProps, ProfileAnal
 
     render() {
         return (
-            <div style={{ backgroundColor: 'white', height: this.props.height }}>
+            <div style={{ backgroundColor: 'black', height: this.props.height }}>
                 <ResponsiveLine
                     onClick={this.onClickDatapoint}
                     data={this.state.data}
