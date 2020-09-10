@@ -47,9 +47,9 @@ class UserManagement extends Component<{}, Login> {
 
     }
     handleforgot(){
-        console.log("here")
+        
         return(
-            <ForgotPassword/>
+            <ForgotPassword returnSignIn = { this.returnToSignIn}/>
         )
     }
 
@@ -119,7 +119,7 @@ class UserManagement extends Component<{}, Login> {
                 console.log(" here")
                 return(
                     
-                    <ForgotPassword/>
+                    <ForgotPassword returnSignIn = { this.returnToSignIn}/>
                 )
             } 
     }

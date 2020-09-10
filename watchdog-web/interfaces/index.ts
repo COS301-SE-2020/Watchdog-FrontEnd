@@ -22,6 +22,8 @@ export type Signup = {
   hasSignedup: boolean
   Verified: boolean
   phone: string
+  confirmPassword : string
+  loading : boolean
 
 }
 export type ForgotPasswordState = {
