@@ -75,7 +75,7 @@
     },
     "Statistics": {},
     "Live": {
-        "status": "Disconnected",
+        "status": false,
         "producers": {},
         "consume": {
             "site_id": null,
