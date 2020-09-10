@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {connect} from 'react-redux'
 import TopNav from "./TopNav"
 import { propsApp, stateApp } from '../interfaces'
 import DashboardScreen from './DashboardScreen'
@@ -8,6 +9,9 @@ import DetectedImagesModal from './DetectedImagesModal'
 import NotificationModal from './NotificationModal'
 import LogoutModal from './LogoutModal'
 import ChangePasswordModal from './ChangePasswordModal'
+
+import { getUserData } from '../app-redux/actions'
+
 
 class App extends Component<propsApp, stateApp> {
     constructor(props: propsApp) {
@@ -29,6 +33,11 @@ class App extends Component<propsApp, stateApp> {
         this.togglePasswordModal = this.togglePasswordModal.bind(this)
 
     }
+
+    componentDidMount = () => {
+        this.props.getAllData()
+    }
+
     togglePasswordModal(val: boolean){
         this.setState({changePasswordModal : val})
     }
@@ -84,4 +93,11 @@ class App extends Component<propsApp, stateApp> {
     }
 }
 
-export default App;
+const mapStoreToProps = (store) => ({})
+const mapDispatchToProps = (dispatch) => ({
+    getAllData: () => dispatch(getUserData())
+})
+
+export default connect(
+    mapStoreToProps, mapDispatchToProps
+)(App);

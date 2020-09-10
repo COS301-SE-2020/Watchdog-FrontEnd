@@ -63,7 +63,7 @@ export type stateTopNav = {
 }
 
 export type propsApp = {
-
+  getAllData: Function
 
 }
 
