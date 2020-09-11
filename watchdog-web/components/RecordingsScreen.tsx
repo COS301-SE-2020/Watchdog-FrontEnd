@@ -3,10 +3,11 @@ import { findDOMNode } from 'react-dom'
 import { Panel } from 'primereact/panel'
 import ReactPlayer from 'react-player'
 import screenfull from 'screenfull'
-
+import { MultiSelect } from 'primereact/multiselect';
 import moment from 'moment';
 import { connect } from 'react-redux';
-
+import { Calendar } from 'primereact/calendar';
+var type=[{}];
 import { getRecordings } from '../app-redux/actions';
 import VideoList from './VideoList'
 import { produce } from 'immer';
@@ -34,8 +35,20 @@ interface RecordingsScreenState {
     loop: boolean
     seeking: boolean
     header: string
+    date: any
+    timefrom: any
+    timeto: any
+    selected_rooms: any[]
+    rooms: any[]
+    type: any[]
 }
 
+type = [
+    { label: 'Movement', value: 'Movement' },
+    { label: 'Intruder', value: 'Intruder' },
+    { label: 'Periodic', value: 'Periodic' },
+
+];
 class RecordingsScreen extends Component<RecordingsScreenProps, RecordingsScreenState> {
     state = {
         // url: 'http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4',
@@ -52,18 +65,33 @@ class RecordingsScreen extends Component<RecordingsScreenProps, RecordingsScreen
         playbackRate: 1.0,
         loop: false,
         seeking: false,
-        header: ''
+        header: '',
+        date: null,
+        timefrom: null,
+        timeto: null,
+        selected_rooms: [],
+        type: [],
+        rooms:[]
     }
     player: any;
 
     constructor(props) {
         super(props);
+        this.handleClearDateFilter = this.handleClearDateFilter.bind(this)
+        this.handleChangeDateFilter = this.handleChangeDateFilter.bind(this)
+        this.handleChangeStartTime = this.handleChangeStartTime.bind(this)
+        this.handleClearStartTime = this.handleClearStartTime.bind(this)
+        this.handleChangeEndTime = this.handleChangeEndTime.bind(this)
+        this.handleClearEndTime = this.handleClearEndTime.bind(this)
+        this.handleChangeVideoType = this.handleChangeVideoType.bind(this)
+        this.handleChangeCameraLocation = this.handleChangeCameraLocation.bind(this)
+        this.applyFilter = this.applyFilter.bind(this)
     }
 
     componentDidMount = () => {
         this.props.fetch();
     }
-
+     
     handlePlayPause = () => {
         this.setState({ playing: !this.state.playing })
     }
@@ -135,6 +163,111 @@ class RecordingsScreen extends Component<RecordingsScreenProps, RecordingsScreen
         this.player = player
     }
 
+    handleClearDateFilter(){
+        this.setState({     
+            date : new Date    
+        }, this.applyFilter);
+        
+        
+    }
+
+    handleChangeDateFilter(value){
+        this.setState({     
+            date : value.value    
+        }, this.applyFilter);
+        console.log(value.value)
+        
+
+    }
+
+    handleChangeStartTime(value){
+        this.setState({timefrom : value.value}, this.applyFilter)
+        console.log(value.value)
+        
+    }
+
+    handleClearStartTime(){
+        this.setState({timefrom : []}, this.applyFilter)
+    }
+
+    handleChangeEndTime(value){
+        this.setState({timeto :value.value}, this.applyFilter)
+        console.log(value.value)
+        
+    }
+
+    handleClearEndTime(){
+        this.setState({timeto : null}, this.applyFilter)
+        console.log(this.state.timeto)
+    }
+
+    handleChangeVideoType(e){
+        this.setState({type : e.value},this.applyFilter)
+        console.log(e.value)
+    }
+
+    handleChangeCameraLocation(value, event){
+        this.setState({selected_rooms : value.value}, this.applyFilter)
+        console.log(value.value)
+
+    }
+    applyFilter(){
+        // let array = this.state.data
+        // //console.log(this.state.dateFilter.length)
+        // if(this.state.dateFilter.length===2){
+        //     //console.log("here")
+            
+        //    array = array.filter((item) =>{
+        //         let date = new Date(item.date)
+        //         return this.state.dateFilter[0]<=date &&date<=this.state.dateFilter[1]
+        //    }) 
+        // }
+
+        
+        // if(this.state.startTimeFilter.length!==0){
+        //     this.state.startTimeFilter[0].setSeconds(0)
+        //     //console.log(this.state.startTimeFilter[0])
+        //     array = array.filter((item) =>{
+        //         let date = new Date()
+        //         date.setHours(parseInt(item.time.split(":")[0]),parseInt(item.time.split(":")[1]),0)
+        //         //console.log(this.state.startTimeFilter[0])
+        //         //console.log(date)
+        //         return this.state.startTimeFilter[0].getTime()<=date.getTime()
+        //    })
+        // }
+
+        // if(this.state.endTimeFilter.length!==0){
+        //     this.state.endTimeFilter[0].setSeconds(0)
+        //     //console.log(this.state.startTimeFilter[0])
+        //     array = array.filter((item) =>{
+        //         let date = new Date()
+        //         date.setHours(parseInt(item.time.split(":")[0]),parseInt(item.time.split(":")[1]),0)
+        //         //console.log(this.state.startTimeFilter[0])
+        //         //console.log(date)
+        //         return this.state.endTimeFilter[0].getTime()>=date.getTime()
+        //    })
+        // }
+
+        // if(this.state.videoTypeFilter.length!==0){
+        //     array = array.filter((item) =>{
+        //         return this.state.videoTypeFilter.includes(item.type)
+        //     })
+        // }
+
+        // if(this.state.cameraLocation.length!==0){
+        //     array = array.filter((item) =>{
+        //         return this.state.cameraLocation.includes(item.location)
+        //     })
+        // }
+        // //console.log(array)
+
+        // this.setState({     
+        //     displayData : array    
+        // });
+        
+
+    }
+
     render() {
         const { url, playing, controls, light, volume, muted, loop, played, loaded, duration, playbackRate, pip } = this.state
         return (
@@ -156,7 +289,7 @@ class RecordingsScreen extends Component<RecordingsScreenProps, RecordingsScreen
                                             <div style={{ padding: 0, margin: 0 }} className="p-grid p-nogutter p-align-center p-justify-between">
                                                 <div className="p-col-11">{this.state.header}</div>
                                                 <div className="p-col-1">
-                                                    <Button style={{ textAlign: 'right', padding: 0, marginTop: 0, marginBottom: 0, color: 'red' }} icon="pi pi-times" className="p-button-rounded p-button-text" onClick={() => this.setState({url: ''})} />
+                                                    <Button style={{ textAlign: 'right', padding: 0, marginTop: 0, marginBottom: 0, color: 'red' }} icon="pi pi-times" className="p-button-rounded p-button-text" onClick={() => this.setState({ url: '' })} />
                                                 </div>
                                             </div>
                                     }
@@ -197,8 +330,47 @@ class RecordingsScreen extends Component<RecordingsScreenProps, RecordingsScreen
                                 </Panel>
 
                             </div>
-                            <div className="p-col-12" style={{ minHeight: '30vh' }}>
-                                Filters
+                            <div className="p-col-12" style={{alignItems: 'center', justifyContent: 'center', color: 'white', margin: '0px auto', display: 'flex', alignContent: 'center',textAlign:'center' }}>
+
+                                <div className="p-field p-col-6  ">
+                                    <label  >Date Filter</label>
+                                    <div style={{alignItems: 'center', justifyContent: 'center', color: 'white', margin: '0px auto', display: 'flex', alignContent: 'center',textAlign:'center' }} className="p-inputgroup">
+                                        <Calendar showButtonBar id="range" value={this.state.date} onChange={this.handleChangeDateFilter} selectionMode="range" readOnlyInput />
+                                       
+                                    </div>
+                                </div>
+                                <div className="p-field p-col-6">
+                                    <label htmlFor="range">Time Filter</label>
+                                    <div style={{alignItems: 'center', justifyContent: 'center', color: 'white', margin: '0px auto', display: 'flex', alignContent: 'center',textAlign:'center' }} className="p-inputgroup">
+
+                                        <Calendar showButtonBar id="time24" value={this.state.timefrom} onChange={this.handleChangeStartTime} showTime showSeconds timeOnly />
+
+                                        <div style={{ width: '25px', margin: '5px' }}>TO:</div>
+
+                                        <Calendar showButtonBar id="time24" value={this.state.timeto} onChange={this.handleChangeEndTime} showTime showSeconds timeOnly />
+                                       
+                                    </div>
+                                    
+
+                                </div>
+
+                            </div>
+                            <div className="p-col-12" style={{color: 'white', margin: '0px auto', display: 'flex', alignContent: 'center', textAlign:'center' }}>
+
+                                <div className="p-field p-col-6  ">
+                                    <label  >Select Room </label>
+                                    <div style={{alignItems: 'center', justifyContent: 'center', color: 'white', margin: '0px auto', display: 'flex', alignContent: 'center',textAlign:'center' }} className="p-inputgroup">
+                                        <MultiSelect style={{ width: '185px' }} value={this.state.selected_rooms} options={this.state.rooms}  onChange={this.handleChangeCameraLocation} />
+                                        
+                                    </div>
+                                </div>
+                                <div className="p-field p-col-6">
+                                    <label >Select Video Type</label>
+                                    <div style={{alignItems: 'center', justifyContent: 'center', color: 'white', margin: '0px auto', display: 'flex', alignContent: 'center',textAlign:'center' }} className="p-inputgroup">
+                                        <MultiSelect style={{ width: '185px' }} value={this.state.type} options={type} onChange={this.handleChangeVideoType} />
+                                        
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
