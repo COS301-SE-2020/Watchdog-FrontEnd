@@ -48,21 +48,23 @@ class AddIdentityModal extends Component<propsAddIdentityModal, stateAddIdentity
     async handleAdd(){
         this.setState({loading : true})
 
-        const MODEL_URL = '/'
-        await faceapi.loadTinyFaceDetectorModel(MODEL_URL)  
+        // const MODEL_URL = '/'
+        // let net = await new faceapi.tinyFaceDetector()
+        // await net.load('')
+        // //await faceapi.loadTinyFaceDetectorModel(MODEL_URL)  
           
-         //await faceapi.nets.faceLandmark68TinyNet.loadFromDisk('../public')
-         await faceapi.loadFaceLandmarkModel(MODEL_URL)   
+        //  //await faceapi.nets.faceLandmark68TinyNet.loadFromDisk('../public')
+        //  await faceapi.loadFaceLandmarkModel(MODEL_URL)   
         
-        let detectionWithLandmarks = await faceapi.detectSingleFace('img_file', new faceapi.TinyFaceDetectorOptions()).withFaceLandmarks()
-        if(detectionWithLandmarks == null){
+        // let detectionWithLandmarks = await faceapi.detectSingleFace('img_file', new faceapi.TinyFaceDetectorOptions()).withFaceLandmarks()
+        // if(detectionWithLandmarks == null){
 
                       
-            this.toast.show({ severity: 'error', summary: 'Error', detail: 'Unable to detect face in the image you uploaded', life: 3000 })
-            this.setState({loading : false})
-            return
+        //     this.toast.show({ severity: 'error', summary: 'Error', detail: 'Unable to detect face in the image you uploaded', life: 3000 })
+        //     this.setState({loading : false})
+        //     return
 
-        }
+        // }
 
         await addIdentity(this.state.name, this.state.fileName, this.state.file, ()=>{
             this.setState({
