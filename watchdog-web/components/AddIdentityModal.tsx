@@ -48,7 +48,7 @@ class AddIdentityModal extends Component<propsAddIdentityModal, stateAddIdentity
     async handleAdd(){
         this.setState({loading : true})
 
-        const MODEL_URL = ''
+        const MODEL_URL = '/'
         await faceapi.loadTinyFaceDetectorModel(MODEL_URL)  
           
          //await faceapi.nets.faceLandmark68TinyNet.loadFromDisk('../public')
