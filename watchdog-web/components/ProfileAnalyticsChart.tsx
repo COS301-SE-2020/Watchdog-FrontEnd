@@ -3,6 +3,7 @@ import { ResponsiveLine } from '@nivo/line'
 import { getProfileAnalytics } from '../api'
 import ProfileAnalyticModals from './ProfileAnalyticModals'
 import { Dropdown } from 'primereact/dropdown'
+import { runInThisContext } from 'vm'
 // make sure parent container have a defined height when using
 // responsive component, otherwise height will be 0 and
 // no chart will be rendered.
@@ -20,6 +21,7 @@ interface ProfileAnalyticsState {
     modal: boolean
     name: string
     img: any[]
+    scale : string
 
 }
 
@@ -33,12 +35,14 @@ class ProfileAnalyticsChart extends Component<ProfileAnalyticsProps, ProfileAnal
             ],
             modal: false,
             name: '',
-            img: []
+            img: [],
+            scale : 'WEEKLY'
 
         }
 
         this.onClickDatapoint = this.onClickDatapoint.bind(this)
         this.toggleModal = this.toggleModal.bind(this)
+        this.getData = this.getData.bind(this)
 
     }
 
@@ -57,8 +61,28 @@ class ProfileAnalyticsChart extends Component<ProfileAnalyticsProps, ProfileAnal
 
     }
 
-    UNSAFE_componentWillReceiveProps(propsOld, PropsNew){
-        
+    static getDerivedStateFromProps(props, state){
+        if(state!==null){
+            if(props.scale !==state.scale){
+                console.log(props.scale)
+                return({scale : props.scale})
+            }
+        }
+
+    }
+
+    getData(){
+        getProfileAnalytics(this.state.scale, (e) => {
+            
+            this.setState({ data: e.data.data })
+
+        }, () => {
+
+        })
+    }
+
+    componentDidUpdate(){
+        this.getData()
     }
 
 
@@ -66,7 +90,8 @@ class ProfileAnalyticsChart extends Component<ProfileAnalyticsProps, ProfileAnal
 
     componentDidMount()  {
         
-        getProfileAnalytics('WEEKLY', (e) => {
+        getProfileAnalytics(this.state.scale, (e) => {
+            
 
             this.setState({ data: e.data.data })
 
@@ -82,6 +107,7 @@ class ProfileAnalyticsChart extends Component<ProfileAnalyticsProps, ProfileAnal
 
                 <ProfileAnalyticModals name={this.state.name} img_list={this.state.img} show_modal={this.state.modal} hide_modal={this.toggleModal} />
                 <ResponsiveLine
+                    
                     onClick={this.onClickDatapoint}
                     data={this.state.data}
                     margin={{ top: 50, right: 110, bottom: 50, left: 60 }}

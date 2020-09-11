@@ -29,6 +29,11 @@ class ForgotPassword extends Component<{ returnSignIn: Function }, ForgotPasswor
         this.handleNewPassword = this.handleNewPassword.bind(this)
     }
     handleUsernameSubmit() {
+        if(this.state.email.length<1){
+            this.toast.show({ severity: 'error', summary: 'Error', detail: 'Please enter your username', life: 3000 })
+            return
+
+        }
         this.setState({ loading: true })
         Auth.forgotPassword(this.state.email).then(() => this.setState({ stage: 1, loading: false })).catch((err => {
             console.log(err)
