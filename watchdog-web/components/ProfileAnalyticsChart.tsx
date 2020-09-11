@@ -14,14 +14,15 @@ import { runInThisContext } from 'vm'
 interface ProfileAnalyticsProps {
     height: any
     onClickDatapoint?: Function
-    scale : string
+    scale: string
 }
 interface ProfileAnalyticsState {
     data: any[]
     modal: boolean
     name: string
     img: any[]
-    scale : string
+    scale: string
+    prev_scale: string
 
 }
 
@@ -36,7 +37,8 @@ class ProfileAnalyticsChart extends Component<ProfileAnalyticsProps, ProfileAnal
             modal: false,
             name: '',
             img: [],
-            scale : 'WEEKLY'
+            scale: 'WEEKLY',
+            prev_scale: ''
 
         }
 
@@ -53,45 +55,47 @@ class ProfileAnalyticsChart extends Component<ProfileAnalyticsProps, ProfileAnal
 
     onClickDatapoint = (e) => {
         //this.props.onClickDatapoint? this.props.onClickDatapoint(e): console.log(e)
-        if(e.data.images.length>0){
-        this.setState({ name: e.serieId, img: e.data.images })
-        this.toggleModal(true)
+        if (e.data.images.length > 0) {
+            this.setState({ name: e.serieId, img: e.data.images })
+            this.toggleModal(true)
         }
         console.log(e.data.images.length)
 
     }
 
-    static getDerivedStateFromProps(props, state){
-        if(state!==null){
-            if(props.scale !==state.scale){
+    static getDerivedStateFromProps(props, state) {
+        if (state !== null) {
+            if (props.scale !== state.scale) {
                 console.log(props.scale)
-                return({scale : props.scale})
+                return ({ scale: props.scale })
             }
         }
 
     }
 
-    getData(){
-        getProfileAnalytics(this.state.scale, (e) => {
-            
-            this.setState({ data: e.data.data })
+    getData() {
+        if (this.state.prev_scale !== this.state.scale) {
+            getProfileAnalytics(this.state.scale, (e) => {
 
-        }, () => {
+                this.setState({ data: e.data.data, prev_scale: this.state.scale })
 
-        })
+            }, () => {
+
+            })
+        }
     }
 
-    componentDidUpdate(){
+    componentDidUpdate() {
         this.getData()
     }
 
 
 
 
-    componentDidMount()  {
-        
+    componentDidMount() {
+
         getProfileAnalytics(this.state.scale, (e) => {
-            
+
 
             this.setState({ data: e.data.data })
 
@@ -107,7 +111,7 @@ class ProfileAnalyticsChart extends Component<ProfileAnalyticsProps, ProfileAnal
 
                 <ProfileAnalyticModals name={this.state.name} img_list={this.state.img} show_modal={this.state.modal} hide_modal={this.toggleModal} />
                 <ResponsiveLine
-                    
+
                     onClick={this.onClickDatapoint}
                     data={this.state.data}
                     margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
@@ -170,7 +174,7 @@ class ProfileAnalyticsChart extends Component<ProfileAnalyticsProps, ProfileAnal
                     ]}
                 />
 
-                
+
 
             </div>
 

@@ -49,18 +49,20 @@ class AddIdentityModal extends Component<propsAddIdentityModal, stateAddIdentity
         this.setState({loading : true})
 
         // const MODEL_URL = ''
-        // await faceapi.loadTinyFaceDetectorModel(MODEL_URL)    
+        await faceapi.nets.tinyFaceDetector.loadFromDisk('../public/')    
+        await faceapi.nets.faceLandmark68Net.loadFromDisk('../public/')    
+        // await faceapi.loadFaceLandmarkModel
         // await faceapi.loadFaceLandmarkModel(MODEL_URL)   
         
-        // let detectionWithLandmarks = await faceapi.detectSingleFace('img_file', new faceapi.TinyFaceDetectorOptions()).withFaceLandmarks()
-        // if(detectionWithLandmarks == null){
+        let detectionWithLandmarks = await faceapi.detectSingleFace('img_file', new faceapi.TinyFaceDetectorOptions()).withFaceLandmarks()
+        if(detectionWithLandmarks == null){
 
                       
-        //     this.toast.show({ severity: 'error', summary: 'Error', detail: 'Unable to detect face in the image you uploaded', life: 3000 })
-        //     this.setState({loading : false})
-        //     return
+            this.toast.show({ severity: 'error', summary: 'Error', detail: 'Unable to detect face in the image you uploaded', life: 3000 })
+            this.setState({loading : false})
+            return
 
-        // }
+        }
 
         await addIdentity(this.state.name, this.state.fileName, this.state.file, ()=>{
             this.setState({
