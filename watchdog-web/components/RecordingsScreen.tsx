@@ -7,7 +7,7 @@ import { MultiSelect } from 'primereact/multiselect';
 import moment from 'moment';
 import { connect } from 'react-redux';
 import { Calendar } from 'primereact/calendar';
-var type=[{}];
+var type = [{}];
 import { getRecordings } from '../app-redux/actions';
 import VideoList from './VideoList'
 import { produce } from 'immer';
@@ -71,7 +71,7 @@ class RecordingsScreen extends Component<RecordingsScreenProps, RecordingsScreen
         timeto: null,
         selected_rooms: [],
         type: [],
-        rooms:[]
+        rooms: []
     }
     player: any;
 
@@ -91,7 +91,7 @@ class RecordingsScreen extends Component<RecordingsScreenProps, RecordingsScreen
     componentDidMount = () => {
         this.props.fetch();
     }
-     
+
     handlePlayPause = () => {
         this.setState({ playing: !this.state.playing })
     }
@@ -163,67 +163,67 @@ class RecordingsScreen extends Component<RecordingsScreenProps, RecordingsScreen
         this.player = player
     }
 
-    handleClearDateFilter(){
-        this.setState({     
-            date : new Date    
+    handleClearDateFilter() {
+        this.setState({
+            date: new Date
         }, this.applyFilter);
-        
-        
+
+
     }
 
-    handleChangeDateFilter(value){
-        this.setState({     
-            date : value.value    
+    handleChangeDateFilter(value) {
+        this.setState({
+            date: value.value
         }, this.applyFilter);
         console.log(value.value)
-        
+
 
     }
 
-    handleChangeStartTime(value){
-        this.setState({timefrom : value.value}, this.applyFilter)
+    handleChangeStartTime(value) {
+        this.setState({ timefrom: value.value }, this.applyFilter)
         console.log(value.value)
-        
+
     }
 
-    handleClearStartTime(){
-        this.setState({timefrom : []}, this.applyFilter)
+    handleClearStartTime() {
+        this.setState({ timefrom: [] }, this.applyFilter)
     }
 
-    handleChangeEndTime(value){
-        this.setState({timeto :value.value}, this.applyFilter)
+    handleChangeEndTime(value) {
+        this.setState({ timeto: value.value }, this.applyFilter)
         console.log(value.value)
-        
+
     }
 
-    handleClearEndTime(){
-        this.setState({timeto : null}, this.applyFilter)
+    handleClearEndTime() {
+        this.setState({ timeto: null }, this.applyFilter)
         console.log(this.state.timeto)
     }
 
-    handleChangeVideoType(e){
-        this.setState({type : e.value},this.applyFilter)
+    handleChangeVideoType(e) {
+        this.setState({ type: e.value }, this.applyFilter)
         console.log(e.value)
     }
 
-    handleChangeCameraLocation(value, event){
-        this.setState({selected_rooms : value.value}, this.applyFilter)
+    handleChangeCameraLocation(value, event) {
+        this.setState({ selected_rooms: value.value }, this.applyFilter)
         console.log(value.value)
 
     }
-    applyFilter(){
+    applyFilter() {
         // let array = this.state.data
         // //console.log(this.state.dateFilter.length)
         // if(this.state.dateFilter.length===2){
         //     //console.log("here")
-            
+
         //    array = array.filter((item) =>{
         //         let date = new Date(item.date)
         //         return this.state.dateFilter[0]<=date &&date<=this.state.dateFilter[1]
         //    }) 
         // }
 
-        
+
         // if(this.state.startTimeFilter.length!==0){
         //     this.state.startTimeFilter[0].setSeconds(0)
         //     //console.log(this.state.startTimeFilter[0])
@@ -264,7 +264,7 @@ class RecordingsScreen extends Component<RecordingsScreenProps, RecordingsScreen
         // this.setState({     
         //     displayData : array    
         // });
-        
+
 
     }
 
@@ -330,45 +330,46 @@ class RecordingsScreen extends Component<RecordingsScreenProps, RecordingsScreen
                                 </Panel>
 
                             </div>
-                            <div className="p-col-12" style={{alignItems: 'center', justifyContent: 'center', color: 'white', margin: '0px auto', display: 'flex', alignContent: 'center',textAlign:'center' }}>
+                            <div className="p-col-12" style={{ alignItems: 'center', justifyContent: 'center', color: 'white', margin: '0px auto', display: 'flex', alignContent: 'center', textAlign: 'center' }}>
 
                                 <div className="p-field p-col-6  ">
-                                    <label  >Date Filter</label>
-                                    <div style={{alignItems: 'center', justifyContent: 'center', color: 'white', margin: '0px auto', display: 'flex', alignContent: 'center',textAlign:'center' }} className="p-inputgroup">
-                                        <Calendar showButtonBar id="range" value={this.state.date} onChange={this.handleChangeDateFilter} selectionMode="range" readOnlyInput />
-                                       
+                                    <span  ><h4>Select Date</h4></span>
+                                    <div style={{ alignItems: 'center', justifyContent: 'center', color: 'white', margin: '0px auto', display: 'flex', alignContent: 'center', textAlign: 'center' }} className="p-inputgroup">
+                                        <Calendar showIcon showButtonBar id="range" value={this.state.date} onChange={this.handleChangeDateFilter} selectionMode="range" readOnlyInput />
+
                                     </div>
                                 </div>
                                 <div className="p-field p-col-6">
-                                    <label htmlFor="range">Time Filter</label>
-                                    <div style={{alignItems: 'center', justifyContent: 'center', color: 'white', margin: '0px auto', display: 'flex', alignContent: 'center',textAlign:'center' }} className="p-inputgroup">
+                                    <span  ><h4>Select Time</h4></span>
+                                    <div style={{ alignItems: 'center', justifyContent: 'center', color: 'white', margin: '0px auto', display: 'flex', alignContent: 'center', textAlign: 'center' }} className="p-inputgroup">
 
-                                        <Calendar showButtonBar id="time24" value={this.state.timefrom} onChange={this.handleChangeStartTime} showTime showSeconds timeOnly />
+                                        <Calendar showIcon icon={'pi pi-clock'} showButtonBar id="time24" value={this.state.timefrom} onChange={this.handleChangeStartTime} showTime showSeconds timeOnly readOnlyInput />
 
                                         <div style={{ width: '25px', margin: '5px' }}>TO:</div>
 
-                                        <Calendar showButtonBar id="time24" value={this.state.timeto} onChange={this.handleChangeEndTime} showTime showSeconds timeOnly />
-                                       
+                                        <Calendar showButtonBar showIcon icon='pi pi-clock
+' id="time24" value={this.state.timeto} onChange={this.handleChangeEndTime} showTime showSeconds timeOnly readOnlyInput />
+
                                     </div>
-                                    
+
 
                                 </div>
 
                             </div>
-                            <div className="p-col-12" style={{color: 'white', margin: '0px auto', display: 'flex', alignContent: 'center', textAlign:'center' }}>
+                            <div className="p-col-12" style={{ color: 'white', margin: '0px auto', display: 'flex', alignContent: 'center', textAlign: 'center' }}>
 
                                 <div className="p-field p-col-6  ">
-                                    <label  >Select Room </label>
-                                    <div style={{alignItems: 'center', justifyContent: 'center', color: 'white', margin: '0px auto', display: 'flex', alignContent: 'center',textAlign:'center' }} className="p-inputgroup">
-                                        <MultiSelect style={{ width: '185px' }} value={this.state.selected_rooms} options={this.state.rooms}  onChange={this.handleChangeCameraLocation} />
-                                        
+                                    <span  ><h4>Select Room</h4></span>
+                                    <div style={{ alignItems: 'center', justifyContent: 'center', color: 'white', margin: '0px auto', display: 'flex', alignContent: 'center', textAlign: 'center' }} className="p-inputgroup">
+                                        <MultiSelect style={{ width: '185px' }} value={this.state.selected_rooms} options={this.state.rooms} onChange={this.handleChangeCameraLocation} />
+
                                     </div>
                                 </div>
                                 <div className="p-field p-col-6">
-                                    <label >Select Video Type</label>
-                                    <div style={{alignItems: 'center', justifyContent: 'center', color: 'white', margin: '0px auto', display: 'flex', alignContent: 'center',textAlign:'center' }} className="p-inputgroup">
+                                    <span  ><h4>Select Video Type </h4></span>
+                                    <div style={{ alignItems: 'center', justifyContent: 'center', color: 'white', margin: '0px auto', display: 'flex', alignContent: 'center', textAlign: 'center' }} className="p-inputgroup">
                                         <MultiSelect style={{ width: '185px' }} value={this.state.type} options={type} onChange={this.handleChangeVideoType} />
-                                        
+
                                     </div>
                                 </div>
                             </div>
