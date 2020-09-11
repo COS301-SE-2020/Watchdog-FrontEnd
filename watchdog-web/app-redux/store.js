@@ -21,7 +21,7 @@ const logger = createLogger({})
 // if (global.window != null) {
 //     composeEnhancers = global.window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
 // }
-// let composeEnhancers = compose;
+let composeEnhancers = compose;
 // if (typeof window !== "undefined") {
 //     composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
 // }
