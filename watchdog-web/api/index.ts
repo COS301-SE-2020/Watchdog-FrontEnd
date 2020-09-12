@@ -190,5 +190,20 @@ export async function getDashBoardAnalytics(succ, err){
 
 }
 
+export async function sendVerification(succ, err){
+  let url = 'https://b534kvo5c6.execute-api.af-south-1.amazonaws.com/testing/preferences/notifications/verify'
+  let { idToken } = await Auth.currentSession()
+  
+  await axios.post(url,{},
+    {
+
+      headers: {
+        Authorization: `${idToken.jwtToken}`
+
+      }
+    }).then(succ).catch(err)
+
+}
+
 
 

@@ -56,6 +56,8 @@ export type propsTopNav = {
   toggle_notifications_modal: Function
   toggle_logout_modal: Function
   toggle_password_modal: Function
+  download_win : Function
+  download_linux : Function
 
 
 }
@@ -110,6 +112,7 @@ export type stateNotificationModal = {
   security_company: string,
   notification_type: notificationOption,
   loading: boolean
+  verifyEmailModal : boolean
 
 }
 
@@ -263,5 +266,20 @@ export type propsProfileAnalyticModals = {
 }
 
 export type stateProfileAnalyticModals = {
+  
+}
+
+export type propsVerifyEmailModal = {
+  
+  show_modal : boolean
+  hide_modal : Function
+  
+
+}
+
+export type stateVerifyEmailModal = {
+
+  step : 0 | 1
+  loading : boolean
   
 }
