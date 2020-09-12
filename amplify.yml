@@ -1,6 +1,7 @@
 version: 1
 applications:
-  - frontend:
+  - appRoot: watchdog-web/
+   frontend:
       phases:
         preBuild:
           commands:
@@ -20,8 +21,9 @@ applications:
       cache:
         paths:
           - node_modules/**/*
-    appRoot: watchdog-web/
-     - frontend:
+    
+     - appRoot: watchdog-landing/
+     frontend:
       phases:
         preBuild:
           commands:
@@ -37,4 +39,4 @@ applications:
       cache:
         paths:
           - node_modules/*/
-    appRoot: watchdog-landing/
+    
