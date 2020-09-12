@@ -325,7 +325,7 @@ function liveReducer(state = defaultState.Live, action) {
             })
         case "CONSUME_FRAME":
             return produce(state, draft => {
-                draft.frames[action.camera_id] = action.frame
+                draft.frames[action.camera_id] = (action.frame)? action.frame: 'inactive_black.png'
             })
         default:
             return state
