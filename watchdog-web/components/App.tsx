@@ -32,6 +32,17 @@ class App extends Component<propsApp, stateApp> {
         this.toggleNotificationsModal = this.toggleNotificationsModal.bind(this)
         this.toggleLogoutMOdal = this.toggleLogoutMOdal.bind(this)
         this.togglePasswordModal = this.togglePasswordModal.bind(this)
+        this.windowsDownload = this.windowsDownload.bind(this)
+        this.linuxDownload = this.linuxDownload.bind(this)
+
+    }
+
+    windowsDownload(){
+        this.windows.click()
+
+    }
+    linuxDownload(){
+        this.linux.click()
 
     }
 
@@ -68,12 +79,14 @@ class App extends Component<propsApp, stateApp> {
 
             <div style={{ maxWidth: "1700px", margin: 'auto' }}>
                 <div className="p-grid p-dir-col">
-                    <div className="p-col"><div className="App-header"><TopNav toggle_notifications_modal={this.toggleNotificationsModal}
+                    <div className="p-col"><div className="App-header"><TopNav download_linux={this.linuxDownload} download_win={this.windowsDownload} toggle_notifications_modal={this.toggleNotificationsModal}
                         toggle_logout_modal={this.toggleLogoutMOdal}
                         toggle_password_modal={this.togglePasswordModal}
                         toggle_detected_images={this.toggleDectedImagesMOdal}
                         toggle_identites={this.toggleIdentitesModal} changeScreen={this.setScreen} /></div></div>
                     <div className="p-col">
+                    <a href='https://watchdog-api-deployment-workspace.s3.af-south-1.amazonaws.com/windows.zip' style={{display:'none'}}  ref={(el) => this.windows = el}  >Download</a>
+                    <a href='https://watchdog-api-deployment-workspace.s3.af-south-1.amazonaws.com/linux.zip' style={{display:'none'}}  ref={(el) => this.linux = el}  >Download</a>
                         {
                             (this.state.selectedScreen === 1) ?
                              <DashboardScreen /> 

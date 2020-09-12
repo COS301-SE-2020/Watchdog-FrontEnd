@@ -64,7 +64,8 @@ class TopNav extends Component<propsTopNav, stateTopNav> {
                         items: [
                             {
                                 label: 'Windows HCP',
-                                icon: 'pi pi-fw pi-microsoft'
+                                icon: 'pi pi-fw pi-microsoft', 
+                                command : ()=> this.props.download_win()
                             }, 
 
                             {
@@ -74,7 +75,8 @@ class TopNav extends Component<propsTopNav, stateTopNav> {
 
                             {
                                 label: 'Linux HCP',
-                                icon: 'pi pi-fw pi-download'
+                                icon: 'pi pi-fw pi-download',
+                                command : ()=> this.props.download_linux()
                             },
 
                             
@@ -110,7 +112,7 @@ class TopNav extends Component<propsTopNav, stateTopNav> {
         return (
             <div style={{ padding: 0 }}>
                 <Menubar style={{ borderRadius: 0, border: 0, margin: 0, zIndex: 1000 }} elevation={5} className="p-shadow-8" model={items} start={logo}>
-
+                    <a href='www.google.com'  ref={(el) => this.windows = el}  ></a>
                 </Menubar>
             </div>
         );

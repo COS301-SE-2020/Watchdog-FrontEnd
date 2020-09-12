@@ -56,6 +56,8 @@ export type propsTopNav = {
   toggle_notifications_modal: Function
   toggle_logout_modal: Function
   toggle_password_modal: Function
+  download_win : Function
+  download_linux : Function
 
 
 }
