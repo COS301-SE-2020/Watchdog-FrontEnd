@@ -1,6 +1,9 @@
 version: 1
 applications:
   - appRoot: watchdog-web/
+  env:
+      variables:
+        key: value
    frontend:
       phases:
         preBuild:
@@ -22,8 +25,11 @@ applications:
         paths:
           - node_modules/**/*
     
-     - appRoot: watchdog-landing/
-     frontend:
+    - appRoot: watchdog-landing/
+    env:
+      variables:
+        key: value
+      frontend:
       phases:
         preBuild:
           commands:
