@@ -1,24 +1,27 @@
 import socketIO from 'socket.io-client'
-import {LIVE_SERVER_URL} from './constants'
+import { LIVE_SERVER_URL } from './constants'
+import { Auth } from 'aws-amplify'
+import store from './store';
 
 const socket = socketIO(LIVE_SERVER_URL, {
-    transports: ['websocket'], jsonp: false
+    secure: true,
 })
 
 var SocketManager = (function () {
 
     var dispatch = null
+    var user_id = null
 
     socket.on('connect', () => {
         dispatch({
-            type: "LIVE_CONNECTED"
+            type: "LIVE_CONNECTED",
         })
 
-        socket.emit('authorize', {
-            user_id: 'dcdaeb64-e23f-46d1-84f7-dd8d1f1a8847',
-            client_type: 'consumer',
-            client_key: 'string'
-        })
+        // socket.emit('authorize', {
+        //     user_id: user_id,
+        //     client_type: 'consumer',
+        //     client_key: 'string'
+        // })
 
         socket.on('disconnect', () => {
             dispatch({
@@ -28,13 +31,19 @@ var SocketManager = (function () {
 
         socket.on('available-views', (data) => dispatch({
             type: "UPDATE_PRODUCERS",
-            data
+            data,
+            user_id
         }))
 
-        socket.on("consume-frame", (message) => dispatch({
-            type: "CONSUME_FRAME",
-            frame: message.frame
-        }))
+        socket.on("consume-frame", (message) => {
+            console.log("Consuming");
+            console.log(message);
+            dispatch({
+                type: "CONSUME_FRAME",
+                camera_id: message.camera_id,
+                frame: message.frame
+            })
+        })
     })
 
     return { // public interface
@@ -48,7 +57,19 @@ var SocketManager = (function () {
         disconnect: function () {
             socket.disconnect()
         },
+        authorise: function () {
+            user_id = store.getState().Data.user_id
+            console.log("AUTHENTICATING " + user_id);
+            socket.emit('authorize', {
+                user_id: user_id,
+                client_type: 'consumer',
+                client_key: 'string'
+            })
+        },
         tuneInToFeed: function (camera_list, site_id) {
+            console.log("Tuning in");
+            console.log(camera_list);
+            console.log(site_id);
             dispatch({
                 type: "START_STREAM",
                 view: { site_id, camera_list }
@@ -60,3 +81,5 @@ var SocketManager = (function () {
 
 Object.freeze(SocketManager)
 export default SocketManager
+export const tuneIntoFeed = SocketManager.tuneInToFeed
+export const authenticate = SocketManager.authorise
