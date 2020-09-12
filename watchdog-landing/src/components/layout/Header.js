@@ -122,7 +122,7 @@ const Header = ({
                       className="list-reset header-nav-right"
                     >
                       <li>
-                      <a href={"https://master.dtul6cza66juk.amplifyapp.com/"} className="button button-primary button-wide-mobile button-sm" onClick={closeMenu}>Sign In</a>
+                      <a href={"https://app.watchdog.thematthew.me/"} className="button button-primary button-wide-mobile button-sm" onClick={closeMenu}>Sign In</a>
                       </li>
                     </ul>}
                 </div>

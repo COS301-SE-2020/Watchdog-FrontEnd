@@ -150,7 +150,8 @@ const FeaturesSplit = ({
                   Customisation 
                   </h3>
                 <p className="m-0">
-                  Our system can be customised to allow every face that is detected to be allowed or only allow recognised faces. We also keep a detailed record of all the events that occur on the system so it is very easy for you to find waht you want.
+                  Our system can be customised to allow every face that is detected to be allowed or only allow recognised faces. We also keep a detailed record of all the events that occur on the system so it is very easy for you to find waht you want. 
+                  There is also detailed graph that represents the identities and how often they have been detected by the system.
                   </p>
               </div>
               <div className={
