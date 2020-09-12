@@ -16,6 +16,8 @@ import { Auth } from 'aws-amplify'
 
 import Signup from './SignupForm'
 import ForgotPassword from './ForgotPassword'
+import { authenticate } from '../app-redux/socketManager'
+
 class UserManagement extends Component<{}, Login> {
     constructor(props: {}) {
         super(props)
@@ -23,7 +25,7 @@ class UserManagement extends Component<{}, Login> {
             hasAccount: true,
             username: '',
             password: '',
-            loading : false,
+            loading: false,
             stage: 0
         }
         this.handleSignup = this.handleSignup.bind(this)
@@ -36,12 +38,17 @@ class UserManagement extends Component<{}, Login> {
 
     }
     handleSignup() {
-        this.setState({loading: true})
-        Auth.signIn(this.state.username, this.state.password).then((e)=>console.log('signed in')).catch((err)=>{
+        this.setState({ loading: true })
+        Auth.signIn(this.state.username, this.state.password).then(
+            (e) => {
+                console.log('signed in')
+                authenticate()
+            }
+        ).catch((err) => {
             this.toast.show({ severity: 'error', summary: 'Error', detail: 'Login Failed. Please make sure your username and password is correct', life: 3000 })
-            this.setState({loading: false})
+            this.setState({ loading: false })
         })
-        
+
 
 
 
@@ -53,11 +60,11 @@ class UserManagement extends Component<{}, Login> {
         )
     }
 
-    componentDidMount(){
-        this.setState({loading : false})
+    componentDidMount() {
+        this.setState({ loading: false })
     }
     render() {
-        if (this.state.stage===0) {
+        if (this.state.stage === 0) {
             return (
                 <div style={{ maxWidth: "1700px", height: '90vh', margin: 'auto', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     <Toast ref={(el) => this.toast = el} />
@@ -100,7 +107,7 @@ class UserManagement extends Component<{}, Login> {
                                 </div>
                                 <span>Don't have an account? Create one now <Button disabled={this.state.loading} label="here!" style={{ textAlign: 'center', maxWidth: '100px' }} className="p-button-link" onClick={() => this.setState({ stage: 1 })} /></span>
                             </Card>
-                            
+
 
                         </div>
                         <div style={{ display: this.state.loading ? 'block' : 'none' }} className="p-field p-col-12 p-md-12"> <ProgressBar mode="indeterminate" style={{ height: '6px' }}></ProgressBar></div>

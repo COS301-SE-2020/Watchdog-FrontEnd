@@ -5,7 +5,6 @@ import { createLogger } from 'redux-logger'
 import { multiClientMiddleware } from 'redux-axios-middleware';
 
 import watchdogApp from './reducer';
-import SocketManager from './socketManager';
 
 //Axios Client for API
 const apiClient = axios.create({
@@ -43,6 +42,5 @@ const store = createStore(
 
 )
 
-SocketManager.init(store.dispatch)
 
 export default store;

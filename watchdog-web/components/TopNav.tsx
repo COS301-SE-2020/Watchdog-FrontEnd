@@ -16,17 +16,17 @@ class TopNav extends Component<propsTopNav, stateTopNav> {
             {
                 label: 'Dashboard',
                 icon: 'pi pi-fw pi-home',
-                command : ()=>{this.props.changeScreen(1)}
+                command: () => { this.props.changeScreen(1) }
             },
             {
                 label: 'Recordings',
                 icon: 'pi pi-fw pi-camera',
-                command : ()=>{this.props.changeScreen(2)}
+                command: () => { this.props.changeScreen(2) }
             },
             {
                 label: 'Profiles',
                 icon: 'pi pi-fw pi-users',
-                command : ()=>{this.props.changeScreen(3)}
+                command: () => { this.props.changeScreen(3) }
             },
             {
                 label: 'System Settings',
@@ -41,18 +41,18 @@ class TopNav extends Component<propsTopNav, stateTopNav> {
                     {
                         label: 'Detected Images',
                         icon: 'pi pi-fw pi-exclamation-triangle',
-                        command : ()=>this.props.toggle_detected_images(true)
+                        command: () => this.props.toggle_detected_images(true)
 
                     },
                     {
                         label: 'Notification Settings',
                         icon: 'pi pi-fw pi-bell',
-                        command : ()=> this.props.toggle_notifications_modal(true)
+                        command: () => this.props.toggle_notifications_modal(true)
 
                     },
                     {
-                        separator:true
-                     },
+                        separator: true
+                    },
                     {
                         label: 'Logs',
                         icon: 'pi pi-fw pi-info-circle',
@@ -61,7 +61,26 @@ class TopNav extends Component<propsTopNav, stateTopNav> {
                     {
                         label: 'Downloads',
                         icon: 'pi pi-fw pi-download',
+                        items: [
+                            {
+                                label: 'Windows HCP',
+                                icon: 'pi pi-fw pi-microsoft', 
+                                command : ()=> this.props.download_win()
+                            }, 
 
+                            {
+                                label: 'MacOS HCP',
+                                icon: 'pi pi-fw pi-apple'
+                            },
+
+                            {
+                                label: 'Linux HCP',
+                                icon: 'pi pi-fw pi-download',
+                                command : ()=> this.props.download_linux()
+                            },
+
+                            
+                        ]
                     }
                 ]
             },
@@ -77,13 +96,13 @@ class TopNav extends Component<propsTopNav, stateTopNav> {
                     {
                         label: 'Change Password',
                         icon: 'pi pi-fw pi-key',
-                        command : () => this.props.toggle_password_modal(true)
+                        command: () => this.props.toggle_password_modal(true)
 
                     },
                     {
                         label: 'Logout',
                         icon: 'pi pi-fw pi-sign-out',
-                        command : ()=> this.props.toggle_logout_modal(true)
+                        command: () => this.props.toggle_logout_modal(true)
 
                     }
                 ]
@@ -91,9 +110,9 @@ class TopNav extends Component<propsTopNav, stateTopNav> {
         ]
         const logo = <img alt="logo" src="logo1.png" height="40" className="p-mr-2"></img>
         return (
-            <div style={{padding: 0}}>
-                <Menubar style={{borderRadius: 0, border: 0, margin: 0, zIndex: 1000}} elevation={5} className="p-shadow-8" model={items} start={logo}>
-                    
+            <div style={{ padding: 0 }}>
+                <Menubar style={{ borderRadius: 0, border: 0, margin: 0, zIndex: 1000 }} elevation={5} className="p-shadow-8" model={items} start={logo}>
+                    <a href='www.google.com'  ref={(el) => this.windows = el}  ></a>
                 </Menubar>
             </div>
         );

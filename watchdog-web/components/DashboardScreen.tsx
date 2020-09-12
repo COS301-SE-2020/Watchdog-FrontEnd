@@ -80,7 +80,7 @@ class DashboardScreen extends Component<DashboardScreenProps, DashboardScreenSta
                                 <Events />
                             </div>
                             <div className="p-col-12" style={{ height: '40vh' }}>
-                                <Panel header="Analytics" style={{ height: '100%' }} className="p-shadow-8">
+                                <Panel header="Analytics"  className="p-shadow-8">
                                     <Chart
                                         className="analytics"
                                         type="line"

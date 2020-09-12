@@ -8,6 +8,8 @@ import { Dropdown } from 'primereact/dropdown';
 import {getNotificationSettings, updateNotification} from '../api'
 import { ProgressBar } from 'primereact/progressbar'
 import { Toast } from 'primereact/toast'
+import { Messages } from 'primereact/messages'
+import VerifyEmailModal from './VerifyEmailModal'
 
 
 class NotificationModal extends Component<propsNotificationModal, stateNotificationModal> {
@@ -16,19 +18,39 @@ class NotificationModal extends Component<propsNotificationModal, stateNotificat
         this.state = {
             security_company : '',
             notification_type : {name : '', code : ''},
-            loading : true
+            loading : true,
+            verifyEmailModal : false
         }
 
         this.getData = this.getData.bind(this)
         this.handleUpdate = this.handleUpdate.bind(this)
+        this.toggleVerifyEmail = this.toggleVerifyEmail.bind(this)
+    }
+
+    toggleVerifyEmail(val : boolean){
+        this.setState({verifyEmailModal: val})
+
     }
 
     async handleUpdate(){
         this.setState({loading: true})
-        updateNotification(this.state.security_company, this.state.notification_type.code, ()=>{
+        await updateNotification('+'+this.state.security_company, this.state.notification_type.code, (e)=>{
+            console.log(e.data.data.email_verified)
             this.getData()
+            let check =e.data.data.email_verified 
+            
+            if(check||check==null){
             this.toast.show({ severity: 'success', summary: 'Settings Updated', detail: 'Notification settings updated.', life: 3000 })
             this.props.hide_modal(false)
+        }else{
+            this.toggleVerifyEmail(true)
+            // this.msgs1.show([
+            //     { severity: 'error', summary: '', detail: 'Please verify your Email. A verification email has been sent.', sticky: false, life: 5000 }
+                
+            // ])
+            // this.toast.show({ severity: 'error', summary: 'Error', detail: 'Please verify your Email. A verification email has been sent.', life: 3000 })
+
+        }
 
         }, ()=>{
             this.toast.show({ severity: 'error', summary: 'Error', detail: 'Unable to update notification settings.', life: 3000 })
@@ -44,7 +66,7 @@ class NotificationModal extends Component<propsNotificationModal, stateNotificat
         
         await getNotificationSettings((data)=>{
             let type = { name: 'Push', code: 'push' }
-            console.log(data)
+            // console.log(data)
             if(data.type==='email'){
                 type = { name: 'Email', code: 'email' }
 
@@ -70,15 +92,22 @@ class NotificationModal extends Component<propsNotificationModal, stateNotificat
         return (
             <div>
                 <Toast  ref={(el) => this.toast = el} />
+                
                 <Dialog header="Notification Settings" visible={this.props.show_modal} modal
-                    style={{ width: '350px' }} footer={<div>
-                        <Button disabled={this.state.loading} label="Close" icon="pi pi-times" onClick={() => this.props.hide_modal(false)} className="p-button-text" />
+                    style={{ width: '450px', maxWidth : '100vw'}} footer={<div>
+                        <Button disabled={this.state.loading} label="Close" icon="pi pi-times" onClick={async() => {
+                            await this.getData()
+                            this.props.hide_modal(false)}} className="p-button-text" />
                         <Button disabled={this.state.loading} label="Update" icon="pi pi-check" onClick={() => this.handleUpdate()} autoFocus />
-                    </div>} onHide={() => { this.props.hide_modal(false) }}>
+                    </div>} onHide={async () => { 
+                        await this.getData()
+                        this.props.hide_modal(false) }}>
                     <div className="confirmation-content">
+                        <VerifyEmailModal hide_modal={this.toggleVerifyEmail} show_modal={this.state.verifyEmailModal}/>
                         <Card>
                             <div className="p-fluid p-formgrid p-grid">
                                 <div className="p-field p-col-12 p-md-12">
+                                <Messages ref={(el) => this.msgs1 = el} />
                                 <label htmlFor="phone">Notification Type</label>
                                     <Dropdown disabled={this.state.loading} value={this.state.notification_type} onChange={val => this.setState({notification_type : val.value})}
                                      options={[

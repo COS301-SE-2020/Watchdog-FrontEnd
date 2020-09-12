@@ -37,7 +37,7 @@ class AddDetected extends Component<propsAddDetected, stateAddDetected> {
             this.props.hide_modal(false, true)
         },
             () => {
-                this.toast.show({ severity: 'error', summary: 'Error', detail: 'Fail to Add', life: 3000 })
+                this.toast.show({ severity: 'error', summary: 'Error', detail: 'Fail to Add. Make sure the Identity name is unique', life: 3000 })
                 this.setState({ loading: false })
             }, this.state.name, this.props.update_key)
 

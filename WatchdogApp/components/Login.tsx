@@ -93,6 +93,9 @@ class Login extends Component<loginProps, loginState> {
                     logoText="Watchdog"
                     disableSettings={true}
                     //source  = {{ uri: "https://reactjs.org/logo-og.png" }}
+                    
+                    disableSignupButton= {true}
+                
                     source={require("../assets/background.jpg")}
                     onPressLogin={this.handleSignIn}
                     usernameOnChangeText={(val) => { this.setState({ username: val }) }}

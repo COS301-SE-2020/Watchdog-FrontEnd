@@ -1,14 +1,16 @@
-import React, { Component } from 'react';
-import {DataView} from 'primereact/dataview';
+import React, { Component, useState } from 'react';
+import { DataView } from 'primereact/dataview';
 import { Tooltip } from 'primereact/tooltip';
 import { Button } from 'primereact/button';
-import { Dropdown } from 'primereact/dropdown';
 import { Dialog } from 'primereact/dialog';
+import { produce } from 'immer'
 
 import { connect } from 'react-redux';
 import { getControlPanel } from '../app-redux/actions'
 
 const data = require('../public/products.json').data;
+import { tuneIntoFeed, authenticate } from '../app-redux/socketManager';
+
 
 interface CameraViewProps {
     fetch: Function
@@ -17,7 +19,13 @@ interface CameraViewProps {
     camera_locations: any[]
     sites: any[]
     loading: boolean
+    user_id: string
+    serverStatus: boolean
+    producers: object
+    camera_frames: object
+    tuneIn: Function
 }
+
 interface CameraViewState {
     products: any[]
     layout: string
@@ -26,6 +34,11 @@ interface CameraViewState {
     sortField: any
     displayModel: boolean
     stream: any
+    serverStatus: boolean
+    producers: object
+    site_id: string,
+    camera_list: string[]
+    camera_streams: object
 }
 
 class CameraView extends Component<CameraViewProps, CameraViewState> {
@@ -40,7 +53,12 @@ class CameraView extends Component<CameraViewProps, CameraViewState> {
             sortOrder: null,
             sortField: null,
             displayModel: false,
-            stream: null
+            stream: null,
+            serverStatus: false,
+            producers: {},
+            camera_streams: {},
+            site_id: '',
+            camera_list: []
         };
 
         this.sortOptions = [
@@ -48,18 +66,24 @@ class CameraView extends Component<CameraViewProps, CameraViewState> {
             { label: 'Price Low to High', value: 'price' },
         ];
 
-        // this.productService = new ProductService();
         this.itemTemplate = this.itemTemplate.bind(this);
         this.onSortChange = this.onSortChange.bind(this);
         this.closeModel = this.closeModel.bind(this);
     }
 
     componentDidMount() {
-        // this.productService.getProducts().then(data => this.setState({ products: data }));
-        // this.setState({
-        // products: data
-        // })
+        this.props.fetch()
+        authenticate()
+
     }
+
+    componentWillUnmount = () => {
+    }
+
+    componentDidUpdate = () => {
+        console.log(this.state);
+    }
+
 
     onSortChange(event) {
         const value = event.value;
@@ -97,28 +121,66 @@ class CameraView extends Component<CameraViewProps, CameraViewState> {
     renderFooter(name) {
         return (
             <div>
-                {/* <img className='' style={{ height: '100%', width: '100%' }} src={'static.gif'}></img> */}
                 <Button label="Cancel" icon="pi pi-times" onClick={this.closeModel} className="p-button-text" />
             </div>
         );
     }
 
     renderGridItem(data) {
+
+        const streamActive = this.state.camera_streams[data.id]
+
+        const setStreamState = (streamState) => {
+            this.setState(produce(draft => {
+                draft.camera_streams[data.id] = streamState
+                if (!draft.camera_list.find(element => element == data.id))
+                    draft.camera_list.push(data.id)
+                draft.site_id = data.site
+                this.props.tuneIn([...draft.camera_list], draft.site_id)
+            }))
+        }
+
+        const streamAvailable = (this.props.serverStatus) && (this.props.producers[data.site]) && (this.props.producers[data.site].find(element => element == data.id));
+
         return (
             <div className="p-col-4 p-md-4 p-dataview-content" >
                 <div className="product-grid-item">
                     <div className="product-grid-item-top">
-                        <small className="p-text-light">Location</small>
                         <Tooltip target={`.camera-status-${data.id}`} mouseTrack mouseTrackLeft={10} />
-                        <i className={`pi pi-video camera-status-${data.id}`} style={{ fontSize: '1em', color: 'red' }} data-pr-tooltip="Camera Offline"></i>
+                        <i
+                            className={`pi pi-video camera-status-${data.id}`}
+                            style={{ fontSize: '1em', color: (streamAvailable) ? 'green' : 'red' }}
+                            data-pr-tooltip={
+                                (streamAvailable) ? "Camera Online" : "Camera Offline"
+                            }
+                        >
+                        </i>
                     </div>
                     <div className="product-grid-item-content">
-                        <img className={`live-view-${data.id}`} style={{ height: '100%', width: '100%' }} src={'static.gif'} onClick={() => this.openModel(data)}></img>
+                        <img
+                            className={`live-view-${data.id}`}
+                            style={{ height: '150px', width: '100%' }}
+                            src={
+                                (this.state.displayModel) ?
+                                    'inactive_black.png'
+                                    :
+                                    (!streamAvailable) ?
+                                        'static.gif'
+                                        :
+                                        (streamActive) ?
+                                            (this.props.camera_frames[data.id] != null && this.props.camera_frames[data.id] != '') ? "data:image/jpeg;base64," + this.props.camera_frames[data.id].replace("b'", "").slice(0, -1) : 'inactive_black.png'
+                                            :
+                                            'inactive_black.png'
+                            }
+                            // src={"data:image/jpeg;base64," + "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAIBAQEBAQIBAQECAgICAgQDAgICAgUEBAMEBgUGBgYFBgYGBwkIBgcJBwYGCAsICQoKCgoKBggLDAsKDAkKCgr/2wBDAQICAgICAgUDAwUKBwYHCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgr/wAARCADIAWgDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD+f+iiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA/9k="}
+                            onClick={() => this.openModel({ ...data, streamActive, streamAvailable })}
+                        >
+                        </img>
                         <div style={{}} className="p-grid p-nogutter p-align-center">
-                            <div style={{marginRight: '1rem'}} className="p-col-1">
-                                <Button style={{ color: 'grey' }} icon="pi pi-eye-slash" className="p-button-rounded p-button-text" tooltip="Disable Viewing of Camera" tooltipOptions={{hideDelay: 0, position: 'bottom'}}/>
+                            <div style={{ marginRight: '1rem' }} className="p-col-1">
+                                <Button onClick={() => setStreamState(!streamActive)} style={{ color: 'grey' }} icon={(streamActive) ? "pi pi-eye" : "pi pi-eye-slash"} className="p-button-rounded p-button-text" tooltip={(streamActive) ? "Deactivate this Stream" : "Activate this Stream"} tooltipOptions={{ hideDelay: 0, position: 'bottom' }} />
                             </div>
-                            <div className="p-col-6">Camera X</div>
+                            <div className="p-col-6">{data.location}</div>
                         </div>
                     </div>
                 </div>
@@ -142,8 +204,19 @@ class CameraView extends Component<CameraViewProps, CameraViewState> {
                 <div className="p-col-6" style={{ textAlign: 'left' }}>
                     <h2>Cameras</h2>
                 </div>
-                <div className="p-col-6" style={{ textAlign: 'right' }}>
-                    <Dropdown style={{ testAlign: 'left' }} options={this.sortOptions} value={this.state.sortKey} optionLabel="label" placeholder="Sort By Location" onChange={this.onSortChange} />
+                <div className="p-col-3" style={{ textAlign: 'right' }}>
+                    {/* <Dropdown style={{ testAlign: 'left' }} options={this.sortOptions} value={this.state.sortKey} optionLabel="label" placeholder="Sort By Location" onChange={this.onSortChange} /> */}
+                    <small style={{ color: (this.props.serverStatus) ? 'green' : 'red' }}>{(this.props.serverStatus) ? "Connected" : "Connection to Server Lost"}</small>
+                </div>
+                <div className="p-col-2">
+                    <Button style={{ textAlign: 'right', padding: 0, marginTop: 0, marginBottom: 0, color: 'red' }} icon="pi pi-refresh" className="p-button-rounded p-button-text"
+                        onClick={
+                            () => {
+                                authenticate();
+                                this.props.fetch();
+                            }
+                        }
+                    />
                 </div>
             </div>
         );
@@ -156,7 +229,7 @@ class CameraView extends Component<CameraViewProps, CameraViewState> {
             <div className="dataview-camera-view">
                 <DataView
                     className="dataview"
-                    value={this.state.products}
+                    value={this.props.camera_objects}
                     layout={this.state.layout}
                     header={header}
                     itemTemplate={this.itemTemplate}
@@ -167,10 +240,27 @@ class CameraView extends Component<CameraViewProps, CameraViewState> {
                     alwaysShowPaginator={false}
                 />
 
-                <Dialog header={(this.state.stream == null) ? "Stream Not Available" : this.state.stream.name} visible={this.state.displayModel} maximizable modal style={{ width: '50vw' }} footer={this.renderFooter('displayMaximizable')} onHide={this.closeModel}>
-                    <img className='' style={{ height: '100%', width: '100%' }} src={'static.gif'}></img>
+                <Dialog header={(this.state.stream == null) ? "Stream Not Available" : this.state.stream.location} visible={this.state.displayModel} maximizable modal style={{ width: '50vw' }} footer={this.renderFooter('displayMaximizable')} onHide={this.closeModel}>
+                    <img
+                        className={`live-view-${data.id}`}
+                        style={{ height: '150px', width: '100%' }}
+                        src={
+                            (!this.state.displayModel) ?
+                                'inactive_black.png'
+                                :
+                                (!this.state.stream.streamAvailable) ?
+                                    'static.gif'
+                                    :
+                                    (this.state.stream.streamActive) ?
+                                        (this.props.camera_frames[data.id] != null && this.props.camera_frames[data.id] != '') ? "data:image/jpeg;base64," + this.props.camera_frames[data.id].replace("b'", "").slice(0, -1) : 'inactive_black.png'
+                                        :
+                                        'inactive_black.png'
+                        }
+                        // src={"data:image/jpeg;base64," + "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAIBAQEBAQIBAQECAgICAgQDAgICAgUEBAMEBgUGBgYFBgYGBwkIBgcJBwYGCAsICQoKCgoKBggLDAsKDAkKCgr/2wBDAQICAgICAgUDAwUKBwYHCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgr/wAARCADIAWgDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD+f+iiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA/9k="}
+                        // onClick={() => this.openModel({ ...data, this.state.stream.streamActive, this.state.stream.streamAvailable })}
+                    >
+                    </img>
                 </Dialog>
-
             </div>
         );
     }
@@ -179,12 +269,17 @@ class CameraView extends Component<CameraViewProps, CameraViewState> {
 const mapStoreToProps = (store) => ({
     camera_objects: store.Data.camera_objects,
     cameras: store.Data.cameras,
+    user_id: store.Data.user_id,
     camera_locations: store.Data.camera_locations,
     sites: store.Data.sites,
-    loading: store.UI.ControlPanel.loading
+    loading: store.UI.ControlPanel.loading,
+    serverStatus: store.Live.status,
+    producers: store.Live.producers,
+    camera_frames: store.Live.frames
 })
-const mapDispatchToProps = (dispatch) => ({
-    fetch: () => dispatch(getControlPanel())
+const mapDispatchToProps = (dispatch, ownProps) => ({
+    fetch: () => dispatch(getControlPanel()),
+    tuneIn: (camera_list, site_id) => tuneIntoFeed(camera_list, site_id)
 })
 
 export default connect(

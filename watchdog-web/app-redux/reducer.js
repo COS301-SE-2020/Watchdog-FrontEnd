@@ -302,13 +302,9 @@ function statisticsReducer(state = {}, action) {
 function liveReducer(state = defaultState.Live, action) {
     switch (action.type) {
         case "LIVE_CONNECTED":
-            console.log("LIVE CONNECTED -----------------")
-            const temp = produce(state, draft => {
+            return produce(state, draft => {
                 draft.status = true
             })
-            console.log(state)
-            console.log("LIVE CONNECTED -----------------")
-            return temp;
         case "UPDATE_PRODUCERS":
             console.log("UPDATE PRODUCERS -----------------")
             return produce(state, draft => {
@@ -320,12 +316,16 @@ function liveReducer(state = defaultState.Live, action) {
             })
         case "START_STREAM":
             return produce(state, draft => {
+                action.view.camera_list.forEach((id) => {
+                    draft.frames[id] = 'inactive_black.png'
+                })
+
                 draft.consume.site_id = action.view.site_id
                 draft.consume.camera_list = action.view.camera_list
             })
         case "CONSUME_FRAME":
             return produce(state, draft => {
-                draft.consume.frame = action.frame
+                draft.frames[action.camera_id] = (action.frame)? action.frame: 'inactive_black.png'
             })
         default:
             return state

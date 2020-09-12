@@ -80,6 +80,7 @@
             "site_id": null,
             "camera_list": [],
             "frame": null
-        }
+        },
+        "frames": {}
     }
 }
