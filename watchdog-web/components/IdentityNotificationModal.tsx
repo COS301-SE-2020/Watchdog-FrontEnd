@@ -35,8 +35,9 @@ class IdentityNotificationModal extends Component<propsIdentityNotificationModal
     
 
     async handleUpdate() {
+        console.log(this.props.user_key)
         this.setState({ loading: true, user_key: this.props.user_key })
-        updateIdentityNotification(this.props.user_key, this.state.message || this.props.monitor.custom_message, this.state.watch || this.props.monitor.watch, () => {
+        updateIdentityNotification(this.props.user_key,  this.state.monitor?.custom_message,  this.state.monitor?.watch, () => {
             this.setState({
                 monitor : null,
                 loading: false,
@@ -86,15 +87,17 @@ class IdentityNotificationModal extends Component<propsIdentityNotificationModal
                             <span className="p-inputgroup-addon">
                                 <InputSwitch disabled={this.state.loading} tooltip="Receive Notification?" checked={this.state.monitor?.watch === 1} onChange={(e) => {
                                     console.log(e)
-                                    let mon = this.state.monitor
-                                    e.value == true ? mon.watch = 1 : mon.watch = 0
+                                    let val 
+                                    
+                                    e.value == true ? val = 1 : val = 0
 
-                                    this.setState({monitor : mon})
+                                    this.setState({monitor : {custom_message: this.state.monitor?.custom_message, watch: val}})
                                 }} />
                             </span>
                             <InputText disabled={this.state.loading} placeholder='Custom Notification Message' tooltip={'Custom Notification Message'} value={this.state.monitor?.custom_message} onChange={(e) => {
-                                let mon = this.state.monitor
-                                mon.custom_message = e.target.value
+
+                                let mon = {custom_message:e.target.value, watch : this.state.monitor?.watch } 
+                                
                                 this.setState({ monitor: mon})
 
                             }} />

@@ -22,6 +22,8 @@ export type Signup = {
   hasSignedup: boolean
   Verified: boolean
   phone: string
+  confirmPassword : string
+  loading : boolean
 
 }
 export type ForgotPasswordState = {
@@ -250,4 +252,16 @@ export type stateAddIdentityModal = {
   fileName: string
   file: any
 
+}
+
+export type propsProfileAnalyticModals = {
+  name : string
+  show_modal : boolean
+  hide_modal : Function
+  img_list : any[]
+
+}
+
+export type stateProfileAnalyticModals = {
+  
 }

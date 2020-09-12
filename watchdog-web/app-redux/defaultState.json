@@ -6,9 +6,8 @@
         "sites": [],
         "camera_locations": [],
         "identities": {
-            "intruder": [],
-            "whitelist": [],
-            "detected": []
+            "profiles": [],
+            "whitelist_upload_queue": []
         },
         "logs": [],
         "name": "",
@@ -42,7 +41,7 @@
         "Recordings": {
             "loading": false,
             "message": "",
-            "filteredVideos": [] 
+            "filteredVideos": []
         },
         "Identities": {
             "loading": false,

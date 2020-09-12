@@ -8,6 +8,7 @@
     "type-check": "tsc"
   },
   "dependencies": {
+    "@nivo/api": "^0.62.0",
     "aws-amplify": "^3.0.24",
     "axios": "^0.20.0",
     "babel-loader": "^8.1.0",
@@ -29,6 +30,7 @@
     "react-ideal-image": "0.0.5",
     "react-image": "^4.0.3",
     "react-images-upload": "^1.2.8",
+    "react-lazy-load-image-component": "^1.5.0",
     "react-player": "^2.6.1",
     "react-redux": "^7.2.1",
     "react-sage": "^0.1.3",

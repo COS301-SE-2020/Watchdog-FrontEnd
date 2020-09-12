@@ -88,7 +88,7 @@ class NotificationModal extends Component<propsNotificationModal, stateNotificat
                                 </div>
                                 <div className="p-field p-col-12 p-md-12">
                                     <label htmlFor="phone">Security Company</label>
-                                    <InputMask disabled={this.state.loading} id="phone" value={this.state.security_company} mask="(999) 999-9999" onChange={val=>this.setState({security_company : val.value})} placeholder="(999) 999-9999" ></InputMask>
+                                    <InputMask disabled={this.state.loading} id="phone" value={this.state.security_company} mask="+99999999999" onChange={val=>this.setState({security_company : val.value})} placeholder="+27 99 999 9999" ></InputMask>
                                 </div>
                                 <div style={{ display: this.state.loading ? 'block' : 'none' }} className="p-field p-col-12 p-md-12"> <ProgressBar mode="indeterminate" style={{ height: '6px' }}></ProgressBar></div>
                             </div>

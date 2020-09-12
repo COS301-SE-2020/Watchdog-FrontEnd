@@ -19,7 +19,7 @@ function dataReducer(state = defaultState.UserData, action) {
                 draft.name = action.payload.data.data.name
                 draft.preferences = action.payload.data.data.preferences
                 draft.security_level = action.payload.data.data.security_level
-                draft.identities = action.payload.data.data.identities
+                // draft.identities = action.payload.data.data.identities
                 draft.user_id = action.payload.data.data.user_id
             })
         case actions.GET_RECORDINGS_SUCCESS:
@@ -29,7 +29,8 @@ function dataReducer(state = defaultState.UserData, action) {
             })
         case actions.GET_IDENTITIES_SUCCESS:
             return produce(state, draft => {
-                draft.identities.whitelist = action.payload.data.data.identities.whitelist
+                // console.log(action);
+                draft.identities.profiles = action.payload.data.data.profiles
             })
         case actions.GET_LOGS_SUCCESS:
             console.log("HERE");

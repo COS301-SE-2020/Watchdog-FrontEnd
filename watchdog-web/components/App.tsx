@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 import TopNav from "./TopNav"
 import { propsApp, stateApp } from '../interfaces'
 import DashboardScreen from './DashboardScreen'
 import RecordingsScreen from './RecordingsScreen'
+import ProfilesScreen from './ProfilesScreen'
 import IdentitiesModal from './IdentitiesModal'
 import DetectedImagesModal from './DetectedImagesModal'
 import NotificationModal from './NotificationModal'
@@ -22,7 +23,7 @@ class App extends Component<propsApp, stateApp> {
             detectedImagesModal: false,
             notificationModal: false,
             logoutModal: false,
-            changePasswordModal : false
+            changePasswordModal: false
         }
 
         this.setScreen = this.setScreen.bind(this)
@@ -38,8 +39,8 @@ class App extends Component<propsApp, stateApp> {
         this.props.getAllData()
     }
 
-    togglePasswordModal(val: boolean){
-        this.setState({changePasswordModal : val})
+    togglePasswordModal(val: boolean) {
+        this.setState({ changePasswordModal: val })
     }
 
     toggleLogoutMOdal(val: boolean) {
@@ -68,18 +69,28 @@ class App extends Component<propsApp, stateApp> {
             <div style={{ maxWidth: "1700px", margin: 'auto' }}>
                 <div className="p-grid p-dir-col">
                     <div className="p-col"><div className="App-header"><TopNav toggle_notifications_modal={this.toggleNotificationsModal}
-                        toggle_logout_modal = {this.toggleLogoutMOdal}
-                        toggle_password_modal = { this.togglePasswordModal}
+                        toggle_logout_modal={this.toggleLogoutMOdal}
+                        toggle_password_modal={this.togglePasswordModal}
                         toggle_detected_images={this.toggleDectedImagesMOdal}
                         toggle_identites={this.toggleIdentitesModal} changeScreen={this.setScreen} /></div></div>
-                    <div className="p-col">{this.state.selectedScreen === 1 ? <DashboardScreen /> : <RecordingsScreen />}</div>
+                    <div className="p-col">
+                        {
+                            (this.state.selectedScreen === 1) ?
+                             <DashboardScreen /> 
+                             :
+                             (this.state.selectedScreen === 2)?
+                                <RecordingsScreen />
+                                :
+                                <ProfilesScreen/>
+                        }
+                    </div>
 
                 </div>
                 <IdentitiesModal show_modal={this.state.identitiesModal} hide_modal={this.toggleIdentitesModal} />
                 <DetectedImagesModal show_modal={this.state.detectedImagesModal} hide_modal={this.toggleDectedImagesMOdal} />
                 <NotificationModal show_modal={this.state.notificationModal} hide_modal={this.toggleNotificationsModal} />
-                <LogoutModal show_modal={this.state.logoutModal} hide_modal={this.toggleLogoutMOdal}/>
-                <ChangePasswordModal show_modal= { this.state.changePasswordModal} hide_modal={this.togglePasswordModal} />
+                <LogoutModal show_modal={this.state.logoutModal} hide_modal={this.toggleLogoutMOdal} />
+                <ChangePasswordModal show_modal={this.state.changePasswordModal} hide_modal={this.togglePasswordModal} />
 
             </div>
 

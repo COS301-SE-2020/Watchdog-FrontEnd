@@ -29,7 +29,13 @@ class UserManagement extends Component<{}, Login> {
             stage: 0
         }
         this.handleSignup = this.handleSignup.bind(this)
-        this.handleforgot = this.handleforgot.bind(this)
+        this.handleforgot=this.handleforgot.bind(this)
+        this.returnToSignIn = this.returnToSignIn.bind(this)
+    }
+
+    returnToSignIn(){
+        this.setState({stage : 0})
+
     }
     handleSignup() {
         this.setState({ loading: true })
@@ -47,10 +53,10 @@ class UserManagement extends Component<{}, Login> {
 
 
     }
-    handleforgot() {
-        console.log("here")
-        return (
-            <ForgotPassword />
+    handleforgot(){
+        
+        return(
+            <ForgotPassword returnSignIn = { this.returnToSignIn}/>
         )
     }
 
@@ -66,7 +72,7 @@ class UserManagement extends Component<{}, Login> {
 
                     <div className="p-grid">
                         <div className="p-col-12 p-md-12" style={{ display: 'flex', alignContent: 'center', textAlign: 'center' }} >
-                            <Card style={{ maxWidth: '350px' }} title="Sign In" subTitle="Sign in to your watchdog system">
+                            <Card  style={{ width: '350px',  maxWidth: '100vw' }} title="Sign In" subTitle="Sign in to your watchdog system">
                                 <div className="p-field p-grid">
 
                                     <div className="p-inputgroup">
@@ -84,11 +90,15 @@ class UserManagement extends Component<{}, Login> {
                                             <i className="pi pi-key"></i>
                                         </span>
                                         <Password disabled={this.state.loading} feedback={false} placeholder='Password' value={this.state.password} onChange={(e) => this.setState({ password: e.target.value })} />
-                                        <span><Button disabled={this.state.loading} label="Forgot Password?" style={{ textAlign: 'center', maxWidth: '100px' }} className="p-button-link" onClick={() => this.setState({ stage: 2 })} /></span>
+                                        
 
                                     </div>
+                                    <div  style={{ width:'100%', margin: 'auto', display: 'flex', alignItems: 'right', justifyContent: 'right' }}><Button disabled={this.state.loading} label="Forgot Password?" className="p-button-link" onClick={() => this.setState({ stage: 2 })} /></div>
 
 
+                                </div>
+                                <div className="p-field p-grid">
+                                    
                                 </div>
                                 <div className="p-field p-grid">
                                     <div className="p-inputgroup">
@@ -106,19 +116,19 @@ class UserManagement extends Component<{}, Login> {
                 </div>
 
             )
-        } else if (this.state.stage === 1) {
-
-            return (
-                <Signup />
+        } else if(this.state.stage===1) {
+           
+            return(
+                <Signup returnSignIn = { this.returnToSignIn}/>
             );
         }
-        else {
-            console.log(" here")
-            return (
-
-                <ForgotPassword />
-            )
-        }
+            else{
+                console.log(" here")
+                return(
+                    
+                    <ForgotPassword returnSignIn = { this.returnToSignIn}/>
+                )
+            } 
     }
 }
 

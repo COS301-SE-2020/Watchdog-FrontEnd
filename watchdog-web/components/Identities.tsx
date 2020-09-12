@@ -10,19 +10,12 @@ import IdentityNotificationModal from './IdentityNotificationModal'
 import AddIdentityModal from "./AddIdentityModal";
 import { Carousel } from 'primereact/carousel'
 import { Card } from 'primereact/card'
+import { tooltip } from 'aws-amplify'
+import { LazyLoadImage } from 'react-lazy-load-image-component'
 
 
 const responsiveOptions = [
-    {
-        breakpoint: '1024px',
-        numVisible: 3,
-        numScroll: 3
-    },
-    {
-        breakpoint: '600px',
-        numVisible: 2,
-        numScroll: 2
-    },
+    
     {
         breakpoint: '480px',
         numVisible: 1,
@@ -107,7 +100,13 @@ class Identities extends Component<propsIdentities, stateIdentities> {
 
     componentDidMount() {
         this.getData()
+        
 
+    }
+
+    componentDidUpdate = () => {
+
+        console.log(this.props.data);
     }
 
     identityTemplate(identity: identity) {
@@ -121,8 +120,7 @@ class Identities extends Component<propsIdentities, stateIdentities> {
                             <div style={{ margin: 'auto', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '0.5rem' }} className='p-col-12 p-md-12 p-lg-12 '>
 
 
-                                <Img style={{ height: '350px', width: '350px', objectFit: 'contain' }} src={identity.img} loader={
-                                    <i className="pi pi-spin pi-spinner" style={{ 'fontSize': '5em' }}></i>} />
+                            <LazyLoadImage placeholder={<i className="pi pi-spin pi-spinner" style={{'fontSize': '5em'}}></i>}  style={{ maxHeight: '350px', width: '100%', objectFit: 'contain' }} src={identity.img} />
 
 
                             </div>
@@ -133,15 +131,16 @@ class Identities extends Component<propsIdentities, stateIdentities> {
                         <span className={`product-badge status-${product.inventoryStatus.toLowerCase()}`}>{product.inventoryStatus}</span> */}
                                     <div style={{ margin: 'auto', display: 'flex', alignItems: 'center', justifyContent: 'center' }} className="car-buttons p-mt-5">
                                         <Button onClick={() => {
+                                            
                                             this.setState({ notifications_name: identity.name, notifications_monitor: identity.monitor, natification_key : identity.img_key })
                                             this.toggleNotificationModal(true, null)
-                                        }} icon="pi pi-bell" className="p-button p-button-rounded p-mr-2" />
+                                        }} tooltipOptions={{position : 'bottom'}} tooltip ='Notification Settings' icon="pi pi-bell" className="p-button p-button-rounded p-mr-2" />
 
                                         <Button onClick={() => {
                                             
                                             this.setState({ remove_name: identity.name || 'No Name', remove_index: identity.id })
                                             this.toggleRemoveModal(true, null)
-                                        }} icon="pi pi-times" className="p-button-danger p-button-rounded" />
+                                        }} tooltipOptions={{position : 'bottom'}} tooltip ='Remove Identity' icon="pi pi-times" className="p-button-danger p-button-rounded"  />
                                     </div>
                                 </div>
                             </div>
@@ -207,7 +206,7 @@ class Identities extends Component<propsIdentities, stateIdentities> {
                 <div style={{ display: this.state.loading ? 'block' : 'none' }} className="p-field p-col-12 p-md-12"> <ProgressBar mode="indeterminate" style={{ height: '6px' }}></ProgressBar></div>
                 <div className='p-col-12 p-md-12 p-lg-12'>
                     <div className="card">
-                        <Carousel value={this.state.data} numVisible={3} numScroll={3} responsiveOptions={responsiveOptions}
+                        <Carousel circular={true} value={this.state.data} numVisible={1} numScroll={1} responsiveOptions={responsiveOptions}
                             itemTemplate={this.identityTemplate} />
                     </div>
 
