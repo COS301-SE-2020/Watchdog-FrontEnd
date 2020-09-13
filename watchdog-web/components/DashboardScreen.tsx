@@ -71,12 +71,12 @@ class DashboardScreen extends Component<DashboardScreenProps, DashboardScreenSta
                 className="flexgrid dashboard"
             >
                 <div className="p-grid p-align-stretch">
-                    <div className="p-col-12 p-md-6 p-lg-6">
+                    <div className="p-col-12 p-md-12 p-lg-6">
                         <div className="p-grid">
-                            <div className="p-col-4 systemState" style={{ minHeight: '40vh', width: '50%' }}>
+                            <div className="p-col-12 p-md-12 p-lg-4 systemState" style={{ minHeight: '40vh', width: '50%' }}>
                                 <SecurityLevelPanel />
                             </div>
-                            <div className="p-col-4" style={{ minHeight: '40vh', width: '50%' }}>
+                            <div className="p-col-12 p-md-12 p-lg-4" style={{ minHeight: '40vh', width: '50%' }}>
                                 <Events />
                             </div>
                             <div className="p-col-12" style={{ height: '40vh' }}>

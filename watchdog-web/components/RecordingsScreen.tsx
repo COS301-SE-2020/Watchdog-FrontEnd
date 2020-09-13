@@ -12,6 +12,9 @@ import { getRecordings } from '../app-redux/actions';
 import VideoList from './VideoList'
 import { produce } from 'immer';
 import { Button } from 'primereact/button'
+import { getVideos } from '../api'
+import LoadingOverlay from 'react-loading-overlay'
+import MoonLoader from 'react-spinners/MoonLoader'
 
 interface RecordingsScreenProps {
     videos: any[]
@@ -41,6 +44,9 @@ interface RecordingsScreenState {
     selected_rooms: any[]
     rooms: any[]
     type: any[]
+    video_data: any[]
+    display_data: any[]
+    loading: boolean
 }
 
 type = [
@@ -71,7 +77,10 @@ class RecordingsScreen extends Component<RecordingsScreenProps, RecordingsScreen
         timeto: null,
         selected_rooms: [],
         type: [],
-        rooms: []
+        rooms: [],
+        video_data: [],
+        display_data: [],
+        loading: false
     }
     player: any;
 
@@ -86,10 +95,121 @@ class RecordingsScreen extends Component<RecordingsScreenProps, RecordingsScreen
         this.handleChangeVideoType = this.handleChangeVideoType.bind(this)
         this.handleChangeCameraLocation = this.handleChangeCameraLocation.bind(this)
         this.applyFilter = this.applyFilter.bind(this)
+        this.getData = this.getData.bind(this)
     }
 
+    applyFilter() {
+        let array = this.state.video_data
+        //console.log(this.state.dateFilter.length)
+        if (this.state.date?.length === 2 && this.state.date[1] !== null) {
+            //console.log("here")
+
+            array = array.filter((item) => {
+                let date = new Date(item.date)
+                return this.state.date[0] <= date && date <= this.state.date[1]
+            })
+        }
+
+        if (this.state.date?.length === 2 && this.state.date[1] === null) {
+            //console.log("here")
+
+            array = array.filter((item) => {
+                let date = new Date(item.date)
+                return this.state.date[0] <= date
+            })
+        }
+
+
+        if (this.state.timefrom !== null) {
+            this.state.timefrom.setSeconds(0)
+            //console.log(this.state.startTimeFilter[0])
+            array = array.filter((item) => {
+                let date = new Date()
+                date.setHours(parseInt(item.time.split(":")[0]), parseInt(item.time.split(":")[1]), 0)
+                //console.log(this.state.startTimeFilter[0])
+                //console.log(date)
+                return this.state.timefrom.getTime() <= date.getTime()
+            })
+        }
+
+        if (this.state.timeto !== null) {
+            this.state.timeto.setSeconds(0)
+            //console.log(this.state.startTimeFilter[0])
+            array = array.filter((item) => {
+                let date = new Date()
+                date.setHours(parseInt(item.time.split(":")[0]), parseInt(item.time.split(":")[1]), 0)
+                //console.log(this.state.startTimeFilter[0])
+                //console.log(date)
+                return this.state.timeto.getTime() >= date.getTime()
+            })
+        }
+
+        if (this.state.type.length !== 0) {
+            array = array.filter((item) => {
+                return this.state.type.includes(item.type)
+            })
+        }
+
+        if (this.state.selected_rooms.length !== 0) {
+            array = array.filter((item) => {
+                return this.state.selected_rooms.includes(item.location)
+            })
+        }
+        //console.log(array)
+
+        this.setState({
+            display_data: array
+        });
+
+
+    }
+
+    async getData() {
+        this.setState({loading: true})
+        await getVideos((res) => {
+            const videos = res.data.data.videos || []
+            let locations = []
+            let result = videos.map((item, index) => {
+                let location = item.location || "Unknown"
+                locations.push(location.charAt(0).toUpperCase() + location.slice(1))
+                let type = item.tag
+                let date = new Date(item.metadata.timestamp * 1000)
+                let utcString = date.toUTCString()
+                let time = date.toTimeString()
+                time = time.split(' ')[0]
+                let new_element = {
+                    id: index + 1,
+                    "date": date.toISOString().slice(0, 10),
+                    "time": time.substr(0, 8), //(date.getHours()+2) +":"+date.getMinutes(),
+                    "type": type.charAt(0).toUpperCase() + type.slice(1),
+                    "location": location.charAt(0).toUpperCase() + location.slice(1),
+                    "url": item.path_in_s3
+                }
+                return new_element
+            })
+
+            let unique = [...new Set(locations)];
+            let filter = unique.map((item) => {
+                let option = {
+                    "label": item,
+                    "value": item
+                }
+                return option
+            })
+            console.log(filter)
+            this.setState({ display_data: result, video_data: result, rooms: filter })
+
+        }, (e) => {
+            console.log(e)
+        })
+        this.applyFilter()
+        this.setState({loading: false})
+    }
+
+
     componentDidMount = () => {
-        this.props.fetch();
+        this.getData()
+        //this.props.fetch();
     }
 
     handlePlayPause = () => {
@@ -211,188 +331,139 @@ class RecordingsScreen extends Component<RecordingsScreenProps, RecordingsScreen
         console.log(value.value)
 
     }
-    applyFilter() {
-        // let array = this.state.data
-        // //console.log(this.state.dateFilter.length)
-        // if(this.state.dateFilter.length===2){
-        //     //console.log("here")
 
-        //    array = array.filter((item) =>{
-        //         let date = new Date(item.date)
-        //         return this.state.dateFilter[0]<=date &&date<=this.state.dateFilter[1]
-        //    }) 
-        // }
-
-
-        // if(this.state.startTimeFilter.length!==0){
-        //     this.state.startTimeFilter[0].setSeconds(0)
-        //     //console.log(this.state.startTimeFilter[0])
-        //     array = array.filter((item) =>{
-        //         let date = new Date()
-        //         date.setHours(parseInt(item.time.split(":")[0]),parseInt(item.time.split(":")[1]),0)
-        //         //console.log(this.state.startTimeFilter[0])
-        //         //console.log(date)
-        //         return this.state.startTimeFilter[0].getTime()<=date.getTime()
-        //    })
-        // }
-
-        // if(this.state.endTimeFilter.length!==0){
-        //     this.state.endTimeFilter[0].setSeconds(0)
-        //     //console.log(this.state.startTimeFilter[0])
-        //     array = array.filter((item) =>{
-        //         let date = new Date()
-        //         date.setHours(parseInt(item.time.split(":")[0]),parseInt(item.time.split(":")[1]),0)
-        //         //console.log(this.state.startTimeFilter[0])
-        //         //console.log(date)
-        //         return this.state.endTimeFilter[0].getTime()>=date.getTime()
-        //    })
-        // }
-
-        // if(this.state.videoTypeFilter.length!==0){
-        //     array = array.filter((item) =>{
-        //         return this.state.videoTypeFilter.includes(item.type)
-        //     })
-        // }
-
-        // if(this.state.cameraLocation.length!==0){
-        //     array = array.filter((item) =>{
-        //         return this.state.cameraLocation.includes(item.location)
-        //     })
-        // }
-        // //console.log(array)
-
-        // this.setState({     
-        //     displayData : array    
-        // });
-
-
-    }
 
     render() {
         const { url, playing, controls, light, volume, muted, loop, played, loaded, duration, playbackRate, pip } = this.state
         return (
-            <div
-                className=""
+            <LoadingOverlay
+                active={this.state.loading}
+                spinner ={<MoonLoader color={'#25b3f5'} />}
+                
             >
-                <div className="p-grid p-align-stretch">
-                    <div
-                        className="p-col-12 p-md-6 p-lg-6 p-align-stretch"
-                    // style={{ backgroundColor: 'white', borderStyle: 'dashed' }}
-                    >
-                        <div className="p-grid">
-                            <div className="p-col-12" style={{ minHeight: '50vh' }}>
-                                <Panel
-                                    header={
-                                        (url == '') ?
-                                            <span>Choose a Video to Begin Playing</span>
-                                            :
-                                            <div style={{ padding: 0, margin: 0 }} className="p-grid p-nogutter p-align-center p-justify-between">
-                                                <div className="p-col-11">{this.state.header}</div>
-                                                <div className="p-col-1">
-                                                    <Button style={{ textAlign: 'right', padding: 0, marginTop: 0, marginBottom: 0, color: 'red' }} icon="pi pi-times" className="p-button-rounded p-button-text" onClick={() => this.setState({ url: '' })} />
+                <div
+                    className=""
+                >
+                    <div className="p-grid p-align-stretch">
+                        <div
+                            className="p-col-12 p-md-6 p-lg-6 p-align-stretch"
+                        // style={{ backgroundColor: 'white', borderStyle: 'dashed' }}
+                        >
+                            <div className="p-grid">
+                                <div className="p-col-12" style={{ minHeight: '50vh' }}>
+                                    <Panel
+                                        header={
+                                            (url == '') ?
+                                                <span>Choose a Video to Begin Playing</span>
+                                                :
+                                                <div style={{ padding: 0, margin: 0 }} className="p-grid p-nogutter p-align-center p-justify-between">
+                                                    <div className="p-col-11">{this.state.header}</div>
+                                                    <div className="p-col-1">
+                                                        <Button style={{ textAlign: 'right', padding: 0, marginTop: 0, marginBottom: 0, color: 'red' }} icon="pi pi-times" className="p-button-rounded p-button-text" onClick={() => this.setState({ url: '' })} />
+                                                    </div>
                                                 </div>
-                                            </div>
-                                    }
+                                        }
 
-                                    className="video-player p-shadow-8"
-                                >
-                                    {
-                                        (url == '') ?
-                                            <img style={{ height: '43vh', width: '100%' }} src={'static.gif'}></img>
-                                            :
-                                            <ReactPlayer
-                                                // style={{ display: (url == '') ? 'none' : 'block' }}
-                                                ref={this.ref}
-                                                className='react-player p-shadow-8'
-                                                width='100%'
-                                                height='100%'
-                                                url={this.state.url}
-                                                pip={pip}
-                                                playing={false}
-                                                controls={true}
-                                                light={light}
-                                                loop={loop}
-                                                playbackRate={playbackRate}
-                                                volume={0.0}
-                                                muted={muted}
-                                                onReady={() => console.log('onReady')}
-                                                onStart={() => console.log('onStart')}
-                                                onPlay={this.handlePlay}
-                                                onPause={this.handlePause}
-                                                onBuffer={() => console.log('onBuffer')}
-                                                onSeek={e => console.log('onSeek', e)}
-                                                onEnded={this.handleEnded}
-                                                onError={e => console.log('onError', e)}
-                                                onProgress={this.handleProgress}
-                                                onDuration={this.handleDuration}
-                                            />
-                                    }
-                                </Panel>
+                                        className="video-player p-shadow-8"
+                                    >
+                                        {
+                                            (url == '') ?
+                                                <img style={{ height: '43vh', width: '100%' }} src={'static.gif'}></img>
+                                                :
+                                                <ReactPlayer
+                                                    // style={{ display: (url == '') ? 'none' : 'block' }}
+                                                    ref={this.ref}
+                                                    className='react-player p-shadow-8'
+                                                    width='100%'
+                                                    height='100%'
+                                                    url={this.state.url}
+                                                    pip={pip}
+                                                    playing={false}
+                                                    controls={true}
+                                                    light={light}
+                                                    loop={loop}
+                                                    playbackRate={playbackRate}
+                                                    volume={0.0}
+                                                    muted={muted}
+                                                    onReady={() => console.log('onReady')}
+                                                    onStart={() => console.log('onStart')}
+                                                    onPlay={this.handlePlay}
+                                                    onPause={this.handlePause}
+                                                    onBuffer={() => console.log('onBuffer')}
+                                                    onSeek={e => console.log('onSeek', e)}
+                                                    onEnded={this.handleEnded}
+                                                    onError={e => console.log('onError', e)}
+                                                    onProgress={this.handleProgress}
+                                                    onDuration={this.handleDuration}
+                                                />
+                                        }
+                                    </Panel>
 
-                            </div>
-                            <div className="p-col-12" style={{ alignItems: 'center', justifyContent: 'center', color: 'white', margin: '0px auto', display: 'flex', alignContent: 'center', textAlign: 'center' }}>
-
-                                <div className="p-field p-col-6  ">
-                                    <span  ><h4>Select Date</h4></span>
-                                    <div style={{ alignItems: 'center', justifyContent: 'center', color: 'white', margin: '0px auto', display: 'flex', alignContent: 'center', textAlign: 'center' }} className="p-inputgroup">
-                                        <Calendar showIcon showButtonBar id="range" value={this.state.date} onChange={this.handleChangeDateFilter} selectionMode="range" readOnlyInput />
-
-                                    </div>
                                 </div>
-                                <div className="p-field p-col-6">
-                                    <span  ><h4>Select Time</h4></span>
-                                    <div style={{ alignItems: 'center', justifyContent: 'center', color: 'white', margin: '0px auto', display: 'flex', alignContent: 'center', textAlign: 'center' }} className="p-inputgroup">
+                                <div className="p-col-12" style={{ alignItems: 'center', justifyContent: 'center', color: 'white', margin: '0px auto', display: 'flex', alignContent: 'center', textAlign: 'center' }}>
 
-                                        <Calendar showIcon icon={'pi pi-clock'} showButtonBar id="time24" value={this.state.timefrom} onChange={this.handleChangeStartTime} showTime showSeconds timeOnly readOnlyInput />
+                                    <div className="p-field p-col-6  ">
+                                        <span  ><h4>Select Date</h4></span>
+                                        <div style={{ alignItems: 'center', justifyContent: 'center', color: 'white', margin: '0px auto', display: 'flex', alignContent: 'center', textAlign: 'center' }} className="p-inputgroup">
+                                            <Calendar showIcon showButtonBar id="range" value={this.state.date} onChange={this.handleChangeDateFilter} selectionMode="range" readOnlyInput />
 
-                                        <div style={{ width: '25px', margin: '5px' }}>TO:</div>
+                                        </div>
+                                    </div>
+                                    <div className="p-field p-col-6">
+                                        <span  ><h4>Select Time</h4></span>
+                                        <div style={{ alignItems: 'center', justifyContent: 'center', color: 'white', margin: '0px auto', display: 'flex', alignContent: 'center', textAlign: 'center' }} className="p-inputgroup">
 
-                                        <Calendar showButtonBar showIcon icon='pi pi-clock
+                                            <Calendar showIcon icon={'pi pi-clock'} showButtonBar id="time24" value={this.state.timefrom} onChange={this.handleChangeStartTime} showTime showSeconds timeOnly readOnlyInput />
+
+                                            <div style={{ width: '25px', margin: '5px' }}>TO:</div>
+
+                                            <Calendar showButtonBar showIcon icon='pi pi-clock
 ' id="time24" value={this.state.timeto} onChange={this.handleChangeEndTime} showTime showSeconds timeOnly readOnlyInput />
 
+                                        </div>
+
+
                                     </div>
 
-
                                 </div>
+                                <div className="p-col-12" style={{ color: 'white', margin: '0px auto', display: 'flex', alignContent: 'center', textAlign: 'center' }}>
 
-                            </div>
-                            <div className="p-col-12" style={{ color: 'white', margin: '0px auto', display: 'flex', alignContent: 'center', textAlign: 'center' }}>
+                                    <div className="p-field p-col-6  ">
+                                        <span  ><h4>Select Room</h4></span>
+                                        <div style={{ alignItems: 'center', justifyContent: 'center', color: 'white', margin: '0px auto', display: 'flex', alignContent: 'center', textAlign: 'center' }} className="p-inputgroup">
+                                            <MultiSelect style={{ width: '185px' }} value={this.state.selected_rooms} options={this.state.rooms} onChange={this.handleChangeCameraLocation} />
 
-                                <div className="p-field p-col-6  ">
-                                    <span  ><h4>Select Room</h4></span>
-                                    <div style={{ alignItems: 'center', justifyContent: 'center', color: 'white', margin: '0px auto', display: 'flex', alignContent: 'center', textAlign: 'center' }} className="p-inputgroup">
-                                        <MultiSelect style={{ width: '185px' }} value={this.state.selected_rooms} options={this.state.rooms} onChange={this.handleChangeCameraLocation} />
-
+                                        </div>
                                     </div>
-                                </div>
-                                <div className="p-field p-col-6">
-                                    <span  ><h4>Select Video Type </h4></span>
-                                    <div style={{ alignItems: 'center', justifyContent: 'center', color: 'white', margin: '0px auto', display: 'flex', alignContent: 'center', textAlign: 'center' }} className="p-inputgroup">
-                                        <MultiSelect style={{ width: '185px' }} value={this.state.type} options={type} onChange={this.handleChangeVideoType} />
+                                    <div className="p-field p-col-6">
+                                        <span  ><h4>Select Video Type </h4></span>
+                                        <div style={{ alignItems: 'center', justifyContent: 'center', color: 'white', margin: '0px auto', display: 'flex', alignContent: 'center', textAlign: 'center' }} className="p-inputgroup">
+                                            <MultiSelect style={{ width: '185px' }} value={this.state.type} options={type} onChange={this.handleChangeVideoType} />
 
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div className="p-col-12 p-md-6 p-lg-6" style={{ minHeight: '82vh' }}>
-                        <VideoList videos={this.props.videos} locations={this.props.locations}
-                            onPlay={
-                                (video) => {
-                                    console.log(video.path_in_s3);
+                        <div className="p-col-12 p-md-6 p-lg-6" >
+                            <VideoList videos={this.state.display_data} locations={this.state.rooms}
+                                onPlay={
+                                    (video) => {
+                                        console.log(video.url);
 
-                                    this.setState(produce(draft => {
-                                        draft.url = video.path_in_s3
-                                        draft.header = moment.unix(video.metadata.timestamp).format('DD-MM-YYYY hh:mm:ss')
-                                    }))
+                                        this.setState(produce(draft => {
+                                            draft.url = video.url
+                                            //draft.header = moment.unix(video.metadata.timestamp).format('DD-MM-YYYY hh:mm:ss')
+                                        }))
+                                    }
                                 }
-                            }
 
-                            fetch={this.props.fetch}
-                        />
+                                fetch={this.getData}
+                            />
+                        </div>
                     </div>
                 </div>
-            </div>
+            </LoadingOverlay>
         );
     }
 }

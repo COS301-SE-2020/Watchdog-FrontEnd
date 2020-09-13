@@ -4,6 +4,7 @@ import { Button } from 'primereact/button';
 
 import ReactPlayer from 'react-player/lazy'
 import moment from 'moment';
+import { Scrollbars } from 'react-custom-scrollbars'
 
 // const data = require('../public/products.json').data;
 
@@ -68,16 +69,17 @@ class VideoList extends Component<VideoListProps, VideoListState> {
             <div className="p-col-12" onClick={() => this.props.onPlay(data)}>
                 <div className="product-list-item">
                     <ReactPlayer
-                        url={data.path_in_s3}
+                        url={data.url}
                         playing={false}
                         className="thumbnail"
                         width={'200px'}
                         height={'100%'}
                     />
                     <div className="product-list-detail">
-                        <div className="product-name">{moment.unix(data.metadata.timestamp).format("DD-MM-YYYY hh:mm:ss")}</div>
-                        <div className="product-description">{(this.props.locations[data.metadata.camera_id]) ? this.props.locations[data.metadata.camera_id] : "Unknown Location"}</div>
-                        <i className="pi pi-tag product-category-icon"></i><span className="product-category">{data.tag}</span>
+                        <div className="p-col-12 p-md-12 p-lg-12 product-name">{data.date}</div>
+                        <div className="p-col-12 p-md-12 p-lg-12 product-name">{data.time}</div>
+                        <div className="p-col-12 p-md-12 p-lg-12 product-description">{data.location || "Unknown Location"}</div>
+                        <i className="pi pi-tag product-category-icon"></i><span className="product-category">{data.type}</span>
                     </div>
                 </div>
             </div>
@@ -91,7 +93,7 @@ class VideoList extends Component<VideoListProps, VideoListState> {
                     <div className="product-grid-item-top">
                         <div>
                             <i className="pi pi-tag product-category-icon"></i>
-                            <span className="product-category">{data.tag}</span>
+                            <span className="product-category">{data.type}</span>
                         </div>
                     </div>
                     <div className="product-grid-item-content">
@@ -99,7 +101,7 @@ class VideoList extends Component<VideoListProps, VideoListState> {
                             <div style={{ margin: 'auto', display: 'flex', alignItems: 'center', justifyContent: 'center' }} className='p-col-12 p-md-12 p-lg-12'>
                                 <ReactPlayer
 
-                                    url={data.path_in_s3}
+                                    url={data.url}
                                     playing={false}
                                     className="thumbnail"
                                     width={'200px'}
@@ -107,8 +109,9 @@ class VideoList extends Component<VideoListProps, VideoListState> {
                                 />
                             </div>
                         </div>
-                        <div className="p-col-12 p-md-12 p-lg-12 product-name">{moment.unix(data.metadata.timestamp).format("DD-MM-YYYY hh:mm:ss")}</div>
-                        <div className="p-col-12 p-md-12 p-lg-12 product-description">{(this.props.locations[data.metadata.camera_id]) ? this.props.locations[data.metadata.camera_id] : "Unknown Location"}</div>
+                        <div className="p-col-12 p-md-12 p-lg-12 product-name">{data.date}</div>
+                        <div className="p-col-12 p-md-12 p-lg-12 product-name">{data.time}</div>
+                        <div className="p-col-12 p-md-12 p-lg-12 product-description">{data.location || "Unknown Location"}</div>
                     </div>
                 </div>
             </div>
@@ -145,13 +148,13 @@ class VideoList extends Component<VideoListProps, VideoListState> {
         const header = this.renderHeader();
 
         return (
-            <div className="dataview-video-list">
+            <Scrollbars style={{height : '85vh'}} className="dataview-video-list">
                 <div className="card">
                     <DataView value={this.props.videos} layout={this.state.layout} header={header}
                         itemTemplate={this.itemTemplate} paginator rows={6}
                         sortOrder={this.state.sortOrder} sortField={this.state.sortField} />
                 </div>
-            </div>
+            </Scrollbars>
         );
     }
 }

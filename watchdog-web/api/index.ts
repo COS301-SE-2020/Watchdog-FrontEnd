@@ -205,5 +205,30 @@ export async function sendVerification(succ, err){
 
 }
 
+export async function getVideos(callback, errorcallback) {
+  let url = await "https://b534kvo5c6.execute-api.af-south-1.amazonaws.com/testing/ui/recordings"
+  let { idToken } = await Auth.currentSession()
+  //console.log(idToken)
+  await axios.get(url, {
+    headers: {
+      Authorization: `${idToken.jwtToken}`
+
+    }
+  })
+    .then(res => {
+      //do something
+      if (callback != null) {
+        callback(res);
+      }
+    })
+    .catch(err => {
+      // catch error
+      if (errorcallback != null) {
+        errorcallback(err);
+      }
+    })
+
+}
+
 
 

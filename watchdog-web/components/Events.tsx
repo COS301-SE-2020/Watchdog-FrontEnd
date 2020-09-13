@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Panel } from 'primereact/panel';
-
+import { Scrollbars } from 'react-custom-scrollbars'
 import { connect } from 'react-redux';
 import { getLogs } from '../app-redux/actions';
 import { Card } from 'primereact/card';
@@ -50,20 +50,21 @@ class Events extends Component<EventsProps, EventsState> {
 
         const comps: any[] = [];
         this.props.logs.forEach((element, i) => {
-        comps.push(<Card key={i} style={{ borderRadius: 0, marginBottom: '1rem', backgroundColor: 'rgba(0, 0, 0, 0.15)' }} header={<p style={{ padding: 5, margin: 0, color: 'grey' }}>{moment.unix(element.timestamp).format('DD-MM-YYYY')}</p>} className="p-shadow-4 recent-event">{ element.message }</Card>);
+            comps.push(<Card key={i} style={{ borderRadius: 0, marginBottom: '1rem', backgroundColor: 'rgba(0, 0, 0, 0.15)' }} header={<p style={{ padding: 5, margin: 0, color: 'grey' }}>{moment.unix(element.timestamp).format('DD-MM-YYYY')}</p>} className="p-shadow-4 recent-event">{element.message}</Card>);
         });
 
         return <Panel header={<span><span>System Events</span></span>} className="p-shadow-8" style={{ minHeight: '40vh' }}>
+            <Scrollbars style={{ height: '30vh' }}>
+                <div style={{ display: (this.props.loading) ? "block" : "none", padding: 0, margin: 0 }}>
+                    <ProgressBar style={{ height: '6px', padding: 0, margin: 0, borderRadius: 0 }} mode="indeterminate" />
+                </div>
 
-            <div style={{ display: (this.props.loading) ? "block" : "none", padding: 0, margin: 0 }}>
-                <ProgressBar style={{ height: '6px', padding: 0, margin: 0, borderRadius: 0 }} mode="indeterminate" />
-            </div>
-
-            <div style={{ maxHeight: '30vh', overflow: 'scroll' }}>
-                {
-                    comps
-                }
-            </div>
+                <div style={{ maxHeight: '30vh' }}>
+                    {
+                        comps
+                    }
+                </div>
+            </Scrollbars>
 
         </Panel>
     }
