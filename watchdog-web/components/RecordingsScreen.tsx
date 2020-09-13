@@ -165,7 +165,7 @@ class RecordingsScreen extends Component<RecordingsScreenProps, RecordingsScreen
     }
 
     async getData() {
-        this.setState({loading: true})
+        this.setState({ loading: true })
         await getVideos((res) => {
             const videos = res.data.data.videos || []
             let locations = []
@@ -203,7 +203,7 @@ class RecordingsScreen extends Component<RecordingsScreenProps, RecordingsScreen
             console.log(e)
         })
         this.applyFilter()
-        this.setState({loading: false})
+        this.setState({ loading: false })
     }
 
 
@@ -338,8 +338,9 @@ class RecordingsScreen extends Component<RecordingsScreenProps, RecordingsScreen
         return (
             <LoadingOverlay
                 active={this.state.loading}
-                spinner ={<MoonLoader color={'#25b3f5'} />}
-                
+                spinner={<MoonLoader color={'#25b3f5'} />}
+                style={{wrapper: {width: '100vw', height : '100vh'}}}
+
             >
                 <div
                     className=""
@@ -375,7 +376,7 @@ class RecordingsScreen extends Component<RecordingsScreenProps, RecordingsScreen
                                                     ref={this.ref}
                                                     className='react-player p-shadow-8'
                                                     width='100%'
-                                                    height='100%'
+                                                    height='400px'
                                                     url={this.state.url}
                                                     pip={pip}
                                                     playing={false}
@@ -401,28 +402,29 @@ class RecordingsScreen extends Component<RecordingsScreenProps, RecordingsScreen
 
                                 </div>
                                 <div className="p-col-12" style={{ alignItems: 'center', justifyContent: 'center', color: 'white', margin: '0px auto', display: 'flex', alignContent: 'center', textAlign: 'center' }}>
+                                    <div className='p-grid'>
+                                        <div className="p-field p-col-12 p-md-6 p-lg-6  ">
+                                            <span  ><h4>Select Date</h4></span>
+                                            <div style={{ alignItems: 'center', justifyContent: 'center', color: 'white', margin: '0px auto', display: 'flex', alignContent: 'center', textAlign: 'center' }} className="p-inputgroup">
+                                                <Calendar showIcon showButtonBar id="range" value={this.state.date} onChange={this.handleChangeDateFilter} selectionMode="range" readOnlyInput />
 
-                                    <div className="p-field p-col-6  ">
-                                        <span  ><h4>Select Date</h4></span>
-                                        <div style={{ alignItems: 'center', justifyContent: 'center', color: 'white', margin: '0px auto', display: 'flex', alignContent: 'center', textAlign: 'center' }} className="p-inputgroup">
-                                            <Calendar showIcon showButtonBar id="range" value={this.state.date} onChange={this.handleChangeDateFilter} selectionMode="range" readOnlyInput />
-
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div className="p-field p-col-6">
-                                        <span  ><h4>Select Time</h4></span>
-                                        <div style={{ alignItems: 'center', justifyContent: 'center', color: 'white', margin: '0px auto', display: 'flex', alignContent: 'center', textAlign: 'center' }} className="p-inputgroup">
+                                        <div className="p-field p-col-12 p-md-6 p-lg-6">
+                                            <span  ><h4>Select Time</h4></span>
+                                            <div style={{ alignItems: 'center', justifyContent: 'center', color: 'white', margin: '0px auto', display: 'flex', alignContent: 'center', textAlign: 'center' }} className="p-inputgroup">
 
-                                            <Calendar showIcon icon={'pi pi-clock'} showButtonBar id="time24" value={this.state.timefrom} onChange={this.handleChangeStartTime} showTime showSeconds timeOnly readOnlyInput />
+                                                <Calendar showIcon icon={'pi pi-clock'} showButtonBar id="time24" value={this.state.timefrom} onChange={this.handleChangeStartTime} showTime showSeconds timeOnly readOnlyInput />
 
-                                            <div style={{ width: '25px', margin: '5px' }}>TO:</div>
+                                                <div style={{ width: '25px', margin: '5px' }}>TO:</div>
 
-                                            <Calendar showButtonBar showIcon icon='pi pi-clock
+                                                <Calendar showButtonBar showIcon icon='pi pi-clock
 ' id="time24" value={this.state.timeto} onChange={this.handleChangeEndTime} showTime showSeconds timeOnly readOnlyInput />
 
+                                            </div>
+
+
                                         </div>
-
-
                                     </div>
 
                                 </div>

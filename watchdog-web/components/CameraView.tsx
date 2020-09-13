@@ -143,7 +143,7 @@ class CameraView extends Component<CameraViewProps, CameraViewState> {
         const streamAvailable = (this.props.serverStatus) && (this.props.producers[data.site]) && (this.props.producers[data.site].find(element => element == data.id));
 
         return (
-            <div className="p-col-4 p-md-4 p-dataview-content" >
+            <div className="p-col-12 p-md-4  p-lg-4 p-dataview-content" >
                 <div className="product-grid-item">
                     <div className="product-grid-item-top">
                         <Tooltip target={`.camera-status-${data.id}`} mouseTrack mouseTrackLeft={10} />
@@ -240,10 +240,10 @@ class CameraView extends Component<CameraViewProps, CameraViewState> {
                     alwaysShowPaginator={false}
                 />
 
-                <Dialog header={(this.state.stream == null) ? "Stream Not Available" : this.state.stream.location} visible={this.state.displayModel} maximizable modal style={{ width: '50vw' }} footer={this.renderFooter('displayMaximizable')} onHide={this.closeModel}>
+                <Dialog header={(this.state.stream == null) ? "Stream Not Available" : this.state.stream.location} visible={this.state.displayModel} maximizable modal style={{width: '80vw', maxWidth: '1700px' }} footer={this.renderFooter('displayMaximizable')} onHide={this.closeModel}>
                     <img
                         className={`live-view-${data.id}`}
-                        style={{ height: '150px', width: '100%' }}
+                        style={{ height: '350px', width: '100%' }}
                         src={
                             (!this.state.displayModel) ?
                                 'inactive_black.png'

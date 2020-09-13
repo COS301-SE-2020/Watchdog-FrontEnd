@@ -152,6 +152,7 @@ class VideoList extends Component<VideoListProps, VideoListState> {
                 <div className="card">
                     <DataView value={this.props.videos} layout={this.state.layout} header={header}
                         itemTemplate={this.itemTemplate} paginator rows={6}
+                        paginatorPosition = 'both'
                         sortOrder={this.state.sortOrder} sortField={this.state.sortField} />
                 </div>
             </Scrollbars>

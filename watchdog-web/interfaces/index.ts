@@ -46,6 +46,7 @@ export type indexProps = {
 
 export type indexState = {
   loggedIn: boolean
+  loading: boolean
 
 }
 
@@ -63,6 +64,8 @@ export type propsTopNav = {
 }
 
 export type stateTopNav = {
+  opacity: number
+  account_info : boolean
 
 }
 
@@ -78,6 +81,7 @@ export type stateApp = {
   notificationModal: boolean,
   logoutModal: boolean,
   changePasswordModal: boolean
+  
 
 }
 
@@ -282,4 +286,14 @@ export type stateVerifyEmailModal = {
   step : 0 | 1
   loading : boolean
   
+}
+
+export type propsAccountInformationModal = {
+  show_modal : boolean
+  hide_modal : Function
+
+}
+
+export type stateAccountInformationModal = {
+
 }

@@ -1,15 +1,22 @@
 import React, { Component } from 'react';
 import { propsTopNav, stateTopNav } from '../interfaces'
 import { Menubar } from 'primereact/menubar'
-
+import AccountInformationModal from './AccountInformationModal'
 
 class TopNav extends Component<propsTopNav, stateTopNav> {
     constructor(props: propsTopNav) {
         super(props)
 
         this.state = {
-            opacity: 1
+            opacity: 1,
+            account_info : false
         }
+
+        this.toggleAccount = this.toggleAccount.bind(this)
+    }
+
+    toggleAccount(val){
+        this.setState({account_info : val})
     }
     render() {
         const items = [
@@ -54,11 +61,6 @@ class TopNav extends Component<propsTopNav, stateTopNav> {
                         separator: true
                     },
                     {
-                        label: 'Logs',
-                        icon: 'pi pi-fw pi-info-circle',
-
-                    },
-                    {
                         label: 'Downloads',
                         icon: 'pi pi-fw pi-download',
                         items: [
@@ -91,6 +93,7 @@ class TopNav extends Component<propsTopNav, stateTopNav> {
                     {
                         label: 'Account Information',
                         icon: 'pi pi-fw pi-user',
+                        command: () => this.toggleAccount(true)
 
                     },
                     {
@@ -111,8 +114,10 @@ class TopNav extends Component<propsTopNav, stateTopNav> {
         const logo = <img alt="logo" src="logo1.png" height="40" className="p-mr-2"></img>
         return (
             <div style={{ padding: 0 }}>
+                 <AccountInformationModal show_modal={this.state.account_info} hide_modal={this.toggleAccount} />
                 <Menubar style={{ borderRadius: 0, border: 0, margin: 0, zIndex: 1000 }} elevation={5} className="p-shadow-8" model={items} start={logo}>
                     <a href='www.google.com'  ref={(el) => this.windows = el}  ></a>
+                   
                 </Menubar>
             </div>
         );

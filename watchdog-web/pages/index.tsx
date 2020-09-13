@@ -4,6 +4,8 @@ import { Auth, Hub } from 'aws-amplify'
 import UserManagement from '../components/UserManagement'
 import App from '../components/App'
 import Head from 'next/head'
+import LoadingOverlay from 'react-loading-overlay'
+import MoonLoader from 'react-spinners/MoonLoader'
 
 import React, { Component } from 'react';
 
@@ -11,7 +13,8 @@ class index extends Component<indexProps, indexState> {
   constructor(props: indexProps) {
     super(props)
     this.state = {
-      loggedIn: false
+      loggedIn: false,
+      loading: true
     }
     Hub.listen('auth', (data) => {
       const { payload } = data
@@ -27,8 +30,8 @@ class index extends Component<indexProps, indexState> {
       }
     })
     Auth.currentAuthenticatedUser()
-      .then(data => this.setState({ loggedIn: true }))
-      .catch(error => { })
+      .then(data => this.setState({ loggedIn: true, loading: false }))
+      .catch(error => { this.setState({ loading: false }) })
   }
   render() {
     return (
@@ -49,7 +52,13 @@ class index extends Component<indexProps, indexState> {
               type="text/css"
               href="/style.css" />
 
-          </Head> <UserManagement /> </div>
+          </Head>
+          <LoadingOverlay
+            active={this.state.loading}
+            spinner={<MoonLoader color={'#25b3f5'} />}
+            style={{ wrapper: { width: '100vw', height: '100vh' } }}
+
+          > <UserManagement /> </LoadingOverlay></div>
     )
   }
 }
