@@ -295,5 +295,8 @@ export type propsAccountInformationModal = {
 }
 
 export type stateAccountInformationModal = {
+  name : string
+  email: string
+  phone: string
 
 }
