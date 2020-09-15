@@ -109,7 +109,7 @@ class DashboardScreen extends Component<DashboardScreenProps, DashboardScreenSta
                             </div>
                         </div>
                     </div>
-                    <div className="p-col-12 p-md-6 p-lg-6" style={{ minHeight: '82vh' }}>
+                    <div className="p-col-12 p-md-12 p-lg-6" style={{ minHeight: '82vh' }}>
                         <div style={{ minHeight: '82vh' }} className="panel p-shadow-8">
                             <CameraView />
                         </div>
