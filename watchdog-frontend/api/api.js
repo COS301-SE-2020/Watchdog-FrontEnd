@@ -6,7 +6,7 @@ import IdentityNotification from '../components/IdentityNotification'
 async function getVideos(callback, errorcallback) {
   let url = await "https://b534kvo5c6.execute-api.af-south-1.amazonaws.com/testing/ui/recordings"
   let { idToken } = await Auth.currentSession()
-  //console.log(idToken)
+  console.log(idToken)
   await axios.get(url, {
     headers: {
       Authorization: `${idToken.jwtToken}`
