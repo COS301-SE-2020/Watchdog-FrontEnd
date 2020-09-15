@@ -134,13 +134,13 @@ class Identities extends Component<propsIdentities, stateIdentities> {
                                             
                                             this.setState({ notifications_name: identity.name, notifications_monitor: identity.monitor, natification_key : identity.img_key })
                                             this.toggleNotificationModal(true, null)
-                                        }} tooltipOptions={{position : 'bottom'}} tooltip ='Notification Settings' icon="pi pi-bell" className="p-button p-button-rounded p-mr-2" />
+                                        }} tooltipOptions={{position : 'bottom'}} tooltip ='Notification Settings' icon="pi pi-bell" className="p-button p-button-rounded p-mr-2 p-notify" />
 
                                         <Button onClick={() => {
                                             
                                             this.setState({ remove_name: identity.name || 'No Name', remove_index: identity.id })
                                             this.toggleRemoveModal(true, null)
-                                        }} tooltipOptions={{position : 'bottom'}} tooltip ='Remove Identity' icon="pi pi-times" className="p-button-danger p-button-rounded"  />
+                                        }} tooltipOptions={{position : 'bottom'}} tooltip ='Remove Identity' icon="pi pi-times" className="p-button-danger p-button-rounded p-remove"  />
                                     </div>
                                 </div>
                             </div>
