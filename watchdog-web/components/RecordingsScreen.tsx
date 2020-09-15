@@ -15,6 +15,7 @@ import { Button } from 'primereact/button'
 import { getVideos } from '../api'
 import LoadingOverlay from 'react-loading-overlay'
 import MoonLoader from 'react-spinners/MoonLoader'
+import { Sidebar } from 'primereact/sidebar'
 
 interface RecordingsScreenProps {
     videos: any[]
@@ -47,6 +48,7 @@ interface RecordingsScreenState {
     video_data: any[]
     display_data: any[]
     loading: boolean
+    visible: boolean
 }
 
 type = [
@@ -80,7 +82,8 @@ class RecordingsScreen extends Component<RecordingsScreenProps, RecordingsScreen
         rooms: [],
         video_data: [],
         display_data: [],
-        loading: false
+        loading: false,
+        visible: false
     }
     player: any;
 
@@ -96,6 +99,7 @@ class RecordingsScreen extends Component<RecordingsScreenProps, RecordingsScreen
         this.handleChangeCameraLocation = this.handleChangeCameraLocation.bind(this)
         this.applyFilter = this.applyFilter.bind(this)
         this.getData = this.getData.bind(this)
+        this.showFilter = this.showFilter.bind(this)
     }
 
     applyFilter() {
@@ -206,6 +210,9 @@ class RecordingsScreen extends Component<RecordingsScreenProps, RecordingsScreen
         this.setState({ loading: false })
     }
 
+    showFilter() {
+        this.setState({ visible: true })
+    }
 
     componentDidMount = () => {
         this.getData()
@@ -339,12 +346,13 @@ class RecordingsScreen extends Component<RecordingsScreenProps, RecordingsScreen
             <LoadingOverlay
                 active={this.state.loading}
                 spinner={<MoonLoader color={'#25b3f5'} />}
-                style={{wrapper: {width: '100vw', height : '100vh'}}}
+                style={{ wrapper: { width: '100vw', height: '100vh' } }}
 
             >
                 <div
                     className=""
                 >
+
                     <div className="p-grid p-align-stretch">
                         <div
                             className="p-col-12 p-md-6 p-lg-6 p-align-stretch"
@@ -401,50 +409,8 @@ class RecordingsScreen extends Component<RecordingsScreenProps, RecordingsScreen
                                     </Panel>
 
                                 </div>
-                                <div className="p-col-12" style={{ alignItems: 'center', justifyContent: 'center', color: 'white', margin: '0px auto', display: 'flex', alignContent: 'center', textAlign: 'center' }}>
-                                    <div className='p-grid'>
-                                        <div className="p-field p-col-12 p-md-6 p-lg-6  ">
-                                            <span  ><h4>Select Date</h4></span>
-                                            <div style={{ alignItems: 'center', justifyContent: 'center', color: 'white', margin: '0px auto', display: 'flex', alignContent: 'center', textAlign: 'center' }} className="p-inputgroup">
-                                                <Calendar showIcon showButtonBar id="range" value={this.state.date} onChange={this.handleChangeDateFilter} selectionMode="range" readOnlyInput />
-
-                                            </div>
-                                        </div>
-                                        <div className="p-field p-col-12 p-md-6 p-lg-6">
-                                            <span  ><h4>Select Time</h4></span>
-                                            <div style={{ alignItems: 'center', justifyContent: 'center', color: 'white', margin: '0px auto', display: 'flex', alignContent: 'center', textAlign: 'center' }} className="p-inputgroup">
-
-                                                <Calendar showIcon icon={'pi pi-clock'} showButtonBar id="time24" value={this.state.timefrom} onChange={this.handleChangeStartTime} showTime showSeconds timeOnly readOnlyInput />
-
-                                                <div style={{ width: '25px', margin: '5px' }}>TO:</div>
-
-                                                <Calendar showButtonBar showIcon icon='pi pi-clock
-' id="time24" value={this.state.timeto} onChange={this.handleChangeEndTime} showTime showSeconds timeOnly readOnlyInput />
-
-                                            </div>
 
 
-                                        </div>
-                                    </div>
-
-                                </div>
-                                <div className="p-col-12" style={{ color: 'white', margin: '0px auto', display: 'flex', alignContent: 'center', textAlign: 'center' }}>
-
-                                    <div className="p-field p-col-6  ">
-                                        <span  ><h4>Select Room</h4></span>
-                                        <div style={{ alignItems: 'center', justifyContent: 'center', color: 'white', margin: '0px auto', display: 'flex', alignContent: 'center', textAlign: 'center' }} className="p-inputgroup">
-                                            <MultiSelect style={{ width: '185px' }} value={this.state.selected_rooms} options={this.state.rooms} onChange={this.handleChangeCameraLocation} />
-
-                                        </div>
-                                    </div>
-                                    <div className="p-field p-col-6">
-                                        <span  ><h4>Select Video Type </h4></span>
-                                        <div style={{ alignItems: 'center', justifyContent: 'center', color: 'white', margin: '0px auto', display: 'flex', alignContent: 'center', textAlign: 'center' }} className="p-inputgroup">
-                                            <MultiSelect style={{ width: '185px' }} value={this.state.type} options={type} onChange={this.handleChangeVideoType} />
-
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                         <div className="p-col-12 p-md-6 p-lg-6" >
@@ -459,12 +425,54 @@ class RecordingsScreen extends Component<RecordingsScreenProps, RecordingsScreen
                                         }))
                                     }
                                 }
+                                filter={this.showFilter}
 
                                 fetch={this.getData}
                             />
                         </div>
                     </div>
                 </div>
+                <Sidebar visible={this.state.visible} onHide={() => this.setState({ visible: false })}>
+                    <div className='p-grid'>
+                        <div className="p-field p-col-12  ">
+                            <span  ><h4>Select Date</h4></span>
+                            <div style={{ alignItems: 'center', justifyContent: 'center', color: 'white', margin: '0px auto', display: 'flex', alignContent: 'center', textAlign: 'center' }} className="p-inputgroup">
+                                <Calendar showIcon showButtonBar id="range" value={this.state.date} onChange={this.handleChangeDateFilter} selectionMode="range" readOnlyInput />
+
+                            </div>
+                        </div>
+                        <div className="p-field p-col-12 ">
+                            <span  ><h4>Select Time</h4></span>
+                            <div style={{ alignItems: 'center', justifyContent: 'center', color: 'white', margin: '0px auto', display: 'flex', alignContent: 'center', textAlign: 'center' }} className="p-inputgroup">
+
+                                <Calendar showIcon icon={'pi pi-clock'} showButtonBar id="time24" value={this.state.timefrom} onChange={this.handleChangeStartTime} showTime showSeconds timeOnly readOnlyInput />
+
+                                <div style={{ width: '25px', margin: '5px' }}>TO:</div>
+
+                                <Calendar showButtonBar showIcon icon='pi pi-clock' id="time24" value={this.state.timeto} onChange={this.handleChangeEndTime} showTime showSeconds timeOnly readOnlyInput />
+
+                            </div>
+
+
+                        </div>
+
+                        <div className="p-field p-col-12  ">
+                            <span  ><h4>Select Room</h4></span>
+                            <div style={{ alignItems: 'center', justifyContent: 'center', color: 'white', margin: '0px auto', display: 'flex', alignContent: 'center', textAlign: 'center' }} className="p-inputgroup">
+                                <MultiSelect style={{ width: '185px' }} value={this.state.selected_rooms} options={this.state.rooms} onChange={this.handleChangeCameraLocation} />
+
+                            </div>
+                        </div>
+
+                        <div className="p-field p-col-12">
+                            <span  ><h4>Select Video Type </h4></span>
+                            <div style={{ alignItems: 'center', justifyContent: 'center', color: 'white', margin: '0px auto', display: 'flex', alignContent: 'center', textAlign: 'center' }} className="p-inputgroup">
+                                <MultiSelect style={{ width: '185px' }} value={this.state.type} options={type} onChange={this.handleChangeVideoType} />
+
+                            </div>
+                        </div>
+                    </div>
+                </Sidebar>
             </LoadingOverlay>
         );
     }

@@ -112,8 +112,7 @@ class NotificationModal extends Component<propsNotificationModal, stateNotificat
                                     <Dropdown disabled={this.state.loading} value={this.state.notification_type} onChange={val => this.setState({notification_type : val.value})}
                                      options={[
                                         { name: 'Email', code: 'email' },
-                                        { name: 'SMS', code: 'sms' },
-                                        { name: 'Push', code: 'push' }]}  optionLabel="name" placeholder="Notification Type" />
+                                        { name: 'SMS', code: 'sms' }]}  optionLabel="name" placeholder="Notification Type" />
                                 </div>
                                 <div className="p-field p-col-12 p-md-12">
                                     <label htmlFor="phone">Security Company</label>

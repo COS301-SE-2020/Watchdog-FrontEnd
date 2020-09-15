@@ -25,7 +25,7 @@ class RemoveIdentityModal extends Component<propsRemoveIdentityModal, stateRemov
         }, ()=>{
             this.toast.show({severity:'error', summary: 'Error', detail:'Unable to delete identity. Please try again', life: 3000});
             this.setState({loading : false})
-        })
+        }, 'profiles')
 
 
 

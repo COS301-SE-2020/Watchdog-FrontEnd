@@ -13,6 +13,7 @@ interface VideoListProps {
     locations: object
     onPlay: Function
     fetch: Function
+    filter: Function
 }
 
 interface VideoListState {
@@ -136,6 +137,7 @@ class VideoList extends Component<VideoListProps, VideoListState> {
                     {/* <Dropdown options={this.sortOptions} value={this.state.sortKey} optionLabel="label" placeholder="Sort By Price" onChange={this.onSortChange}/> */}
                     {/* <p style={{marginTop: '0.5rem'}}>Recordings</p> */}
                     <Button icon="pi pi-refresh" className="p-button-rounded p-button-text" onClick={this.props.fetch} />
+                    <Button icon="pi pi-filter" className="p-button-rounded p-button-text" onClick={()=>this.props.filter()} />
                 </div>
                 <div className="p-col-6" style={{ textAlign: 'right' }}>
                     <DataViewLayoutOptions layout={this.state.layout} onChange={(e) => this.setState({ layout: e.value })} />

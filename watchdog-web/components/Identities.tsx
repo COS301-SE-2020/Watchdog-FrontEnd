@@ -120,7 +120,7 @@ class Identities extends Component<propsIdentities, stateIdentities> {
                             <div style={{ margin: 'auto', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '0.5rem' }} className='p-col-12 p-md-12 p-lg-12 '>
 
 
-                            <LazyLoadImage placeholder={<i className="pi pi-spin pi-spinner" style={{'fontSize': '5em'}}></i>}  style={{ maxHeight: '350px', width: '100%', objectFit: 'contain' }} src={identity.img} />
+                            <LazyLoadImage placeholder={<i className="pi pi-spin pi-spinner" style={{'fontSize': '5em'}}></i>}  style={{ maxHeight: '350px', width: '100%', objectFit: 'contain', maxWidth: '80vw' }} src={identity.img} />
 
 
                             </div>
@@ -157,50 +157,7 @@ class Identities extends Component<propsIdentities, stateIdentities> {
     }
 
     render() {
-        let identities = this.state.data.map((item, index) => {
-            return (
-                <div key={index + 1} className='p-col-12 p-md-6 p-lg-3'>
-                    <div className="p-grid p-shadow-6" style={{ paddingBottom: '5px' }}>
-                        <div className=' p-col-12 '>
-                            <div style={{ height: '200px', justifyContent: 'center', alignItems: 'center', display: 'flex' }}>
-                                <Img style={{ width: '100%', height: '200px', objectFit: 'contain' }} src={item.img} loader={
-                                    <i className="pi pi-spin pi-spinner" style={{ 'fontSize': '5em' }}></i>} />
-                            </div>
-
-                        </div>
-                        <div className=' p-col-12 ' >
-                            <div className="p-text-center p-text-bold">{item.name || 'No Name'}</div>
-                        </div>
-
-
-                        <div className=' p-col-12 ' style={{ textAlign: 'center' }}>
-                            <div className="p-grid p-shadow-6">
-                                <div className=' p-col-12 p-md-12 p-lg-12  '>
-                                    <Button onClick={() => {
-                                        this.setState({ notifications_name: item.name, notifications_monitor: item.monitor })
-                                        this.toggleNotificationModal(true, null)
-                                    }} style={{ width: '100%' }} label="Notifications Settings" className="p-button-raised p-button-warning" />
-                                </div>
-
-                                <div className=' p-col-12 p-md-12 p-lg-12 '>
-                                    <Button onClick={() => {
-                                        this.setState({ remove_name: item.name || 'No Name', remove_index: item.id })
-                                        this.toggleRemoveModal(true, null)
-                                    }} style={{ width: '100%' }} label="Remove Identity" className="p-button-raised p-button-danger" />
-                                </div>
-
-                            </div>
-
-
-
-                        </div>
-
-
-                    </div>
-                </div>
-            )
-
-        })
+        
         return (
             <div className="p-grid">
                 <div style={{ display: this.state.loading ? 'block' : 'none' }} className="p-field p-col-12 p-md-12"> <ProgressBar mode="indeterminate" style={{ height: '6px' }}></ProgressBar></div>
@@ -213,13 +170,7 @@ class Identities extends Component<propsIdentities, stateIdentities> {
                 </div>
                 
 
-                {/* <div className='p-col-12 p-md-6 p-lg-3'>
-                    <div style={{ height: '100%', alignItems: 'center', justifyContent: 'center', display: !this.state.loading ? 'flex' : 'none' }} className='p-jc-center'>
-                        <Button onClick={() => this.toggleAddIdentitiesModal(true, null)} label="New Identity" icon="pi pi-plus" className="p-button-info p-button-raised p-button-text p-button-lg" />
-                    </div>
-
-                </div>
-                {identities} */}
+                
                 <Toast ref={(el) => this.toast = el} />
                 < AddIdentityModal hide_modal={this.toggleAddIdentitiesModal} show_modal={this.state.add_identities_modal} />
                 <IdentityNotificationModal user_key={this.state.natification_key} monitor={this.state.notifications_monitor} name={this.state.notifications_name} show_modal={this.state.notifications_modal} hide_modal={this.toggleNotificationModal} />
