@@ -379,7 +379,7 @@ class RecordingsScreen extends Component<RecordingsScreenProps, RecordingsScreen
                                                     height='400px'
                                                     url={this.state.url}
                                                     pip={pip}
-                                                    playing={false}
+                                                    playing={true}
                                                     controls={true}
                                                     light={light}
                                                     loop={loop}
