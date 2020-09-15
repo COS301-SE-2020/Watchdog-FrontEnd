@@ -29,6 +29,8 @@ class AccountInformationModal extends Component<propsAccountInformationModal, st
         .catch(err => console.log(err));
     }
     async componentDidMount(){
+        let  idToken  = await Auth.currentSession()
+        console.log(idToken)
         await Auth.currentUserInfo()
         .then((e) => {
             console.log(e.attributes)

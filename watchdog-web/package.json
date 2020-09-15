@@ -5,7 +5,8 @@
     "dev": "next",
     "build": "next build && next export",
     "start": "next start",
-    "type-check": "tsc"
+    "type-check": "tsc",
+    "cypress-test": "./node_modules/.bin/cypress open"
   },
   "dependencies": {
     "@nivo/api": "^0.62.0",
@@ -52,10 +53,12 @@
   },
   "devDependencies": {
     "@aws-amplify/ui-react": "^0.2.15",
+   
     "@types/node": "^12.12.21",
     "@types/react": "^16.9.16",
     "@types/react-dom": "^16.9.4",
     "@zeit/next-css": "^1.0.1",
+  
     "cypress": "^5.1.0",
     "file-loader": "^6.0.0",
     "next-compose-plugins": "^2.2.0",
