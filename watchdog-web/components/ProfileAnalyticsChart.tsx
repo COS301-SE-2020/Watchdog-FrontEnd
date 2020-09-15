@@ -107,7 +107,7 @@ class ProfileAnalyticsChart extends Component<ProfileAnalyticsProps, ProfileAnal
 
     render() {
         return (
-            <div style={{  height: this.props.height }}>
+            <div style={{ height: this.props.height }}>
 
                 <ProfileAnalyticModals name={this.state.name} img_list={this.state.img} show_modal={this.state.modal} hide_modal={this.toggleModal} />
                 <ResponsiveLine
@@ -142,13 +142,16 @@ class ProfileAnalyticsChart extends Component<ProfileAnalyticsProps, ProfileAnal
                     pointSize={10}
                     pointColor={{ theme: 'background' }}
                     pointBorderWidth={2}
-                    pointBorderColor={{ from: 'serieColor' }}
-                    pointLabel="y"
+                    pointBorderColor={{
+                        from: 'serieColor'
+                    }}
+
+                    pointLabel="Date"
                     pointLabelYOffset={-12}
                     useMesh={true}
                     legends={[
                         {
-                            itemTextColor : 'white',
+                            itemTextColor: 'white',
                             anchor: 'bottom-right',
                             direction: 'column',
                             justify: false,
@@ -158,7 +161,7 @@ class ProfileAnalyticsChart extends Component<ProfileAnalyticsProps, ProfileAnal
                             itemDirection: 'left-to-right',
                             itemWidth: 80,
                             itemHeight: 20,
-                            itemOpacity: 0.75,
+                            itemOpacity: 1,
                             symbolSize: 12,
                             symbolShape: 'circle',
                             symbolBorderColor: 'rgba(0, 0, 0, .5)',
@@ -166,13 +169,19 @@ class ProfileAnalyticsChart extends Component<ProfileAnalyticsProps, ProfileAnal
                                 {
                                     on: 'hover',
                                     style: {
-                                        itemBackground: 'rgba(0, 0, 0, .03)',
+                                        itemBackground: 'rgba(0, 0, 0, 1)',
                                         itemOpacity: 1
                                     }
                                 }
                             ]
                         }
                     ]}
+                    isInteractive={true}
+                    tooltip={(e) => {
+                        console.log(e)
+
+                        return (<span style={{ backgroundColor: e.point.serieColor }} className="p-badge p-badge-warning">{e.point.data.y}</span>)
+                    }}
                 />
 
 

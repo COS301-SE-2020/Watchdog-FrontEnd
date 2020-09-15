@@ -79,7 +79,7 @@ class UserManagement extends Component<{}, Login> {
                                         <span className="p-inputgroup-addon">
                                             <i className="pi pi-user"></i>
                                         </span>
-                                        <InputText disabled={this.state.loading} value={this.state.username} placeholder="Username" onChange={(e) => { this.setState({ username: e.target.value }) }} />
+                                        <InputText className='p-username' disabled={this.state.loading} value={this.state.username} placeholder="Username" onChange={(e) => { this.setState({ username: e.target.value }) }} />
                                     </div>
 
 
@@ -89,7 +89,7 @@ class UserManagement extends Component<{}, Login> {
                                         <span className="p-inputgroup-addon">
                                             <i className="pi pi-key"></i>
                                         </span>
-                                        <Password disabled={this.state.loading} feedback={false} placeholder='Password' value={this.state.password} onChange={(e) => this.setState({ password: e.target.value })} />
+                                        <Password className='p-password' disabled={this.state.loading} feedback={false} placeholder='Password' value={this.state.password} onChange={(e) => this.setState({ password: e.target.value })} />
                                         
 
                                     </div>

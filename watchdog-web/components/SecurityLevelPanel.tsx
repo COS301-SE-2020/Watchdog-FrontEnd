@@ -24,14 +24,13 @@ const categories = [
     {
         name: 'Disabled',
         key: 0,
-        // color: 'rgb(184, 103, 103)'
         color: 'red',
-        description: "Notifications will be sent for all movement"
+        description: "Notifications will be switched off for all movement"
+        
     },
     {
         name: 'Recognised Only',
         key: 1,
-        // color: 'rgb(184, 172, 103)'
         color: 'lightyellow',
         description: "Intruders will be detected. Add recognised personel in the profile page"
     },
@@ -39,7 +38,8 @@ const categories = [
         name: 'Armed',
         key: 2,
         color: 'green',
-        description: "Notifications will be switched off for all movement"
+        description: "Notifications will be sent for all movement"
+        
     }
 ];
 

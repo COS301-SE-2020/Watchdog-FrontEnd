@@ -54,8 +54,8 @@ export async function getIdentities(succ: Function, err: Function) {
 
 }
 
-export async function deleteIdentity(id: number, succ: Function, err: Function) {
-  let url = "https://b534kvo5c6.execute-api.af-south-1.amazonaws.com/testing/identities?index=" + id
+export async function deleteIdentity(id: number, succ: Function, err: Function, type: 'profiles'| 'blacklist') {
+  let url = "https://b534kvo5c6.execute-api.af-south-1.amazonaws.com/testing/identities?index=" + id+"&type="+type
   let { idToken } = await Auth.currentSession()
   axios.delete(url, {
     headers: {
