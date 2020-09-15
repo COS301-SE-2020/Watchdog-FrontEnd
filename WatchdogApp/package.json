@@ -1,11 +1,14 @@
 {
+  "type": "module",
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "eject": "expo eject"
+    "eject": "expo eject",
+    "test": "jest",
+    "test:watch": "npm test -- --watch"
   },
   "dependencies": {
     "@eva-design/eva": "^2.0.0",
@@ -55,6 +58,7 @@
     "react-native-video-player": "^0.10.1",
     "react-native-web": "~0.11.7",
     "react-redux": "^7.2.1",
+    "react-test-renderer": "^16.13.1",
     "redux": "^4.0.5",
     "redux-axios-middleware": "^4.0.1",
     "redux-devtools-extension": "^2.13.8",
@@ -73,5 +77,8 @@
     "remotedev-rn-debugger": "^0.8.4",
     "typescript": "~3.9.5"
   },
-  "private": true
+  "private": true,
+  "experimentalComponentTesting": true,
+  "componentFolder": "cypress/component",
+  "testFiles": "**/*.spec.*"
 }
