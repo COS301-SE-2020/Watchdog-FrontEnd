@@ -148,7 +148,7 @@ class ProfileAnalyticsChart extends Component<ProfileAnalyticsProps, ProfileAnal
     }
 
     componentDidUpdate() {
-        //this.getData()
+        this.getData()
     }
 
 
