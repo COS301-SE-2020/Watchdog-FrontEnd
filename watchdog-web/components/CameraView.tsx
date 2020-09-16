@@ -105,6 +105,8 @@ class CameraView extends Component<CameraViewProps, CameraViewState> {
     }
 
     openModel(videoObject) {
+        console.log(videoObject);
+
         this.setState({
             displayModel: true,
             stream: videoObject
@@ -155,6 +157,7 @@ class CameraView extends Component<CameraViewProps, CameraViewState> {
                             }
                         >
                         </i>
+                        {data.location}
                     </div>
                     <div className="product-grid-item-content">
                         <img
@@ -180,7 +183,7 @@ class CameraView extends Component<CameraViewProps, CameraViewState> {
                             <div style={{ marginRight: '1rem' }} className="p-col-1">
                                 <Button onClick={() => setStreamState(!streamActive)} style={{ color: 'grey' }} icon={(streamActive) ? "pi pi-eye" : "pi pi-eye-slash"} className="p-button-rounded p-button-text" tooltip={(streamActive) ? "Deactivate this Stream" : "Activate this Stream"} tooltipOptions={{ hideDelay: 0, position: 'bottom' }} />
                             </div>
-                            <div className="p-col-6">{data.location}</div>
+                            <div className="p-col-6">{data.name}</div>
                         </div>
                     </div>
                 </div>
@@ -225,6 +228,8 @@ class CameraView extends Component<CameraViewProps, CameraViewState> {
     render() {
         const header = this.renderHeader();
 
+        const streamAvailable = (this.state.stream != null) && (this.props.serverStatus) && (this.props.producers[this.state.stream.site]) && (this.props.producers[this.state.stream.site].find(element => element == this.state.stream.id));
+
         return (
             <div className="dataview-camera-view">
                 <DataView
@@ -240,24 +245,22 @@ class CameraView extends Component<CameraViewProps, CameraViewState> {
                     alwaysShowPaginator={false}
                 />
 
-                <Dialog header={(this.state.stream == null) ? "Stream Not Available" : this.state.stream.location} visible={this.state.displayModel} maximizable modal style={{width: '80vw', maxWidth: '1700px' }} footer={this.renderFooter('displayMaximizable')} onHide={this.closeModel}>
+                <Dialog header={(this.state.stream == null) ? "Stream Not Available" : this.state.stream.name} visible={this.state.displayModel} maximizable modal style={{ width: '80vw', maxWidth: '1700px' }} footer={this.renderFooter('displayMaximizable')} onHide={this.closeModel}>
                     <img
-                        className={`live-view-${data.id}`}
-                        style={{ height: '350px', width: '100%' }}
+                        className={`live-view-full-screen`}
+                        style={{ height: '100%', width: '100%' }}
                         src={
                             (!this.state.displayModel) ?
                                 'inactive_black.png'
                                 :
-                                (!this.state.stream.streamAvailable) ?
+                                (!streamAvailable) ?
                                     'static.gif'
                                     :
-                                    (this.state.stream.streamActive) ?
-                                        (this.props.camera_frames[data.id] != null && this.props.camera_frames[data.id] != '') ? "data:image/jpeg;base64," + this.props.camera_frames[data.id].replace("b'", "").slice(0, -1) : 'inactive_black.png'
+                                    (this.props.camera_frames[this.state.stream.id] != null && this.props.camera_frames[this.state.stream.id] != '') ?
+                                        "data:image/jpeg;base64," + this.props.camera_frames[this.state.stream.id].replace("b'", "").slice(0, -1)
                                         :
                                         'inactive_black.png'
                         }
-                        // src={"data:image/jpeg;base64," + "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAIBAQEBAQIBAQECAgICAgQDAgICAgUEBAMEBgUGBgYFBgYGBwkIBgcJBwYGCAsICQoKCgoKBggLDAsKDAkKCgr/2wBDAQICAgICAgUDAwUKBwYHCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgr/wAARCADIAWgDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD+f+iiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA/9k="}
-                        // onClick={() => this.openModel({ ...data, this.state.stream.streamActive, this.state.stream.streamAvailable })}
                     >
                     </img>
                 </Dialog>

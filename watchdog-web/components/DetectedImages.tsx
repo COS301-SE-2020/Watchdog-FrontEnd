@@ -41,11 +41,18 @@ class DetectedImages extends Component<propsDetectedImages, stateDetectedImages>
         this.setState({ addDetectedModal: val })
         if (reload) {
             this.toast.show({ severity: 'success', summary: 'Success', detail: 'Added to Identities', life: 3000 })
+            this.setState({ loading: true, data: [] })
+            let currentDate
+            const date = Date.now()
+            do {
+                currentDate = Date.now()
+            } while (currentDate - date < 5000)
             this.getData()
         }
     }
     async getData() {
         this.setState({ loading: true, data: [] })
+        
         await getDetected((array_identities) => {
             let new_data = array_identities.map((item, index) => {
                 return {
@@ -67,6 +74,11 @@ class DetectedImages extends Component<propsDetectedImages, stateDetectedImages>
         this.setState({ loading: true })
         await deleteIdentity(val, ()=>{
             this.toast.show({ severity: 'success', summary: 'Success', detail: 'Image removerd', life: 3000 })
+            let currentDate
+            const date = Date.now()
+            do {
+                currentDate = Date.now()
+            } while (currentDate - date < 5000)
             this.getData()
 
         },()=>{
