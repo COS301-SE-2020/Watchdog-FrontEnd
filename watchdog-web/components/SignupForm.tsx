@@ -173,9 +173,7 @@ class SignupForm extends Component<{ returnSignIn: Function }, Signup> {
                                         <Button disabled={this.state.loading} style={{ margin: '0px auto' }} type="button" label="Sign Up" onClick={() => this.handleSignUp()} />
                                     </div>
                                 </div>
-                                <div className="p-field p-grid">
-                                    <Captcha siteKey="6Ld-8swZAAAAACf8NCOA1_VJSJgJzF87eEpjcm5z" onResponse={this.showResponse} />
-                                </div>
+                                
                                 <span><Button disabled={this.state.loading} label="Back To Sign In" style={{ textAlign: 'center', maxWidth: '100%' }} className="p-button-link" onClick={() => this.props.returnSignIn()} /></span>
                             </Card>
 
