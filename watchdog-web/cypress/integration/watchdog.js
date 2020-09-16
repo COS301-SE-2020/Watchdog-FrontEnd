@@ -30,7 +30,7 @@ describe('Accessing Watchdog System test', function(){
      it('Plays a Recorded video',function(){
          cy.contains('Recordings').click()
         //  cy.wait(3000)
-         cy.contains('14:55:18').click()
+         cy.contains('12:55:18').click()
      })
  })
  describe('Profile',function(){
