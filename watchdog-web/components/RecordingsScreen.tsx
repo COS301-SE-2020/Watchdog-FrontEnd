@@ -178,6 +178,7 @@ class RecordingsScreen extends Component<RecordingsScreenProps, RecordingsScreen
                 locations.push(location.charAt(0).toUpperCase() + location.slice(1))
                 let type = item.tag
                 let date = new Date(item.metadata.timestamp * 1000)
+                date.setMinutes(date.getMinutes()-120)
                 let utcString = date.toUTCString()
                 let time = date.toTimeString()
                 time = time.split(' ')[0]
