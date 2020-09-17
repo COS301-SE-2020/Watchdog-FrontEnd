@@ -4,7 +4,7 @@
     "slug": "WatchdogApp",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/logo1.png",
+    "icon": "./assets/wdFinal.png",
     "userInterfaceStyle": "automatic",
     "privacy": "unlisted",
     "splash": {
@@ -19,11 +19,15 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.luqi.WatchdogApp"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "description": ""
+    "description": "",
+    "android": {
+      "package": "com.luqi.WatchdogApp"
+    }
   }
 }
