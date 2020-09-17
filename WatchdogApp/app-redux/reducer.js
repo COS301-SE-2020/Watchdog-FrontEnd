@@ -28,7 +28,7 @@ function dataReducer(state = defaultState.UserData, action) {
             })
         case actions.GET_IDENTITIES_SUCCESS:
             return produce(state, draft => {
-                draft.identities.whitelist = action.payload.data.data.identities.whitelist
+                draft.identities.whitelist = action.payload.data.data.profiles
             })
         case actions.GET_LOGS_SUCCESS:
             console.log("HERE");
@@ -92,7 +92,7 @@ function dataReducer(state = defaultState.UserData, action) {
             })
         case actions.GET_DETECTED_SUCCESS:
             return produce(state, draft => {
-                draft.identities.detected = action.payload.data.data.frames
+                draft.frames = action.payload.data.data.frames
             })
         case "EDIT_NOTIFICATIONS":
             return produce(state, draft => {

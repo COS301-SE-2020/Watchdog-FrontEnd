@@ -72,7 +72,7 @@ const mapDispatchToProps = (dispatch) => ({
 })
 
 const mapStoreToProps = (store) => ({
-    detected: store.Data.identities.detected,
+    detected: store.Data.frames,
     loading: store.UI.Detected.loading
 })
 
