@@ -44,6 +44,10 @@ var SocketManager = (function () {
                 frame: message.frame
             })
         })
+
+        setInterval(() => {
+            socket.emit('pulse')
+        }, 15)
     })
 
     return { // public interface
@@ -66,15 +70,15 @@ var SocketManager = (function () {
                 client_key: 'string'
             })
         },
-        tuneInToFeed: function (camera_list, site_id) {
+        tuneInToFeed: function (camera_list, site_id, producers) {
             console.log("Tuning in");
             console.log(camera_list);
             console.log(site_id);
             dispatch({
                 type: "START_STREAM",
-                view: { site_id, camera_list }
+                view: { site_id, camera_list, producers }
             })
-            socket.emit("consume-view", { "camera_list": camera_list, "producer_id": site_id })
+            socket.emit("consume-view", {producers})
         }
     };
 })();

@@ -33,8 +33,8 @@ function dataReducer(state = defaultState.UserData, action) {
                 draft.identities.profiles = action.payload.data.data.profiles
             })
         case actions.GET_LOGS_SUCCESS:
-            console.log("HERE");
-            console.log(action);
+            // console.log("HERE");
+            // console.log(action);
             return produce(state, draft => {
                 draft.logs = action.payload.data.data.logs
             })

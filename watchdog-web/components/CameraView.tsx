@@ -138,7 +138,7 @@ class CameraView extends Component<CameraViewProps, CameraViewState> {
                 if (!draft.camera_list.find(element => element == data.id))
                     draft.camera_list.push(data.id)
                 draft.site_id = data.site
-                this.props.tuneIn([...draft.camera_list], draft.site_id)
+                this.props.tuneIn([...draft.camera_list], draft.site_id, this.props.producers)
             }))
         }
 
@@ -204,15 +204,15 @@ class CameraView extends Component<CameraViewProps, CameraViewState> {
             <div
                 className="p-grid p-nogutter p-align-center"
             >
-                <div className="p-col-6" style={{ textAlign: 'left' }}>
+                <div className="p-col-11">
                     <h2>Cameras</h2>
+                    <small style={{ color: (this.props.serverStatus) ? 'green' : 'red' }}>{(this.props.serverStatus) ? "Connected to Server" : "Connection to Server Lost"}</small>
                 </div>
-                <div className="p-col-3" style={{ textAlign: 'right' }}>
-                    {/* <Dropdown style={{ testAlign: 'left' }} options={this.sortOptions} value={this.state.sortKey} optionLabel="label" placeholder="Sort By Location" onChange={this.onSortChange} /> */}
-                    <small style={{ color: (this.props.serverStatus) ? 'green' : 'red' }}>{(this.props.serverStatus) ? "Connected" : "Connection to Server Lost"}</small>
-                </div>
-                <div className="p-col-2">
-                    <Button style={{ textAlign: 'right', padding: 0, marginTop: 0, marginBottom: 0, color: 'red' }} icon="pi pi-refresh" className="p-button-rounded p-button-text"
+                {/* <div className="p-col-5"> */}
+                    {/* <small style={{ color: (this.props.serverStatus) ? 'green' : 'red' }}>{(this.props.serverStatus) ? "Connected to Server" : "Connection to Server Lost"}</small> */}
+                {/* </div> */}
+                <div className="p-col-1">
+                    <Button icon="pi pi-refresh" className="p-button-rounded p-button-text"
                         onClick={
                             () => {
                                 authenticate();
@@ -282,7 +282,7 @@ const mapStoreToProps = (store) => ({
 })
 const mapDispatchToProps = (dispatch, ownProps) => ({
     fetch: () => dispatch(getControlPanel()),
-    tuneIn: (camera_list, site_id) => tuneIntoFeed(camera_list, site_id)
+    tuneIn: (camera_list, site_id, producers) => tuneIntoFeed(camera_list, site_id, producers)
 })
 
 export default connect(
