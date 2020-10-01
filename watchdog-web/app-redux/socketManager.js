@@ -46,7 +46,8 @@ var SocketManager = (function () {
         })
 
         setInterval(() => {
-            socket.emit('pulse')
+            socket.emit('pulse', {})
+            // console.log('pulse')
         }, 15)
     })
 
