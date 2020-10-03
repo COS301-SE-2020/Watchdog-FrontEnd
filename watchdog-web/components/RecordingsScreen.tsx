@@ -104,6 +104,7 @@ class RecordingsScreen extends Component<RecordingsScreenProps, RecordingsScreen
 
     applyFilter() {
         let array = this.state.video_data
+        array.reverse()
         //console.log(this.state.dateFilter.length)
         if (this.state.date?.length === 2 && this.state.date[1] !== null) {
             //console.log("here")
