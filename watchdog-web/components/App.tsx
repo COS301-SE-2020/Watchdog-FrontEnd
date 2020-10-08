@@ -10,6 +10,7 @@ import DetectedImagesModal from './DetectedImagesModal'
 import NotificationModal from './NotificationModal'
 import LogoutModal from './LogoutModal'
 import ChangePasswordModal from './ChangePasswordModal'
+import { Toast } from 'primereact/toast'
 
 import { getUserData } from '../app-redux/actions'
 
@@ -34,6 +35,12 @@ class App extends Component<propsApp, stateApp> {
         this.togglePasswordModal = this.togglePasswordModal.bind(this)
         this.windowsDownload = this.windowsDownload.bind(this)
         this.linuxDownload = this.linuxDownload.bind(this)
+        this.displayToast = this.displayToast.bind(this)
+
+    }
+
+    displayToast(colour : 'success'|'info'|'warn'|'error', summary : String, message : String){ 
+        this.toast.show({severity: colour, summary: summary, detail: message})
 
     }
 
@@ -78,6 +85,7 @@ class App extends Component<propsApp, stateApp> {
 
 
             <div style={{ maxWidth: "1700px", margin: 'auto' }}>
+                <Toast ref={(el) => this.toast = el} />
                 <div className="p-grid p-dir-col">
                     <div className="p-col"><div className="App-header"><TopNav download_linux={this.linuxDownload} download_win={this.windowsDownload} toggle_notifications_modal={this.toggleNotificationsModal}
                         toggle_logout_modal={this.toggleLogoutMOdal}
