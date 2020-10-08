@@ -142,7 +142,7 @@ class CameraView extends Component<CameraViewProps, CameraViewState> {
             }))
         }
 
-        const streamAvailable = (this.props.serverStatus) &&  (data.id in this.props.producers);
+        const streamAvailable = (this.props.serverStatus) &&  (this.props.producers.includes(data.id));
 
         return (
             <div className="p-col-12 p-md-4  p-lg-4 p-dataview-content" >

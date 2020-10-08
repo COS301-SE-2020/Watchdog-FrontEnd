@@ -94,7 +94,6 @@ var SocketManager = (function () {
             type: "LIVE_CONNECTED",
         })
 
-        tuneIn(pc, store.getState().Data.cameras, dispatch, config)
 
         socket.on('disconnect', () => {
             dispatch({
@@ -109,7 +108,7 @@ var SocketManager = (function () {
         socket.on('camera-available', (data) => {
             console.log('camera-available: '+data.camera_id)
             dispatch({
-                type: 'CAMERA_AVAILABLE',
+                type: 'UPDATE_PRODUCERS',
                 user_id,
                 'data': data.camera_id
             })
@@ -123,6 +122,11 @@ var SocketManager = (function () {
             if (camera_id in pc) {
                 pc[camera_id].setRemoteDescription(answer).then((res) => {
                     console.log('Setting remote description\t' + camera_id + "\t" + res)
+                    dispatch({
+                        type: 'UPDATE_PRODUCERS',
+                        user_id,
+                        'data': data.camera_id
+                       })
                 }).catch((err) => {
                     console.log('Setting remote description FAILED!!L\t' + err)
                 });
