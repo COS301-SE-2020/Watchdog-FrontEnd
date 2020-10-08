@@ -15,12 +15,13 @@ import { useEffect } from 'react'
 SocketManager.init(store.dispatch)
 
 export default function MyApp({ Component, pageProps }) {
-  useEffect(() => {
-    SocketManager.connect()
-    return function disconnect() {
-      SocketManager.disconnect()
-    }
-  })
+  // useEffect(() => {
+  //   SocketManager.connect()
+  //   return function disconnect() {
+  //     SocketManager.disconnect()
+  //   }
+  // })
+  SocketManager.connect()
   return <Provider store={store}>
     <Component {...pageProps} />
   </Provider>
