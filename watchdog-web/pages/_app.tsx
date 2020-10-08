@@ -7,7 +7,8 @@ import '../scss/CameraView.scss';
 import '../scss/RecordingsScreen.scss';
 import { Provider } from 'react-redux';
 
-import SocketManager from '../app-redux/socketManager';
+// import SocketManager from '../app-redux/socketManager';
+import SocketManager from '../app-redux/rtcClient'
 import store from '../app-redux/store';
 import { useEffect } from 'react'
 

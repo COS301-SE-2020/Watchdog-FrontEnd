@@ -308,7 +308,7 @@ function liveReducer(state = defaultState.Live, action) {
         case "UPDATE_PRODUCERS":
             console.log("UPDATE PRODUCERS -----------------")
             return produce(state, draft => {
-                draft.producers = action.data.producers
+                draft.producers.push(action.data.camera_id)
             })
         case "LIVE_DISCONNECTED":
             return produce(state, draft => {
@@ -325,7 +325,7 @@ function liveReducer(state = defaultState.Live, action) {
             })
         case "CONSUME_FRAME":
             return produce(state, draft => {
-                draft.frames[action.camera_id] = (action.frame)? action.frame: 'inactive_black.png'
+                draft.frames[action.camera_id] = action.frame
             })
         default:
             return state
