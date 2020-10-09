@@ -8,11 +8,10 @@ import '../scss/RecordingsScreen.scss';
 import { Provider } from 'react-redux';
 
 // import SocketManager from '../app-redux/socketManager';
-import SocketManager from '../app-redux/rtcClient'
 import store from '../app-redux/store';
 import { useEffect } from 'react'
 
-SocketManager.init(store.dispatch)
+// SocketManager.init(store.dispatch)
 
 export default function MyApp({ Component, pageProps }) {
   // useEffect(() => {
@@ -21,7 +20,6 @@ export default function MyApp({ Component, pageProps }) {
   //     SocketManager.disconnect()
   //   }
   // })
-  SocketManager.connect()
   return <Provider store={store}>
     <Component {...pageProps} />
   </Provider>

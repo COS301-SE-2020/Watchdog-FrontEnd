@@ -3,6 +3,7 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import axios from 'axios';
 import { createLogger } from 'redux-logger'
 import { multiClientMiddleware } from 'redux-axios-middleware';
+import SocketManager from './rtcClient'
 
 import watchdogApp from './reducer';
 
@@ -21,9 +22,15 @@ const logger = createLogger({})
 //     composeEnhancers = global.window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
 // }
 let composeEnhancers = compose;
-// if (typeof window !== "undefined") {
-//     composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
+// try {
+    // composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
 // }
+// catch(Exception){
+//     console.log('No Debug Tools')
+//     composeEnhancers = compose
+// }
+// const composeEnhancers = (typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose;
+// const composeEnhancers = (typeof window !== 'undefined')? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : compose;
 
 const store = createStore(
     watchdogApp,
@@ -42,5 +49,6 @@ const store = createStore(
 
 )
 
+// SocketManager.init(store().dispatch)
 
 export default store;
