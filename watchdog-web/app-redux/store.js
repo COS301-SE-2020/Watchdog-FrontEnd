@@ -21,7 +21,7 @@ const logger = createLogger({})
 // if (global.window != null) {
 //     composeEnhancers = global.window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
 // }
-// let composeEnhancers = compose;
+let composeEnhancers = compose;
 // try {
     // composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
 // }
@@ -30,7 +30,7 @@ const logger = createLogger({})
 //     composeEnhancers = compose
 // }
 // const composeEnhancers = (typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose;
-const composeEnhancers = (typeof window !== 'undefined')? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : compose;
+// const composeEnhancers = (typeof window !== 'undefined')? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : compose;
 
 const store = createStore(
     watchdogApp,

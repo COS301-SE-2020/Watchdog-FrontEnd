@@ -3,7 +3,6 @@ import { LIVE_SERVER_URL } from './constants'
 import moment from 'moment'
 import { Auth } from 'aws-amplify';
 import store from './store';
-import { SSL_OP_NO_TICKET } from 'constants';
 
 
 const socket = socketIO(LIVE_SERVER_URL, {
