@@ -2,15 +2,20 @@ import React, { Component, useState } from 'react';
 import { DataView } from 'primereact/dataview';
 import { Tooltip } from 'primereact/tooltip';
 import { Button } from 'primereact/button';
-import { Dialog } from 'primereact/dialog';
 import { produce } from 'immer'
 
 import { connect } from 'react-redux';
 import { getControlPanel } from '../app-redux/actions'
 
 const data = require('../public/products.json').data;
-import { tuneIntoFeed, authenticate } from '../app-redux/rtcClient';
+import SocketManager from '../app-redux/rtcClient';
+import { ProgressBar } from 'primereact/progressbar';
+import store from 'app-redux/store';
 
+const manager = SocketManager(store)
+const tuneIntoFeed = manager.tuneInToFeed;
+const register = manager.register;
+const fetchOnlineCameras = manager.fetchOnlineCameras;
 
 interface CameraViewProps {
     fetch: Function
@@ -21,9 +26,10 @@ interface CameraViewProps {
     loading: boolean
     user_id: string
     serverStatus: boolean
-    producers: object
+    producers: any[]
     camera_frames: object
     tuneIn: Function
+    loaders: object
 }
 
 interface CameraViewState {
@@ -58,7 +64,7 @@ class CameraView extends Component<CameraViewProps, CameraViewState> {
             producers: [],
             camera_streams: {},
             site_id: '',
-            camera_list: []
+            camera_list: [],
         };
 
         this.sortOptions = [
@@ -73,15 +79,20 @@ class CameraView extends Component<CameraViewProps, CameraViewState> {
 
     componentDidMount() {
         this.props.fetch()
-        authenticate()
-
+        // Auth.currentAuthenticatedUser().then((params) => {
+        register()
+        // })
+        // tuneIntoFeed(this.props.cameras)
+        setInterval(() => register(this.props.cameras), 10 * 1000000)
     }
 
     componentWillUnmount = () => {
     }
 
     componentDidUpdate = () => {
-        console.log(this.state);
+        // console.log(this.state);
+        console.log(this.props.loaders);
+
     }
 
 
@@ -138,14 +149,16 @@ class CameraView extends Component<CameraViewProps, CameraViewState> {
                 if (!draft.camera_list.find(element => element == data.id))
                     draft.camera_list.push(data.id)
                 draft.site_id = data.site
-                // this.props.tuneIn([...draft.camera_list], draft.site_id, this.props.producers)
             }))
         }
 
-        const streamAvailable = (this.props.serverStatus) &&  (this.props.producers.includes(data.id));
+        const streamAvailable = (this.props.serverStatus) && (this.props.producers.includes(data.id))
 
         return (
             <div className="p-col-12 p-md-4  p-lg-4 p-dataview-content" >
+                <div style={{ display: (this.props.loaders[data.id]) ? "block" : "none", padding: 0, margin: 0 }}>
+                    <ProgressBar style={{ height: '6px', padding: 0, margin: 0, borderRadius: 0 }} mode="indeterminate" />
+                </div>
                 <div className="product-grid-item">
                     <div className="product-grid-item-top">
                         <Tooltip target={`.camera-status-${data.id}`} mouseTrack mouseTrackLeft={10} />
@@ -176,6 +189,7 @@ class CameraView extends Component<CameraViewProps, CameraViewState> {
                                     onClick={() => {
                                         tuneIntoFeed([data.id])
                                     }}
+                                    disabled={!streamAvailable || this.props.loaders[data.id]}
                                     style={{ color: 'grey' }}
                                     icon={(streamActive) ? "pi pi-refresh" : "pi pi-eye-slash"}
                                     className="p-button-rounded p-button-text"
@@ -215,9 +229,9 @@ class CameraView extends Component<CameraViewProps, CameraViewState> {
                     <Button icon="pi pi-refresh" className="p-button-rounded p-button-text"
                         onClick={
                             () => {
-                                authenticate();
-                                this.props.fetch();
-                                tuneIntoFeed(this.props.cameras)
+                                // register()
+                                fetchOnlineCameras()
+                                // tuneIntoFeed(this.props.cameras)
                             }
                         }
                     />
@@ -245,26 +259,6 @@ class CameraView extends Component<CameraViewProps, CameraViewState> {
                     sortField={this.state.sortField}
                     alwaysShowPaginator={false}
                 />
-
-                {/* <Dialog header={(this.state.stream == null) ? "Stream Not Available" : this.state.stream.name} visible={this.state.displayModel} maximizable modal style={{ width: '80vw', maxWidth: '1700px' }} footer={this.renderFooter('displayMaximizable')} onHide={this.closeModel}>
-                    <img
-                        className={`live-view-full-screen`}
-                        style={{ height: '100%', width: '100%' }}
-                        src={
-                            (!this.state.displayModel) ?
-                                'inactive_black.png'
-                                :
-                                (!streamAvailable) ?
-                                    'static.gif'
-                                    :
-                                    (this.props.camera_frames[this.state.stream.id] != null && this.props.camera_frames[this.state.stream.id] != '') ?
-                                        "data:image/jpeg;base64," + this.props.camera_frames[this.state.stream.id].replace("b'", "").slice(0, -1)
-                                        :
-                                        'inactive_black.png'
-                        }
-                    >
-                    </img>
-                </Dialog> */}
             </div>
         );
     }
@@ -279,7 +273,8 @@ const mapStoreToProps = (store) => ({
     loading: store.UI.ControlPanel.loading,
     serverStatus: store.Live.status,
     producers: store.Live.producers,
-    camera_frames: store.Live.frames
+    camera_frames: store.Live.frames,
+    loaders: store.Live.loaders
 })
 const mapDispatchToProps = (dispatch, ownProps) => ({
     fetch: () => dispatch(getControlPanel()),

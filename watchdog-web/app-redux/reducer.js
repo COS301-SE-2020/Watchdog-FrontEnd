@@ -19,7 +19,6 @@ function dataReducer(state = defaultState.UserData, action) {
                 draft.name = action.payload.data.data.name
                 draft.preferences = action.payload.data.data.preferences
                 draft.security_level = action.payload.data.data.security_level
-                // draft.identities = action.payload.data.data.identities
                 draft.user_id = action.payload.data.data.user_id
             })
         case actions.GET_RECORDINGS_SUCCESS:
@@ -33,8 +32,6 @@ function dataReducer(state = defaultState.UserData, action) {
                 draft.identities.profiles = action.payload.data.data.profiles
             })
         case actions.GET_LOGS_SUCCESS:
-            // console.log("HERE");
-            // console.log(action);
             return produce(state, draft => {
                 draft.logs = action.payload.data.data.logs
             })
@@ -308,7 +305,7 @@ function liveReducer(state = defaultState.Live, action) {
         case "UPDATE_PRODUCERS":
             console.log("UPDATE PRODUCERS -----------------")
             return produce(state, draft => {
-                draft.producers.push(action.data)
+                draft.producers = [...draft.producers, ...action.data]
             })
         case "LIVE_DISCONNECTED":
             return produce(state, draft => {
@@ -326,6 +323,16 @@ function liveReducer(state = defaultState.Live, action) {
         case "CONSUME_FRAME":
             return produce(state, draft => {
                 draft.frames[action.camera_id] = action.frame
+            })
+        case "SET_LOADER":
+            return produce(state, draft => {
+                draft.loaders[action.camera_id] = action.status
+            })
+        case "REMOVE_PRODUCER":
+            return produce(state, draft => {
+                draft.loaders[action.camera_id] = false
+                if(draft.producers.includes(action.camera_id))
+                    draft.producers = draft.producers.filter((value) => value != action.camera_id)
             })
         default:
             return state

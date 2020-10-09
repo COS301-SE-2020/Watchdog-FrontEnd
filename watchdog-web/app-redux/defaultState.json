@@ -81,6 +81,7 @@
             "camera_list": [],
             "frame": null
         },
-        "frames": {}
+        "frames": {},
+        "loaders": {}
     }
 }
