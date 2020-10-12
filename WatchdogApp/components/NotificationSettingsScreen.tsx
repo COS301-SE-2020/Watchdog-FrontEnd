@@ -72,7 +72,7 @@ class NotificationSettingsScreen extends Component<propsNotificationSettingsScre
                 >
                     <SelectItem title='SMS' />
                     <SelectItem title='Email' />
-                    <SelectItem title='Push Notifications' />
+                    {/* <SelectItem title='Push Notifications' /> */}
                 </Select>
 
 
