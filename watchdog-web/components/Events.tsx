@@ -55,7 +55,7 @@ class Events extends Component<EventsProps, EventsState> {
 
         comps.reverse()
 
-        return <Panel header={<span><span>System Events</span></span>} className="p-shadow-8" style={{ minHeight: '40vh' }}>
+        return <Panel header={"System Events"} className="p-shadow-8" style={{ minHeight: '40vh' }}>
             <Scrollbars style={{ height: '30vh' }}>
                 <div style={{ display: (this.props.loading) ? "block" : "none", padding: 0, margin: 0 }}>
                     <ProgressBar style={{ height: '6px', padding: 0, margin: 0, borderRadius: 0 }} mode="indeterminate" />

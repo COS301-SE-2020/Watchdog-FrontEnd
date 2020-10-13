@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Image, StyleSheet, View } from "react-native";
 import { Text, Layout, List, Divider, ListItem, Button, Icon, Card } from "@ui-kitten/components";
 import { connect } from 'react-redux'
-
+import { Video } from 'expo-av'
 import CustomTab from "./CustomTab";
 import { getControlPanel } from '../app-redux/actions'
 
@@ -32,6 +32,7 @@ interface CameraObject {
 }
 
 interface LiveTabState {
+    id: String
 }
 
 
@@ -39,6 +40,9 @@ class LiveTab extends Component<LiveTabProps, LiveTabState> {
 
     constructor(props: any) {
         super(props)
+        this.state = {
+            id : ''
+        }
     }
 
     componentDidMount = () => {
@@ -63,6 +67,10 @@ class LiveTab extends Component<LiveTabProps, LiveTabState> {
             return (
                 <ListItem
                     title={`${item.item.location}`}
+                    onPress ={ ()=>{
+                        this.setState({id : item.item.id})
+                        console.log(item.item.id)
+                    }}
                     //accessoryRight={item.item.status==='Online'?renderItemIconOnline : renderItemIconOfline}
                     accessoryLeft={() => <Text style={{ paddingRight: 20 }}>{item.index + 1}</Text>}
                     //accessoryRight={evaProps => <Icon  {...evaProps} name={item.item.status==='Online'?'video-outline' : 'video-off-outline'}/>}
@@ -96,7 +104,10 @@ class LiveTab extends Component<LiveTabProps, LiveTabState> {
                         style={{ flex: 1 }}
                         level='2'
                     >
-                        <Image
+                        <Video
+                            rate={1.0}
+                            useNativeControls
+                            id = {this.state.id}
                             style={{ height: 200, width: "100%" }}
                             resizeMode={this.props.feed? 'cover':'stretch'}
                             source={this.props.feed ? { uri: this.props.feed } : require('../assets/static.gif')}

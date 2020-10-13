@@ -219,7 +219,7 @@ class CameraView extends Component<CameraViewProps, CameraViewState> {
                 className="p-grid p-nogutter p-align-center"
             >
                 <div className="p-col-11">
-                    <h2>Cameras</h2>
+                    <span className='p-panel-title'>Cameras</span><br />
                     <small style={{ color: (this.props.serverStatus) ? 'green' : 'red' }}>{(this.props.serverStatus) ? "Connected to Server" : "Connection to Server Lost"}</small>
                 </div>
                 {/* <div className="p-col-5"> */}
