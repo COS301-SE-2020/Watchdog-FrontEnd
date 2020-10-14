@@ -184,7 +184,7 @@ class ProfileAnalyticsChart extends Component<ProfileAnalyticsProps, ProfileAnal
                         onClick={this.onClickDatapoint}
                         data={this.state.display_data}
                         margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
-                        curve='linear'
+                        curve='monotoneX'
                         xScale={{ type: 'point' }}
                         yScale={{ type: 'linear', min: 'auto', max: 'auto', stacked: false, reverse: false }}
                         axisTop={null}
@@ -208,6 +208,7 @@ class ProfileAnalyticsChart extends Component<ProfileAnalyticsProps, ProfileAnal
                             legendPosition: 'middle'
                         }}
                         colors={{ scheme: 'nivo' }}
+                        lineWidth ={3}
                         pointSize={10}
                         pointColor={{ theme: 'background' }}
                         pointBorderWidth={2}
