@@ -75,7 +75,9 @@ const MemberPage = ({
                       src={require('./../../assets/images/jono.png')}
                       alt="Features tile icon 01"
                       width={"128px"}
-                      height={"128px"} />
+                      height={"128px"}
+                      style={{'width': "128px", "height": "128px"}}
+                     />
                   </div>
                 </div>
                 <div className="features-tiles-item-content">
@@ -102,7 +104,10 @@ expand my knowledge!
                       src={require('./../../assets/images/Rishi.png')}
                       alt="Features tile icon 02"
                       width={"128px"}
-                      height={"128px"} />
+                      height={"128px"} 
+                      
+                      style={{'width': "128px", "height": "128px"}}
+                      />
                   </div>
                 </div>
                 <div className="features-tiles-item-content">
@@ -124,7 +129,10 @@ expand my knowledge!
                       src={require('./../../assets/images/jordan.png')}
                       alt="Features tile icon 03"
                       width={"128px"}
-                      height={"128px"} />
+                      height={"128px"} 
+                      
+                      style={{'width': "128px", "height": "128px"}}
+                      />
                   </div>
                 </div>
                 <div className="features-tiles-item-content">
@@ -146,7 +154,10 @@ expand my knowledge!
                       src={require('./../../assets/images/luqi.png')}
                       alt="Features tile icon 04"
                       width={"128px"}
-                      height={"128px"} />
+                      height={"128px"} 
+
+                      style={{'width': "128px", "height": "128px"}}
+                      />
                   </div>
                 </div>
                 <div className="features-tiles-item-content">
@@ -168,7 +179,10 @@ expand my knowledge!
                       src={require('./../../assets/images/abu.png')}
                       alt="Features tile icon 05"
                       width={"128px"}
-                      height={"128px"} />
+                      height={"128px"} 
+
+                      style={{'width': "128px", "height": "128px"}}
+                      />
                   </div>
                 </div>
                 <div className="features-tiles-item-content">
@@ -190,7 +204,10 @@ expand my knowledge!
                       src={require('./../../assets/images/armin.png')}
                       alt="Features tile icon 06"
                       width={"128px"}
-                      height={"128px"} />
+                      height={"128px"}
+                      
+                      style={{'width': "128px", "height": "128px"}}
+                      />
                   </div>
                 </div>
                 <div className="features-tiles-item-content">
