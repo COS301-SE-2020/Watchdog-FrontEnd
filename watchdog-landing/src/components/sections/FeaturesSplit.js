@@ -52,8 +52,8 @@ const FeaturesSplit = ({
   );
 
   const sectionHeader = {
-    title: 'How it all works',
-    paragraph: 'Discover the inner workings of our system and how it keeps you and your home safe and secure.'
+    title: 'What makes Watchdog unique?',
+    paragraph: 'Discover the hidden truths of our system that differentiates itself from modern day surveillance.'
   };
 
   return (
@@ -71,7 +71,9 @@ const FeaturesSplit = ({
               <div className="split-item-content center-content-mobile reveal-from-left" data-reveal-container=".split-item">
                 {/* <div className="text-xxs text-color-primary fw-600 tt-u mb-8"> Understanding the system </div> */}
                 <h3 className="mt-0 mb-12"> Live Streaming </h3>
-                <p className="m-0">Placeholder text</p>
+                <p className="m-0">
+                Get the validation that your home is secure by being able to view the current state of your surveillance system, anytime, anywhere.
+                </p>
               </div>
               <div className={
                 classNames(
@@ -94,8 +96,8 @@ const FeaturesSplit = ({
                     />
 
                     <Carousel.Caption>
-                      <h3>Second slide label</h3>
-                      <p>View your detected images</p>
+                      {/* <h3>Second slide label</h3> */}
+                      <p>View multiple IP camera feeds that are connected in different Local Area Networks through the use of industry standard WebRTC technology.</p>
                     </Carousel.Caption>
                   </Carousel.Item>
                   <Carousel.Item
@@ -112,8 +114,8 @@ const FeaturesSplit = ({
                     />
 
                     <Carousel.Caption>
-                      <h3>Third slide label</h3>
-                      <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+                      {/* <h3>Third slide label</h3> */}
+                      {/* <p>View multiple IP cameras that are connected to different Local Area Networks in multiple browsers at the same time through the use of industry standard WebRTC technology.</p> */}
                     </Carousel.Caption>
                   </Carousel.Item>
                 </Carousel>
@@ -128,8 +130,8 @@ const FeaturesSplit = ({
                   Intruder Detection
                   </h3>
                 <p className="m-0">
-                  Our cameras constantly sweep the environment for any movement or stimuli. Once any has been detected on our finely calibrated hardware, we use artificial intelligence to scope in on the movement and attempt to detect any visual of a face present. Once a face is detected, an image is captured and loaded into an appropriate storage site for further analysis.
-                  </p>
+                A stand-alone program that runs locally on the home owners computer machine aggregates the IP streams in real-time to reduce the latency in identifying possible intruders, and ensure the safety of our home owners is of highest priority.
+                </p>
               </div>
               <div className={
                 classNames(
@@ -157,8 +159,10 @@ const FeaturesSplit = ({
                     />
 
                     <Carousel.Caption>
-                      <h3>Second slide label</h3>
-                      <p>View your detected images</p>
+                      {/* <h3>Second slide label</h3> */}
+                      <p>
+                        View the possible intruder images on your user interface at your convenience.
+                      </p>
                     </Carousel.Caption>
                   </Carousel.Item>
                   <Carousel.Item
@@ -175,8 +179,8 @@ const FeaturesSplit = ({
                     />
 
                     <Carousel.Caption>
-                      <h3>Third slide label</h3>
-                      <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+                      {/* <h3>Third slide label</h3> */}
+                      <p>Facial detection is used in the stand alone program to identify possible faces, which is then uploaded to the cloud to run further intruder analysis that notifies the home owner if the face detected is a possible intruder.</p>
                     </Carousel.Caption>
                   </Carousel.Item>
                 </Carousel>
@@ -187,8 +191,8 @@ const FeaturesSplit = ({
             <div className="split-item">
               <div className="split-item-content center-content-mobile reveal-from-left" data-reveal-container=".split-item">
                 {/* <div className="text-xxs text-color-primary fw-600 tt-u mb-8"> Understanding the system </div> */}
-                <h3 className="mt-0 mb-12">Tag Detected Image</h3>
-                <p className="m-0">Placeholder text</p>
+                <h3 className="mt-0 mb-12">Add owners on the fly</h3>
+                <p className="m-0">Not everyone identified in your camera feed is a possible intruder. These detected people may be added to your home owner list on the fly, making it easier than ever to register new known identities in the system.</p>
               </div>
               <div className={
                 classNames(
@@ -211,8 +215,8 @@ const FeaturesSplit = ({
                     />
 
                     <Carousel.Caption>
-                      <h3>Second slide label</h3>
-                      <p>View your detected images</p>
+                      {/* <h3>Second slide label</h3> */}
+                      <p></p>
                     </Carousel.Caption>
                   </Carousel.Item>
                   <Carousel.Item
@@ -229,8 +233,8 @@ const FeaturesSplit = ({
                     />
 
                     <Carousel.Caption>
-                      <h3>Third slide label</h3>
-                      <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+                      {/* <h3>Third slide label</h3> */}
+                      <p>Adding a detected person as a known profile will intelligently search similar images in the detected list and flag them as detected owner images, saving you the effort of tagging each similar image.</p>
                     </Carousel.Caption>
                   </Carousel.Item>
                 </Carousel>
@@ -242,7 +246,7 @@ const FeaturesSplit = ({
               <div className="split-item-content center-content-mobile reveal-from-left" data-reveal-container=".split-item">
                 {/* <div className="text-xxs text-color-primary fw-600 tt-u mb-8"> Understanding the system </div> */}
                 <h3 className="mt-0 mb-12">Custom Notifications</h3>
-                <p className="m-0">Placeholder text</p>
+                <p className="m-0">Be alerted with a custom message of your choice when certain home owners have been identified in your system.</p>
               </div>
               <div className={
                 classNames(
@@ -265,8 +269,8 @@ const FeaturesSplit = ({
                     />
 
                     <Carousel.Caption>
-                      <h3>Second slide label</h3>
-                      <p>View your detected images</p>
+                      {/* <h3></h3> */}
+                      <p>Enable the system to notify you with a custom message when certain known profiles are identified in the system.</p>
                     </Carousel.Caption>
                   </Carousel.Item>
                   <Carousel.Item
@@ -283,8 +287,8 @@ const FeaturesSplit = ({
                     />
 
                     <Carousel.Caption>
-                      <h3>Third slide label</h3>
-                      <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+                      {/* <h3>Third slide label</h3> */}
+                      <p>An extra step in the intruder analysis is used such that if the face detected is a known identity in the system, it further checks to see if you are to receive a custom notification that was set in the user interface.</p>
                     </Carousel.Caption>
                   </Carousel.Item>
                 </Carousel>
@@ -297,7 +301,7 @@ const FeaturesSplit = ({
               <div className="split-item-content center-content-mobile reveal-from-left" data-reveal-container=".split-item">
                 {/* <div className="text-xxs text-color-primary fw-600 tt-u mb-8"> Understanding the system </div> */}
                 <h3 className="mt-0 mb-12">Owner Analytics</h3>
-                <p className="m-0">Placeholder text</p>
+                <p className="m-0">View at a glance when the different known profiles have been identifies by the system on a time series graph.</p>
               </div>
               <div className={
                 classNames(
@@ -320,8 +324,8 @@ const FeaturesSplit = ({
                     />
 
                     <Carousel.Caption>
-                      <h3>Second slide label</h3>
-                      <p>View your detected images</p>
+                      {/* <h3>Second slide label</h3> */}
+                      <p>View the different owner activity in your system on either a daily, weekly, or monthly time scale.</p>
                     </Carousel.Caption>
                   </Carousel.Item>
                   <Carousel.Item
@@ -338,8 +342,8 @@ const FeaturesSplit = ({
                     />
 
                     <Carousel.Caption>
-                      <h3>Third slide label</h3>
-                      <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+                      {/* <h3>Third slide label</h3> */}
+                      <p>Expand the points in the graph to view the detected image(s) of the owner.</p>
                     </Carousel.Caption>
                   </Carousel.Item>
                 </Carousel>
@@ -351,7 +355,7 @@ const FeaturesSplit = ({
               <div className="split-item-content center-content-mobile reveal-from-left" data-reveal-container=".split-item">
                 {/* <div className="text-xxs text-color-primary fw-600 tt-u mb-8"> Understanding the system </div> */}
                 <h3 className="mt-0 mb-12">Video Highlights</h3>
-                <p className="m-0">Placeholder text</p>
+                <p className="m-0">View a backlog of IP camera footage that are periodically uploaded by the stand-alone program to provide the home owner with historical video footage.</p>
               </div>
               <div className={
                 classNames(
@@ -374,8 +378,8 @@ const FeaturesSplit = ({
                     />
 
                     <Carousel.Caption>
-                      <h3>Second slide label</h3>
-                      <p>View your detected images</p>
+                      {/* <h3>Second slide label</h3> */}
+                      {/* <p></p> */}
                     </Carousel.Caption>
                   </Carousel.Item>
                   <Carousel.Item
@@ -392,8 +396,8 @@ const FeaturesSplit = ({
                     />
 
                     <Carousel.Caption>
-                      <h3>Third slide label</h3>
-                      <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+                      {/* <h3>Third slide label</h3> */}
+                      <p>Filter your videos based on the date and time, type of video, and IP camera location.</p>
                     </Carousel.Caption>
                   </Carousel.Item>
                 </Carousel>

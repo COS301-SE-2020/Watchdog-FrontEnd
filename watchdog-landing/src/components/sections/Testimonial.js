@@ -48,8 +48,8 @@ const Testimonial = ({
   );
 
   const sectionHeader = {
-    title: 'Watchdog Security System',
-    paragraph: 'The Security System that will protect you and your family from intruders, Always!'
+    title: 'Watchdog',
+    // paragraph: 'The Security System that will protect you and your family from intruders, Always!'
   };
 
   return (
@@ -90,15 +90,18 @@ const Testimonial = ({
             <div className="tiles-item reveal-from-right" data-reveal-delay="200">
               <div className="tiles-item-inner">
                 <div className="testimonial-item-footer center-content text-md mt-32 mb-0 has-top-divider">
-                  <span className="testimonial-item-name text-color-high">What is Watchdog?</span>
+                  <span className="testimonial-item-name text-color-high">Security in South Africa</span>
 
                 </div>
                 <div className="testimonial-item-content">
                   <p className="text-sm mb-3">
-                    An intelligent security surveillance system that notifies home owners in real-time when possible intruders are identified in their IP camera feed.
+                    Household break-ins was rated the <a href="http://www.statssa.gov.za/publications/P0341/P03412018.pdf">number one crime in South Africa</a> during the 2018/2019 period by the Governance, Public Safety and Justice Servey.
+                  </p>
+                  <p className="text-sm mb-3">
+                    There are about <a href="http://www.statssa.gov.za/?p=12614 ">1.3 million incidences of househol break-ins affecting 5.8%</a> of <a href="https://africa.com/home-ownership-in-south-africa/">15 million households</a> in South Africa. 
                   </p>
                   <p className="text-sm mb-0">
-                    Owner Tracking system that intelligently keeps track of when known home owner profiles have been identified in the system
+                    Of those household crimes, approximately <a href="http://www.statssa.gov.za/?p=12614">48% of affected households reported incidences to the police</a>.
                   </p>
                 </div>
 
@@ -108,13 +111,15 @@ const Testimonial = ({
             <div className="tiles-item reveal-from-bottom">
               <div className="tiles-item-inner">
                 <div className="testimonial-item-footer center-content text-md mt-32 mb-0 has-top-divider">
-                  <span className="testimonial-item-name text-color-high">Our mission</span>
-
+                  <span className="testimonial-item-name text-color-high">Watchdog Mission</span>
                 </div>
                 <div className="testimonial-item-content">
+                  <p className="text-sm mb-3">
+                    Watchdog provides a simple solution to increase the number of reported household crimes in order to protect and possibly save lives of our fellow South Africans.
+                  </p>
                   <p className="text-sm mb-0">
-                    — We aim to serve our clients to the best of our abilities, instill a reinforced sense of security and enforce a zero tolerance policy for crimes against our clients and their property.
-                      </p>
+                    By providing the home owner with real time images of possible intruders, Watchdog enables our home owners to be able to present tangible information to the police.
+                  </p>
                 </div>
               </div>
             </div>
@@ -122,15 +127,17 @@ const Testimonial = ({
             <div className="tiles-item reveal-from-left" data-reveal-delay="200">
               <div className="tiles-item-inner">
                 <div className="testimonial-item-footer center-content text-md mt-32 mb-0 has-top-divider">
-                  <span className="testimonial-item-name text-color-high">Why choose us?</span>
+                  <span className="testimonial-item-name text-color-high">What is Watchdog?</span>
 
                 </div>
                 <div className="testimonial-item-content">
+                  <p className="text-sm mb-3">
+                      Watchdog is an intelligent security surveillance system that notifies home owners in real-time when possible intruders are identified in their IP camera feed.
+                  </p>
                   <p className="text-sm mb-0">
-                    — We use a simple-to-use but effective home control panel camera management system, intelligent intruder detection software, fully personalised and customisable notifications, alerts and settings to put your security back in your own hands.
-                      </p>
+                      Watchdog is also an owner tracking system that intelligently keeps track of when known home owner profiles have been identified in the system.
+                  </p>
                 </div>
-
               </div>
             </div>
 
