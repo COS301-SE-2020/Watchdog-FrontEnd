@@ -1,4 +1,5 @@
 import React from 'react';
+import {Component} from 'react';
 import classNames from 'classnames';
 import { SectionSplitProps } from '../../utils/SectionProps';
 import SectionHeader from './partials/SectionHeader';
@@ -63,7 +64,33 @@ const FeaturesSplit = ({
     >
       <div className="container">
         <div className={innerClasses}>
-          <SectionHeader data={sectionHeader} className="center-content" />
+          {/* <SectionHeader data={sectionHeader} className="center-content" /> */}
+
+          <div
+          // {...props}
+          style={{marginTop: "2rem", marginBottom: "2rem"}}
+          className="center-content"
+        >
+          <div className="container-md">
+            {/* {children} */}
+            {/* {data.title && */}
+              <h1
+
+                // style={{ 'color': "#169de0" }}
+                className={
+                  classNames(
+                    'mt-0',
+                    sectionHeader.paragraph ? 'mb-16' : 'mb-0'
+                  )}>{sectionHeader.title}</h1>
+            {/* } */}
+            {/* {data.paragraph && */}
+              <p className="m-0">{sectionHeader.paragraph}</p>
+            {/* } */}
+          </div>
+        </div>
+
+
+
           <div className={splitClasses}>
 
             {/* Live Streaming */}

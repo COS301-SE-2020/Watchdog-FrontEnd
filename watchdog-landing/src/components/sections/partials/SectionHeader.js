@@ -13,7 +13,7 @@ const propTypes = {
 
 const defaultProps = {
   children: null,
-  tag: 'h3'
+  tag: 'h1'
 }
 
 const SectionHeader = ({
@@ -41,11 +41,14 @@ const SectionHeader = ({
           <div className="container-md">
             {children}
             {data.title &&
-              <Component className={
-                classNames(
-                  'mt-0',
-                  data.paragraph ? 'mb-16' : 'mb-0'
-                )}>{data.title}</Component>
+              <Component
+
+                style={{ 'color': "#169de0" }}
+                className={
+                  classNames(
+                    'mt-0',
+                    data.paragraph ? 'mb-16' : 'mb-0'
+                  )}>{data.title}</Component>
             }
             {data.paragraph &&
               <p className="m-0">{data.paragraph}</p>

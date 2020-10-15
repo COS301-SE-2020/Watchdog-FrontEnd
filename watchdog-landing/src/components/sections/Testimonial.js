@@ -48,7 +48,7 @@ const Testimonial = ({
   );
 
   const sectionHeader = {
-    title: 'Watchdog',
+    title: 'WATCHDOG',
     // paragraph: 'The Security System that will protect you and your family from intruders, Always!'
   };
 
@@ -76,8 +76,10 @@ const Testimonial = ({
             ease: "circInOut",
             times: [0, 0.2, 0.5, 0.8, 1],
             loop: Infinity,
-            repeatDelay: 4
-          }}>
+            repeatDelay: 10
+          }}
+          style={{marginBottom: "2rem"}}
+          >
 
           <Image src={require("../../assets/images/Watchdog.png")}></Image>
         </motion.div>
