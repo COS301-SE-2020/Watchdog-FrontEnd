@@ -2,7 +2,9 @@ import React from 'react';
 import classNames from 'classnames';
 import { SectionTilesProps } from '../../utils/SectionProps';
 import SectionHeader from './partials/SectionHeader';
-import Wave from 'react-wavify'
+import Wave from 'react-wavify';
+import Image from 'react-bootstrap/Image';
+import { motion } from "framer-motion";
 
 const propTypes = {
   ...SectionTilesProps.types
@@ -55,10 +57,33 @@ const Testimonial = ({
       {...props}
       className={outerClasses}
     >
-      <div className="wave"><Wave fill="#169de0" options={{ points: 10, speed: 0.3, amplitude: 40 }}></Wave> </div>
+      {/* <div className="wave"><Wave fill="#3f6a8094" options={{ points: 100, speed: 0.3, amplitude: 100 }}></Wave> </div> */}
+
 
       <div className="container ">
+
         <div className={innerClasses}>
+
+      <div className="center-content">
+        <motion.div
+          animate={{
+            scale: [1, 1.2, 1.2, 1, 1],
+            rotate: [0, 0, 270, 270, 0],
+            borderRadius: ["20%", "20%", "50%", "50%", "20%"]
+          }}
+          transition={{
+            duration: 4,
+            ease: "circInOut",
+            times: [0, 0.2, 0.5, 0.8, 1],
+            loop: Infinity,
+            repeatDelay: 4
+          }}>
+
+          <Image src={require("../../assets/images/Watchdog.png")}></Image>
+        </motion.div>
+      </div >
+
+
           <SectionHeader data={sectionHeader} className="center-content" />
           <div className={tilesClasses}>
 
@@ -112,7 +137,7 @@ const Testimonial = ({
           </div>
         </div>
       </div>
-    </section>
+    </section >
   );
 }
 
