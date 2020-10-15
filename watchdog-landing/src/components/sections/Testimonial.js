@@ -55,7 +55,7 @@ const Testimonial = ({
       {...props}
       className={outerClasses}
     >
-      <div className="wave"><Wave fill="#169de0"  options={{ points: 40, speed: 0.2, amplitude: 40 }}></Wave> </div>
+      <div className="wave"><Wave fill="#169de0" options={{ points: 10, speed: 0.3, amplitude: 40 }}></Wave> </div>
 
       <div className="container ">
         <div className={innerClasses}>
@@ -64,28 +64,31 @@ const Testimonial = ({
 
             <div className="tiles-item reveal-from-right" data-reveal-delay="200">
               <div className="tiles-item-inner">
-              <div className="testimonial-item-footer center-content text-md mt-32 mb-0 has-top-divider">
+                <div className="testimonial-item-footer center-content text-md mt-32 mb-0 has-top-divider">
                   <span className="testimonial-item-name text-color-high">What is Watchdog?</span>
-                  
+
                 </div>
                 <div className="testimonial-item-content">
+                  <p className="text-sm mb-3">
+                    An intelligent security surveillance system that notifies home owners in real-time when possible intruders are identified in their IP camera feed.
+                  </p>
                   <p className="text-sm mb-0">
-                    — Watchdog is a fully integrated, state-of-the-art security system designed to protect your home and its residents any time, anywhere. 
-                      </p>
+                    Owner Tracking system that intelligently keeps track of when known home owner profiles have been identified in the system
+                  </p>
                 </div>
-                
+
               </div>
             </div>
 
             <div className="tiles-item reveal-from-bottom">
               <div className="tiles-item-inner">
-              <div className="testimonial-item-footer center-content text-md mt-32 mb-0 has-top-divider">
+                <div className="testimonial-item-footer center-content text-md mt-32 mb-0 has-top-divider">
                   <span className="testimonial-item-name text-color-high">Our mission</span>
-                  
+
                 </div>
                 <div className="testimonial-item-content">
                   <p className="text-sm mb-0">
-                    — We aim to serve our clients to the best of our abilities, instill a reinforced sense of security and enforce a zero tolerance policy for crimes against our clients and their property. 
+                    — We aim to serve our clients to the best of our abilities, instill a reinforced sense of security and enforce a zero tolerance policy for crimes against our clients and their property.
                       </p>
                 </div>
               </div>
@@ -93,16 +96,16 @@ const Testimonial = ({
 
             <div className="tiles-item reveal-from-left" data-reveal-delay="200">
               <div className="tiles-item-inner">
-              <div className="testimonial-item-footer center-content text-md mt-32 mb-0 has-top-divider">
+                <div className="testimonial-item-footer center-content text-md mt-32 mb-0 has-top-divider">
                   <span className="testimonial-item-name text-color-high">Why choose us?</span>
-                  
+
                 </div>
                 <div className="testimonial-item-content">
                   <p className="text-sm mb-0">
-                    — We use a simple-to-use but effective home control panel camera management system, intelligent intruder detection software, fully personalised and customisable notifications, alerts and settings to put your security back in your own hands. 
+                    — We use a simple-to-use but effective home control panel camera management system, intelligent intruder detection software, fully personalised and customisable notifications, alerts and settings to put your security back in your own hands.
                       </p>
                 </div>
-        
+
               </div>
             </div>
 

@@ -3,6 +3,8 @@ import classNames from 'classnames';
 import { SectionSplitProps } from '../../utils/SectionProps';
 import SectionHeader from './partials/SectionHeader';
 import Image from '../elements/Image';
+import Carousel from 'react-bootstrap/Carousel'
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const propTypes = {
   ...SectionSplitProps.types
@@ -64,16 +66,69 @@ const FeaturesSplit = ({
           <SectionHeader data={sectionHeader} className="center-content" />
           <div className={splitClasses}>
 
+            {/* Live Streaming */}
             <div className="split-item">
               <div className="split-item-content center-content-mobile reveal-from-left" data-reveal-container=".split-item">
-                <div className="text-xxs text-color-primary fw-600 tt-u mb-8">
-                  Understanding the system
-                  </div>
+                {/* <div className="text-xxs text-color-primary fw-600 tt-u mb-8"> Understanding the system </div> */}
+                <h3 className="mt-0 mb-12"> Live Streaming </h3>
+                <p className="m-0">Placeholder text</p>
+              </div>
+              <div className={
+                classNames(
+                  'split-item-image center-content-mobile reveal-from-bottom',
+                  imageFill && 'split-item-image-fill'
+                )}
+                data-reveal-container=".split-item">
+                <Carousel>
+                  <Carousel.Item
+
+                    style={{ "width": 528, "height": 396 }}
+                  >
+                    <img
+                      // className="d-block w-100"
+                      // height={396}
+                      // width={528}
+                      src={require("./../../assets/images/live_streaming_what_2.png")}
+                      // src="holder.js/800x400?text=Second slide&bg=282c34"
+                      alt="Third slide"
+                    />
+
+                    <Carousel.Caption>
+                      <h3>Second slide label</h3>
+                      <p>View your detected images</p>
+                    </Carousel.Caption>
+                  </Carousel.Item>
+                  <Carousel.Item
+
+                    style={{ "width": 528, "height": 396 }}
+                  >
+                    <img
+                      // className="d-block w-100"
+                      // height={396}
+                      // width={528}
+                      src={require("./../../assets/images/live_streaming_how.png")}
+                      // src="holder.js/800x400?text=Second slide&bg=282c34"
+                      alt="Third slide"
+                    />
+
+                    <Carousel.Caption>
+                      <h3>Third slide label</h3>
+                      <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+                    </Carousel.Caption>
+                  </Carousel.Item>
+                </Carousel>
+              </div>
+            </div>
+
+            {/* Intruder Detection */}
+            <div className="split-item">
+              <div className="split-item-content center-content-mobile reveal-from-left" data-reveal-container=".split-item">
+                {/* <div className="text-xxs text-color-primary fw-600 tt-u mb-8"> Understanding the system </div> */}
                 <h3 className="mt-0 mb-12">
                   Intruder Detection
                   </h3>
                 <p className="m-0">
-                  Our cameras constantly sweep the environment for any movement or stimuli. Once any has been detected on our finely calibrated hardware, we use artificial intelligence to scope in on the movement and attempt to detect any visual of a face present. Once a face is detected, an image is captured and loaded into an appropriate storage site for further analysis. 
+                  Our cameras constantly sweep the environment for any movement or stimuli. Once any has been detected on our finely calibrated hardware, we use artificial intelligence to scope in on the movement and attempt to detect any visual of a face present. Once a face is detected, an image is captured and loaded into an appropriate storage site for further analysis.
                   </p>
               </div>
               <div className={
@@ -82,51 +137,58 @@ const FeaturesSplit = ({
                   imageFill && 'split-item-image-fill'
                 )}
                 data-reveal-container=".split-item">
-                <Image
+                {/* <Image
                   src={require('./../../assets/images/IntruderDetection.png')}
                   alt="Features split 01"
                   width={528}
-                  height={396} />
+                  height={396} /> */}
+                <Carousel>
+                  <Carousel.Item
+
+                    style={{ "width": 528, "height": 396 }}
+                  >
+                    <img
+                      // className="d-block w-100"
+                      // height={396}
+                      // width={528}
+                      src={require("./../../assets/images/intruder_analysis_what_2.png")}
+                      // src="holder.js/800x400?text=Second slide&bg=282c34"
+                      alt="Third slide"
+                    />
+
+                    <Carousel.Caption>
+                      <h3>Second slide label</h3>
+                      <p>View your detected images</p>
+                    </Carousel.Caption>
+                  </Carousel.Item>
+                  <Carousel.Item
+
+                    style={{ "width": 528, "height": 396 }}
+                  >
+                    <img
+                      // className="d-block w-100"
+                      // height={396}
+                      // width={528}
+                      src={require("./../../assets/images/intruder_analysis_how.gif")}
+                      // src="holder.js/800x400?text=Second slide&bg=282c34"
+                      alt="Third slide"
+                    />
+
+                    <Carousel.Caption>
+                      <h3>Third slide label</h3>
+                      <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+                    </Carousel.Caption>
+                  </Carousel.Item>
+                </Carousel>
               </div>
             </div>
 
-            <div className="split-item">
-              <div className="split-item-content center-content-mobile reveal-from-right" data-reveal-container=".split-item">
-                <div className="text-xxs text-color-primary fw-600 tt-u mb-8">
-                  Understanding the system
-                  </div>
-                <h3 className="mt-0 mb-12">
-                  Viewing your historical footage
-                  </h3>
-                <p className="m-0">
-                  From time to time, footage from the cameras in your home will be stored in secure storage. They can be selected and accessed freely by you, the owner, from the comfort of our website or our mobile application by simply selecting the camera by its location and the timeframe to be viewed.
-                  </p>
-              </div>
-              <div className={
-                classNames(
-                  'split-item-image center-content-mobile reveal-from-bottom',
-                  imageFill && 'split-item-image-fill'
-                )}
-                data-reveal-container=".split-item">
-                <Image
-                  src={require('./../../assets/images/Recordings.png')}
-                  alt="Features split 02"
-                  width={528}
-                  height={396} />
-              </div>
-            </div>
-
+            {/* Tag Detected Image */}
             <div className="split-item">
               <div className="split-item-content center-content-mobile reveal-from-left" data-reveal-container=".split-item">
-                <div className="text-xxs text-color-primary fw-600 tt-u mb-8">
-                  Understanding the system
-                  </div>
-                <h3 className="mt-0 mb-12">
-                  Notifications and alerts
-                  </h3>
-                <p className="m-0">
-                  When an unknown or unregistered face is detected on your property based on movement picked up by the cameras, a notification service will alert you in real time of the possible intruder's presence. The method and delivery of this notification is entirely up to the user's discretion with available options of email, an SMS to your cellphone or a push notification to the application all designed to keep you alert and notified about who is at your home. 
-                  </p>
+                {/* <div className="text-xxs text-color-primary fw-600 tt-u mb-8"> Understanding the system </div> */}
+                <h3 className="mt-0 mb-12">Tag Detected Image</h3>
+                <p className="m-0">Placeholder text</p>
               </div>
               <div className={
                 classNames(
@@ -134,25 +196,53 @@ const FeaturesSplit = ({
                   imageFill && 'split-item-image-fill'
                 )}
                 data-reveal-container=".split-item">
-                <Image
-                  src={require('./../../assets/images/Notifications.png')}
-                  alt="Features split 03"
-                  width={528}
-                  height={396} />
+                <Carousel>
+                  <Carousel.Item
+
+                    style={{ "width": 528, "height": 396 }}
+                  >
+                    <img
+                      // className="d-block w-100"
+                      // height={396}
+                      // width={528}
+                      src={require("./../../assets/images/tag_detected_image_what_2.png")}
+                      // src="holder.js/800x400?text=Second slide&bg=282c34"
+                      alt="Third slide"
+                    />
+
+                    <Carousel.Caption>
+                      <h3>Second slide label</h3>
+                      <p>View your detected images</p>
+                    </Carousel.Caption>
+                  </Carousel.Item>
+                  <Carousel.Item
+
+                    style={{ "width": 528, "height": 396 }}
+                  >
+                    <img
+                      // className="d-block w-100"
+                      // height={396}
+                      // width={528}
+                      src={require("./../../assets/images/tag_detected_image_how.gif")}
+                      // src="holder.js/800x400?text=Second slide&bg=282c34"
+                      alt="Third slide"
+                    />
+
+                    <Carousel.Caption>
+                      <h3>Third slide label</h3>
+                      <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+                    </Carousel.Caption>
+                  </Carousel.Item>
+                </Carousel>
               </div>
             </div>
+
+            {/* Custom Notifications */}
             <div className="split-item">
-              <div className="split-item-content center-content-mobile reveal-from-right" data-reveal-container=".split-item">
-                <div className="text-xxs text-color-primary fw-600 tt-u mb-8">
-                  Understanding the system
-                  </div>
-                <h3 className="mt-0 mb-12">
-                  Customisation 
-                  </h3>
-                <p className="m-0">
-                  Our system can be customised to allow every face that is detected to be allowed or only allow recognised faces. We also keep a detailed record of all the events that occur on the system so it is very easy for you to find waht you want. 
-                  There is also detailed graph that represents the identities and how often they have been detected by the system.
-                  </p>
+              <div className="split-item-content center-content-mobile reveal-from-left" data-reveal-container=".split-item">
+                {/* <div className="text-xxs text-color-primary fw-600 tt-u mb-8"> Understanding the system </div> */}
+                <h3 className="mt-0 mb-12">Custom Notifications</h3>
+                <p className="m-0">Placeholder text</p>
               </div>
               <div className={
                 classNames(
@@ -160,13 +250,158 @@ const FeaturesSplit = ({
                   imageFill && 'split-item-image-fill'
                 )}
                 data-reveal-container=".split-item">
-                <Image
-                  src={require('./../../assets/images/Custom.png')}
-                  alt="Features split 02"
-                  width={528}
-                  height={396} />
+                <Carousel>
+                  <Carousel.Item
+
+                    style={{ "width": 528, "height": 396 }}
+                  >
+                    <img
+                      // className="d-block w-100"
+                      // height={396}
+                      // width={528}
+                      src={require("./../../assets/images/custom_notifications_what.png")}
+                      // src="holder.js/800x400?text=Second slide&bg=282c34"
+                      alt="Third slide"
+                    />
+
+                    <Carousel.Caption>
+                      <h3>Second slide label</h3>
+                      <p>View your detected images</p>
+                    </Carousel.Caption>
+                  </Carousel.Item>
+                  <Carousel.Item
+
+                    style={{ "width": 528, "height": 396 }}
+                  >
+                    <img
+                      // className="d-block w-100"
+                      // height={396}
+                      // width={528}
+                      src={require("./../../assets/images/custom_notifications_how.gif")}
+                      // src="holder.js/800x400?text=Second slide&bg=282c34"
+                      alt="Third slide"
+                    />
+
+                    <Carousel.Caption>
+                      <h3>Third slide label</h3>
+                      <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+                    </Carousel.Caption>
+                  </Carousel.Item>
+                </Carousel>
               </div>
             </div>
+
+
+            {/* Owner Analytics */}
+            <div className="split-item">
+              <div className="split-item-content center-content-mobile reveal-from-left" data-reveal-container=".split-item">
+                {/* <div className="text-xxs text-color-primary fw-600 tt-u mb-8"> Understanding the system </div> */}
+                <h3 className="mt-0 mb-12">Owner Analytics</h3>
+                <p className="m-0">Placeholder text</p>
+              </div>
+              <div className={
+                classNames(
+                  'split-item-image center-content-mobile reveal-from-bottom',
+                  imageFill && 'split-item-image-fill'
+                )}
+                data-reveal-container=".split-item">
+                <Carousel>
+                  <Carousel.Item
+
+                    style={{ "width": 528, "height": 396 }}
+                  >
+                    <img
+                      // className="d-block w-100"
+                      // height={396}
+                      // width={528}
+                      src={require("./../../assets/images/owner_analytics_what_time_scale.png")}
+                      // src="holder.js/800x400?text=Second slide&bg=282c34"
+                      alt="Third slide"
+                    />
+
+                    <Carousel.Caption>
+                      <h3>Second slide label</h3>
+                      <p>View your detected images</p>
+                    </Carousel.Caption>
+                  </Carousel.Item>
+                  <Carousel.Item
+
+                    style={{ "width": 528, "height": 396 }}
+                  >
+                    <img
+                      // className="d-block w-100"
+                      // height={396}
+                      // width={528}
+                      src={require("./../../assets/images/owner_analytics_what_view_images.png")}
+                      // src="holder.js/800x400?text=Second slide&bg=282c34"
+                      alt="Third slide"
+                    />
+
+                    <Carousel.Caption>
+                      <h3>Third slide label</h3>
+                      <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+                    </Carousel.Caption>
+                  </Carousel.Item>
+                </Carousel>
+              </div>
+            </div>
+
+            {/* Video Highlights */}
+            <div className="split-item">
+              <div className="split-item-content center-content-mobile reveal-from-left" data-reveal-container=".split-item">
+                {/* <div className="text-xxs text-color-primary fw-600 tt-u mb-8"> Understanding the system </div> */}
+                <h3 className="mt-0 mb-12">Video Highlights</h3>
+                <p className="m-0">Placeholder text</p>
+              </div>
+              <div className={
+                classNames(
+                  'split-item-image center-content-mobile reveal-from-bottom',
+                  imageFill && 'split-item-image-fill'
+                )}
+                data-reveal-container=".split-item">
+                <Carousel>
+                  <Carousel.Item
+
+                    style={{ "width": 528, "height": 396 }}
+                  >
+                    <img
+                      // className="d-block w-100"
+                      // height={396}
+                      // width={528}
+                      src={require("./../../assets/images/video_highlights_what.png")}
+                      // src="holder.js/800x400?text=Second slide&bg=282c34"
+                      alt="Third slide"
+                    />
+
+                    <Carousel.Caption>
+                      <h3>Second slide label</h3>
+                      <p>View your detected images</p>
+                    </Carousel.Caption>
+                  </Carousel.Item>
+                  <Carousel.Item
+
+                    style={{ "width": 528, "height": 396 }}
+                  >
+                    <img
+                      // className="d-block w-100"
+                      // height={396}
+                      // width={528}
+                      src={require("./../../assets/images/video_highlights_what_2.png")}
+                      // src="holder.js/800x400?text=Second slide&bg=282c34"
+                      alt="Third slide"
+                    />
+
+                    <Carousel.Caption>
+                      <h3>Third slide label</h3>
+                      <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+                    </Carousel.Caption>
+                  </Carousel.Item>
+                </Carousel>
+              </div>
+            </div>
+
+
+
           </div>
         </div>
       </div>
