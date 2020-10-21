@@ -40,7 +40,7 @@ Watchdog set out to increase the number of reports to the police by providing th
 **Intructions**:
 
 1. Clone this repo
-2. ```cd watchdog-frontend``` for Web App or ```cd WatchdogApp``` for Mobile app
+2. ```cd watchdog-web``` for Web App or ```cd WatchdogApp``` for Mobile app
 3. ```npm run dev``` for Web App or ```npm start``` for Mobile App
 
 **Build the app for production**
