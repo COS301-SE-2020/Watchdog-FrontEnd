@@ -1,6 +1,6 @@
 # Watchdog - API
 
-This repository contains all the code used in the API
+This repository contains all the code used in the Watchdog Web Application, Mobile Application and Landing Page.
 
 ### Watchdog Repositories
 |[Home Control Panel](https://github.com/COS301-SE-2020/Watchdog)|[API](https://github.com/COS301-SE-2020/Watchdog-API)|[Front End](https://github.com/COS301-SE-2020/Watchdog-FrontEnd)|[Stream Server](https://github.com/COS301-SE-2020/Watchdog-Stream-Server)|
